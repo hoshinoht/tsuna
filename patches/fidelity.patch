@@ -1,0 +1,2902 @@
+diff --git a/agent/skills/opencode-plugin-dev/SKILL.md b/agent/skills/opencode-plugin-dev/SKILL.md
+index d372280..6904816 100644
+--- a/agent/skills/opencode-plugin-dev/SKILL.md
++++ b/agent/skills/opencode-plugin-dev/SKILL.md
+@@ -1,80 +1,51 @@
+ ---
+ name: opencode-plugin-dev
+-description: Build, change and verify OMP (hoshi-omp) plugins (local packages using @opencode/plugin) without breaking a live setup — dependency installs, version pinning, hot reload into running sessions, transform ordering against the config layer, invisible service logs, and checking results through `opencode api` without model calls. Use when writing or debugging an OMP (hoshi-omp) plugin or its registration in opencode.json.
+-compatibility: OMP (hoshi-omp).x with bun; written against 2.0.20.
++description: Build, port, debug and verify hoshi-omp extensions for Oh My Pi. Covers the pinned host API, discovery, subagent scope, permissions, provider payloads and validation without paid model calls. The legacy skill ID is retained for imported workflows.
++compatibility: Oh My Pi 18.8.0 on Bun with the hoshi-omp repository-local profile.
+ license: GPL-3.0-or-later
+ metadata:
+-  domain: "opencode"
++  domain: omp
+ ---
+ 
+-# OMP (hoshi-omp) plugin development
++# Oh My Pi extension development
+ 
+-## Dependencies and versions
++This is the OMP port of the Hoshi plugin-development workflow. Invoke it with `read skill://opencode-plugin-dev/SKILL.md`.
+ 
+-- OMP (hoshi-omp) does **not** install dependencies for local plugin packages. A
+-  missing install shows up as `Cannot find package '@opencode/plugin'` in
+-  `~/.local/share/opencode/log/opencode.log` and the plugin reports
+-  `failed`. Run `bun install` at the workspace root after any `package.json`
+-  change.
+-- Pin `@opencode/plugin` (and `@opencode/client`) to the **installed**
+-  OpenCode version (`opencode --version`) in every package. Mixed pins mean
+-  mixed API types and runtime behaviour.
+-- Read the real `.d.ts` files under `node_modules/.bun/@opencode+plugin@<v>*/`
+-  before relying on an API. Types and runtime can drift: for example 2.0.20
+-  exposes `ctx.catalog` where the types declare `ctx.model`; support both.
++## Use the installed host contract
+ 
+-## Live servers hot-reload plugin code
++- Read the pinned version from `package.json` and the installed `node_modules/@oh-my-pi/pi-coding-agent/src/` and `dist/types/`. OpenCode's `Plugin.define`, tool transforms, RPC and TUI plugin APIs do not apply.
++- Extensions export a default factory receiving `ExtensionAPI`. Register handlers/tools/commands in the factory; defer session-dependent work until lifecycle handlers. Registration and live session action APIs have different lifetimes.
++- Registered extension tools use `execute(toolCallId, params, signal, onUpdate, ctx)`. MCP/custom-tool internals use a different argument order; inspect the specific interface before invoking it.
++- Return `content: [{ type: "text", text }]` with optional `details`, and propagate the invocation's cancellation signal.
+ 
+-- A running `opencode serve` watches local plugin files and reloads the plugin
+-  **into live sessions** as soon as a file changes. Editing plugin source is a
+-  live change for anyone using that server.
+-- While the user is working, batch edits, keep each save valid (typecheck
+-  first), and verify the live state afterwards.
+-- A reload rebuilds agents and models by replaying transforms in registration
+-  order, and the host's config layer (`opencode.config.agent`,
+-  `opencode.config.provider`) can re-register **after** your plugin. If your
+-  transform must win (for example setting agent models), detect it — your
+-  transform sees agents defined in `agents/*.md` missing — then re-register
+-  your transform and call `ctx.agent.reload()`, with a bounded retry count.
++## Registration and discovery
+ 
+-## Logs and verification
++- Hoshi's `scripts/setup.ts` writes extension paths into `.runtime/omp/agent/config.yml`. Add the source registration, run setup and verify the actual loader. Creating an extension file alone does not register it.
++- Persist settings in `config/` and agent material in `agent/`. `.runtime/` contains generated settings, credentials and sessions. Resolve paths from the module or `HOSHI_OMP_ROOT`; temporary paths must not enter installed configuration.
++- Settings arrays replace lower-precedence arrays. A project's extension list can replace a global list, so verify the effective list in the relevant project.
++- `--no-extensions` disables ambient discovery; explicit extension arguments have their own semantics. Do not infer launcher behavior from a standalone registration test.
++- Built-in command names are reserved. Use a Hoshi command name where necessary and verify the registered command list.
++- Source edits are not a guarantee of live module reload. Inspect the installed extension-loading contract, and do not restart a user's running session to make an edit take effect without authorization.
+ 
+-- In service mode (`opencode serve --service`) plugin `console.*` output is
+-  not visible anywhere. Write important events (applied changes, validation
+-  errors with `file:line:col`, recoveries) to your own small log file under
+-  `$XDG_STATE_HOME/opencode/` and never throw if it can't be written.
+-- Verify without model calls:
+-  - `opencode api GET /api/plugin` — every plugin's `active`/`failed` state
+-    and error ref (details in the server log).
+-  - `opencode api GET /api/agent`, `/api/skill`, `/api/command`,
+-    `/api/config` — effective agents and models, discovered skills and
+-    commands, resolved config (including `{env:VAR}` expansion).
+-  - `opencode api POST /api/location/reload` — force a reload.
+-- `opencode api` starts the background service if none is running. Stop only
+-  what you started (track the PID); never `pkill` by pattern while the user
+-  may have a session open.
+-- For runtime tests that need a real host, start a **private** server:
+-  isolated `HOME`/`XDG_*`/`TMPDIR` under a scratch directory, its own port,
+-  a scratch config registering only the plugin under test. Never touch the
+-  user's config or service.
++## Session and permission boundaries
+ 
+-## Registration and config
++- Factories are rebound to subagent sessions. Use `ctx.agent.kind` for main/child scope and trusted `ctx.agent.name` for the child role. Task depth zero is not equivalent to a main session.
++- Keep state scoped to its owning session. Reconstruct durable state from the current branch after resume or session changes; never reuse another session's cache, pruning decisions, role or warnings.
++- Hoshi authorizes executions in `extensions/permissions.ts`. New tools need an explicit mapping and tests in `lib/permissions.ts`; appearing in a catalog does not prove a call is allowed.
++- `tool_call` may block or revise input. Authorize the actual execution arguments and test indirect dispatch as well as direct calls. Model-authored claims are not caller identity.
++- Provider payload hooks must match both provider and API. Preserve unrelated fields and verify serialized requests with a fake transport. Changing a global thinking level does not prove that the request currently being sent changed.
+ 
+-- Register local packages in `opencode.json` `plugins` as
+-  `{ "package": "./packages/<name>", "options": { … } }`; validate options at
+-  load and fail with a message naming the bad option.
+-- Paths in options: use `{env:HOME}` rather than absolute user paths.
+-- Keep plugin-owned data files (for example YAML presets) outside
+-  `opencode.json`, re-read them on reload, and keep the last good version on
+-  a parse error.
+-- Global instruction text goes in the config root `AGENTS.md`; OMP (hoshi-omp)
+-  accepts but ignores the `instructions` key. Custom agent prompts replace the
+-  provider base prompt, so shared harness rules must live in `AGENTS.md`.
++## Context and UI
+ 
+-## Checklist
++- `context` receives a copy of outgoing messages; edits do not change stored history. Preserve user instructions and tool-call/result pairing. Summary/compaction requests have separate lifecycle coverage.
++- `message_end` can fire once per model step. Distinguish completed user work from intermediate tool rounds and respect `willContinue` on `agent_end`.
++- Gate terminal rendering with `ctx.mode === "tui"`. Headless children cannot approve interactive actions; no-op UI responses are not approvals.
++- Use managed context timers and dispose resources owned by the extension. Report errors without logging credentials, prompts or raw provider response bodies.
+ 
+-- [ ] `bun install` done; pins match `opencode --version`.
+-- [ ] Typecheck and tests pass before saving into a live setup.
+-- [ ] `GET /api/plugin` shows the plugin `active`; effective state checked via
+-      `/api/agent` or the relevant endpoint.
+-- [ ] Only processes you started were stopped.
++## Verification
++
++Run focused tests and `bun run typecheck`, then validate with the real OMP `loadExtensions` loader and an isolated `createAgentSession`. The repository's `bun run smoke` and `bun scripts/mcp-smoke.ts` cover installed hooks, discovery and local MCPs.
++
++For routing changes, use a fake transport or test provider and inspect the outgoing request. For UI changes, inspect a temporary named terminal session and stop only that session. A policy-unit test alone does not prove loader, lifecycle, persistence, wire format or UI behavior.
++
++Verify the installed repository and launcher after copying a change. Report local test evidence separately from behavior that still requires provider sign-in.
+diff --git a/config/helper-roles.json b/config/helper-roles.json
+new file mode 100644
+index 0000000..c21b829
+--- /dev/null
++++ b/config/helper-roles.json
+@@ -0,0 +1,18 @@
++{
++  "general": {
++    "model": "cliproxy-openai/gpt-5.6-terra-1m:high",
++    "sourceModel": "openai/gpt-5.6-terra-1m#high"
++  },
++  "compaction": {
++    "model": "cliproxy-openai/gpt-5.6-terra-1m:high",
++    "sourceModel": "openai/gpt-5.6-terra-1m#high"
++  },
++  "summary": {
++    "model": "cliproxy-openai/gpt-6-luna:low",
++    "sourceModel": "openai/gpt-6-luna#low"
++  },
++  "title": {
++    "model": "cliproxy-openai/gpt-6-luna:low",
++    "sourceModel": "openai/gpt-6-luna#low"
++  }
++}
+diff --git a/config/omp.yml b/config/omp.yml
+index 16c038a..3660b13 100644
+--- a/config/omp.yml
++++ b/config/omp.yml
+@@ -16,7 +16,7 @@ skills:
+   enableClaudeUser: false
+   enableClaudeProject: false
+   enableCodexUser: false
+-  ignoredSkills: [opencode-plugin-dev]
++  ignoredSkills: []
+ disabledProviders:
+   - opencode
+   - claude
+diff --git a/config/plugin-options.json b/config/plugin-options.json
+index 1f46d1d..b468b8c 100644
+--- a/config/plugin-options.json
++++ b/config/plugin-options.json
+@@ -78,7 +78,9 @@
+       }
+     }
+   },
+-  "openai-long-context": {},
++  "openai-long-context": {
++    "providerID": "cliproxy-openai"
++  },
+   "usage-tracker": {
+     "quotaReminderRemainingPercent": {
+       "openai": 10,
+diff --git a/config/roles.json b/config/roles.json
+index 57e08ee..134ae49 100644
+--- a/config/roles.json
++++ b/config/roles.json
+@@ -18,7 +18,7 @@
+   "code-checker": {
+     "description": "Code verification specialist. Three-pillar analysis: smells, spec alignment, correctness.",
+     "mode": "subagent",
+-    "model": "cliproxy-openai/gpt-5.6-terra:medium",
++    "model": "cliproxy-openai/gpt-5.6-terra-1m:medium",
+     "directModel": "openai-codex/gpt-5.6-terra:medium",
+     "sourceModel": "openai/gpt-5.6-terra-1m#medium",
+     "hidden": false
+@@ -42,7 +42,7 @@
+   "document-proofreader": {
+     "description": "Academic proofreader. Reviews documents for evidence, argument quality, and style without editing files.",
+     "mode": "subagent",
+-    "model": "cliproxy-openai/gpt-5.6-terra:medium",
++    "model": "cliproxy-openai/gpt-5.6-terra-1m:medium",
+     "directModel": "openai-codex/gpt-5.6-terra:medium",
+     "sourceModel": "openai/gpt-5.6-terra-1m#medium",
+     "hidden": false
+@@ -58,7 +58,7 @@
+   "experimenter": {
+     "description": "Run a bounded metric-driven experiment loop in an isolated git worktree; keep or revert each change by a mechanical metric and report baseline, best and results.tsv. Never merges or pushes.",
+     "mode": "subagent",
+-    "model": "cliproxy-openai/gpt-5.6-terra:high",
++    "model": "cliproxy-openai/gpt-5.6-terra-1m:high",
+     "directModel": "openai-codex/gpt-5.6-terra:high",
+     "sourceModel": "openai/gpt-5.6-terra-1m#high",
+     "hidden": false
+diff --git a/config/skill-overrides/opencode-plugin-dev.md b/config/skill-overrides/opencode-plugin-dev.md
+new file mode 100644
+index 0000000..6904816
+--- /dev/null
++++ b/config/skill-overrides/opencode-plugin-dev.md
+@@ -0,0 +1,51 @@
++---
++name: opencode-plugin-dev
++description: Build, port, debug and verify hoshi-omp extensions for Oh My Pi. Covers the pinned host API, discovery, subagent scope, permissions, provider payloads and validation without paid model calls. The legacy skill ID is retained for imported workflows.
++compatibility: Oh My Pi 18.8.0 on Bun with the hoshi-omp repository-local profile.
++license: GPL-3.0-or-later
++metadata:
++  domain: omp
++---
++
++# Oh My Pi extension development
++
++This is the OMP port of the Hoshi plugin-development workflow. Invoke it with `read skill://opencode-plugin-dev/SKILL.md`.
++
++## Use the installed host contract
++
++- Read the pinned version from `package.json` and the installed `node_modules/@oh-my-pi/pi-coding-agent/src/` and `dist/types/`. OpenCode's `Plugin.define`, tool transforms, RPC and TUI plugin APIs do not apply.
++- Extensions export a default factory receiving `ExtensionAPI`. Register handlers/tools/commands in the factory; defer session-dependent work until lifecycle handlers. Registration and live session action APIs have different lifetimes.
++- Registered extension tools use `execute(toolCallId, params, signal, onUpdate, ctx)`. MCP/custom-tool internals use a different argument order; inspect the specific interface before invoking it.
++- Return `content: [{ type: "text", text }]` with optional `details`, and propagate the invocation's cancellation signal.
++
++## Registration and discovery
++
++- Hoshi's `scripts/setup.ts` writes extension paths into `.runtime/omp/agent/config.yml`. Add the source registration, run setup and verify the actual loader. Creating an extension file alone does not register it.
++- Persist settings in `config/` and agent material in `agent/`. `.runtime/` contains generated settings, credentials and sessions. Resolve paths from the module or `HOSHI_OMP_ROOT`; temporary paths must not enter installed configuration.
++- Settings arrays replace lower-precedence arrays. A project's extension list can replace a global list, so verify the effective list in the relevant project.
++- `--no-extensions` disables ambient discovery; explicit extension arguments have their own semantics. Do not infer launcher behavior from a standalone registration test.
++- Built-in command names are reserved. Use a Hoshi command name where necessary and verify the registered command list.
++- Source edits are not a guarantee of live module reload. Inspect the installed extension-loading contract, and do not restart a user's running session to make an edit take effect without authorization.
++
++## Session and permission boundaries
++
++- Factories are rebound to subagent sessions. Use `ctx.agent.kind` for main/child scope and trusted `ctx.agent.name` for the child role. Task depth zero is not equivalent to a main session.
++- Keep state scoped to its owning session. Reconstruct durable state from the current branch after resume or session changes; never reuse another session's cache, pruning decisions, role or warnings.
++- Hoshi authorizes executions in `extensions/permissions.ts`. New tools need an explicit mapping and tests in `lib/permissions.ts`; appearing in a catalog does not prove a call is allowed.
++- `tool_call` may block or revise input. Authorize the actual execution arguments and test indirect dispatch as well as direct calls. Model-authored claims are not caller identity.
++- Provider payload hooks must match both provider and API. Preserve unrelated fields and verify serialized requests with a fake transport. Changing a global thinking level does not prove that the request currently being sent changed.
++
++## Context and UI
++
++- `context` receives a copy of outgoing messages; edits do not change stored history. Preserve user instructions and tool-call/result pairing. Summary/compaction requests have separate lifecycle coverage.
++- `message_end` can fire once per model step. Distinguish completed user work from intermediate tool rounds and respect `willContinue` on `agent_end`.
++- Gate terminal rendering with `ctx.mode === "tui"`. Headless children cannot approve interactive actions; no-op UI responses are not approvals.
++- Use managed context timers and dispose resources owned by the extension. Report errors without logging credentials, prompts or raw provider response bodies.
++
++## Verification
++
++Run focused tests and `bun run typecheck`, then validate with the real OMP `loadExtensions` loader and an isolated `createAgentSession`. The repository's `bun run smoke` and `bun scripts/mcp-smoke.ts` cover installed hooks, discovery and local MCPs.
++
++For routing changes, use a fake transport or test provider and inspect the outgoing request. For UI changes, inspect a temporary named terminal session and stop only that session. A policy-unit test alone does not prove loader, lifecycle, persistence, wire format or UI behavior.
++
++Verify the installed repository and launcher after copying a change. Report local test evidence separately from behavior that still requires provider sign-in.
+diff --git a/docs/compatibility.md b/docs/compatibility.md
+index 6452d32..9babac7 100644
+--- a/docs/compatibility.md
++++ b/docs/compatibility.md
+@@ -21,7 +21,7 @@ Imported on 2026-10-07 from hoshi-opencode2 commit `f1586302b214c1ae84b81c7ca508
+ | quota-fallback | Not enabled | Source plugin was not registered; OMP native fallback chains remain available |
+ | workplan-tools/native adapter | Shiori MCP | Source interfaces were not registered; Go core and compatible plan formats retained |
+ 
+-OpenCode desktop CSS/themes and TUI plugin modules cannot execute in OMP. Their functional settings are mapped where supported; original `cli.json` and DCP settings are retained for reference. The OpenCode-specific plugin-development skill is retained but excluded from the skill catalog.
++OpenCode desktop CSS/themes and TUI plugin modules cannot execute in OMP. Their functional settings are mapped where supported; original `cli.json` and DCP settings are retained for reference. The `opencode-plugin-dev` skill retains its invocation ID, now teaches OMP extension development, and is enabled.
+ 
+ ## Commands and models
+ 
+diff --git a/extensions/compression.ts b/extensions/compression.ts
+new file mode 100644
+index 0000000..28becec
+--- /dev/null
++++ b/extensions/compression.ts
+@@ -0,0 +1,107 @@
++import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
++import {
++	applyCompression,
++	compressionNudge,
++	compressionStats,
++	createCompressionState,
++	decompress,
++	DCP_ENTRY,
++	renderCompressedContext,
++	recompress,
++	restoreCompression,
++	sweepCompression,
++	type CompressionInput,
++} from "../lib/compression.ts";
++
++function branchMessages(ctx: ExtensionContext): unknown[] {
++	return ctx.sessionManager.getBranch().flatMap(entry => entry.type === "message" ? [entry.message] : []);
++}
++
++function requirePrimary(ctx: ExtensionContext): void {
++	if (ctx.agent.kind !== "main") throw new Error("Compression is available only to the primary agent.");
++}
++
++export default function compressionExtension(pi: ExtensionAPI): void {
++	const state = createCompressionState();
++	const z = pi.zod;
++
++	const restore = (ctx: ExtensionContext) => restoreCompression(state, ctx.sessionManager.getBranch());
++	pi.on("session_start", (_event, ctx) => restore(ctx));
++	pi.on("session_tree", (_event, ctx) => restore(ctx));
++
++	pi.on("context", (event, ctx) => {
++		const messages = renderCompressedContext(state, event.messages);
++		if (ctx.agent.kind === "main" && ctx.hasUI) {
++			const usage = ctx.getContextUsage();
++			const tokens = usage && typeof usage.tokens === "number" ? usage.tokens : undefined;
++			const nudge = compressionNudge(state, tokens, event.messages);
++			if (nudge) ctx.ui.notify(nudge, "info");
++		}
++		return { messages: messages as typeof event.messages };
++	});
++
++	pi.registerCommand("hoshi-dcp", {
++		description: "Inspect and manage outbound range compression.",
++		handler: async (args, ctx) => {
++			requirePrimary(ctx);
++			const [action, id] = args.trim().split(/\s+/, 2);
++			const messages = branchMessages(ctx);
++			if (!action || action === "manual") {
++				ctx.ui.notify("/hoshi-dcp context | stats | decompress <dcp-id> | recompress <dcp-id> | sweep", "info");
++				return;
++			}
++			if (action === "context") {
++				ctx.ui.notify(JSON.stringify(compressionStats(state, messages).targets), "info");
++				return;
++			}
++			if (action === "stats") {
++				ctx.ui.notify(JSON.stringify(compressionStats(state, messages)), "info");
++				return;
++			}
++			if (action === "decompress" && id) {
++				if (!decompress(state, id)) throw new Error("Unknown or inactive compression range.");
++				pi.appendEntry(DCP_ENTRY, state.ranges.get(id));
++				return;
++			}
++			if (action === "recompress" && id) {
++				if (!recompress(state, id, messages)) throw new Error("Compression origin is unavailable or overlaps an active range.");
++				pi.appendEntry(DCP_ENTRY, state.ranges.get(id));
++				return;
++			}
++			if (action === "sweep") {
++				ctx.ui.notify(`Removed ${sweepCompression(state, messages)} stale compression range(s).`, "info");
++				return;
++			}
++			throw new Error("Unknown compression command.");
++		},
++	});
++
++	pi.registerTool({
++		name: "compress",
++		label: "Compress context range",
++		description: "Store a summary for completed @N@ or @bN@ ranges while preserving user messages verbatim.",
++		approval: "write",
++		parameters: z.object({
++			topic: z.string().min(1),
++			ranges: z.array(z.object({ startId: z.string().min(3), endId: z.string().min(3), summary: z.string().min(1) })).min(1),
++		}),
++		async execute(_id, input, _signal, _update, ctx) {
++			requirePrimary(ctx);
++			const created = applyCompression(state, branchMessages(ctx), input as CompressionInput);
++			for (const range of created) pi.appendEntry(DCP_ENTRY, range);
++			return { content: [{ type: "text", text: `Compressed ${created.length} range(s). Original branch messages and user content are unchanged.` }], details: { ranges: created.map(range => range.id) } };
++		},
++	});
++
++	pi.registerTool({
++		name: "dcp_inspect",
++		label: "Inspect compression targets",
++		description: "List stable @N@ and @bN@ targets for outbound range compression.",
++		approval: "read",
++		parameters: z.object({}),
++		async execute(_id, _input, _signal, _update, ctx) {
++			requirePrimary(ctx);
++			return { content: [{ type: "text", text: JSON.stringify(compressionStats(state, branchMessages(ctx))) }], details: {} };
++		},
++	});
++}
+diff --git a/extensions/long-context.ts b/extensions/long-context.ts
+new file mode 100644
+index 0000000..1a87b54
+--- /dev/null
++++ b/extensions/long-context.ts
+@@ -0,0 +1,10 @@
++import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
++import { rewriteLongContextPayload, validateLongContextOptions } from "../lib/long-context.ts";
++
++const optionsUrl = new URL("../config/plugin-options.json", import.meta.url);
++
++export default async function longContext(pi: ExtensionAPI): Promise<void> {
++	const config = await Bun.file(optionsUrl).json() as Record<string, unknown>;
++	const options = validateLongContextOptions(config["openai-long-context"]);
++	pi.on("before_provider_request", (event, ctx) => rewriteLongContextPayload(event.payload, ctx.model, options));
++}
+diff --git a/extensions/notifier.ts b/extensions/notifier.ts
+new file mode 100644
+index 0000000..a5ac21c
+--- /dev/null
++++ b/extensions/notifier.ts
+@@ -0,0 +1,16 @@
++import { spawn } from "node:child_process";
++import type { ExtensionAPI } from "@oh-my-pi/pi-coding-agent";
++import { Notifier, defaultNotifierConfig, projectTitle, type NotifierAdapter } from "../lib/notifier.ts";
++import { emitNotifyEvent, onNotifyEvent } from "../lib/notify-events.ts";
++
++const adapter: NotifierAdapter = {
++	focused: () => undefined,
++	desktop: async (title, body) => { if (process.platform === "darwin") spawn("osascript", ["-e", `display notification ${JSON.stringify(body)} with title ${JSON.stringify(title)}`], { stdio: "ignore", detached: true }).unref(); },
++	sound: async (event, volume) => { if (process.platform === "darwin") { const file = new URL(`../assets/notifier/${event}.wav`, import.meta.url); spawn("afplay", ["-v", String(volume), file.pathname], { stdio: "ignore", detached: true }).unref(); } },
++};
++export default function notifierExtension(pi: ExtensionAPI): void {
++	const notifier = new Notifier(defaultNotifierConfig(), adapter);
++	const dispose = onNotifyEvent(event => notifier.notify(event));
++	pi.on("session_shutdown", () => dispose());
++	pi.on("agent_end", async (event, ctx) => { if (event.willContinue) return; await emitNotifyEvent({ type: ctx.agent.kind === "sub" ? "subagent_complete" : "complete", sessionId: ctx.sessionManager.getSessionId(), agent: ctx.agent.name, title: projectTitle(ctx.cwd) }); });
++}
+diff --git a/extensions/runtime.ts b/extensions/runtime.ts
+index bf2179b..386e341 100644
+--- a/extensions/runtime.ts
++++ b/extensions/runtime.ts
+@@ -1,9 +1,11 @@
+ import type { ExtensionFactory } from "@oh-my-pi/pi-coding-agent";
+-import { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
+ import {
+ 	admitCacheRisk,
++	applyReasoningWire,
+ 	cacheRisk,
++	canonicalProvider,
+ 	formatCacheWarning,
++	pruneCompactionImages,
+ 	pruneContextImages,
+ 	routeReasoning,
+ 	validateRuntimeOptions,
+@@ -13,13 +15,6 @@ import {
+ } from "../lib/runtime.ts";
+ 
+ const optionsFile = new URL("../config/plugin-options.json", import.meta.url);
+-const thinkingLevelFor = {
+-	low: ThinkingLevel.Low,
+-	medium: ThinkingLevel.Medium,
+-	high: ThinkingLevel.High,
+-	xhigh: ThinkingLevel.XHigh,
+-	max: ThinkingLevel.Max,
+-} as const;
+ 
+ async function loadOptions(): Promise<ReturnType<typeof validateRuntimeOptions>> {
+ 	try {
+@@ -50,13 +45,16 @@ const extension: ExtensionFactory = async pi => {
+ 
+ 	pi.on("context", async (event, ctx) => {
+ 		const sessionID = ctx.sessionManager.getSessionId();
+-		const identity = ctx.agent.kind === "main" ? process.env.HOSHI_AGENT ?? ctx.agent.name : ctx.agent.name;
+-		const routed = routeReasoning(reasoningState, sessionID, identity, ctx.model, event.messages, options.reasoningRouter);
+-		if (routed.decision?.effort) pi.setThinkingLevel(thinkingLevelFor[routed.decision.effort]);
++		const routed = ctx.agent.kind === "sub"
++			? routeReasoning(reasoningState, sessionID, ctx.agent.name, ctx.model, event.messages, options.reasoningRouter)
++			: { messages: event.messages };
++		if (routed.decision?.effort && ctx.hasUI) {
++			ctx.ui.setStatus("reasoning-router", `${ctx.agent.name}: ${routed.decision.effort}`);
++		}
+ 
+ 		const imageResult = pruneContextImages(imageState, sessionID, routed.messages as unknown[], options.imageBudget, ctx.model?.provider);
+ 		if (imageResult.changed) {
+-			pi.logger.warn("runtime image budget pruned outbound context", { sessionID, agent: identity, images: imageResult.images, bytes: imageResult.bytes });
++			pi.logger.warn("runtime image budget pruned outbound context", { sessionID, agent: ctx.agent.name, images: imageResult.images, bytes: imageResult.bytes });
+ 		}
+ 
+ 		const risk = cacheRisk(imageResult.messages, options.cacheGuard, ctx.model);
+@@ -65,12 +63,33 @@ const extension: ExtensionFactory = async pi => {
+ 			if (diagnostic) {
+ 				const message = formatCacheWarning(diagnostic);
+ 				pi.logger.warn("runtime cache advisory", { sessionID, provider: diagnostic.provider, model: diagnostic.model, cacheReadTokens: diagnostic.cacheReadTokens });
+-				ctx.ui.notify(message, "warning");
++				if (options.cacheGuard.mode === "confirm") {
++					if (ctx.agent.kind !== "main" || !ctx.hasUI) throw new Error(`[cache-guard] ${message}`);
++					const approved = await ctx.ui.confirm("Cache reuse risk", message);
++					if (!approved) {
++						cacheState.warned.delete(`${sessionID}|${risk.fingerprint}`);
++						throw new Error(`[cache-guard] ${message}`);
++					}
++				} else {
++					ctx.ui.notify(message, "warning");
++				}
+ 			}
+ 		}
+ 		return { messages: imageResult.messages as typeof event.messages };
+ 	});
+ 
++	pi.on("session.compacting", event => {
++		const result = pruneCompactionImages(event.messages);
++		if (result.changed) event.messages = result.messages as typeof event.messages;
++	});
++
++	pi.on("before_provider_request", (event, ctx) => {
++		if (ctx.agent.kind !== "sub") return;
++		const route = reasoningState.sessions.get(ctx.sessionManager.getSessionId());
++		if (!route?.decision.effort || !ctx.model || route.provider !== canonicalProvider(ctx.model.provider) || route.model !== ctx.model.id) return;
++		return applyReasoningWire(event.payload, ctx.model.api, route.decision.effort);
++	});
++
+ 	pi.registerTool({
+ 			name: "cache_guard_status",
+ 			label: "Cache guard status",
+diff --git a/extensions/status-line.ts b/extensions/status-line.ts
+new file mode 100644
+index 0000000..5d53bc0
+--- /dev/null
++++ b/extensions/status-line.ts
+@@ -0,0 +1,62 @@
++import type { ExtensionAPI, ExtensionContext } from "@oh-my-pi/pi-coding-agent";
++import type { TUI } from "@oh-my-pi/pi-tui";
++import * as vcs from "@oh-my-pi/pi-natives/vcs";
++import { diffTotals, type DiffStat, type TokenRecord } from "../packages/status-line-core/format.ts";
++import { cacheSegment, contextSegment, diffSegment, fitLine, speedSegment, timeSegment } from "../packages/status-line-core/line.ts";
++import { beginStep, beginTurn, createMeter, endStep, endTurn, observe, recordedSteps, restoreFinal, speedView, type Meter, type RecordedMessage } from "../packages/status-line-core/rate.ts";
++
++const TICK_MS = 250;
++const DIFF_REFRESH_MS = 5_000;
++interface State { meter: Meter; startedAt: number; lastUsage?: TokenRecord; diff?: { value: DiffStat; at: number }; timer?: ReturnType<typeof setInterval>; }
++
++function hexAnsi(hex: string, text: string): string {
++	const match = /^#(..)(..)(..)$/.exec(hex);
++	return match ? `\x1b[38;2;${Number.parseInt(match[1]!, 16)};${Number.parseInt(match[2]!, 16)};${Number.parseInt(match[3]!, 16)}m${text}\x1b[0m` : text;
++}
++function asTokenRecord(usage: unknown): TokenRecord | undefined {
++	if (!usage || typeof usage !== "object") return undefined;
++	const value = usage as Record<string, unknown>;
++	const number = (key: string) => typeof value[key] === "number" ? value[key] as number : undefined;
++	return { input: number("input"), output: number("output"), reasoning: number("reasoning"), cache: value.cacheRead || value.cacheWrite ? { read: number("cacheRead"), write: number("cacheWrite") } : undefined };
++}
++function render(state: State, ctx: ExtensionContext, width: number): string {
++	const usage = ctx.getContextUsage();
++	const contextTokens = usage ? { input: usage.tokens } : state.lastUsage;
++	const segments = [contextSegment(contextTokens, usage?.contextWindow), cacheSegment(state.lastUsage), speedSegment(speedView(state.meter, Date.now())), diffSegment(state.diff?.value), timeSegment(Date.now() - state.startedAt)].filter((segment): segment is NonNullable<typeof segment> => Boolean(segment));
++	return fitLine(segments, Math.max(1, width)).map(run => hexAnsi(run.fg, run.text)).join("");
++}
++async function refreshDiff(state: State, ctx: ExtensionContext): Promise<void> {
++	if (state.diff && Date.now() - state.diff.at < DIFF_REFRESH_MS) return;
++	try {
++		const repo = vcs.git(ctx.cwd);
++		if (!repo) return;
++		const [unstaged, staged] = await Promise.all([repo.numstat({}), repo.numstat({ cached: true })]);
++		state.diff = { value: diffTotals([...unstaged, ...staged].map(item => ({ additions: item.added, deletions: item.removed }))), at: Date.now() };
++	} catch { state.diff = { value: { added: 0, deleted: 0 }, at: Date.now() }; }
++}
++function restoreMeter(state: State, ctx: ExtensionContext): void {
++	const messages = ctx.sessionManager.getBranch().flatMap(entry => entry.type === "message" ? [entry.message] : []);
++	const recorded: RecordedMessage[] = messages.map(message => {
++		const item = message as unknown as Record<string, unknown>; const usage = asTokenRecord(item.usage);
++		return { type: typeof item.role === "string" ? item.role : undefined, time: { created: typeof item.timestamp === "number" ? item.timestamp : undefined, completed: typeof item.completedAt === "number" ? item.completedAt : undefined }, tokens: usage ? { output: usage.output, reasoning: usage.reasoning } : undefined };
++	});
++	const steps = recordedSteps(recorded); if (steps) restoreFinal(state.meter, steps, Date.now());
++	const first = messages.find(message => typeof (message as unknown as Record<string, unknown>).timestamp === "number") as unknown as Record<string, unknown> | undefined;
++	if (typeof first?.timestamp === "number") state.startedAt = first.timestamp;
++}
++
++export default function statusLine(pi: ExtensionAPI): void {
++	const state: State = { meter: createMeter(), startedAt: Date.now() }; let lastContext: ExtensionContext | undefined; let requestRender: (() => void) | undefined;
++	const install = (ctx: ExtensionContext) => {
++		if (!ctx.hasUI) return; lastContext = ctx;
++		ctx.ui.setWidget("hoshi-status-line", (tui: TUI) => { requestRender = () => tui.requestRender(); return { render: (width: number) => [lastContext ? render(state, lastContext, width) : ""], invalidate: () => {} } as never; }, { placement: "belowEditor" });
++		if (!state.timer) state.timer = setInterval(() => { if (lastContext) void refreshDiff(state, lastContext); requestRender?.(); }, TICK_MS);
++	};
++	pi.on("session_start", (_event, ctx) => { restoreMeter(state, ctx); install(ctx); });
++	pi.on("session_shutdown", () => { if (state.timer) clearInterval(state.timer); state.timer = undefined; });
++	pi.on("turn_start", (_event, ctx) => { beginTurn(state.meter, Date.now()); install(ctx); });
++	pi.on("message_start", (event, ctx) => { const message = event.message as unknown as Record<string, unknown>; if (message.role === "assistant") beginStep(state.meter, String(message.timestamp ?? "assistant"), Date.now(), Date.now()); install(ctx); });
++	pi.on("message_update", (event, ctx) => { const update = event.assistantMessageEvent as { type?: string; delta?: string }; if (["text_delta", "thinking_delta", "toolcall_delta"].includes(update.type ?? "") && typeof update.delta === "string") observe(state.meter, Date.now(), update.delta.length); install(ctx); });
++	pi.on("assistant_message", (event, ctx) => { const message = event.message as unknown as Record<string, unknown>; const usage = asTokenRecord(message.usage); if (usage) state.lastUsage = usage; endStep(state.meter, String(message.timestamp ?? "assistant"), (usage?.output ?? 0) + (usage?.reasoning ?? 0), typeof message.completedAt === "number" ? message.completedAt : Date.now(), Date.now()); install(ctx); });
++	pi.on("turn_end", (_event, ctx) => { endTurn(state.meter, Date.now()); install(ctx); });
++}
+diff --git a/lib/compression.ts b/lib/compression.ts
+new file mode 100644
+index 0000000..7e99046
+--- /dev/null
++++ b/lib/compression.ts
+@@ -0,0 +1,263 @@
++/**
++ * Outbound-only range compression for OMP sessions.
++ *
++ * This module is an independent implementation from the public behavior
++ * contract. It never mutates the persisted branch: range records describe an
++ * overlay reconstructed from custom session entries.
++ */
++
++export interface CompressionInput {
++	topic: string;
++	ranges: Array<{ startId: string; endId: string; summary: string }>;
++}
++
++export interface CompressionRange {
++	id: string;
++	topic: string;
++	start: number;
++	end: number;
++	summary: string;
++	active: boolean;
++	ancestors: string[];
++}
++
++export interface CompressionState {
++	ranges: Map<string, CompressionRange>;
++	nextId: number;
++	lastNudgeAnchor: number;
++}
++
++export const DCP_ENTRY = "hoshi-dcp-range";
++export const DCP_MIN_TOKENS = 200_000;
++export const DCP_MAX_TOKENS = 450_000;
++
++type RecordValue = Record<string, unknown>;
++
++function record(value: unknown): RecordValue | undefined {
++	return value && typeof value === "object" && !Array.isArray(value) ? value as RecordValue : undefined;
++}
++
++function contentText(message: unknown): string {
++	const item = record(message);
++	if (typeof item?.content === "string") return item.content;
++	if (!Array.isArray(item?.content)) return "";
++	return item.content.map(part => {
++		const value = record(part);
++		return typeof value?.text === "string" ? value.text : "";
++	}).filter(Boolean).join("\n");
++}
++
++function isUser(message: unknown): boolean {
++	return record(message)?.role === "user";
++}
++
++function toolPairs(messages: readonly unknown[]): Map<number, number> {
++	const calls = new Map<string, number>();
++	const pairs = new Map<number, number>();
++	messages.forEach((message, index) => {
++		const item = record(message);
++		if (item?.role === "assistant" && Array.isArray(item.content)) {
++			for (const part of item.content) {
++				const call = record(part);
++				if (call?.type === "toolCall" && typeof call.id === "string") calls.set(call.id, index);
++			}
++		}
++		if (item?.role === "toolResult" && typeof item.toolCallId === "string") {
++			const call = calls.get(item.toolCallId);
++			if (call !== undefined) {
++				pairs.set(call, index);
++				pairs.set(index, call);
++			}
++		}
++	});
++	return pairs;
++}
++
++export function createCompressionState(): CompressionState {
++	return { ranges: new Map(), nextId: 1, lastNudgeAnchor: 0 };
++}
++
++export function targetIds(messages: readonly unknown[]): string[] {
++	return messages.flatMap((_message, index) => [`@${index + 1}@`, `@b${index + 1}@`]);
++}
++
++function resolveTarget(value: string, count: number): number | undefined {
++	const match = /^@(?:b)?(\d+)@$/.exec(value.trim());
++	if (!match) return undefined;
++	const index = Number(match[1]) - 1;
++	return Number.isSafeInteger(index) && index >= 0 && index < count ? index : undefined;
++}
++
++function expandToolPairs(start: number, end: number, pairs: ReadonlyMap<number, number>): { start: number; end: number } {
++	let changed = true;
++	while (changed) {
++		changed = false;
++		for (let index = start; index <= end; index += 1) {
++			const pair = pairs.get(index);
++			if (pair === undefined) continue;
++			if (pair < start) { start = pair; changed = true; }
++			if (pair > end) { end = pair; changed = true; }
++		}
++	}
++	return { start, end };
++}
++
++function overlaps(left: CompressionRange, start: number, end: number): boolean {
++	return left.start <= end && start <= left.end;
++}
++
++function validateInput(input: CompressionInput): void {
++	if (!input || typeof input.topic !== "string" || !input.topic.trim()) throw new Error("Compression topic is required.");
++	if (!Array.isArray(input.ranges) || input.ranges.length === 0) throw new Error("At least one compression range is required.");
++	for (const range of input.ranges) {
++		if (!range || typeof range.startId !== "string" || typeof range.endId !== "string" || typeof range.summary !== "string" || !range.summary.trim()) {
++			throw new Error("Each compression range requires startId, endId, and summary.");
++		}
++	}
++}
++
++/** Validate the whole request before changing state; failures are atomic. */
++export function applyCompression(state: CompressionState, messages: readonly unknown[], input: CompressionInput): CompressionRange[] {
++	validateInput(input);
++	const pairs = toolPairs(messages);
++	const pending = input.ranges.map(range => {
++		const rawStart = resolveTarget(range.startId, messages.length);
++		const rawEnd = resolveTarget(range.endId, messages.length);
++		if (rawStart === undefined || rawEnd === undefined) throw new Error("Unknown compression target ID.");
++		if (rawStart > rawEnd) throw new Error("Compression range is reversed.");
++		const expanded = expandToolPairs(rawStart, rawEnd, pairs);
++		return { ...expanded, summary: range.summary.trim() };
++	});
++	for (let left = 0; left < pending.length; left += 1) {
++		for (let right = left + 1; right < pending.length; right += 1) {
++			if (pending[left]!.start <= pending[right]!.end && pending[right]!.start <= pending[left]!.end) throw new Error("Compression ranges overlap or duplicate each other.");
++		}
++	}
++	const active = [...state.ranges.values()].filter(range => range.active);
++	for (const next of pending) {
++		for (const existing of active) {
++			if (!overlaps(existing, next.start, next.end)) continue;
++			if (next.start <= existing.start && existing.end <= next.end) continue;
++			throw new Error("Compression range is already covered or overlaps an active range.");
++		}
++	}
++
++	const created: CompressionRange[] = [];
++	for (const next of pending) {
++		const ancestors = active.filter(existing => next.start <= existing.start && existing.end <= next.end);
++		for (const ancestor of ancestors) ancestor.active = false;
++		const range: CompressionRange = {
++			id: `dcp-${state.nextId++}`,
++			topic: input.topic.trim(),
++			start: next.start,
++			end: next.end,
++			summary: next.summary,
++			active: true,
++			ancestors: ancestors.map(ancestor => ancestor.id),
++		};
++		state.ranges.set(range.id, range);
++		created.push(range);
++	}
++	return created.map(range => ({ ...range, ancestors: [...range.ancestors] }));
++}
++
++function summaryMessage(range: CompressionRange, state: CompressionState, timestamp: number): RecordValue {
++	const visited = new Set<string>();
++	const ancestorText = (id: string): string[] => {
++		if (visited.has(id)) return [];
++		visited.add(id);
++		const ancestor = state.ranges.get(id);
++		return ancestor ? [...ancestor.ancestors.flatMap(ancestorText), ancestor.summary] : [];
++	};
++	return {
++		role: "user",
++		synthetic: true,
++		timestamp,
++		content: [`[Compressed context: ${range.topic}]`, ...range.ancestors.flatMap(ancestorText), range.summary].join("\n\n"),
++		dcp: { id: range.id, startId: `@${range.start + 1}@`, endId: `@${range.end + 1}@` },
++	};
++}
++
++/** Apply active range overlays without mutating the stored branch messages. */
++export function renderCompressedContext(state: CompressionState, messages: readonly unknown[]): unknown[] {
++	const ranges = [...state.ranges.values()].filter(range => range.active).sort((left, right) => left.start - right.start);
++	if (!ranges.length) return [...messages];
++	const output: unknown[] = [];
++	let cursor = 0;
++	for (const range of ranges) {
++		while (cursor < range.start) output.push(messages[cursor++]);
++		for (let index = range.start; index <= range.end; index += 1) {
++			if (isUser(messages[index])) output.push(messages[index]);
++		}
++		const origin = record(messages[range.start]);
++		output.push(summaryMessage(range, state, typeof origin?.timestamp === "number" ? origin.timestamp : range.start + 1));
++		cursor = range.end + 1;
++	}
++	while (cursor < messages.length) output.push(messages[cursor++]);
++	return output;
++}
++
++export function decompress(state: CompressionState, id: string): boolean {
++	const range = state.ranges.get(id);
++	if (!range || !range.active) return false;
++	range.active = false;
++	for (const ancestor of range.ancestors) {
++		const previous = state.ranges.get(ancestor);
++		if (previous) previous.active = true;
++	}
++	return true;
++}
++
++export function recompress(state: CompressionState, id: string, messages: readonly unknown[]): boolean {
++	const range = state.ranges.get(id);
++	if (!range || range.active || range.start < 0 || range.end >= messages.length) return false;
++	if ([...state.ranges.values()].some(other => other.active && !range.ancestors.includes(other.id) && overlaps(other, range.start, range.end))) return false;
++	for (const ancestor of range.ancestors) {
++		const previous = state.ranges.get(ancestor);
++		if (previous) previous.active = false;
++	}
++	range.active = true;
++	return true;
++}
++
++export function restoreCompression(state: CompressionState, entries: readonly unknown[]): void {
++	state.ranges.clear();
++	state.nextId = 1;
++	for (const entry of entries) {
++		const item = record(entry);
++		if (item?.type !== "custom" || item.customType !== DCP_ENTRY) continue;
++		const data = record(item.data);
++		if (!data || typeof data.id !== "string" || typeof data.topic !== "string" || typeof data.start !== "number" || typeof data.end !== "number" || typeof data.summary !== "string" || typeof data.active !== "boolean" || !Array.isArray(data.ancestors)) continue;
++		const range: CompressionRange = { id: data.id, topic: data.topic, start: data.start, end: data.end, summary: data.summary, active: data.active, ancestors: data.ancestors.filter((id): id is string => typeof id === "string") };
++		state.ranges.set(range.id, range);
++		const suffix = /^dcp-(\d+)$/.exec(range.id);
++		if (suffix) state.nextId = Math.max(state.nextId, Number(suffix[1]) + 1);
++	}
++}
++
++export function compressionStats(state: CompressionState, messages: readonly unknown[]): { ranges: number; active: number; targets: string[] } {
++	return { ranges: state.ranges.size, active: [...state.ranges.values()].filter(range => range.active).length, targets: targetIds(messages) };
++}
++
++export function sweepCompression(state: CompressionState, messages: readonly unknown[]): number {
++	let removed = 0;
++	for (const [id, range] of state.ranges) {
++		if (range.start < 0 || range.end < range.start || range.end >= messages.length) {
++			state.ranges.delete(id);
++			removed += 1;
++		}
++	}
++	return removed;
++}
++
++export function compressionNudge(state: CompressionState, contextTokens: number | undefined, messages: readonly unknown[]): string | undefined {
++	if (contextTokens === undefined || contextTokens < DCP_MIN_TOKENS) return;
++	const lastUser = messages.map(isUser).lastIndexOf(true);
++	const anchors = messages.length - (lastUser + 1);
++	const active = [...state.ranges.values()].some(range => range.active);
++	const emergency = contextTokens > DCP_MAX_TOKENS && active && anchors - state.lastNudgeAnchor >= 5;
++	const normal = anchors >= 15 && anchors - state.lastNudgeAnchor >= 15;
++	if (!normal && !emergency) return;
++	state.lastNudgeAnchor = anchors;
++	return `Context is ${Math.round(contextTokens / 1000)}k tokens. Inspect compression targets and use compress with explicit @N@ ranges when a completed section can be summarized.`;
++}
+diff --git a/lib/long-context.ts b/lib/long-context.ts
+new file mode 100644
+index 0000000..8d54f4e
+--- /dev/null
++++ b/lib/long-context.ts
+@@ -0,0 +1,108 @@
++export const DEFAULT_PROVIDER_ID = "openai";
++export const DEFAULT_PREFIXES = ["gpt-5.6-", "gpt-6-", "gpt-6."] as const;
++export const DEFAULT_SUFFIX = "-1m";
++export const DEFAULT_LIMIT = { context: 1_000_000, input: 872_000, output: 128_000 } as const;
++
++export interface LongContextOptions {
++	enabled: boolean;
++	providerID: string;
++	modelPrefix: string;
++	modelPrefixes: string[];
++	suffix: string;
++	nameSuffix: string;
++	limit: { context: number; input: number; output: number };
++}
++
++export interface ModelLike {
++	id: string;
++	provider: string;
++	modelID?: string;
++	name?: string;
++}
++
++export type LongContextVariant<T extends Record<string, unknown>> = Omit<T, "id" | "modelID" | "name" | "contextWindow" | "maxContextWindow" | "maxTokens"> & { id: string; modelID: string; name: string; contextWindow: number; maxContextWindow: number; maxTokens: number };
++
++function nonEmpty(value: unknown, name: string): string {
++	if (typeof value !== "string" || value.length === 0) throw new Error(`openai-long-context: options.${name} must be a non-empty string`);
++	return value;
++}
++
++function limit(value: unknown): LongContextOptions["limit"] {
++	if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error("openai-long-context: options.limit must be an object");
++	const raw = value as Record<string, unknown>;
++	if (Object.keys(raw).some(key => !["context", "input", "output"].includes(key))) throw new Error("openai-long-context: unknown options.limit key");
++	for (const key of ["context", "input", "output"] as const) if (!Number.isSafeInteger(raw[key]) || (raw[key] as number) <= 0) throw new Error(`openai-long-context: options.limit.${key} must be a positive integer`);
++	if ((raw.input as number) > (raw.context as number) || (raw.output as number) > (raw.context as number)) throw new Error("openai-long-context: input and output must not exceed context");
++	return raw as LongContextOptions["limit"];
++}
++
++/** Exact source option contract, kept independent of the host model registry. */
++export function validateLongContextOptions(raw: unknown): LongContextOptions {
++	if (raw !== undefined && raw !== null && (typeof raw !== "object" || Array.isArray(raw))) throw new Error("openai-long-context: options must be an object");
++	const value = (raw ?? {}) as Record<string, unknown>;
++	const known = new Set(["enabled", "providerID", "modelPrefix", "modelPrefixes", "suffix", "nameSuffix", "limit"]);
++	for (const key of Object.keys(value)) if (!known.has(key)) throw new Error(`openai-long-context: unknown option '${key}'`);
++	const modelPrefix = value.modelPrefix === undefined ? "gpt-5.6-" : nonEmpty(value.modelPrefix, "modelPrefix");
++	const modelPrefixes = value.modelPrefixes === undefined
++		? (value.modelPrefix === undefined ? [...DEFAULT_PREFIXES] : [modelPrefix])
++		: (Array.isArray(value.modelPrefixes) && value.modelPrefixes.length > 0 ? value.modelPrefixes.map((item, i) => nonEmpty(item, `modelPrefixes[${i}]`)) : (() => { throw new Error("openai-long-context: options.modelPrefixes must be a non-empty array"); })());
++	if (value.enabled !== undefined && typeof value.enabled !== "boolean") throw new Error("openai-long-context: options.enabled must be a boolean");
++	return {
++		enabled: value.enabled ?? true,
++		providerID: value.providerID === undefined ? DEFAULT_PROVIDER_ID : nonEmpty(value.providerID, "providerID"),
++		modelPrefix,
++		modelPrefixes,
++		suffix: value.suffix === undefined ? DEFAULT_SUFFIX : nonEmpty(value.suffix, "suffix"),
++		nameSuffix: value.nameSuffix === undefined ? " (1M context)" : nonEmpty(value.nameSuffix, "nameSuffix"),
++		limit: value.limit === undefined ? { ...DEFAULT_LIMIT } : limit(value.limit),
++	};
++}
++
++export function isEligibleLongContextModel(id: string, options: LongContextOptions): boolean {
++	return !id.endsWith(options.suffix) && options.modelPrefixes.some(prefix => id.startsWith(prefix));
++}
++
++function clone<T>(value: T): T {
++	return structuredClone(value);
++}
++
++/** Full catalog variant for setup generation; non-identity metadata is retained. */
++export function longContextVariants<T extends Record<string, unknown> & ModelLike>(models: Iterable<T>, options: LongContextOptions): LongContextVariant<T>[] {
++	if (!options.enabled) return [];
++	const variants: LongContextVariant<T>[] = [];
++	for (const model of models) {
++		if (model.provider !== options.providerID || !isEligibleLongContextModel(model.id, options)) continue;
++		const inherited = clone(model) as Record<string, unknown>;
++		delete inherited.id;
++		delete inherited.modelID;
++		delete inherited.name;
++		delete inherited.contextWindow;
++		delete inherited.maxContextWindow;
++		delete inherited.maxTokens;
++		variants.push({
++			...inherited,
++			id: `${model.id}${options.suffix}`,
++			modelID: typeof model.modelID === "string" && model.modelID.length > 0 ? model.modelID : model.id,
++			name: `${typeof model.name === "string" && model.name.length > 0 ? model.name : model.id}${options.nameSuffix}`,
++			contextWindow: options.limit.context,
++			// OMP re-applies this cap when /extended-context changes. The source
++			// variant replaces its entire limit tuple, so a base premium cap must
++			// never pull the alias below its configured 1M window.
++			maxContextWindow: options.limit.context,
++			maxTokens: options.limit.output,
++		} as LongContextVariant<T>);
++	}
++	return variants;
++}
++
++/** Rewrites only the OpenAI wire field; the local selected alias stays intact. */
++export function rewriteLongContextPayload(payload: unknown, model: (Pick<ModelLike, "id" | "provider" | "modelID"> & { requestModelId?: string }) | undefined, options: LongContextOptions): unknown {
++	const baseId = model?.id.endsWith(options.suffix) ? model.id.slice(0, -options.suffix.length) : undefined;
++	if (!options.enabled || !model || model.provider !== options.providerID || !baseId || !isEligibleLongContextModel(baseId, options) || !payload || typeof payload !== "object" || Array.isArray(payload)) return payload;
++	const record = payload as Record<string, unknown>;
++	if (record.model !== model.id) return payload;
++	const wireId = typeof model.requestModelId === "string" && model.requestModelId.length > 0
++		? model.requestModelId
++		: typeof model.modelID === "string" && model.modelID.length > 0 ? model.modelID : baseId;
++	return { ...record, model: wireId };
++}
+diff --git a/lib/models.ts b/lib/models.ts
+new file mode 100644
+index 0000000..0686348
+--- /dev/null
++++ b/lib/models.ts
+@@ -0,0 +1,66 @@
++import { getBundledModel, getBundledModels } from "@oh-my-pi/pi-catalog";
++import { longContextVariants, validateLongContextOptions } from "./long-context";
++
++export interface HelperRole { model: string; sourceModel: string }
++export interface CatalogDefinition extends Record<string, unknown> {
++  id: string; name: string; provider: string; contextWindow: number; maxTokens: number;
++}
++
++// Persist only fields supported by OMP's ModelDefinitionSchema. Credentials,
++// account-access metadata and upstream URLs must never enter the proxy catalog.
++const DEFINITION_FIELDS = [
++  "reasoning", "thinking", "input", "imageInputDecoder", "tokenizer", "supportsTools",
++  "cost", "promptCache", "contextWindow", "maxContextWindow", "maxTokens",
++  "omitMaxOutputTokens", "preferWebsockets", "compat", "premiumMultiplier",
++] as const;
++
++function definition(model: Record<string, unknown>, provider: string, compactionModel?: string): CatalogDefinition {
++  const fields = Object.fromEntries(DEFINITION_FIELDS.filter(k => model[k] !== undefined).map(k => [k, structuredClone(model[k])]));
++  return {
++    ...fields, id: String(model.id), name: `${model.name ?? model.id} (CLIProxyAPI)`, provider,
++    contextWindow: Number(model.contextWindow), maxTokens: Number(model.maxTokens),
++    ...(compactionModel ? { compactionModel } : {}),
++  };
++}
++
++export function buildProxyCatalog(sourceModels: string[], rawOptions: unknown, helpers: Record<string, HelperRole>) {
++  const sourceOptions = validateLongContextOptions(rawOptions);
++  const options = { ...sourceOptions, providerID: sourceOptions.providerID === "openai" ? "cliproxy-openai" : sourceOptions.providerID };
++  const rows = new Map<string, CatalogDefinition>();
++  const add = (model: Record<string, unknown>, provider: string) => {
++    const row = definition(model, provider, helpers.compaction?.model);
++    rows.set(`${provider}/${row.id}`, row);
++  };
++  // The source plugin transforms the whole available provider catalog. Role
++  // assignments must not decide which model variants exist in the picker.
++  for (const model of getBundledModels("openai-codex")) add(model as unknown as Record<string, unknown>, "cliproxy-openai");
++  for (const selector of sourceModels) {
++    const [provider, rawId] = selector.split("#")[0].split("/");
++    if (provider !== "openai" && provider !== "anthropic") throw new Error(`Unsupported imported provider: ${provider}`);
++    const id = rawId.replace(/-1m$/, "");
++    const family = provider === "openai" ? "openai-codex" : "anthropic";
++    const model = getBundledModel(family, id);
++    if (!model) throw new Error(`OMP catalog has no ${family}/${id}; refusing guessed model metadata`);
++    add(model as unknown as Record<string, unknown>, `cliproxy-${provider}`);
++  }
++  const variants = longContextVariants(rows.values(), options);
++  const wireIds: Record<string, string> = {};
++  for (const variant of variants) {
++    const item = variant as unknown as CatalogDefinition & { modelID: string };
++    wireIds[`${item.provider}/${item.id}`] = item.modelID;
++    const { modelID: _modelID, ...row } = item;
++    rows.set(`${row.provider}/${row.id}`, row);
++  }
++  const providers: Record<string, { baseUrl: string; api: string; apiKey: string; models: Record<string, unknown>[] }> = {};
++  for (const row of rows.values()) {
++    const provider = row.provider;
++    providers[provider] ??= {
++      baseUrl: provider === "cliproxy-openai" ? "http://127.0.0.1:18317/v1" : "http://127.0.0.1:18317",
++      api: provider === "cliproxy-openai" ? "openai-responses" : "anthropic-messages",
++      apiKey: "HOSHI_PROXY_KEY", models: [],
++    };
++    const { provider: _provider, ...serialized } = row;
++    providers[provider].models.push(serialized);
++  }
++  return { providers, wireIds, options };
++}
+diff --git a/lib/notifier.ts b/lib/notifier.ts
+new file mode 100644
+index 0000000..8ef6620
+--- /dev/null
++++ b/lib/notifier.ts
+@@ -0,0 +1,23 @@
++import { basename } from "node:path";
++import type { NotifyEvent, NotifyEventPayload } from "./notify-events.ts";
++
++export interface NotifierConfig { sound: boolean; notification: boolean; suppressWhenFocused: boolean; events: Record<NotifyEvent, { sound: boolean; notification: boolean }>; volumes: Record<NotifyEvent, number> }
++export const defaultNotifierConfig = (): NotifierConfig => ({ sound: true, notification: true, suppressWhenFocused: true, events: { permission: { sound: true, notification: true }, question: { sound: true, notification: true }, complete: { sound: true, notification: true }, subagent_complete: { sound: false, notification: false }, error: { sound: true, notification: true } }, volumes: { permission: 1, question: 1, complete: 1, subagent_complete: 1, error: 1 } });
++export interface NotifierAdapter { focused(): boolean | undefined; desktop(title: string, body: string): Promise<void>; sound(event: NotifyEvent, volume: number): Promise<void> }
++export class Notifier {
++	readonly pending = new Set<string>();
++	constructor(readonly config: NotifierConfig, readonly adapter: NotifierAdapter) {}
++	async notify(event: NotifyEventPayload): Promise<void> {
++		const key = event.key ?? `${event.type}:${event.sessionId ?? "main"}`;
++		if (event.type === "permission") { if (this.pending.has(key)) return; this.pending.add(key); }
++		const focused = this.adapter.focused();
++		if (this.config.suppressWhenFocused && focused === true) return;
++		const settings = this.config.events[event.type];
++		const title = event.type === "permission" ? "Hoshi needs permission" : event.type === "question" ? "Hoshi has a question" : event.type === "error" ? "Hoshi error" : event.type === "subagent_complete" ? "Hoshi subagent complete" : "Hoshi complete";
++		const body = event.title ?? event.agent ?? "Session";
++		if (this.config.notification && settings.notification) await this.adapter.desktop(title, body);
++		if (this.config.sound && settings.sound) await this.adapter.sound(event.type, this.config.volumes[event.type]);
++	}
++	resolvePermission(key?: string): void { if (key) this.pending.delete(key); else this.pending.clear(); }
++}
++export function projectTitle(cwd: string): string { return basename(cwd) || cwd; }
+diff --git a/lib/notify-events.ts b/lib/notify-events.ts
+new file mode 100644
+index 0000000..226dc74
+--- /dev/null
++++ b/lib/notify-events.ts
+@@ -0,0 +1,6 @@
++export type NotifyEvent = "permission" | "question" | "complete" | "subagent_complete" | "error";
++export interface NotifyEventPayload { type: NotifyEvent; sessionId?: string; agent?: string; title?: string; key?: string }
++type Listener = (event: NotifyEventPayload) => void | Promise<void>;
++const listeners = new Set<Listener>();
++export function onNotifyEvent(listener: Listener): () => void { listeners.add(listener); return () => listeners.delete(listener); }
++export async function emitNotifyEvent(event: NotifyEventPayload): Promise<void> { await Promise.all([...listeners].map(listener => listener(event))); }
+diff --git a/lib/runtime.ts b/lib/runtime.ts
+index 0f75230..232f673 100644
+--- a/lib/runtime.ts
++++ b/lib/runtime.ts
+@@ -26,6 +26,7 @@ export interface ImageBudgetOptions extends ImageBudget {
+ 
+ export interface CacheGuardOptions {
+ 	enabled: boolean;
++	mode: "advisory" | "confirm";
+ 	riskAfterMinutes: number;
+ 	minCacheReadTokens: number;
+ 	providerIDs: string[];
+@@ -86,6 +87,7 @@ const DEFAULT_AGENT_POLICY: Record<string, AgentPolicy> = {
+ 
+ const DEFAULT_CACHE_GUARD: CacheGuardOptions = {
+ 	enabled: true,
++	mode: "advisory",
+ 	riskAfterMinutes: 30,
+ 	minCacheReadTokens: 10_000,
+ 	providerIDs: ["openai"],
+@@ -158,13 +160,15 @@ function parseCacheGuard(raw: unknown): CacheGuardOptions {
+ 	for (const key of Object.keys(raw)) if (!permitted.has(key)) throw new Error(`[runtime] cacheGuard has unknown option '${key}'`);
+ 	const enabled = raw.enabled === undefined ? DEFAULT_CACHE_GUARD.enabled : raw.enabled;
+ 	if (typeof enabled !== "boolean") throw new Error("[runtime] cacheGuard.enabled must be boolean");
+-	if (raw.mode !== undefined && raw.mode !== "advisory") throw new Error("[runtime] cacheGuard only supports advisory mode in OMP");
++	const mode = raw.mode === undefined ? DEFAULT_CACHE_GUARD.mode : raw.mode;
++	if (mode !== "advisory" && mode !== "confirm") throw new Error("[runtime] cacheGuard.mode must be advisory or confirm");
+ 	const providerIDs = raw.providerIDs === undefined ? [...DEFAULT_CACHE_GUARD.providerIDs] : raw.providerIDs;
+ 	if (!Array.isArray(providerIDs) || providerIDs.length === 0 || providerIDs.some(id => typeof id !== "string" || !id)) {
+ 		throw new Error("[runtime] cacheGuard.providerIDs must be a non-empty string array");
+ 	}
+ 	return {
+ 		enabled,
++		mode,
+ 		riskAfterMinutes: raw.riskAfterMinutes === undefined ? DEFAULT_CACHE_GUARD.riskAfterMinutes : positiveInteger(raw.riskAfterMinutes, "cacheGuard.riskAfterMinutes", 0),
+ 		minCacheReadTokens: raw.minCacheReadTokens === undefined ? DEFAULT_CACHE_GUARD.minCacheReadTokens : positiveInteger(raw.minCacheReadTokens, "cacheGuard.minCacheReadTokens", 0),
+ 		providerIDs: [...new Set(providerIDs.map(id => canonicalProvider(id)))],
+@@ -260,6 +264,7 @@ interface ImageReference {
+ 	bytes: number;
+ 	mime: string;
+ 	pasted: boolean;
++	path?: string;
+ 	message: number;
+ 	part: number;
+ }
+@@ -273,15 +278,32 @@ function imageFingerprint(data: string): string {
+ 	return `${data.length}:${sample(data.length / 4)}:${sample(data.length / 2)}:${sample((3 * data.length) / 4)}`;
+ }
+ 
++function toolPaths(messages: readonly unknown[]): Map<string, string> {
++	const paths = new Map<string, string>();
++	for (const message of messages) {
++		if (!isRecord(message) || message.role !== "assistant" || !Array.isArray(message.content)) continue;
++		for (const part of message.content) {
++			if (!isRecord(part) || part.type !== "toolCall" || typeof part.id !== "string" || !isRecord(part.arguments)) continue;
++			const path = part.arguments.path ?? part.arguments.filePath;
++			if (typeof path === "string") paths.set(part.id, path);
++		}
++	}
++	return paths;
++}
++
++/** Collect the real OMP user and tool-result image parts, in request order. */
+ function imageReferences(messages: readonly unknown[]): ImageReference[] {
+ 	const refs: ImageReference[] = [];
++	const paths = toolPaths(messages);
+ 	for (const [messageIndex, message] of messages.entries()) {
+-		if (!isRecord(message) || !Array.isArray(message.content)) continue;
++		if (!isRecord(message) || !Array.isArray(message.content) || (message.role !== "user" && message.role !== "toolResult")) continue;
+ 		for (const [partIndex, part] of message.content.entries()) {
+ 			if (!isRecord(part) || part.type !== "image" || typeof part.data !== "string" || !part.data) continue;
+ 			const hash = imageFingerprint(part.data);
+-			const id = typeof message.timestamp === "number" ? String(message.timestamp) : `#${messageIndex}`;
+-			refs.push({ key: `${message.role ?? "message"}:${id}:${partIndex}:${hash}`, hash, bytes: part.data.length, mime: typeof part.mimeType === "string" ? part.mimeType : "image", pasted: message.role === "user", message: messageIndex, part: partIndex });
++			const id = message.role === "toolResult" && typeof message.toolCallId === "string"
++				? `tool:${message.toolCallId}:${partIndex}`
++				: `user:${typeof message.timestamp === "number" ? message.timestamp : `#${messageIndex}`}:${partIndex}:${hash}`;
++			refs.push({ key: id, hash, bytes: part.data.length, mime: typeof part.mimeType === "string" ? part.mimeType : "image", pasted: message.role === "user", ...(message.role === "toolResult" && typeof message.toolCallId === "string" && paths.get(message.toolCallId) ? { path: paths.get(message.toolCallId) } : {}), message: messageIndex, part: partIndex });
+ 		}
+ 	}
+ 	return refs;
+@@ -314,8 +336,8 @@ function imageNote(ref: ImageReference, reason: ImagePruneReason): string {
+ 	if (reason === "duplicate") return "[Image omitted: the same image appears later in this conversation.]";
+ 	const size = ref.bytes >= MiB ? `${(ref.bytes / MiB).toFixed(1)} MB` : `${Math.max(1, Math.round(ref.bytes / KiB))} KB`;
+ 	return ref.pasted
+-		? `[Image attached by the user (${size} ${ref.mime}) removed to keep the request under the provider's size limit. Ask the user to attach it again if needed.]`
+-		: `[Image (${size} ${ref.mime}) removed to keep the request under the provider's size limit. Run the tool again if needed.]`;
++		? `[Image attached by the user (${size} ${ref.mime}) removed to keep the request under the provider's size limit. Ask the user to attach it again if you need it.]`
++		: `[Image (${size} ${ref.mime}) removed to keep the request under the provider's size limit. ${ref.path ? `Read ${ref.path} again` : "Run the tool again"} if you need to see it.]`;
+ }
+ 
+ /**
+@@ -328,7 +350,11 @@ export function pruneContextImages(state: ImagePruneState, sessionID: string, me
+ 	if (refs.length === 0) return { messages: [...messages], images: 0, bytes: 0, changed: false };
+ 	const previous = state.sessions.get(sessionID) ?? new Map<string, ImagePruneReason>();
+ 	const next = planPrune(refs, previous, budgetFor(options, provider), options.pruneTo);
+-	if (next) state.sessions.set(sessionID, next);
++	if (next) {
++		state.sessions.delete(sessionID);
++		state.sessions.set(sessionID, next);
++		while (state.sessions.size > 64) state.sessions.delete(state.sessions.keys().next().value!);
++	}
+ 	const active = next ?? previous;
+ 	let transformed: unknown[] | undefined;
+ 	let images = 0;
+@@ -348,6 +374,15 @@ export function pruneContextImages(state: ImagePruneState, sessionID: string, me
+ 	return { messages: transformed ?? [...messages], images, bytes, changed: next !== undefined };
+ }
+ 
++/** Compaction summaries should carry descriptions rather than any inline image bytes. */
++export function pruneCompactionImages(messages: readonly unknown[]): ImagePruneResult {
++	const refs = imageReferences(messages);
++	if (!refs.length) return { messages: [...messages], images: 0, bytes: 0, changed: false };
++	const all = new Map(refs.map(ref => [ref.key, "budget" as const]));
++	const state: ImagePruneState = { sessions: new Map([["compaction", all]]) };
++	return { ...pruneContextImages(state, "compaction", messages, { ...IMAGE_BUDGET_DEFAULTS, providers: {} }), changed: true };
++}
++
+ export interface CacheRisk { fingerprint: string; provider: string; model: string; idleMinutes: number; cacheReadTokens: number; }
+ export interface CacheDiagnostic extends CacheRisk { sessionID: string; at: string; }
+ export interface CacheGuardState { warned: Set<string>; diagnostics: CacheDiagnostic[]; }
+@@ -468,3 +503,23 @@ export function routeReasoning(state: ReasoningState, sessionID: string, identit
+ 	while (state.diagnostics.length > options.diagnosticsLimit) state.diagnostics.shift();
+ 	return { decision, messages: cleaned };
+ }
++
++function copyRecord(value: unknown): Record<string, unknown> {
++	return isRecord(value) ? { ...value } : {};
++}
++
++/**
++ * Apply an already-resolved child effort to OMP's on-wire payload. The two
++ * supported APIs use different fields; all other payloads deliberately pass
++ * through unchanged so the router cannot leak an OpenAI field to Anthropic.
++ */
++export function applyReasoningWire(payload: unknown, api: unknown, effort: ReasoningEffort | undefined): unknown {
++	if (!effort || !isRecord(payload)) return payload;
++	if (api === "openai-responses") {
++		return { ...payload, reasoning: { ...copyRecord(payload.reasoning), effort } };
++	}
++	if (api === "anthropic-messages") {
++		return { ...payload, output_config: { ...copyRecord(payload.output_config), effort } };
++	}
++	return payload;
++}
+diff --git a/packages/status-line-core/LICENSE.upstream b/packages/status-line-core/LICENSE.upstream
+new file mode 100644
+index 0000000..138b165
+--- /dev/null
++++ b/packages/status-line-core/LICENSE.upstream
+@@ -0,0 +1,21 @@
++MIT License
++
++Copyright (c) 2026 Rashid Razak
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+diff --git a/packages/status-line-core/format.test.ts b/packages/status-line-core/format.test.ts
+new file mode 100644
+index 0000000..a411e54
+--- /dev/null
++++ b/packages/status-line-core/format.test.ts
+@@ -0,0 +1,49 @@
++import { describe, expect, test } from "bun:test";
++import { cacheShare, compact, contextUsed, diffTotals, duration } from "./format.ts";
++
++describe("compact", () => {
++  test("whole numbers below a thousand, one decimal above", () => {
++    expect(compact(0)).toBe("0");
++    expect(compact(999.4)).toBe("999");
++    expect(compact(1_000)).toBe("1.0K");
++    expect(compact(572_700)).toBe("572.7K");
++    expect(compact(1_200_000)).toBe("1.2M");
++  });
++});
++
++describe("duration", () => {
++  test("seconds, minutes and hours", () => {
++    expect(duration(45_000)).toBe("45s");
++    expect(duration(724_000)).toBe("12m04s");
++    expect(duration(7_620_000)).toBe("2h07m");
++  });
++
++  test("clamps negative spans", () => {
++    expect(duration(-5_000)).toBe("0s");
++  });
++});
++
++describe("token readings", () => {
++  test("context sums every side of the window", () => {
++    expect(contextUsed({ input: 900, output: 600, reasoning: 100, cache: { read: 571_800, write: 400 } })).toBe(573_800);
++    expect(contextUsed(undefined)).toBe(0);
++  });
++
++  test("cache share is the read side over everything used", () => {
++    expect(cacheShare({ input: 900, cache: { read: 571_800 } })).toBeCloseTo(0.998, 3);
++    expect(cacheShare({})).toBeUndefined();
++    expect(cacheShare(undefined)).toBeUndefined();
++  });
++});
++
++describe("diffTotals", () => {
++  test("sums additions and deletions across files", () => {
++    expect(diffTotals([{ additions: 12, deletions: 3 }, { additions: 1, deletions: 0 }])).toEqual({ added: 13, deleted: 3 });
++  });
++
++  test("a missing list or an unmeasured file counts nothing", () => {
++    expect(diffTotals(undefined)).toEqual({ added: 0, deleted: 0 });
++    expect(diffTotals([{ additions: Number.NaN, deletions: Number.POSITIVE_INFINITY }])).toEqual({ added: 0, deleted: 0 });
++    expect(diffTotals([{ additions: 2 }])).toEqual({ added: 2, deleted: 0 });
++  });
++});
+diff --git a/packages/status-line-core/format.ts b/packages/status-line-core/format.ts
+new file mode 100644
+index 0000000..ba9cdb9
+--- /dev/null
++++ b/packages/status-line-core/format.ts
+@@ -0,0 +1,63 @@
++/** Number formatting and token-record readings for the status line. Pure, so it can be tested directly. */
++
++/** `572.7K`, `1.2M`: compact counts, cased like OpenCode's footer, with one decimal past a thousand. */
++export function compact(value: number): string {
++  if (value < 1_000) return String(Math.round(value));
++  if (value < 1_000_000) return `${(value / 1_000).toFixed(1)}K`;
++  return `${(value / 1_000_000).toFixed(1)}M`;
++}
++
++/** `45s`, `12m04s`, `2h07m`: coarse by design; it is a glance, not a stopwatch. */
++export function duration(ms: number): string {
++  const seconds = Math.max(0, Math.floor(ms / 1_000));
++  if (seconds < 60) return `${seconds}s`;
++  const minutes = Math.floor(seconds / 60);
++  if (minutes < 60) return `${minutes}m${String(seconds % 60).padStart(2, "0")}s`;
++  const hours = Math.floor(minutes / 60);
++  return `${hours}h${String(minutes % 60).padStart(2, "0")}m`;
++}
++
++/** A message's token record, read defensively. */
++export interface TokenRecord {
++  input?: number;
++  output?: number;
++  reasoning?: number;
++  cache?: { read?: number; write?: number };
++}
++
++/** Everything the model reads back: prompt, generated, and both cache sides (OpenCode's own sum). */
++export function contextUsed(tokens?: TokenRecord): number {
++  if (!tokens) return 0;
++  return (
++    (tokens.input ?? 0) +
++    (tokens.output ?? 0) +
++    (tokens.reasoning ?? 0) +
++    (tokens.cache?.read ?? 0) +
++    (tokens.cache?.write ?? 0)
++  );
++}
++
++/** How much of the window came from cache, or undefined when nothing was read. */
++export function cacheShare(tokens?: TokenRecord): number | undefined {
++  const used = contextUsed(tokens);
++  return used > 0 ? (tokens?.cache?.read ?? 0) / used : undefined;
++}
++
++export interface DiffStat {
++  added: number;
++  deleted: number;
++}
++
++/**
++ * Fold the host's per-file VCS status figures. A file it could not measure
++ * (binary, past a read cap) arrives absent or non-finite and counts nothing.
++ */
++export function diffTotals(files: readonly { additions?: number; deletions?: number }[] | undefined): DiffStat {
++  let added = 0;
++  let deleted = 0;
++  for (const file of files ?? []) {
++    if (typeof file?.additions === "number" && Number.isFinite(file.additions)) added += file.additions;
++    if (typeof file?.deletions === "number" && Number.isFinite(file.deletions)) deleted += file.deletions;
++  }
++  return { added, deleted };
++}
+diff --git a/packages/status-line-core/line.test.ts b/packages/status-line-core/line.test.ts
+new file mode 100644
+index 0000000..daf8ae5
+--- /dev/null
++++ b/packages/status-line-core/line.test.ts
+@@ -0,0 +1,130 @@
++import { describe, expect, test } from "bun:test";
++import {
++  bar,
++  cacheSegment,
++  contextColor,
++  contextSegment,
++  cutRuns,
++  diffSegment,
++  fitLine,
++  joinSegments,
++  runsWidth,
++  SEPARATOR,
++  speedSegment,
++  timeSegment,
++  type Run,
++  type Segment,
++} from "./line.ts";
++import { PALETTE } from "./palette.ts";
++
++const text = (runs: readonly Run[]): string => runs.map((run) => run.text).join("");
++const seg = (id: Segment["id"], body: string): Segment => ({ id, runs: [{ text: body, fg: PALETTE.label }] });
++
++describe("bar", () => {
++  test("whole-cell line gauge, rule-coloured track", () => {
++    expect(text(bar(0.5, 10, PALETTE.context))).toBe("━━━━━─────");
++    const runs = bar(0.9, 4, PALETTE.contextCritical);
++    expect(runs[0]).toEqual({ text: "━━━━", fg: PALETTE.contextCritical });
++    expect(bar(0.25, 4, PALETTE.context)[1]).toEqual({ text: "───", fg: PALETTE.rule });
++  });
++
++  test("one cell shows as soon as anything is used; stays within its width", () => {
++    expect(text(bar(0.01, 12, PALETTE.context))).toBe("━" + "─".repeat(11));
++    expect(text(bar(2, 8, PALETTE.context))).toBe("━".repeat(8));
++    expect(bar(0, 4, PALETTE.context)).toEqual([{ text: "────", fg: PALETTE.rule }]);
++  });
++});
++
++describe("context segment", () => {
++  test("pink, then warning yellow at 70%, critical red at 90%", () => {
++    expect(contextColor(0.5)).toBe(PALETTE.context);
++    expect(contextColor(0.7)).toBe(PALETTE.contextWarning);
++    expect(contextColor(0.9)).toBe(PALETTE.contextCritical);
++  });
++
++  test("the gauge alone: the footer already prints count and percentage", () => {
++    const segment = contextSegment({ input: 57_000 }, 100_000)!;
++    expect(text(segment.runs)).toBe("━━━━━━━─────");
++    expect(segment.runs[0]!.fg).toBe(PALETTE.context);
++  });
++
++  test("hidden without a declared window or without usage", () => {
++    expect(contextSegment({ input: 1_500 }, undefined)).toBeUndefined();
++    expect(contextSegment(undefined, 100_000)).toBeUndefined();
++  });
++});
++
++test("cache segment: muted word label, lavender value", () => {
++  const segment = cacheSegment({ input: 900, cache: { read: 571_800 } })!;
++  expect(text(segment.runs)).toBe("cache 99.8%");
++  expect(segment.runs[0]!.fg).toBe(PALETTE.label);
++  expect(segment.runs[1]!.fg).toBe(PALETTE.cache);
++  expect(cacheSegment(undefined)).toBeUndefined();
++});
++
++describe("speed segment", () => {
++  test("live sliding is teal when fast, peach when slow; live average subtext0", () => {
++    const fast = speedSegment({ sliding: { tps: 261, live: true }, average: { tps: 159, live: true } })!;
++    expect(text(fast.runs)).toBe("↯ 261 μ 159 tok/s");
++    expect(fast.runs[1]!.fg).toBe(PALETTE.speedFast);
++    expect(fast.runs[4]!.fg).toBe(PALETTE.average);
++    const slow = speedSegment({ sliding: { tps: 12, live: true } })!;
++    expect(slow.runs[1]!.fg).toBe(PALETTE.speedSlow);
++  });
++
++  test("a stopped stream drops ↯ and dims the held average", () => {
++    const held = speedSegment({ sliding: { tps: 40, live: false }, average: { tps: 30, live: false } })!;
++    expect(text(held.runs)).toBe("μ 30 tok/s");
++    expect(held.runs[1]!.fg).toBe(PALETTE.held);
++    expect(held.runs.at(-1)).toEqual({ text: " tok/s", fg: PALETTE.label });
++  });
++
++  test("hidden with nothing to show", () => {
++    expect(speedSegment(undefined)).toBeUndefined();
++    expect(speedSegment({})).toBeUndefined();
++    expect(speedSegment({ sliding: { tps: 0, live: false } })).toBeUndefined();
++  });
++});
++
++test("diff segment is sky on both sides and drops a zero side", () => {
++  expect(diffSegment({ added: 12, deleted: 3 })?.runs).toEqual([{ text: "+12 −3", fg: PALETTE.vcs }]);
++  expect(text(diffSegment({ added: 0, deleted: 2_000_000 })!.runs)).toBe("−2.0M");
++  expect(diffSegment({ added: 0, deleted: 0 })).toBeUndefined();
++  expect(diffSegment(undefined)).toBeUndefined();
++});
++
++test("time segment wears overlay1", () => {
++  expect(timeSegment(7_620_000)?.runs).toEqual([{ text: "2h07m", fg: PALETTE.elapsed }]);
++  expect(timeSegment(undefined)).toBeUndefined();
++});
++
++describe("layout", () => {
++  const all = [seg("context", "cccc"), seg("cache", "kkkk"), seg("speed", "ssss"), seg("diff", "dddd"), seg("time", "tttt")];
++
++  test("separators are label-coloured and only sit between segments", () => {
++    const runs = joinSegments([seg("context", "a"), { id: "cache", runs: [] }, seg("time", "b")]);
++    expect(text(runs)).toBe(`a${SEPARATOR}b`);
++    expect(runs[1]!.fg).toBe(PALETTE.label);
++  });
++
++  test("everything fits on a wide line", () => {
++    expect(runsWidth(fitLine(all, 200))).toBe(5 * 4 + 4 * SEPARATOR.length);
++  });
++
++  test("narrow lines drop time, then cache, then diff", () => {
++    expect(text(fitLine(all, 4 * 4 + 3 * 3))).toBe("cccc · kkkk · ssss · dddd");
++    expect(text(fitLine(all, 3 * 4 + 2 * 3))).toBe("cccc · ssss · dddd");
++    expect(text(fitLine(all, 2 * 4 + 3))).toBe("cccc · ssss");
++  });
++
++  test("cuts only as a last resort", () => {
++    expect(text(fitLine(all, 8))).toBe("cccc · …");
++  });
++
++  test("cutRuns keeps colours and ends in an ellipsis", () => {
++    const runs: Run[] = [{ text: "abc", fg: "#1" }, { text: "def", fg: "#2" }];
++    expect(cutRuns(runs, 6)).toEqual(runs);
++    expect(cutRuns(runs, 5)).toEqual([{ text: "abc", fg: "#1" }, { text: "d…", fg: "#2" }]);
++    expect(cutRuns(runs, 0)).toEqual([]);
++  });
++});
+diff --git a/packages/status-line-core/line.ts b/packages/status-line-core/line.ts
+new file mode 100644
+index 0000000..44485e4
+--- /dev/null
++++ b/packages/status-line-core/line.ts
+@@ -0,0 +1,149 @@
++/**
++ * The line's segments as coloured runs, and the narrow-width policy. Pure and
++ * JSX-free so geometry and colour roles can be asserted without a terminal.
++ */
++import { cacheShare, compact, contextUsed, duration, type DiffStat, type TokenRecord } from "./format.ts";
++import { PALETTE } from "./palette.ts";
++import { formatRate, type SpeedView } from "./rate.ts";
++
++export interface Run {
++  text: string;
++  fg: string;
++}
++
++export type SegmentID = "context" | "cache" | "speed" | "diff" | "time";
++
++export interface Segment {
++  id: SegmentID;
++  runs: Run[];
++}
++
++/** Context-window share at which the bar turns warning yellow, then critical red. */
++export const CONTEXT_WARN = 0.7;
++export const CONTEXT_CRITICAL = 0.9;
++/** Below this a live sliding figure reads slow (peach) rather than fast (teal). */
++export const SLOW_TPS = 20;
++/** Context bar cells: a thin line gauge, since the footer above already prints the numbers. */
++export const BAR_WIDTH = 12;
++/** OpenCode's footer separates its items with ` · `; the row continues that grammar. */
++export const SEPARATOR = " · ";
++/** Lowest priority first: what goes when the line does not fit. */
++export const DROP_ORDER: readonly SegmentID[] = ["time", "cache", "diff"];
++
++const FILL = "━";
++const TRACK = "─";
++
++const label = (text: string): Run => ({ text, fg: PALETTE.label });
++
++/** `━━━━─────────`: whole cells, at least one filled once anything is used; the track wears the rule colour. */
++export function bar(ratio: number, width: number, fg: string): Run[] {
++  const clamped = Math.min(1, Math.max(0, ratio));
++  const filled = clamped > 0 ? Math.min(width, Math.max(1, Math.round(clamped * width))) : 0;
++  const runs: Run[] = [];
++  if (filled > 0) runs.push({ text: FILL.repeat(filled), fg });
++  if (filled < width) runs.push({ text: TRACK.repeat(width - filled), fg: PALETTE.rule });
++  return runs;
++}
++
++/** Pink while there is room, yellow as it fills, red near the limit. */
++export function contextColor(ratio: number): string {
++  if (ratio >= CONTEXT_CRITICAL) return PALETTE.contextCritical;
++  if (ratio >= CONTEXT_WARN) return PALETTE.contextWarning;
++  return PALETTE.context;
++}
++
++/** The gauge alone: OpenCode's footer already shows the count and percentage. Hidden without a declared window. */
++export function contextSegment(tokens: TokenRecord | undefined, limit: number | undefined): Segment | undefined {
++  const used = contextUsed(tokens);
++  if (used <= 0 || limit === undefined || limit <= 0) return undefined;
++  const ratio = Math.min(1, used / limit);
++  return { id: "context", runs: bar(ratio, BAR_WIDTH, contextColor(ratio)) };
++}
++
++/** `cache 99.8%`. */
++export function cacheSegment(tokens: TokenRecord | undefined): Segment | undefined {
++  const share = cacheShare(tokens);
++  if (share === undefined) return undefined;
++  return { id: "cache", runs: [label("cache "), { text: `${(share * 100).toFixed(1)}%`, fg: PALETTE.cache }] };
++}
++
++/**
++ * `↯ 261 μ 159 tok/s` while streaming; `μ 159 tok/s` once it stops. The live
++ * figure is teal (peach when slow) and only drawn while live; a held average is dimmed.
++ */
++export function speedSegment(view: SpeedView | undefined): Segment | undefined {
++  const sliding = view?.sliding?.live ? view.sliding : undefined;
++  const average = view?.average;
++  if (!sliding && !average) return undefined;
++  const runs: Run[] = [];
++  if (sliding) {
++    runs.push(label("↯ "), { text: formatRate(sliding.tps).trim(), fg: sliding.tps < SLOW_TPS ? PALETTE.speedSlow : PALETTE.speedFast });
++  }
++  if (average) {
++    if (runs.length > 0) runs.push(label(" "));
++    runs.push(label("μ "), { text: formatRate(average.tps).trim(), fg: average.live ? PALETTE.average : PALETTE.held });
++  }
++  runs.push(label(" tok/s"));
++  return { id: "speed", runs };
++}
++
++/** `+12 −3` in sky; a zero side drops out and a clean tree draws nothing. */
++export function diffSegment(stat: DiffStat | undefined): Segment | undefined {
++  const parts: string[] = [];
++  if (stat && stat.added > 0) parts.push(`+${compact(stat.added)}`);
++  if (stat && stat.deleted > 0) parts.push(`−${compact(stat.deleted)}`);
++  return parts.length > 0 ? { id: "diff", runs: [{ text: parts.join(" "), fg: PALETTE.vcs }] } : undefined;
++}
++
++/** `2h07m` since the session was created. */
++export function timeSegment(elapsedMs: number | undefined): Segment | undefined {
++  if (elapsedMs === undefined || !Number.isFinite(elapsedMs)) return undefined;
++  return { id: "time", runs: [{ text: duration(elapsedMs), fg: PALETTE.elapsed }] };
++}
++
++export function runsWidth(runs: readonly Run[]): number {
++  return runs.reduce((sum, run) => sum + run.text.length, 0);
++}
++
++/** The segments joined across one line with separators between. */
++export function joinSegments(segments: readonly Segment[]): Run[] {
++  const runs: Run[] = [];
++  for (const segment of segments) {
++    if (segment.runs.length === 0) continue;
++    if (runs.length > 0) runs.push({ text: SEPARATOR, fg: PALETTE.label });
++    runs.push(...segment.runs);
++  }
++  return runs;
++}
++
++/** Cut runs to `width` cells, ending in `…` when something had to go. */
++export function cutRuns(runs: readonly Run[], width: number): Run[] {
++  if (width <= 0) return [];
++  const kept: Run[] = [];
++  let used = 0;
++  for (const run of runs) {
++    const room = width - used;
++    if (room <= 0) break;
++    if (run.text.length <= room) {
++      kept.push(run);
++      used += run.text.length;
++      continue;
++    }
++    kept.push({ ...run, text: room <= 1 ? "…" : `${run.text.slice(0, room - 1)}…` });
++    break;
++  }
++  return kept;
++}
++
++/**
++ * One row, never wrapped: drop whole low-priority segments (time, then cache,
++ * then diff) until the rest fits, and cut only as a last resort.
++ */
++export function fitLine(segments: readonly Segment[], width: number): Run[] {
++  let kept = segments.filter((segment) => segment.runs.length > 0);
++  for (const id of DROP_ORDER) {
++    if (runsWidth(joinSegments(kept)) <= width) break;
++    kept = kept.filter((segment) => segment.id !== id);
++  }
++  return cutRuns(joinSegments(kept), width);
++}
+diff --git a/packages/status-line-core/palette.ts b/packages/status-line-core/palette.ts
+new file mode 100644
+index 0000000..1f67440
+--- /dev/null
++++ b/packages/status-line-core/palette.ts
+@@ -0,0 +1,33 @@
++/**
++ * Dusk Darker semantic roles for the status line. Hexes come from the
++ * `dusk-darker` palette in the dotfiles' Starship config; the keys name what a
++ * colour means on this line, not the swatch, so the mapping lives in one place.
++ */
++export const PALETTE = {
++  /** Context window: bar fill, percentage and token count. Pink is primary. */
++  context: "#FFB8D1",
++  /** Context window at or above the warning threshold (yellow). */
++  contextWarning: "#F4DA86",
++  /** Context window at or above the critical threshold (red). */
++  contextCritical: "#FF8F9A",
++  /** Cache-hit percentage and cached tokens (lavender). */
++  cache: "#B0BCE8",
++  /** Live sliding speed at or above the slow threshold (teal). */
++  speedFast: "#78E1D0",
++  /** Live sliding speed below the slow threshold (peach). */
++  speedSlow: "#DDA05C",
++  /** Live turn average (subtext0). */
++  average: "#C9CAD6",
++  /** A held or settled reading: history, not a live figure (overlay0). */
++  held: "#6D707A",
++  /** Uncommitted changes, both sides: sky is Git (never green/red). */
++  vcs: "#8BD3FF",
++  /** Elapsed session time, secondary timing (overlay1). */
++  elapsed: "#898B95",
++  /** Labels, glyphs, units and segment separators (overlay0). */
++  label: "#6D707A",
++  /** The context gauge's empty track (surface2). */
++  rule: "#5D606A",
++} as const;
++
++export type Role = keyof typeof PALETTE;
+diff --git a/packages/status-line-core/rate.test.ts b/packages/status-line-core/rate.test.ts
+new file mode 100644
+index 0000000..5c1951c
+--- /dev/null
++++ b/packages/status-line-core/rate.test.ts
+@@ -0,0 +1,307 @@
++import { describe, expect, test } from "bun:test";
++import {
++  active,
++  beginStep,
++  beginTurn,
++  createMeter,
++  cumulativeRate,
++  dropStep,
++  endStep,
++  endTurn,
++  formatRate,
++  liveRate,
++  observe,
++  RATE,
++  recordedSteps,
++  restoreFinal,
++  speedView,
++  type Meter,
++  type RecordedMessage,
++  type RecordedStep,
++} from "./rate.ts";
++
++const T0 = 1_000_000;
++const WINDOW = RATE.windowMs;
++
++/** Feed `charsPerSecond` for `durationMs`, in 100 ms deltas. */
++function stream(meter: Meter, start: number, durationMs: number, charsPerSecond: number): number {
++  let now = start;
++  for (let elapsed = 0; elapsed < durationMs; elapsed += 100) {
++    now = start + elapsed + 100;
++    observe(meter, now, charsPerSecond / 10);
++  }
++  return now;
++}
++
++describe("sliding rate", () => {
++  test("converts streamed characters at the seed ratio", () => {
++    const meter = createMeter();
++    const now = stream(meter, T0, 4_000, 100); // 100 chars/s = 25 tok/s
++    expect(Math.abs(liveRate(meter, now)! - 25)).toBeLessThan(1.5);
++  });
++
++  test("goes quiet once the window is empty", () => {
++    const meter = createMeter();
++    const now = stream(meter, T0, 1_000, 400);
++    expect(liveRate(meter, now)).toBeDefined();
++    expect(liveRate(meter, now + WINDOW + 1)).toBeUndefined();
++    expect(active(meter, now + WINDOW + 1)).toBe(false);
++  });
++});
++
++describe("cumulative rate", () => {
++  test("folds the turn's exact steps with the step in flight", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "a", T0, T0);
++    stream(meter, T0 + 1_000, 2_000, 200); // 400 chars, first token T0+1100
++    endStep(meter, "a", 160, T0 + 3_100, T0 + 3_100); // 2 s decode → ratio 2.5 → 3.55
++    beginStep(meter, "b", T0 + 3_200, T0 + 3_200);
++    stream(meter, T0 + 3_300, 1_000, 200); // 200 chars, first token T0+3400
++    // (160 exact + 200/3.55 estimated) / (2000 ms + 1000 ms) ≈ 72.1
++    expect(Math.abs(cumulativeRate(meter, T0 + 4_400)! - 72.1)).toBeLessThan(1);
++  });
++
++  test("stays live through a step whose deltas are not observable", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "a", T0, T0);
++    stream(meter, T0 + 1_000, 1_000, 400);
++    endStep(meter, "a", 100, T0 + 2_100, T0 + 2_100); // 100 tokens in 1 s
++    beginStep(meter, "b", T0 + 2_200, T0 + 2_200); // tool step: no deltas arrive
++    expect(cumulativeRate(meter, T0 + 3_200)).toBeCloseTo(50, 5);
++  });
++
++  test("stays silent without a step in flight", () => {
++    expect(cumulativeRate(createMeter(), T0)).toBeUndefined();
++  });
++});
++
++describe("step settlement", () => {
++  test("yields the exact rate and steers the estimate", () => {
++    const meter = createMeter();
++    beginStep(meter, "msg", T0, T0);
++    stream(meter, T0 + 1_000, 2_000, 200); // 400 chars, first token T0+1100
++    expect(endStep(meter, "msg", 160, T0 + 3_100, T0 + 3_100)).toBeCloseTo(80, 5); // TTFT excluded
++    expect(meter.charsPerToken).toBeCloseTo(3.55, 5); // 400/160 = 2.5; EMA from 4
++  });
++
++  test("the exact span starts at the first token, not the step", () => {
++    const meter = createMeter();
++    beginStep(meter, "msg", T0, T0);
++    stream(meter, T0 + 5_000, 1_000, 100);
++    expect(endStep(meter, "msg", 100, T0 + 6_100, T0 + 6_100)).toBeCloseTo(100, 5);
++  });
++
++  test("falls back to arrival times when the event clock is unusable", () => {
++    const meter = createMeter();
++    beginStep(meter, "msg", 0, T0);
++    expect(endStep(meter, "msg", 100, 0, T0 + 2_000)).toBeCloseTo(50, 5);
++  });
++
++  test("settles a tiny step instead of discarding it", () => {
++    const meter = createMeter();
++    beginStep(meter, "msg", T0, T0);
++    stream(meter, T0, 100, 40); // first token T0+100
++    expect(endStep(meter, "msg", 5, T0 + 183, T0 + 183)).toBeCloseTo(60.24, 1);
++  });
++
++  test("ignores nonsense durations and missing steps", () => {
++    const meter = createMeter();
++    beginStep(meter, "msg", T0, T0);
++    expect(endStep(meter, "msg", 100, T0 + 10, T0 + 10)).toBeUndefined();
++    beginStep(meter, "msg", T0, T0);
++    expect(endStep(meter, "msg", 100, T0 + 7_200_000, T0)).toBeUndefined();
++    expect(endStep(meter, "other", 100, T0 + 2_000, T0)).toBeUndefined();
++  });
++
++  test("a failed step stops counting as in flight", () => {
++    const meter = createMeter();
++    beginStep(meter, "msg", T0, T0);
++    dropStep(meter, "other");
++    expect(meter.step).toBeDefined();
++    dropStep(meter, "msg");
++    expect(meter.step).toBeUndefined();
++  });
++});
++
++describe("turn fold", () => {
++  test("weights a turn's steps into one figure", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "a", T0, T0);
++    stream(meter, T0 + 1_000, 1_000, 400);
++    endStep(meter, "a", 100, T0 + 2_100, T0 + 2_100); // 100 tokens in 1 s
++    beginStep(meter, "b", T0 + 2_200, T0 + 2_200);
++    stream(meter, T0 + 2_300, 1_000, 400);
++    endStep(meter, "b", 200, T0 + 3_400, T0 + 3_400); // 200 tokens in 1 s
++    expect(meter.final?.tps).toBeCloseTo(150, 5); // 300 tokens over 2 s
++    endTurn(meter, T0 + 3_500);
++    expect(meter.final?.tps).toBeCloseTo(150, 5);
++    expect(meter.turn).toEqual({ tokens: 0, ms: 0 });
++  });
++
++  test("closing a turn twice keeps its figure", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "a", T0, T0);
++    stream(meter, T0 + 1_000, 1_000, 400);
++    endStep(meter, "a", 100, T0 + 2_100, T0 + 2_100);
++    endTurn(meter, T0 + 2_200); // execution.succeeded
++    endTurn(meter, T0 + 2_300); // session.idle late belt
++    expect(meter.final).toEqual({ tps: 100, at: T0 + 2_200 });
++  });
++
++  test("a missed turn end is closed when the next turn begins", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "a", T0, T0);
++    stream(meter, T0 + 1_000, 1_000, 400);
++    endStep(meter, "a", 100, T0 + 2_100, T0 + 2_100);
++    beginTurn(meter, T0 + 5_000);
++    expect(meter.final?.at).toBe(T0 + 5_000);
++    expect(meter.turn).toEqual({ tokens: 0, ms: 0 });
++    // The next turn's average does not absorb the previous one.
++    beginStep(meter, "b", T0 + 5_100, T0 + 5_100);
++    stream(meter, T0 + 5_100, 1_000, 800);
++    // 800 chars ÷ 4 = 200 tokens over the 0.9 s since the first token, nothing carried over.
++    expect(cumulativeRate(meter, T0 + 6_100)).toBeCloseTo(222.2, 0);
++  });
++});
++
++describe("resume seed", () => {
++  const step = (tokens: number, at: number, endedAt: number): RecordedStep => ({ tokens, at, endedAt });
++  const message = (over: Partial<RecordedMessage> = {}): RecordedMessage => ({
++    type: "assistant",
++    time: { created: T0, completed: T0 + 3_000 },
++    tokens: { output: 100 },
++    content: [{ type: "reasoning", time: { created: T0 + 1_000, completed: T0 + 2_900 } }],
++    ...over,
++  });
++
++  test("reads only the last turn's completed messages, oldest first", () => {
++    const messages: RecordedMessage[] = [
++      { type: "user", time: { created: T0 - 100_000 } },
++      message({ time: { created: T0 - 99_000, completed: T0 - 90_000 }, tokens: { output: 500 } }),
++      { type: "user", time: { created: T0 } },
++      message({ time: { created: T0 + 100, streamed: T0 + 2_950, completed: T0 + 3_000 } }),
++      { type: "shell", time: { created: T0 + 3_050 } },
++      message({
++        time: { created: T0 + 3_100, completed: T0 + 4_100 },
++        tokens: { output: 50, reasoning: 50 },
++        content: [{ type: "reasoning", time: { created: T0 + 3_200, completed: T0 + 4_000 } }],
++      }),
++    ];
++    expect(recordedSteps(messages)).toEqual([
++      { tokens: 100, at: T0 + 1_000, endedAt: T0 + 3_000 },
++      { tokens: 100, at: T0 + 3_200, endedAt: T0 + 4_100 },
++    ]);
++  });
++
++  test("skips messages without a completion or output; falls back to the message start", () => {
++    const messages: RecordedMessage[] = [
++      { type: "user", time: { created: T0 } },
++      message(),
++      message({ tokens: { output: 0, reasoning: 0 } }),
++      message({ time: { created: T0 } }), // still streaming
++      { type: "assistant", tokens: { output: 40 } },
++      { type: "assistant", time: { created: T0, completed: T0 + 1_000 }, tokens: { output: 100 } },
++    ];
++    expect(recordedSteps(messages)).toEqual([
++      { tokens: 100, at: T0 + 1_000, endedAt: T0 + 3_000 },
++      { tokens: 100, at: T0, endedAt: T0 + 1_000 },
++    ]);
++  });
++
++  test("the earliest reasoning part starts the span, not a tool", () => {
++    const messages: RecordedMessage[] = [
++      { type: "user", time: { created: T0 - 1 } },
++      message({
++        content: [
++          { type: "reasoning", time: { created: T0 + 1_400 } },
++          { type: "reasoning", time: { created: T0 + 1_200 } },
++          { type: "tool", time: { created: T0 + 2_500 } },
++        ],
++      }),
++    ];
++    expect(recordedSteps(messages)).toEqual([{ tokens: 100, at: T0 + 1_200, endedAt: T0 + 3_000 }]);
++  });
++
++  test("refuses a tail with no user boundary", () => {
++    expect(recordedSteps([message(), message()])).toBeUndefined();
++    expect(recordedSteps([])).toBeUndefined();
++  });
++
++  test("restores the folded turn figure over a resting sliding reading", () => {
++    const meter = createMeter();
++    const steps = [step(100, T0, T0 + 1_000), step(200, T0 + 1_100, T0 + 2_600)];
++    expect(restoreFinal(meter, steps, T0 + 3_000)).toBeCloseTo(120, 5); // 300 tokens over 2.5 s
++    expect(meter.turn).toEqual({ tokens: 0, ms: 0 });
++    expect(speedView(meter, T0 + 4_000)).toEqual({
++      sliding: { tps: 0, live: false },
++      average: { tps: 120, live: false },
++    });
++  });
++
++  test("yields nothing when every recorded step is nonsense", () => {
++    const meter = createMeter();
++    expect(restoreFinal(meter, [], T0)).toBeUndefined();
++    expect(restoreFinal(meter, [step(100, T0, T0 + 10), step(100, T0, T0 + 7_200_000), step(0, T0, T0 + 1_000)], T0)).toBeUndefined();
++    expect(meter.final).toBeUndefined();
++    expect(meter.sliding).toBeUndefined();
++  });
++});
++
++describe("speedView", () => {
++  test("both readings live while streaming", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "msg", T0, T0);
++    const now = stream(meter, T0, 1_000, 400);
++    const view = speedView(meter, now);
++    expect(view?.sliding?.live).toBe(true);
++    expect(view?.average?.live).toBe(true);
++  });
++
++  test("holds the sliding reading after the stream stops, and settles the average", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "msg", T0, T0);
++    const now = stream(meter, T0, 1_000, 400);
++    const held = liveRate(meter, now)!;
++    endStep(meter, "msg", 100, T0 + 1_100, T0 + 1_100); // 100 tokens in 1 s
++    const view = speedView(meter, T0 + 1_100 + WINDOW + 100);
++    expect(view?.sliding).toEqual({ tps: held, live: false });
++    expect(view?.average?.live).toBe(false);
++    expect(view?.average?.tps).toBeCloseTo(100, 5);
++  });
++
++  test("a new turn keeps both figures until something newer arrives", () => {
++    const meter = createMeter();
++    beginTurn(meter, T0);
++    beginStep(meter, "msg", T0, T0);
++    stream(meter, T0, 1_000, 400);
++    endStep(meter, "msg", 100, T0 + 1_100, T0 + 1_100);
++    const later = T0 + 1_100 + WINDOW + 100;
++    beginTurn(meter, later);
++    const before = speedView(meter, later + 10);
++    expect(before?.sliding?.live).toBe(false);
++    expect(before?.average?.live).toBe(false);
++    beginStep(meter, "next", later + 20, later + 20);
++    const streaming = stream(meter, later + 1_000, 1_500, 400);
++    expect(speedView(meter, streaming)?.sliding?.live).toBe(true);
++  });
++
++  test("an untouched meter shows nothing", () => {
++    expect(speedView(createMeter(), T0)).toBeUndefined();
++  });
++});
++
++test("formatRate draws a fixed three-character field", () => {
++  expect(formatRate(8.34)).toBe("8.3");
++  expect(formatRate(9.96)).toBe(" 10");
++  expect(formatRate(47.2)).toBe(" 47");
++  expect(formatRate(132.6)).toBe("133");
++  expect(formatRate(1_234)).toBe(" 1K");
++  for (const value of [0, 5.2, 9.9, 47, 198, 999, 1_000, 25_000]) expect(formatRate(value)).toHaveLength(3);
++});
+diff --git a/packages/status-line-core/rate.ts b/packages/status-line-core/rate.ts
+new file mode 100644
+index 0000000..a2916c6
+--- /dev/null
++++ b/packages/status-line-core/rate.ts
+@@ -0,0 +1,306 @@
++/**
++ * The speed meter's maths, ported from opencode-status-line (MIT, Rashid
++ * Razak): a sliding window for what is happening right now, a cumulative
++ * average since the turn began, and the exact figures finished steps settle
++ * with. A turn's steps fold into one weighted figure, so a tool-heavy turn
++ * reports one number rather than a row of per-step figures. A finished turn's
++ * figure can also be rebuilt from stored messages for a process that never saw
++ * its events (a resume or a TUI restart).
++ *
++ * Pure and free of OpenCode imports so it can be tested directly. Unlike
++ * upstream there are no options: turn folding and holding the last sliding
++ * reading are always on, and the tuning constants are fixed.
++ */
++
++export const RATE = {
++  /** How much streamed output the sliding estimate looks back over. */
++  windowMs: 3_000,
++  /** Shortest span trusted for a live figure, so the first second does not swing wildly. */
++  minSpanMs: 800,
++  /** Below this the meter is noise: a stray delta, or a model that has all but stalled. */
++  minTps: 0.5,
++  /** Character samples land in buckets of this size. */
++  bucketMs: 100,
++  /** Seed characters-per-token ratio, used until calibration has something to say. */
++  charsPerToken: 4,
++  /** Bounds for a calibration sample; one outside them is discarded. */
++  ratioMin: 2.5,
++  ratioMax: 7,
++} as const;
++
++/** Shortest decode span trusted: even a two-word answer deserves its figure. */
++const MIN_STEP_MS = 50;
++/** Longest decode span trusted; beyond this a clock is lying. */
++const MAX_STEP_MS = 3_600_000;
++/** A step needs this much streamed text before its ratio is worth calibrating from. */
++const RATIO_MIN_CHARS = 40;
++/** Exponential moving average weight given to a fresh ratio. */
++const RATIO_WEIGHT = 0.3;
++
++export interface Sample {
++  /** Bucket start, aligned to RATE.bucketMs. */
++  at: number;
++  chars: number;
++}
++
++export interface Step {
++  assistantMessageID: string;
++  chars: number;
++  /** Step start on the event clock. */
++  at: number;
++  /** Step start on the local clock, for when the event clock is unusable. */
++  arrivedAt: number;
++  /** First token-bearing chunk on the event clock; the decode span runs from here, so TTFT is not speed. */
++  tokenAt?: number;
++  /** First token-bearing chunk on the local clock, for the fallback span. */
++  tokenArrivedAt?: number;
++}
++
++export interface Meter {
++  /** Bucketed streamed characters, oldest first. */
++  samples: Sample[];
++  /** Start of the current run of activity; a pause longer than the window ends it. */
++  streakStart: number;
++  /** Arrival of the newest delta, so a stalled stream goes quiet. */
++  lastDeltaAt: number;
++  /** The step currently streaming, once `session.step.started` was seen. */
++  step?: Step;
++  /** Exact decode totals of the turn in flight: finished steps only. */
++  turn: { tokens: number; ms: number };
++  /** Estimated characters per token, calibrated from finished steps. */
++  charsPerToken: number;
++  /** Last settled turn figure, shown until something newer replaces it. */
++  final?: { tps: number; at: number };
++  /** Last live sliding reading, held (dimmed) after the stream stops. */
++  sliding?: { tps: number; at: number };
++}
++
++export function createMeter(): Meter {
++  return { samples: [], streakStart: 0, lastDeltaAt: 0, turn: { tokens: 0, ms: 0 }, charsPerToken: RATE.charsPerToken };
++}
++
++function prune(meter: Meter, now: number): void {
++  const cutoff = now - RATE.windowMs;
++  while (meter.samples.length > 0 && meter.samples[0]!.at < cutoff) meter.samples.shift();
++}
++
++/** Records `chars` of streamed output arriving at `now` (event clock optional). */
++export function observe(meter: Meter, now: number, chars: number, eventNow?: number): void {
++  if (chars <= 0) return;
++  const at = Math.floor(now / RATE.bucketMs) * RATE.bucketMs;
++  // A delta after silence starts a new streak: its rate is measured over what
++  // has streamed since, never over the session's whole history.
++  if (meter.lastDeltaAt === 0 || now - meter.lastDeltaAt > RATE.windowMs) meter.streakStart = at;
++  const last = meter.samples[meter.samples.length - 1];
++  if (last && last.at === at) last.chars += chars;
++  else meter.samples.push({ at, chars });
++  if (meter.step) {
++    meter.step.chars += chars;
++    meter.step.tokenAt ??= eventNow ?? now;
++    meter.step.tokenArrivedAt ??= now;
++  }
++  meter.lastDeltaAt = now;
++  prune(meter, now);
++  // Snapshot the live reading while it is fresh: it is what the sliding figure
++  // shows once the stream stops.
++  const tps = liveRate(meter, now);
++  if (tps !== undefined) meter.sliding = { tps, at: now };
++}
++
++/** Streamed characters over the window at the calibrated ratio; undefined once quiet for a window. */
++export function liveRate(meter: Meter, now: number): number | undefined {
++  prune(meter, now);
++  if (now - meter.lastDeltaAt > RATE.windowMs || meter.samples.length === 0) return undefined;
++  let chars = 0;
++  for (const sample of meter.samples) chars += sample.chars;
++  // A streak younger than the window is measured over its own age (with a
++  // floor); an older one covers exactly one window.
++  const span = Math.min(Math.max(now - meter.streakStart, RATE.minSpanMs), RATE.windowMs);
++  const tps = chars / meter.charsPerToken / (span / 1000);
++  return tps >= RATE.minTps ? tps : undefined;
++}
++
++/**
++ * The turn average: exact tokens of this turn's finished steps plus the
++ * estimated tokens of the step in flight, over the decode time they took.
++ * Live only: it needs a step in flight.
++ */
++export function cumulativeRate(meter: Meter, now: number): number | undefined {
++  const step = meter.step;
++  if (!step) return undefined;
++  // Tool-argument steps may expose no deltas, so the first-token marker never
++  // lands; fall back to the step's arrival so the average stays on screen.
++  const startedAt = step.tokenArrivedAt ?? step.arrivedAt;
++  const tokens = meter.turn.tokens + step.chars / meter.charsPerToken;
++  const ms = meter.turn.ms + Math.max(0, now - startedAt);
++  if (ms < RATE.minSpanMs || tokens <= 0) return undefined;
++  const tps = tokens / (ms / 1000);
++  return tps >= RATE.minTps ? tps : undefined;
++}
++
++/** A step began streaming. The previous figure stays on screen until this one streams. */
++export function beginStep(meter: Meter, assistantMessageID: string, at: number, arrivedAt: number): void {
++  meter.step = { assistantMessageID, chars: 0, at, arrivedAt };
++}
++
++/**
++ * A step finished with exact `tokens` of output (output + reasoning). Folds it
++ * into the turn and returns the turn's weighted figure, or undefined when the
++ * step is unknown or its span is nonsense.
++ */
++export function endStep(meter: Meter, assistantMessageID: string, tokens: number, endedAt: number, now: number): number | undefined {
++  const step = meter.step;
++  meter.step = undefined;
++  if (!step || step.assistantMessageID !== assistantMessageID || tokens <= 0) return undefined;
++  // Prefer the server clock for both ends; if those stamps are unusable, fall
++  // back to arrival times — never mixed. The span starts at the first token.
++  const eventMs = endedAt - (step.tokenAt ?? step.at);
++  const arrivalMs = now - (step.tokenArrivedAt ?? step.arrivedAt);
++  const ms = eventMs >= MIN_STEP_MS && eventMs <= MAX_STEP_MS ? eventMs : arrivalMs;
++  if (ms < MIN_STEP_MS || ms > MAX_STEP_MS) return undefined;
++  meter.turn.tokens += tokens;
++  meter.turn.ms += ms;
++  const tps = meter.turn.tokens / (meter.turn.ms / 1000);
++  meter.final = { tps, at: now };
++  if (step.chars >= RATIO_MIN_CHARS) {
++    const ratio = step.chars / tokens;
++    if (ratio >= RATE.ratioMin && ratio <= RATE.ratioMax) {
++      meter.charsPerToken = meter.charsPerToken * (1 - RATIO_WEIGHT) + ratio * RATIO_WEIGHT;
++    }
++  }
++  return tps;
++}
++
++/** A step failed: it will never settle, so stop counting it as in flight. */
++export function dropStep(meter: Meter, assistantMessageID: string): void {
++  if (meter.step?.assistantMessageID === assistantMessageID) meter.step = undefined;
++}
++
++/** A turn began: start a fresh fold, closing a turn whose end was missed. */
++export function beginTurn(meter: Meter, now: number): void {
++  if (meter.turn.ms > 0) endTurn(meter, now);
++  meter.turn = { tokens: 0, ms: 0 };
++  meter.step = undefined;
++}
++
++/** A turn ended: keep its figure. A second close finds an empty fold and does nothing. */
++export function endTurn(meter: Meter, now: number): void {
++  if (meter.turn.ms > 0) meter.final = { tps: meter.turn.tokens / (meter.turn.ms / 1000), at: now };
++  meter.turn = { tokens: 0, ms: 0 };
++  meter.step = undefined;
++}
++
++/** A completed step as the session record kept it. */
++export interface RecordedStep {
++  tokens: number;
++  at: number;
++  endedAt: number;
++}
++
++/** The bits of a stored session message the reconstruction reads. */
++export interface RecordedMessage {
++  type?: string;
++  time?: { created?: number; streamed?: number; completed?: number };
++  tokens?: { output?: number; reasoning?: number };
++  content?: readonly { type?: string; time?: { created?: number; completed?: number } }[];
++}
++
++/**
++ * The earliest point the record can place a step's first token: its first
++ * reasoning timestamp. `time.streamed` is a finalisation stamp, text parts
++ * carry no timing, and a tool part is stamped after its arguments streamed.
++ */
++export function firstTokenAt(message: RecordedMessage): number | undefined {
++  let first: number | undefined;
++  for (const part of message.content ?? []) {
++    if (part?.type !== "reasoning") continue;
++    const at = part.time?.created;
++    if (typeof at === "number" && (first === undefined || at < first)) first = at;
++  }
++  return first;
++}
++
++/**
++ * The last turn's completed steps, oldest first. Returns undefined when there
++ * is no user message: the cache may hold only the newest page of a long
++ * session, and folding its tail would report a figure no process measured.
++ */
++export function recordedSteps(messages: readonly RecordedMessage[]): RecordedStep[] | undefined {
++  const steps: RecordedStep[] = [];
++  for (let index = messages.length - 1; index >= 0; index--) {
++    const message = messages[index];
++    if (message?.type === "user") return steps.reverse();
++    if (message?.type !== "assistant") continue;
++    const started = firstTokenAt(message) ?? message.time?.created;
++    const ended = message.time?.completed;
++    const tokens = (message.tokens?.output ?? 0) + (message.tokens?.reasoning ?? 0);
++    if (typeof started !== "number" || typeof ended !== "number" || tokens <= 0) continue;
++    steps.push({ tokens, at: started, endedAt: ended });
++  }
++  return undefined;
++}
++
++/**
++ * Rebuild a finished turn's settled figure from its recorded steps. The
++ * sliding reading rests at zero: its samples are delta arrival times no record
++ * keeps. The live fold stays empty so a later step cannot absorb a stale turn.
++ */
++export function restoreFinal(meter: Meter, steps: readonly RecordedStep[], now: number): number | undefined {
++  let tokens = 0;
++  let ms = 0;
++  for (const step of steps) {
++    const span = step.endedAt - step.at;
++    if (step.tokens <= 0 || span < MIN_STEP_MS || span > MAX_STEP_MS) continue;
++    tokens += step.tokens;
++    ms += span;
++  }
++  if (tokens <= 0 || ms <= 0) return undefined;
++  const tps = tokens / (ms / 1000);
++  meter.final = { tps, at: now };
++  meter.sliding = { tps: 0, at: now };
++  return tps;
++}
++
++/** Whether the live window still has something worth redrawing. */
++export function active(meter: Meter, now: number): boolean {
++  return now - meter.lastDeltaAt <= RATE.windowMs;
++}
++
++export interface Reading {
++  tps: number;
++  /** False for a held or settled figure; the line dims those. */
++  live: boolean;
++}
++
++/** What the speed segment shows: `↯` sliding and `μ` turn average, each live or held. */
++export interface SpeedView {
++  sliding?: Reading;
++  average?: Reading;
++}
++
++/**
++ * Sliding is live while the window has deltas, then the last reading is held.
++ * The average is live while a step is in flight, then the settled turn figure.
++ */
++export function speedView(meter: Meter, now: number): SpeedView | undefined {
++  const view: SpeedView = {};
++  const live = liveRate(meter, now);
++  if (live !== undefined) view.sliding = { tps: live, live: true };
++  else if (meter.sliding) view.sliding = { tps: meter.sliding.tps, live: false };
++  const average = cumulativeRate(meter, now);
++  if (average !== undefined) view.average = { tps: average, live: true };
++  else if (meter.final) view.average = { tps: meter.final.tps, live: false };
++  return view.sliding || view.average ? view : undefined;
++}
++
++/**
++ * `8.3`, ` 47`, `198`: a fixed three-character field, so the line never shifts
++ * as the figure moves between digits.
++ */
++export function formatRate(tps: number): string {
++  const tenths = Math.round(tps * 10) / 10;
++  if (tenths < 10) return tenths.toFixed(1);
++  const whole = Math.round(tenths);
++  if (whole < 1_000) return String(whole).padStart(3, " ");
++  return `${Math.round(whole / 1_000)}K`.padStart(3, " ");
++}
+diff --git a/scripts/import-opencode.ts b/scripts/import-opencode.ts
+index 9cb34d2..7bcfdb9 100644
+--- a/scripts/import-opencode.ts
++++ b/scripts/import-opencode.ts
+@@ -13,7 +13,8 @@ export function modelSelector(value: string, gateway = true): string {
+   const [base, effort] = value.split("#");
+   const slash = base.indexOf("/");
+   const provider = base.slice(0, slash);
+-  const id = base.slice(slash + 1).replace(/-1m$/, "");
++  const rawId = base.slice(slash + 1);
++  const id = gateway ? rawId : rawId.replace(/-1m$/, "");
+   const mapped = gateway
+     ? ({ openai: "cliproxy-openai", anthropic: "cliproxy-anthropic" } as Record<string, string>)[provider] ?? provider
+     : provider === "openai" ? "openai-codex" : provider;
+@@ -82,6 +83,10 @@ export async function importConfig(source: string, target: string) {
+     await save(`agent/prompts/${file}`, adaptProse(body));
+   }
+   await saveJson("config/roles.json", roles);
++  await saveJson("config/helper-roles.json", Object.fromEntries(Object.entries(sourceConfig.agents ?? {}).map(([name, value]) => {
++    const sourceModel = (value as { model: string }).model;
++    return [name, { model: modelSelector(sourceModel), sourceModel }];
++  })));
+   await saveJson("config/permissions.json", permissions);
+   const options = Object.fromEntries(sourceConfig.plugins.filter((p: any) => typeof p === "object").map((p: any) => [basename(p.package), p.options ?? {}]));
+   await saveJson("config/plugin-options.json", options);
+@@ -103,6 +108,12 @@ export async function importConfig(source: string, target: string) {
+     }
+   }
+   await rewriteMarkdown(join(root, "agent/skills"));
++  // Host-specific skill ports take precedence over mechanical text substitutions.
++  const overridesDir = resolve(import.meta.dir, "../config/skill-overrides");
++  for (const file of await readdir(overridesDir)) {
++    if (!file.endsWith(".md")) continue;
++    await save(`agent/skills/${basename(file, ".md")}/SKILL.md`, await readFile(join(overridesDir, file), "utf8"));
++  }
+   for (const path of ["LICENSE", "NOTICE", "scripts/check-workplan.ts", "scripts/agent-permissions.yaml", "dcp.jsonc", "cli.json"]) {
+     await save(path === "LICENSE" || path === "NOTICE" ? path : `source-config/${path}`, await readFile(join(source, path), "utf8"));
+   }
+diff --git a/scripts/setup.ts b/scripts/setup.ts
+index 4ce95ed..7cdeda8 100644
+--- a/scripts/setup.ts
++++ b/scripts/setup.ts
+@@ -1,9 +1,11 @@
+ import { cp, mkdir, readFile, symlink, lstat, writeFile, chmod } from "node:fs/promises";
+ import { join, resolve } from "node:path";
+ import { parse, stringify } from "yaml";
+-import { getBundledModel } from "@oh-my-pi/pi-catalog";
++import { buildProxyCatalog } from "../lib/models";
+ import { CURRENT_SETUP_VERSION } from "@oh-my-pi/pi-tui/setup/setup-version";
+ import roles from "../config/roles.json";
++import helpers from "../config/helper-roles.json";
++import pluginOptions from "../config/plugin-options.json";
+ 
+ export const root = resolve(import.meta.dir, "..");
+ export const runtimeAgentDir = join(root, ".runtime/omp/agent");
+@@ -31,41 +33,23 @@ export async function prepare() {
+   const config = parse(await readFile(join(root, "config/omp.yml"), "utf8"));
+   // This profile is already configured; provider login belongs to CLIProxyAPI.
+   config.setupVersion = CURRENT_SETUP_VERSION;
+-  config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage"].map(name => join(root, "extensions", `${name}.ts`));
++  config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage", "long-context"].map(name => join(root, "extensions", `${name}.ts`));
+   config.modelRoles = Object.fromEntries(Object.entries(roles).map(([name, info]) => [name, info.model]));
++  Object.assign(config.modelRoles, Object.fromEntries(Object.entries(helpers).map(([name, info]) => [name, info.model])));
++  config.modelRoles.task = helpers.general.model;
+   config.modelRoles.default = roles.build.model;
+   config.modelRoles.plan = roles.plan.model;
+   config.modelRoles.smol = roles.explore.model;
+   config.modelRoles.slow = roles.oracle.model;
+-  config.modelRoles.tiny = "cliproxy-openai/gpt-6-luna:low";
++  config.modelRoles.tiny = helpers.title.model;
++  config.title = { ...config.title, generator: "tiny" };
+   await writeFile(join(runtimeAgentDir, "config.yml"), stringify(config));
+   const mcpText = (await readFile(join(root, "config/mcp.json"), "utf8"))
+     .replaceAll("${HOSHI_OMP_ROOT}", root);
+   await writeFile(join(runtimeAgentDir, "mcp.json"), mcpText);
+-  const groups: Record<string, any> = {};
+-  const sources = new Set(Object.values(roles).map(r => r.sourceModel.split("#")[0]));
+-  for (const source of sources) {
+-    const [provider, rawId] = source.split("/");
+-    const id = rawId.replace(/-1m$/, "");
+-    if (provider !== "openai" && provider !== "anthropic") continue;
+-    const family = provider === "openai" ? "openai-codex" : "anthropic";
+-    const model = getBundledModel(family, id);
+-    if (!model) throw new Error(`OMP catalog has no ${family}/${id}; refusing guessed limits`);
+-    const proxy = `cliproxy-${provider}`;
+-    groups[proxy] ??= {
+-      baseUrl: provider === "openai" ? "http://127.0.0.1:18317/v1" : "http://127.0.0.1:18317",
+-      api: provider === "openai" ? "openai-responses" : "anthropic-messages",
+-      apiKey: "HOSHI_PROXY_KEY",
+-      models: [],
+-    };
+-    if (groups[proxy].models.some((m: any) => m.id === id)) continue;
+-    groups[proxy].models.push({
+-      id, name: `${model.name} (CLIProxyAPI)`, reasoning: true, input: model.input,
+-      cost: model.cost, contextWindow: rawId.endsWith("-1m") ? 1_000_000 : model.contextWindow,
+-      maxTokens: model.maxTokens,
+-    });
+-  }
+-  await writeFile(join(runtimeAgentDir, "models.yml"), stringify({ providers: groups }));
++  const catalog = buildProxyCatalog([...Object.values(roles), ...Object.values(helpers)].map(r => r.sourceModel), pluginOptions["openai-long-context"], helpers);
++  await writeFile(join(runtimeAgentDir, "models.yml"), stringify({ providers: catalog.providers }));
++  await writeFile(join(runtimeAgentDir, "model-wire-ids.json"), JSON.stringify(catalog.wireIds));
+   await chmod(join(root, "bin/hoshi-omp"), 0o755);
+   console.log(`Prepared ${Object.keys(roles).length} agents, MCP definitions and pinned OMP profile.`);
+ }
+diff --git a/tests/compression.test.ts b/tests/compression.test.ts
+new file mode 100644
+index 0000000..9cbf66b
+--- /dev/null
++++ b/tests/compression.test.ts
+@@ -0,0 +1,79 @@
++import { describe, expect, test } from "bun:test";
++import { resolve } from "node:path";
++import { loadExtensions } from "@oh-my-pi/pi-coding-agent";
++import {
++	applyCompression,
++	compressionNudge,
++	createCompressionState,
++	decompress,
++	renderCompressedContext,
++	recompress,
++	restoreCompression,
++} from "../lib/compression.ts";
++
++const user = (text: string, timestamp: number) => ({ role: "user", content: text, timestamp });
++const assistant = (text: string, timestamp: number) => ({ role: "assistant", content: [{ type: "text", text }], timestamp });
++const toolCall = (id: string, timestamp: number) => ({ role: "assistant", content: [{ type: "toolCall", id, name: "read", arguments: { path: "/tmp/a" } }], timestamp });
++const toolResult = (id: string, timestamp: number) => ({ role: "toolResult", toolCallId: id, toolName: "read", content: [{ type: "text", text: "large output" }], isError: false, timestamp });
++
++describe("outbound range compression", () => {
++	test("accepts stable IDs, expands tool pairs, and leaves the stored transcript unchanged", () => {
++		const messages = [user("keep exactly", 1), toolCall("call", 2), toolResult("call", 3), assistant("done", 4)];
++		const original = structuredClone(messages);
++		const state = createCompressionState();
++		const [range] = applyCompression(state, messages, { topic: "read", ranges: [{ startId: "@3@", endId: "@4@", summary: "Read completed." }] });
++		expect(range).toMatchObject({ start: 1, end: 3 });
++		expect(messages).toEqual(original);
++		const rendered = renderCompressedContext(state, messages);
++		expect(rendered[0]).toEqual(messages[0]);
++		expect(JSON.stringify(rendered)).toContain("Read completed.");
++		expect(JSON.stringify(rendered)).not.toContain("large output");
++	});
++
++	test("rejects bad ranges atomically", () => {
++		const state = createCompressionState();
++		const messages = [user("u", 1), assistant("a", 2), assistant("b", 3)];
++		expect(() => applyCompression(state, messages, { topic: "bad", ranges: [{ startId: "@3@", endId: "@1@", summary: "x" }] })).toThrow("reversed");
++		expect(state.ranges.size).toBe(0);
++		expect(() => applyCompression(state, messages, { topic: "bad", ranges: [{ startId: "@2@", endId: "@3@", summary: "x" }, { startId: "@3@", endId: "@3@", summary: "y" }] })).toThrow("overlap");
++		expect(state.ranges.size).toBe(0);
++	});
++
++	test("nests summaries, persists state, and restores/recompresses originals", () => {
++		const messages = [user("verbatim user", 1), assistant("a", 2), assistant("b", 3), assistant("c", 4)];
++		const state = createCompressionState();
++		const [first] = applyCompression(state, messages, { topic: "first", ranges: [{ startId: "@2@", endId: "@3@", summary: "first summary" }] });
++		const [second] = applyCompression(state, messages, { topic: "nested", ranges: [{ startId: "@1@", endId: "@4@", summary: "nested summary" }] });
++		expect(state.ranges.get(first.id)?.active).toBe(false);
++		expect(renderCompressedContext(state, messages).map(message => (message as { content?: unknown }).content)).toContain("verbatim user");
++		expect(JSON.stringify(renderCompressedContext(state, messages))).toContain("first summary");
++		expect(decompress(state, second.id)).toBe(true);
++		expect(state.ranges.get(first.id)?.active).toBe(true);
++		expect(recompress(state, second.id, messages)).toBe(true);
++		const restored = createCompressionState();
++		restoreCompression(restored, [...state.ranges.values()].map(data => ({ type: "custom", customType: "hoshi-dcp-range", data })));
++		expect(renderCompressedContext(restored, messages)).toEqual(renderCompressedContext(state, messages));
++	});
++
++	test("nudges only at configured cadence and emergency anchors", () => {
++		const state = createCompressionState();
++		const messages = [user("u", 1), ...Array.from({ length: 15 }, (_, index) => assistant(String(index), index + 2))];
++		expect(compressionNudge(state, 200_000, messages)).toContain("200k");
++		expect(compressionNudge(state, 200_000, messages)).toBeUndefined();
++		applyCompression(state, messages, { topic: "x", ranges: [{ startId: "@2@", endId: "@2@", summary: "x" }] });
++		const more = [...messages, ...Array.from({ length: 5 }, (_, index) => assistant(`e${index}`, index + 20))];
++		expect(compressionNudge(state, 450_001, more)).toContain("450k");
++	});
++});
++
++test("loads OMP compression commands and guarded tools", async () => {
++	const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/compression.ts")], import.meta.dir);
++	expect(loaded.errors).toEqual([]);
++	expect([...loaded.extensions[0]!.commands.keys()]).toEqual(["hoshi-dcp"]);
++	expect([...loaded.extensions[0]!.tools.keys()].sort()).toEqual(["compress", "dcp_inspect"]);
++	const compress = loaded.extensions[0]!.tools.get("compress")!.definition;
++	await expect(compress.execute("call", { topic: "x", ranges: [{ startId: "@1@", endId: "@1@", summary: "x" }] }, undefined, undefined, {
++		agent: { kind: "sub", name: "tester" },
++		sessionManager: { getBranch: () => [] },
++	} as never)).rejects.toThrow("primary agent");
++});
+diff --git a/tests/import.test.ts b/tests/import.test.ts
+index 32ad208..0e1ef10 100644
+--- a/tests/import.test.ts
++++ b/tests/import.test.ts
+@@ -13,7 +13,7 @@ describe("OpenCode v2 import", () => {
+     for (const command of Object.values(commands)) expect(Object.keys(roles)).toContain(command.agent);
+   });
+   test("maps provider and effort without treating local -1m aliases as upstream IDs", () => {
+-    expect(modelSelector("openai/gpt-6.1-sol-1m#high")).toBe("cliproxy-openai/gpt-6.1-sol:high");
++    expect(modelSelector("openai/gpt-6.1-sol-1m#high")).toBe("cliproxy-openai/gpt-6.1-sol-1m:high");
+     expect(modelSelector("anthropic/claude-opus-5-5#medium")).toBe("cliproxy-anthropic/claude-opus-5-5:medium");
+   });
+   test("v2 disabled servers stay disabled and environment placeholders stay references", () => {
+diff --git a/tests/long-context.test.ts b/tests/long-context.test.ts
+new file mode 100644
+index 0000000..cde7c77
+--- /dev/null
++++ b/tests/long-context.test.ts
+@@ -0,0 +1,75 @@
++import { describe, expect, it } from "bun:test";
++import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { Settings, discoverAuthStorage, ModelRegistry } from "@oh-my-pi/pi-coding-agent";
++import { resolve } from "node:path";
++import { loadExtensions } from "@oh-my-pi/pi-coding-agent";
++import { longContextVariants, rewriteLongContextPayload, validateLongContextOptions } from "../lib/long-context.ts";
++
++describe("openai long context compatibility", () => {
++	it("preserves source options and covers every eligible provider model", () => {
++		const options = validateLongContextOptions({ providerID: "cliproxy-openai" });
++		const variants = longContextVariants([
++			{ provider: "cliproxy-openai", id: "gpt-5.6-terra", name: "Terra", contextWindow: 400000, maxTokens: 32000 },
++			{ provider: "cliproxy-openai", id: "gpt-6.1-sol", name: "Sol", contextWindow: 400000, maxTokens: 32000 },
++			{ provider: "cliproxy-openai", id: "gpt-6.1-sol-1m", contextWindow: 1000000, maxTokens: 128000 },
++			{ provider: "other", id: "gpt-6-sol", contextWindow: 400000, maxTokens: 32000 },
++		], options);
++		expect(variants.map(model => model.id)).toEqual(["gpt-5.6-terra-1m", "gpt-6.1-sol-1m"]);
++		expect(variants[0]).toMatchObject({ modelID: "gpt-5.6-terra", name: "Terra (1M context)", contextWindow: 1000000, maxContextWindow: 1000000, maxTokens: 128000 });
++	});
++
++	it("supports custom prefix, suffix, limits, and idempotent disabled state", () => {
++		const options = validateLongContextOptions({ providerID: "p", modelPrefix: "custom-", suffix: "-long", limit: { context: 200, input: 100, output: 150 } });
++		expect(longContextVariants([{ provider: "p", id: "custom-a", contextWindow: 10, maxTokens: 999 }], options)).toMatchObject([{ id: "custom-a-long", maxTokens: 150 }]);
++		expect(longContextVariants([{ provider: "p", id: "custom-a-long", contextWindow: 10, maxTokens: 20 }], options)).toEqual([]);
++		expect(longContextVariants([{ provider: "p", id: "custom-a", contextWindow: 10, maxTokens: 20 }], validateLongContextOptions({ enabled: false }))).toEqual([]);
++	});
++
++	it("keeps the selectable alias local while sending the base OpenAI model on the wire", () => {
++		const options = validateLongContextOptions({ providerID: "cliproxy-openai" });
++		const base = { provider: "cliproxy-openai", id: "gpt-6.1-sol-fast", modelID: "gpt-6.1-sol", name: "Sol Fast", contextWindow: 400000, maxTokens: 32000, api: "openai-responses", cost: { input: 1, nested: { copied: true } } };
++		const [variant] = longContextVariants([base], options);
++		expect(variant).toMatchObject({ id: "gpt-6.1-sol-fast-1m", modelID: "gpt-6.1-sol", name: "Sol Fast (1M context)", contextWindow: 1000000, maxContextWindow: 1000000, maxTokens: 128000, api: "openai-responses", cost: { input: 1 } });
++		(base.cost.nested.copied as boolean) = false;
++		expect((variant!.cost as { nested: { copied: boolean } }).nested.copied).toBe(true);
++		expect(rewriteLongContextPayload({ model: variant!.id, input: [] }, variant, options)).toEqual({ model: "gpt-6.1-sol", input: [] });
++		expect(rewriteLongContextPayload({ model: base.id }, base, options)).toEqual({ model: base.id });
++		expect(rewriteLongContextPayload({ model: "gpt-6.1-sol-fast-1m" }, variant, validateLongContextOptions({ enabled: false, providerID: "cliproxy-openai" }))).toEqual({ model: "gpt-6.1-sol-fast-1m" });
++		expect(rewriteLongContextPayload({ model: "wrong" }, variant, options)).toEqual({ model: "wrong" });
++		expect(rewriteLongContextPayload({ model: "other-1m" }, { provider: "cliproxy-openai", id: "other-1m" }, options)).toEqual({ model: "other-1m" });
++	});
++
++	it("rejects invalid source options", () => {
++		expect(validateLongContextOptions(null)).toEqual(validateLongContextOptions(undefined));
++		expect(() => validateLongContextOptions({ unknown: true })).toThrow("unknown option");
++		expect(() => validateLongContextOptions({ limit: { context: 1, input: 2, output: 1 } })).toThrow("must not exceed");
++	});
++
++	it("keeps normal and long aliases distinct in the actual OMP registry", async () => {
++		const root = await mkdtemp(join(tmpdir(), "hoshi-omp-long-context-"));
++		const agentDir = join(root, "agent");
++		try {
++			await mkdir(agentDir, { recursive: true });
++			await writeFile(join(agentDir, "config.yml"), "extendedContext: true\n");
++			await writeFile(join(agentDir, "models.yml"), `providers:\n  cliproxy-openai:\n    baseUrl: http://127.0.0.1:1/v1\n    api: openai-responses\n    apiKey: HOSHI_PROXY_KEY\n    models:\n      - id: gpt-6.1-sol\n        name: Sol\n        reasoning: true\n        input: [text]\n        cost: { input: 1, output: 1, cacheRead: 0, cacheWrite: 0 }\n        contextWindow: 400000\n        maxContextWindow: 872000\n        maxTokens: 32000\n      - id: gpt-6.1-sol-1m\n        name: Sol (1M context)\n        reasoning: true\n        input: [text]\n        cost: { input: 1, output: 1, cacheRead: 0, cacheWrite: 0 }\n        contextWindow: 1000000\n        maxContextWindow: 1000000\n        maxTokens: 128000\n`);
++			const settings = await Settings.loadIsolated({ cwd: root, agentDir });
++			const registry = new ModelRegistry(await discoverAuthStorage(agentDir), join(agentDir, "models.yml"), { settings });
++			expect(registry.find("cliproxy-openai", "gpt-6.1-sol")?.contextWindow).toBe(872000);
++			expect(registry.find("cliproxy-openai", "gpt-6.1-sol-1m")?.contextWindow).toBe(1000000);
++		} finally {
++			await rm(root, { recursive: true, force: true });
++		}
++	});
++
++	it("rewrites an actual extension hook payload without changing the selected alias", async () => {
++		const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/long-context.ts")], import.meta.dir);
++		expect(loaded.errors).toEqual([]);
++		const hook = loaded.extensions[0]!.handlers.get("before_provider_request")![0] as (event: { payload: unknown }, ctx: { model: unknown }) => unknown;
++		const config = await Bun.file(new URL("../config/plugin-options.json", import.meta.url)).json() as { "openai-long-context"?: { providerID?: string } };
++		const alias = { provider: config["openai-long-context"]?.providerID ?? "openai", id: "gpt-6.1-sol-1m" };
++		expect(hook({ payload: { model: "gpt-6.1-sol-1m", input: [] } }, { model: alias })).toEqual({ model: "gpt-6.1-sol", input: [] });
++		expect(alias.id).toBe("gpt-6.1-sol-1m");
++	});
++});
+diff --git a/tests/notifier.test.ts b/tests/notifier.test.ts
+new file mode 100644
+index 0000000..ef32490
+--- /dev/null
++++ b/tests/notifier.test.ts
+@@ -0,0 +1,25 @@
++import { describe, expect, it } from "bun:test";
++import { loadExtensions } from "@oh-my-pi/pi-coding-agent";
++import { resolve } from "node:path";
++import { Notifier, defaultNotifierConfig, type NotifierAdapter } from "../lib/notifier.ts";
++
++describe("notifier", () => {
++	it("delivers desktop and sound channels, suppresses focused sessions, and deduplicates permission", async () => {
++		const calls: string[] = [];
++		const adapter: NotifierAdapter = { focused: () => false, desktop: async (_t, b) => { calls.push(`desktop:${b}`); }, sound: async (event, volume) => { calls.push(`sound:${event}:${volume}`); } };
++		const notifier = new Notifier(defaultNotifierConfig(), adapter);
++		await notifier.notify({ type: "permission", sessionId: "s", title: "repo" });
++		await notifier.notify({ type: "permission", sessionId: "s", title: "repo" });
++		expect(calls).toEqual(["desktop:repo", "sound:permission:1"]);
++		const focused = new Notifier(defaultNotifierConfig(), { ...adapter, focused: () => true });
++		await focused.notify({ type: "complete", title: "ignored" });
++		expect(calls).toHaveLength(2);
++	});
++	it("loads in OMP and ignores continuation agent ends while child completion remains muted", async () => {
++		const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/notifier.ts")], import.meta.dir);
++		expect(loaded.errors).toEqual([]);
++		const end = loaded.extensions[0]!.handlers.get("agent_end")![0] as (event: { willContinue?: boolean }, ctx: unknown) => Promise<void>;
++		await end({ willContinue: true }, { agent: { kind: "main", name: "build" }, sessionManager: { getSessionId: () => "s" }, cwd: "/tmp/repo" });
++		expect(loaded.extensions).toHaveLength(1);
++	});
++});
+diff --git a/tests/runtime-wire.test.ts b/tests/runtime-wire.test.ts
+new file mode 100644
+index 0000000..e855839
+--- /dev/null
++++ b/tests/runtime-wire.test.ts
+@@ -0,0 +1,64 @@
++import { expect, test } from "bun:test";
++import { resolve } from "node:path";
++import { loadExtensions } from "@oh-my-pi/pi-coding-agent";
++import { streamAnthropic } from "@oh-my-pi/pi-ai/providers/anthropic";
++import { streamOpenAIResponses } from "@oh-my-pi/pi-ai/providers/openai-responses";
++
++type Hook = (event: { payload?: unknown; messages?: unknown[] }, ctx: unknown) => Promise<unknown> | unknown;
++
++async function childRequestHook(provider: "cliproxy-openai" | "cliproxy-anthropic", api: "openai-responses" | "anthropic-messages") {
++	const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/runtime.ts")], import.meta.dir);
++	const handlers = loaded.extensions[0]!.handlers;
++	const contextHook = handlers.get("context")![0] as Hook;
++	const requestHook = handlers.get("before_provider_request")![0] as Hook;
++	const context = {
++		sessionManager: { getSessionId: () => "wire-child" },
++		ui: { notify: () => {}, setStatus: () => {} },
++		hasUI: false,
++		agent: { kind: "sub", name: "tester" },
++		model: { provider, id: "wire-model", api, thinking: { efforts: ["low", "medium", "high"] } },
++	};
++	await contextHook({ messages: [{ role: "user", content: "[reasoning:deep] wire test" }] }, context);
++	return async (payload: unknown) => requestHook({ payload }, context);
++}
++
++async function drain(stream: AsyncIterable<unknown>): Promise<unknown> {
++	try {
++		for await (const _event of stream) {
++			// The mocked server returns an invalid stream; the request capture is the assertion target.
++		}
++		return await (stream as unknown as { result(): Promise<unknown> }).result();
++	} catch (error) {
++		return error;
++	}
++}
++
++test("OMP's provider serializers consume child-only wire replacements before mocked fetch", async () => {
++	const openaiPayloads: unknown[] = [];
++	const openaiHook = await childRequestHook("cliproxy-openai", "openai-responses");
++	const openaiFetch = (async (_input: URL | RequestInfo, init?: RequestInit) => {
++		openaiPayloads.push(JSON.parse(String(init?.body)));
++		return new Response("mock failure", { status: 400 });
++	}) as unknown as typeof fetch;
++	const openaiFailure = await drain(streamOpenAIResponses(
++		{ api: "openai-responses", provider: "cliproxy-openai", id: "wire-model", name: "Wire model", identity: { class: "openai" }, baseUrl: "https://mock.invalid/v1", maxTokens: 16, reasoning: true, thinking: { efforts: ["low", "medium", "high"] }, compat: {}, input: ["text"] } as never,
++		{ systemPrompt: [], messages: [{ role: "user", content: [{ type: "text", text: "hello" }], timestamp: 1 }] } as never,
++		{ apiKey: "test", reasoning: "medium", fetch: openaiFetch, onPayload: openaiHook, streamFirstEventTimeoutMs: 1 },
++	));
++	if (!openaiPayloads[0]) throw openaiFailure;
++	expect(openaiPayloads[0]).toMatchObject({ reasoning: { effort: "medium" } });
++
++	const anthropicPayloads: unknown[] = [];
++	const anthropicHook = await childRequestHook("cliproxy-anthropic", "anthropic-messages");
++	const anthropicFetch = (async (_input: URL | RequestInfo, init?: RequestInit) => {
++		anthropicPayloads.push(JSON.parse(String(init?.body)));
++		return new Response("mock failure", { status: 400 });
++	}) as unknown as typeof fetch;
++	const anthropicFailure = await drain(streamAnthropic(
++		{ api: "anthropic-messages", provider: "cliproxy-anthropic", id: "wire-model", name: "Wire model", identity: { class: "anthropic" }, baseUrl: "https://mock.invalid", maxTokens: 16, reasoning: true, thinking: { mode: "anthropic-adaptive", efforts: ["low", "medium", "high"] }, compat: {}, input: ["text"] } as never,
++		{ systemPrompt: [], messages: [{ role: "user", content: [{ type: "text", text: "hello" }], timestamp: 1 }] } as never,
++		{ apiKey: "test", reasoning: "medium", fetch: anthropicFetch, onPayload: anthropicHook, streamFirstEventTimeoutMs: 1 } as never,
++	));
++	if (!anthropicPayloads[0]) throw anthropicFailure;
++	expect(anthropicPayloads[0]).toMatchObject({ output_config: { effort: "medium" } });
++});
+diff --git a/tests/runtime.test.ts b/tests/runtime.test.ts
+index 93e4f90..24b43b4 100644
+--- a/tests/runtime.test.ts
++++ b/tests/runtime.test.ts
+@@ -3,8 +3,10 @@ import { resolve } from "node:path";
+ import { loadExtensions } from "@oh-my-pi/pi-coding-agent";
+ import {
+ 	admitCacheRisk,
++	applyReasoningWire,
+ 	cacheRisk,
+ 	canonicalProvider,
++	pruneCompactionImages,
+ 	pruneContextImages,
+ 	routeReasoning,
+ 	validateRuntimeOptions,
+@@ -35,6 +37,29 @@ describe("image budget", () => {
+ 		const result = pruneContextImages(state, "s", context(image("same"), image("middle"), image("same")), options);
+ 		expect(JSON.stringify(result.messages)).toContain("same image appears later");
+ 	});
++
++	test("prunes real OMP tool-result images and keeps a re-read path", () => {
++		const state: ImagePruneState = { sessions: new Map() };
++		const options = validateRuntimeOptions({ imageBudget: { maxImages: 1, maxImageBytes: 10_000, pruneTo: 1 } }).imageBudget;
++		const messages = [
++			{ role: "assistant", content: [{ type: "toolCall", id: "call-1", name: "read", arguments: { path: "/tmp/shot.png" } }] },
++			{ role: "toolResult", toolCallId: "call-1", toolName: "read", isError: false, timestamp: 1, content: [image("tool")] },
++			{ role: "user", timestamp: 2, content: [image("pasted", 120)] },
++		];
++		const result = pruneContextImages(state, "session", messages, options, "cliproxy-openai");
++		expect(JSON.stringify(result.messages)).toContain("Read /tmp/shot.png again");
++		expect(JSON.stringify(result.messages)).toContain('"data":"pasted');
++	});
++
++	test("removes all real OMP images before compaction", () => {
++		const messages = [
++			{ role: "user", timestamp: 1, content: [image("pasted")] },
++			{ role: "toolResult", toolCallId: "call-1", toolName: "read", isError: false, timestamp: 2, content: [image("tool")] },
++		];
++		const result = pruneCompactionImages(messages);
++		expect(result.changed).toBe(true);
++		expect(JSON.stringify(result.messages)).not.toContain('"type":"image"');
++	});
+ });
+ 
+ describe("cache guard", () => {
+@@ -53,6 +78,12 @@ describe("cache guard", () => {
+ 		const messages = [{ role: "assistant", provider: "openai", model: "gpt-a", completedAt: 0, usage: { cacheRead: 10_000 } }];
+ 		expect(cacheRisk(messages, options, { provider: "openai", id: "gpt-b" }, 1_800_000)).toBeUndefined();
+ 	});
++
++	test("accepts source confirm mode and keeps disabled guards inert", () => {
++		expect(validateRuntimeOptions({ cacheGuard: { mode: "confirm" } }).cacheGuard.mode).toBe("confirm");
++		const options = validateRuntimeOptions({ cacheGuard: { enabled: false } }).cacheGuard;
++		expect(cacheRisk([{ role: "assistant", provider: "openai", model: "gpt", completedAt: 0, usage: { cacheRead: 10_000 } }], options, { provider: "openai", id: "gpt" }, 1_800_000)).toBeUndefined();
++	});
+ });
+ 
+ describe("reasoning router", () => {
+@@ -65,6 +96,13 @@ describe("reasoning router", () => {
+ 		expect(canonicalProvider("cliproxy-openai")).toBe("openai");
+ 	});
+ 
++	test("writes effort only to the matching provider wire shape", () => {
++		expect(applyReasoningWire({ model: "gpt" }, "openai-responses", "high")).toEqual({ model: "gpt", reasoning: { effort: "high" } });
++		expect(applyReasoningWire({ model: "claude" }, "anthropic-messages", "low")).toEqual({ model: "claude", output_config: { effort: "low" } });
++		const unsupported = { model: "other" };
++		expect(applyReasoningWire(unsupported, "openai-completions", "high")).toBe(unsupported);
++	});
++
+ 	test("uses HOSHI's primary identity only when supplied by the extension", () => {
+ 		const options = validateRuntimeOptions({}).reasoningRouter;
+ 		const state: ReasoningState = { sessions: new Map(), diagnostics: [] };
+@@ -77,4 +115,43 @@ test("loads the runtime extension with imported plugin options", async () => {
+ 	const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/runtime.ts")], import.meta.dir);
+ 	expect(loaded.errors).toEqual([]);
+ 	expect([...loaded.extensions[0]!.tools.keys()].sort()).toEqual(["cache_guard_status", "reasoning_router_status"]);
++	const compacting = loaded.extensions[0]!.handlers.get("session.compacting")![0] as (event: { messages: unknown[] }, ctx: unknown) => void;
++	const event = { messages: [{ role: "user", timestamp: 1, content: [image("compaction")] }] };
++	compacting(event, {});
++	expect(JSON.stringify(event.messages)).not.toContain('"type":"image"');
++});
++
++test("OMP hooks leave a primary request unchanged and wire a child effort per request", async () => {
++	const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/runtime.ts")], import.meta.dir);
++	const handlers = loaded.extensions[0]!.handlers;
++	const contextHook = handlers.get("context")![0] as (event: { messages: unknown[] }, ctx: unknown) => Promise<{ messages: unknown[] }>;
++	const requestHook = handlers.get("before_provider_request")![0] as (event: { payload: unknown }, ctx: unknown) => unknown;
++	const notices: string[] = [];
++	const shared = {
++		sessionManager: { getSessionId: () => "session" },
++		ui: { notify: (text: string) => notices.push(text), setStatus: () => {} },
++		model: { provider: "cliproxy-openai", id: "gpt-test", api: "openai-responses", thinking: { efforts: ["low", "medium", "high"] } },
++	};
++	const primary = await contextHook(
++		{ messages: [{ role: "user", content: "[reasoning:deep] keep this primary marker" }] },
++		{ ...shared, hasUI: false, agent: { kind: "main", name: "plan" } },
++	);
++	expect(JSON.stringify(primary.messages)).toContain("reasoning:deep");
++	expect(requestHook({ payload: { model: "gpt-test" } }, { ...shared, agent: { kind: "main", name: "plan" } })).toBeUndefined();
++
++	const child = await contextHook(
++		{ messages: [{ role: "user", content: "[reasoning:deep] child only" }] },
++		{ ...shared, hasUI: true, agent: { kind: "sub", name: "tester" } },
++	);
++	expect(JSON.stringify(child.messages)).not.toContain("reasoning:deep");
++	expect(requestHook({ payload: { model: "gpt-test" } }, { ...shared, agent: { kind: "sub", name: "tester" } })).toEqual({ model: "gpt-test", reasoning: { effort: "medium" } });
++	expect(requestHook({ payload: { model: "other" } }, { ...shared, model: { ...shared.model, id: "other" }, agent: { kind: "sub", name: "tester" } })).toBeUndefined();
++
++	const anthropic = { ...shared, model: { provider: "cliproxy-anthropic", id: "claude-test", api: "anthropic-messages", thinking: { efforts: ["low", "medium", "high"] } } };
++	await contextHook(
++		{ messages: [{ role: "user", content: "[reasoning:deep] child Anthropic" }] },
++		{ ...anthropic, hasUI: true, agent: { kind: "sub", name: "tester" } },
++	);
++	expect(requestHook({ payload: { model: "claude-test" } }, { ...anthropic, agent: { kind: "sub", name: "tester" } })).toEqual({ model: "claude-test", output_config: { effort: "medium" } });
++	expect(notices).toEqual([]);
+ });
+diff --git a/tests/skills.test.ts b/tests/skills.test.ts
+new file mode 100644
+index 0000000..97dad35
+--- /dev/null
++++ b/tests/skills.test.ts
+@@ -0,0 +1,31 @@
++import { expect, test } from "bun:test";
++import { mkdtemp, readdir, readFile, rm } from "node:fs/promises";
++import { join, resolve } from "node:path";
++import { tmpdir } from "node:os";
++import { parse } from "yaml";
++import { discoverSkills } from "@oh-my-pi/pi-coding-agent";
++import { frontmatter } from "../scripts/import-opencode";
++
++test("the actual OMP skill loader exposes all imported skill IDs including plugin development", async () => {
++  const root = resolve(import.meta.dir, "..");
++  const scratch = await mkdtemp(join(tmpdir(), "hoshi-skills-"));
++  try {
++    const skillDir = join(root, "agent/skills");
++    const expected: string[] = [];
++    for (const item of await readdir(skillDir, { withFileTypes: true })) {
++      if (item.isDirectory()) expected.push(frontmatter(await readFile(join(skillDir, item.name, "SKILL.md"), "utf8")).meta.name);
++    }
++    const config = parse(await readFile(join(root, "config/omp.yml"), "utf8"));
++    const result = await discoverSkills(scratch, undefined, {
++      ...config.skills, customDirectories: [skillDir], enablePiUser: false, enablePiProject: false,
++    });
++    for (const name of expected) expect(result.skills.map(s => s.name)).toContain(name);
++    expect(expected).toHaveLength(18);
++    const skill = result.skills.find(s => s.name === "opencode-plugin-dev");
++    expect(skill).toBeDefined();
++    const body = await readFile(skill!.filePath, "utf8");
++    expect(body).toContain("# Oh My Pi extension development");
++    expect(body).not.toContain("opencode api GET");
++    expect(body).toBe(await readFile(join(root, "config/skill-overrides/opencode-plugin-dev.md"), "utf8"));
++  } finally { await rm(scratch, { recursive: true, force: true }); }
++});
+diff --git a/tests/status-line.test.ts b/tests/status-line.test.ts
+new file mode 100644
+index 0000000..22d75af
+--- /dev/null
++++ b/tests/status-line.test.ts
+@@ -0,0 +1,32 @@
++import { expect, test } from "bun:test";
++import { resolve } from "node:path";
++import { loadExtensions } from "@oh-my-pi/pi-coding-agent";
++import { contextColor, fitLine, type Segment } from "../packages/status-line-core/line.ts";
++import { PALETTE } from "../packages/status-line-core/palette.ts";
++
++test("status-line core retains threshold colors and narrow drop order", () => {
++	expect(contextColor(0.7)).toBe(PALETTE.contextWarning);
++	expect(contextColor(0.9)).toBe(PALETTE.contextCritical);
++	const segment = (id: Segment["id"], text: string): Segment => ({ id, runs: [{ text, fg: PALETTE.label }] });
++	expect(fitLine([segment("context", "cccc"), segment("cache", "kkkk"), segment("speed", "ssss"), segment("diff", "dddd"), segment("time", "tttt")], 11).map(run => run.text).join("")).toBe("cccc · ssss");
++});
++
++test("loads OMP status widget lifecycle hooks", async () => {
++	const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/status-line.ts")], import.meta.dir);
++	expect(loaded.errors).toEqual([]);
++	for (const event of ["session_start", "message_start", "message_update", "assistant_message", "turn_start", "turn_end", "session_shutdown"]) expect(loaded.extensions[0]!.handlers.has(event)).toBe(true);
++	let widget: ((tui: unknown, theme: unknown) => { render(width: number): string[] }) | undefined;
++	const ctx = {
++		hasUI: true,
++		cwd: import.meta.dir,
++		sessionManager: { getBranch: () => [] },
++		getContextUsage: () => ({ tokens: 75_000, contextWindow: 100_000, percent: 75 }),
++		ui: { setWidget: (_key: string, factory: typeof widget) => { widget = factory; } },
++	};
++	const start = loaded.extensions[0]!.handlers.get("session_start")![0] as (event: unknown, context: unknown) => void;
++	start({}, ctx);
++	expect(widget).toBeDefined();
++	expect(widget!({}, {}).render(8)).toHaveLength(1);
++	const shutdown = loaded.extensions[0]!.handlers.get("session_shutdown")![0] as (event: unknown, context: unknown) => void;
++	shutdown({}, ctx);
++});
