@@ -1,0 +1,40 @@
+{
+  "id": "validation/input/create--id-trimmed",
+  "tool": "workplan_create",
+  "input": {
+    "id": "  Demo Plan  ",
+    "goal": "g"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "Demo Plan",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": false
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "Demo Plan",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": false
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "Demo Plan",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": false
+      }
+    }
+  }
+}

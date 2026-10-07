@@ -1,0 +1,84 @@
+{
+  "id": "mutations/checkpoint-missing-markdown",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_checkpoint",
+    "input": {
+      "id": "missing-plan",
+      "summary": "s",
+      "nextAction": "n"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1525,
+    "rawOutputUtf8Bytes": 1525,
+    "outputSha256": "721b5bb7ee7939e82f09fa15bed0ff0f6498c4eb60e3db12db02c544f639efe4",
+    "output": {
+      "checkpointPath": "$ROOT/.opencode/workplan/missing-plan.checkpoint.json",
+      "checkpoint": {
+        "schemaVersion": 2,
+        "id": "missing-plan",
+        "sourceUpdatedAt": "2026-01-02T03:04:05.000Z",
+        "planHash": "3206cbef3b20cfd3826aed05d300c66b1fb16917404053c29ad25330856cc5e6",
+        "manifest": [
+          {
+            "path": ".opencode/workplan/missing-plan.json",
+            "sha256": "425b34c547d02039d222288648379726623dc8ed0cf595ce299226e87566394d"
+          },
+          {
+            "path": ".opencode/workplan/missing-plan.md",
+            "missing": true
+          },
+          {
+            "path": "docs/absent.md",
+            "missing": true
+          },
+          {
+            "path": "docs/present.md",
+            "sha256": "14bca160a84ec9e8e5b25cb86ec8b0945f870b8781c8e94ef883b58d27b508db"
+          }
+        ],
+        "evidenceStatus": "unverified",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z",
+        "status": "draft",
+        "summary": "s",
+        "current": {
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "phaseStatus": "draft",
+          "stepId": "s",
+          "stepTitle": "S",
+          "stepStatus": "draft"
+        },
+        "nextAction": "n",
+        "blockers": [],
+        "recentValidation": [],
+        "guardrails": [],
+        "references": []
+      },
+      "planFresh": false,
+      "evidenceStatus": "unverified",
+      "planHash": "3206cbef3b20cfd3826aed05d300c66b1fb16917404053c29ad25330856cc5e6",
+      "stateHash": "109f91337c158a9ee26b149a3150a9b3621c512bb3e45f556665a2b997d5a44e",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/missing-plan.checkpoint.json": {
+      "sha256": "12ace0690544f2dccab513c7bb060772c62c2470f4998e721521211f2793a969",
+      "bytes": 1055,
+      "file": "mutations/checkpoint-missing-markdown.after/.opencode/workplan/missing-plan.checkpoint.json"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

@@ -1,0 +1,130 @@
+{
+  "id": "tools/list-mixed/doctor-limit2",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "limit": 2
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2935,
+    "rawOutputUtf8Bytes": 2935,
+    "outputSha256": "d60b0b346b0404f90d7e16f83f5a33714eca0f73b568f13b63cfc22ed1e8b6e2",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 7,
+      "returnedPlans": 2,
+      "omittedPlans": 5,
+      "plans": [
+        {
+          "id": "a-10",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "a-10",
+            "kind": "general",
+            "title": null,
+            "goal": "goal a-10",
+            "status": "draft",
+            "planFile": ".opencode/workplan/a-10.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "77e54d591d3ad5c2b1475c7d092e7b749d57caae2d88b2c1bf5607e6b6b803eb",
+          "stateHash": "a9a65a37f7f38a279a5e2fad9b59f783d5b5e654a12abb17e96cbf82092e00f6",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        },
+        {
+          "id": "a-9",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "a-9",
+            "kind": "general",
+            "title": null,
+            "goal": "goal a-9",
+            "status": "draft",
+            "planFile": ".opencode/workplan/a-9.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "66630984aa5848c6cc6c224d7830dc326e48076d7310fdbdf3cac87ca9201bcb",
+          "stateHash": "6b479ff9d6d31ad0b94a37ddcc596c4047981f2187fe6be840d683d0c8322e5e",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": ".x.tmp-1",
+          "kind": "temporary"
+        },
+        {
+          "name": "a-plan.checkpoint.json",
+          "kind": "checkpoint"
+        }
+      ],
+      "sidecarCount": 5,
+      "omittedSidecars": 3,
+      "locks": [
+        {
+          "path": "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "present": true,
+          "owner": null,
+          "diagnostic": "Ambiguous lock owner: JSON Parse error: Unexpected EOF"
+        }
+      ],
+      "lockCount": 1,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "$ROOT/.opencode/workplan/.workspace-mutation.lock: Ambiguous lock owner: JSON Parse error: Unexpected EOF"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

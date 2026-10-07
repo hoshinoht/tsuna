@@ -1,0 +1,825 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_update.input.schema.json",
+  "title": "workplan_update input (native surface)",
+  "description": "Update plan metadata, links, findings, dependencies or targeted phase/step fields, or explicitly recover a pending transaction. Pass expectedHash = the stateHash from your latest read or successful write.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "expectedHash": {
+      "description": "stateHash from the latest read; binds the write to that exact state.",
+      "$ref": "../common.schema.json#/$defs/hash"
+    },
+    "rebase": {
+      "description": "X4 (contracts §24): apply over newer writes that changed other plan elements, per the change log; refused as stale otherwise.",
+      "type": "boolean"
+    },
+    "recovery": {
+      "description": "Explicit recovery of a pending transaction; mutually exclusive with ordinary update fields.",
+      "type": "string",
+      "enum": [
+        "resume",
+        "rollback"
+      ]
+    },
+    "replaceMarkdown": {
+      "description": "Allow replacing handwritten (non-generated) Markdown.",
+      "type": "boolean"
+    },
+    "title": {
+      "description": "Plan title.",
+      "type": "string"
+    },
+    "goal": {
+      "description": "Plan goal; blank is allowed while drafting.",
+      "type": "string"
+    },
+    "status": {
+      "description": "Lifecycle status.",
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_progress",
+        "blocked",
+        "review",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "scope": {
+      "description": "In-scope items.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "nonGoals": {
+      "description": "Explicit non-goals.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "description": "Constraints that must hold.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "planFile": {
+      "description": "Linked Markdown path under .opencode/workplan/ ending in .md.",
+      "type": "string"
+    },
+    "planMarkdown": {
+      "description": "Explicit full Markdown content for the linked plan file.",
+      "type": "string"
+    },
+    "specFiles": {
+      "description": "Project-relative spec files bound into planHash.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reviewFindings": {
+      "description": "Review findings.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocker",
+              "critical",
+              "major",
+              "minor",
+              "note",
+              "question"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          }
+        },
+        "required": [
+          "severity",
+          "title"
+        ]
+      }
+    },
+    "phases": {
+      "description": "Ordered phases; omitted ids are generated.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_progress",
+              "blocked",
+              "review",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                },
+                "validation": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "in_progress",
+                    "blocked",
+                    "review",
+                    "completed",
+                    "cancelled"
+                  ]
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          }
+        },
+        "required": [
+          "title"
+        ]
+      }
+    },
+    "updatePhases": {
+      "description": "Targeted phase field patches.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phaseId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_progress",
+              "blocked",
+              "review",
+              "completed",
+              "cancelled"
+            ]
+          }
+        },
+        "required": [
+          "phaseId"
+        ]
+      }
+    },
+    "addPhases": {
+      "description": "Phases to insert (after an anchor, or appended).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "afterPhaseId": {
+            "type": "string"
+          },
+          "phase": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "in_progress",
+                  "blocked",
+                  "review",
+                  "completed",
+                  "cancelled"
+                ]
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "target": {
+                      "type": "string"
+                    },
+                    "action": {
+                      "type": "string"
+                    },
+                    "validation": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "draft",
+                        "in_progress",
+                        "blocked",
+                        "review",
+                        "completed",
+                        "cancelled"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "title"
+            ]
+          }
+        },
+        "required": [
+          "phase"
+        ]
+      }
+    },
+    "updateSteps": {
+      "description": "Targeted step field patches keyed by (phaseId, stepId).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phaseId": {
+            "type": "string"
+          },
+          "stepId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string"
+          },
+          "validation": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_progress",
+              "blocked",
+              "review",
+              "completed",
+              "cancelled"
+            ]
+          }
+        },
+        "required": [
+          "phaseId",
+          "stepId"
+        ]
+      }
+    },
+    "addSteps": {
+      "description": "Steps to insert (after an anchor, or appended).",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phaseId": {
+            "type": "string"
+          },
+          "afterStepId": {
+            "type": "string"
+          },
+          "step": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "validation": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "in_progress",
+                  "blocked",
+                  "review",
+                  "completed",
+                  "cancelled"
+                ]
+              }
+            },
+            "required": [
+              "title"
+            ]
+          }
+        },
+        "required": [
+          "phaseId",
+          "step"
+        ]
+      }
+    },
+    "addRelevantFiles": {
+      "description": "Relevant files to add.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "addSpecFiles": {
+      "description": "Spec files to add.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "removeSpecFiles": {
+      "description": "Spec files to remove (normalized before matching).",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "addReviewFindings": {
+      "description": "Findings to append.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocker",
+              "critical",
+              "major",
+              "minor",
+              "note",
+              "question"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          }
+        },
+        "required": [
+          "severity",
+          "title"
+        ]
+      }
+    },
+    "appendNotes": {
+      "description": "Notes to append (deduplicated).",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "description": "Full replacement of the dependency sidecar; [] records an empty set, omission leaves it unchanged.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phaseId": {
+            "$ref": "../common.schema.json#/$defs/nonblank"
+          },
+          "stepId": {
+            "$ref": "../common.schema.json#/$defs/nonblank"
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phaseId": {
+                  "$ref": "../common.schema.json#/$defs/nonblank"
+                },
+                "stepId": {
+                  "$ref": "../common.schema.json#/$defs/nonblank"
+                }
+              },
+              "required": [
+                "phaseId",
+                "stepId"
+              ]
+            }
+          }
+        },
+        "required": [
+          "phaseId",
+          "stepId",
+          "dependsOn"
+        ]
+      }
+    },
+    "recordEvidence": {
+      "description": "Append evidence records (spec 06 X2) to <id>.evidence.json: the command run for a step, its exit code and an output digest. Shiori binds each record to the current git working tree; staleness is computed on read. An update with only recordEvidence writes the ledger alone and leaves planHash/stateHash unchanged.",
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "properties": {
+          "phaseId": {
+            "description": "Phase of the step the evidence is for.",
+            "$ref": "../common.schema.json#/$defs/nonblank"
+          },
+          "stepId": {
+            "description": "The step the evidence is for.",
+            "$ref": "../common.schema.json#/$defs/nonblank"
+          },
+          "command": {
+            "description": "The command that was run, as run (max 2000 UTF-16 code units).",
+            "allOf": [
+              {
+                "$ref": "../common.schema.json#/$defs/nonblank"
+              },
+              {
+                "maxLength": 2000
+              }
+            ]
+          },
+          "exitCode": {
+            "description": "Its exit code; 0 is passing.",
+            "type": "integer",
+            "minimum": -2147483648,
+            "maximum": 2147483647
+          },
+          "output": {
+            "description": "The command output; only its sha256 is stored. Exclusive with outputDigest.",
+            "type": "string"
+          },
+          "outputDigest": {
+            "description": "sha256 of the output, when the output itself is not passed.",
+            "$ref": "../common.schema.json#/$defs/hash"
+          },
+          "summary": {
+            "description": "One-line result summary (max 500).",
+            "type": "string",
+            "maxLength": 500
+          },
+          "scope": {
+            "description": "Project-relative paths the evidence covers; it goes stale only when one of them changes (default: the whole project tree outside .opencode/workplan).",
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "type": "string"
+            }
+          },
+          "lane": {
+            "description": "Active lane whose checkout the command ran in; while the lane is active the record is compared with that checkout, afterwards with the project tree.",
+            "$ref": "../common.schema.json#/$defs/nonblank"
+          }
+        },
+        "required": [
+          "phaseId",
+          "stepId",
+          "command",
+          "exitCode"
+        ],
+        "additionalProperties": false,
+        "not": {
+          "required": [
+            "output",
+            "outputDigest"
+          ]
+        }
+      }
+    },
+    "lanes": {
+      "description": "Worktree lane operations (spec 06 X3), applied in order to <id>.lanes.json: propose a lane for steps with path claims (overlapping claims of active lanes are refused), move it through claimed → prepared → running → review → integrating → merged (or abandoned), or change its claims. Shiori records and checks lanes; it never creates, merges or removes worktrees. An update with only lanes (and recordEvidence) leaves planHash/stateHash unchanged.",
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string",
+            "enum": [
+              "propose",
+              "transition",
+              "claims"
+            ]
+          },
+          "laneId": {
+            "description": "Lowercase [a-z0-9-] lane id, at most 64; never reused.",
+            "$ref": "../common.schema.json#/$defs/nonblank"
+          },
+          "steps": {
+            "description": "propose: the steps the lane owns (each in at most one active lane).",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "../common.schema.json#/$defs/stepRef"
+            }
+          },
+          "claims": {
+            "description": "propose: project-relative paths the lane owns (a path claims everything under it).",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "state": {
+            "description": "transition: the next state.",
+            "type": "string",
+            "enum": [
+              "claimed",
+              "prepared",
+              "running",
+              "review",
+              "integrating",
+              "merged",
+              "abandoned"
+            ]
+          },
+          "checkout": {
+            "description": "transition to prepared: the lane's existing worktree of this repository, outside the project root (omit for a lane sharing the parent checkout).",
+            "type": "object",
+            "properties": {
+              "path": {
+                "$ref": "../common.schema.json#/$defs/nonblank"
+              },
+              "branch": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "add": {
+            "description": "claims: paths to claim.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "remove": {
+            "description": "claims: paths to release.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "op",
+          "laneId"
+        ],
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "op": {
+                  "const": "propose"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "steps"
+              ],
+              "propertyNames": {
+                "enum": [
+                  "op",
+                  "laneId",
+                  "steps",
+                  "claims"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "op": {
+                  "const": "transition"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "state"
+              ],
+              "propertyNames": {
+                "enum": [
+                  "op",
+                  "laneId",
+                  "state",
+                  "checkout"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "op": {
+                  "const": "claims"
+                }
+              }
+            },
+            "then": {
+              "anyOf": [
+                {
+                  "required": [
+                    "add"
+                  ]
+                },
+                {
+                  "required": [
+                    "remove"
+                  ]
+                }
+              ],
+              "propertyNames": {
+                "enum": [
+                  "op",
+                  "laneId",
+                  "add",
+                  "remove"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    "planLinks": {
+      "description": "X5 (contracts §26): links to other plans, replacing the stored list; written to <id>.links.json.",
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "properties": {
+          "planId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "enum": [
+              "blocks",
+              "blockedBy",
+              "related"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "planId",
+          "relation"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "required": [
+        "expectedHash"
+      ]
+    },
+    {
+      "if": {
+        "required": [
+          "recovery"
+        ]
+      },
+      "then": {
+        "propertyNames": {
+          "enum": [
+            "id",
+            "expectedHash",
+            "recovery"
+          ]
+        }
+      }
+    }
+  ],
+  "x-shiori-mutating": true,
+  "x-shiori-rules": [
+    {
+      "when": "always (native)",
+      "path": "expectedHash",
+      "native": "Native existing-state writes require the current stateHash — pass expectedHash set to the stateHash from your last successful write, or re-read with workplan_resume or workplan_inspect first"
+    },
+    {
+      "when": "recovery set and any key other than id/expectedHash/recovery has a non-undefined value (native counts replaceMarkdown, even false); core excludes workspaceRoot and replaceMarkdown=false",
+      "path": "recovery",
+      "native": "recovery is mutually exclusive with ordinary update fields",
+      "core": "recovery is mutually exclusive with ordinary update fields"
+    },
+    {
+      "when": "a recordEvidence item has both output and outputDigest",
+      "path": "recordEvidence.<i>.output",
+      "native": "output and outputDigest are mutually exclusive; pass the output text or its sha256",
+      "core": "output and outputDigest are mutually exclusive; pass the output text or its sha256"
+    },
+    {
+      "when": "a recordEvidence step or scope does not resolve (engine)",
+      "path": "recordEvidence",
+      "native": "Phase not found / Step not found in phase <phaseId>: <stepId>; scope paths must be inside the workspace root and outside .opencode/workplan"
+    },
+    {
+      "when": "a lanes operation (engine)",
+      "path": "lanes.<i>",
+      "native": "Invalid lanes input: lanes.<i>: <reason> (unknown or reused lane, step owned by another active lane, overlapping claim, illegal transition, checkout missing, nested in the root, of another repository or on another branch)"
+    }
+  ],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key. The allOf conditions are native-surface rules; the core surface keeps expectedHash optional for legacy direct calls (a concurrent change must still be detected), and uses the 'core' messages in x-shiori-rules.",
+  "x-shiori-nested-unknown-keys": "strip"
+}

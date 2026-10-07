@@ -1,0 +1,45 @@
+{
+  "id": "mutations/update-recovery-rollback",
+  "fixture": "pending-journal",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "tx-plan",
+      "recovery": "rollback"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 324,
+    "rawOutputUtf8Bytes": 324,
+    "outputSha256": "e383578f17dcdba4f1d12c8987357ebe15ee1a52b33459bbaddc12547f82fd1b",
+    "output": {
+      "recovered": true,
+      "recovery": "rollback",
+      "id": "tx-plan",
+      "transactionId": "a08965ef-0c39-4702-ab24-15f3ca4ad0e8",
+      "planHash": "a4a4929f70440b86505a9f176a816c7ed93b05e84207a7a058eb1efa6eedb004",
+      "stateHash": "5b3f8d524f082acb358714252970d037685678d66061ff7279d5e4447fb4eee0",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/tx-plan.json": {
+      "sha256": "46034de4e42f28ec7a15f0e2e28f2e13b2ca6b750e4ae7eec95662557637b0e7",
+      "bytes": 660,
+      "file": "mutations/update-recovery-rollback.after/.opencode/workplan/tx-plan.json"
+    },
+    ".opencode/workplan/tx-plan.transaction.json": {
+      "deleted": true
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

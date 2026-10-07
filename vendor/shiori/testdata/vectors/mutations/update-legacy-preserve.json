@@ -1,0 +1,62 @@
+{
+  "id": "mutations/update-legacy-preserve",
+  "fixture": "legacy-fields",
+  "generationRoot": "/private/tmp/shiori-fx/run/legacy-fields",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "legacy-plan",
+      "appendNotes": [
+        "touch"
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 748,
+    "rawOutputUtf8Bytes": 748,
+    "outputSha256": "d58edc2c72face0140919f4a907e06a4d784f7ffddf8c16b17e49fe98cf93c08",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/legacy-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/legacy-plan.md",
+      "workplan": {
+        "id": "legacy-plan",
+        "kind": "general",
+        "title": "Legacy plan",
+        "goal": "Keep legacy shape",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/legacy-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 1,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "7cab7bf9dab02614da32b40978a5fdffa353d5661bb3f03014a7f6bd748590f8",
+      "stateHash": "a542de54902fa65f8f239b84144dcf683eb693507512aaf58235d544da314570",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/legacy-plan.json": {
+      "sha256": "371151443bcd970083ef15b7e0ba1555dedd1eea91c4b36a25ba40e947e67a1d",
+      "bytes": 1205,
+      "file": "mutations/update-legacy-preserve.after/.opencode/workplan/legacy-plan.json"
+    },
+    ".opencode/workplan/legacy-plan.md": {
+      "sha256": "03784282da66e5cd8ee9df23a95303199b8b8eb87d6ce1b546b27ac50644287f",
+      "bytes": 576,
+      "file": "mutations/update-legacy-preserve.after/.opencode/workplan/legacy-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true,
+  "note": "Unrelated write on a legacy document: shows which unknown fields/number spellings/duplicate keys survive."
+}

@@ -1,0 +1,56 @@
+{
+  "id": "mutations/update-duplicate-unrelated-field",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "dup-plan",
+      "appendNotes": [
+        "unrelated"
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 715,
+    "rawOutputUtf8Bytes": 715,
+    "outputSha256": "130cc1d27d4ff002e9446dc6ee52dcc1e2c4b39617cce9af57fd378e3e3ac3f7",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/dup-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/dup-plan.md",
+      "workplan": {
+        "id": "dup-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/dup-plan.md",
+        "phaseCount": 2,
+        "stepCount": 3,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "12cf0f4b35f1c13b3e61e1ebec9ffd3e6c84129ba9d720aff57d30fc92d2a32d",
+      "stateHash": "a79b55a3bf11bc729214587ae2670999721e7dbb91886172a0ce28454da55c80",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/dup-plan.json": {
+      "sha256": "df47729ac6fa8976323dddfbe2aa12045d08c10b82d4fbd3166bab08c973149d",
+      "bytes": 1205,
+      "file": "mutations/update-duplicate-unrelated-field.after/.opencode/workplan/dup-plan.json"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

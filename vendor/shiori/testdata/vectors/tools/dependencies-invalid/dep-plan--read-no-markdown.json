@@ -1,0 +1,159 @@
+{
+  "id": "tools/dependencies-invalid/dep-plan--read-no-markdown",
+  "fixture": "dependencies-invalid",
+  "generationRoot": "/private/tmp/shiori-fx/run/dependencies-invalid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "dep-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3126,
+    "rawOutputUtf8Bytes": 3126,
+    "outputSha256": "2338b6adcfab8261c892ae17005dc926a936b5253c65fa1c9e62df30f281a28e",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/dep-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "dep-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/dep-plan.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s1",
+                "title": "S1",
+                "action": "Do S1",
+                "validation": "Check S1",
+                "status": "draft"
+              },
+              {
+                "id": "s2",
+                "title": "S2",
+                "action": "Do S2",
+                "validation": "Check S2",
+                "status": "draft"
+              },
+              {
+                "id": "s3",
+                "title": "S3",
+                "action": "Do S3",
+                "validation": "Check S3",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s1",
+                "title": "S1",
+                "action": "Do S1",
+                "validation": "Check S1",
+                "status": "draft"
+              },
+              {
+                "id": "s2",
+                "title": "S2",
+                "action": "Do S2",
+                "validation": "Check S2",
+                "status": "draft"
+              },
+              {
+                "id": "s3",
+                "title": "S3",
+                "action": "Do S3",
+                "validation": "Check S3",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/dep-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": true,
+        "dependencies": [
+          {
+            "phaseId": "p",
+            "stepId": "s1",
+            "dependsOn": [
+              {
+                "phaseId": "p",
+                "stepId": "s2"
+              }
+            ]
+          },
+          {
+            "phaseId": "p",
+            "stepId": "s2",
+            "dependsOn": [
+              {
+                "phaseId": "p",
+                "stepId": "s1"
+              }
+            ]
+          },
+          {
+            "phaseId": "p",
+            "stepId": "s3",
+            "dependsOn": [
+              {
+                "phaseId": "p",
+                "stepId": "s3"
+              },
+              {
+                "phaseId": "ghost",
+                "stepId": "x"
+              }
+            ]
+          }
+        ],
+        "terminalSummaries": [],
+        "issues": [
+          "dependencies.2.dependsOn.1: Step ghost/x does not exist",
+          "dependencies: Cycle detected: p/s1 -> p/s2 -> p/s1",
+          "dependencies: Cycle detected: p/s3 -> p/s3"
+        ]
+      },
+      "planHash": "0ef4dc8f307c3e09b380557a91a171504701eb911e71edfa7bd00d9fb302b9c5",
+      "stateHash": "32c4a6acb874a97780354ff9a625ca8c3fa8a6eb35d3d5cc1cd2ff151643f796"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

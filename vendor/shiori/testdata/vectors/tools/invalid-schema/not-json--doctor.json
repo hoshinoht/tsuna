@@ -1,0 +1,76 @@
+{
+  "id": "tools/invalid-schema/not-json--doctor",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "not-json"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1343,
+    "rawOutputUtf8Bytes": 1343,
+    "outputSha256": "ff959322c907b1c63525cf740e4cc47f15861d94b4fe0c43e3f92c10989d04da",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 4,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "not-json",
+          "valid": false,
+          "issues": [
+            "Invalid workplan JSON at $ROOT/.opencode/workplan/not-json.json: JSON Parse error: Property name must be a string literal"
+          ],
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

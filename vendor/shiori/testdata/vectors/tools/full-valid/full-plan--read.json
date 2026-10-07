@@ -1,0 +1,254 @@
+{
+  "id": "tools/full-valid/full-plan--read",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "full-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 6906,
+    "rawOutputUtf8Bytes": 6910,
+    "outputSha256": "8ee5023878f27f8e32c4bb044d146525a2928b5152cd8117641054b6b2eaa58c",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "scope": [
+          "core",
+          "adapter"
+        ],
+        "nonGoals": [
+          "worktrees"
+        ],
+        "constraints": [
+          "no automatic migration"
+        ],
+        "relevantFiles": [
+          "src/a.ts",
+          "src/b.ts"
+        ],
+        "planFile": ".opencode/workplan/full-plan.md",
+        "specFiles": [
+          "docs/spec-a.md",
+          "docs/nested/spec-b.md"
+        ],
+        "phases": [
+          {
+            "id": "phase-a",
+            "title": "Phase A",
+            "status": "completed",
+            "steps": [
+              {
+                "id": "step-a1",
+                "title": "A1",
+                "target": "src/a.ts",
+                "action": "Do A1",
+                "validation": "Check A1",
+                "status": "completed"
+              },
+              {
+                "id": "step-a2",
+                "title": "A2",
+                "action": "Do A2",
+                "validation": "Check A2",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "id": "phase-b",
+            "title": "Phase B",
+            "status": "in_progress",
+            "steps": [
+              {
+                "id": "step-b1",
+                "title": "B1",
+                "action": "Do B1",
+                "validation": "Check B1",
+                "status": "in_progress"
+              },
+              {
+                "id": "step-b2",
+                "title": "B2",
+                "action": "Do B2",
+                "validation": "Check B2",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-c",
+            "title": "Phase C",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-c1",
+                "title": "C1",
+                "action": "Do C1",
+                "validation": "Check C1",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [
+          {
+            "severity": "blocker",
+            "title": "Blocker finding",
+            "detail": "why",
+            "source": "a.ts:1",
+            "status": "open"
+          },
+          {
+            "severity": "critical",
+            "title": "Critical finding",
+            "status": "resolved"
+          },
+          {
+            "severity": "major",
+            "title": "Major finding",
+            "detail": "d",
+            "status": "open"
+          },
+          {
+            "severity": "minor",
+            "title": "Minor finding",
+            "source": "b.ts:2",
+            "status": "open"
+          },
+          {
+            "severity": "note",
+            "title": "Note finding",
+            "status": "open"
+          },
+          {
+            "severity": "question",
+            "title": "Question finding",
+            "status": "open"
+          }
+        ],
+        "notes": [
+          "first note",
+          "second note"
+        ],
+        "status": "in_progress",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-a",
+            "title": "Phase A",
+            "status": "completed",
+            "steps": [
+              {
+                "id": "step-a1",
+                "title": "A1",
+                "target": "src/a.ts",
+                "action": "Do A1",
+                "validation": "Check A1",
+                "status": "completed"
+              },
+              {
+                "id": "step-a2",
+                "title": "A2",
+                "action": "Do A2",
+                "validation": "Check A2",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "id": "phase-b",
+            "title": "Phase B",
+            "status": "in_progress",
+            "steps": [
+              {
+                "id": "step-b1",
+                "title": "B1",
+                "action": "Do B1",
+                "validation": "Check B1",
+                "status": "in_progress"
+              },
+              {
+                "id": "step-b2",
+                "title": "B2",
+                "action": "Do B2",
+                "validation": "Check B2",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-c",
+            "title": "Phase C",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-c1",
+                "title": "C1",
+                "action": "Do C1",
+                "validation": "Check C1",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/full-plan.md",
+        "exists": true,
+        "content": "# Full plan\n\n## Goal\nExercise every known field\n\n## Scope\n- core\n- adapter\n\n## Non-goals\n- worktrees\n\n## Constraints\n- no automatic migration\n\n## Relevant files\n- src/a.ts\n- src/b.ts\n\n## Spec files\n- docs/spec-a.md\n- docs/nested/spec-b.md\n\n## Execution phases\n### 1. Phase A <!-- workplan-phase-id: phase-a -->\n- Status: completed\n- Id: phase-a\n#### 1.1 A1 <!-- workplan-step-id: step-a1 -->\n- Status: completed\n- Id: step-a1\n- Target: src/a.ts\n- Action: Do A1\n- Validation: Check A1\n#### 1.2 A2 <!-- workplan-step-id: step-a2 -->\n- Status: completed\n- Id: step-a2\n- Action: Do A2\n- Validation: Check A2\n\n### 2. Phase B <!-- workplan-phase-id: phase-b -->\n- Status: in_progress\n- Id: phase-b\n#### 2.1 B1 <!-- workplan-step-id: step-b1 -->\n- Status: in_progress\n- Id: step-b1\n- Action: Do B1\n- Validation: Check B1\n#### 2.2 B2 <!-- workplan-step-id: step-b2 -->\n- Status: draft\n- Id: step-b2\n- Action: Do B2\n- Validation: Check B2\n\n### 3. Phase C <!-- workplan-phase-id: phase-c -->\n- Status: draft\n- Id: phase-c\n#### 3.1 C1 <!-- workplan-step-id: step-c1 -->\n- Status: draft\n- Id: step-c1\n- Action: Do C1\n- Validation: Check C1\n\n## Adversarial review findings\n- [blocker] Blocker finding(open)— why [source: a.ts:1]\n- [critical] Critical finding(resolved)\n- [major] Major finding(open)— d\n- [minor] Minor finding(open) [source: b.ts:2]\n- [note] Note finding(open)\n- [question] Question finding(open)\n\n## Notes\n- first note\n- second note\n\n## Status\n- Overall status: in_progress\n- Metadata file: .opencode/workplan/full-plan.json\n- Detailed plan file: .opencode/workplan/full-plan.md\n"
+      },
+      "dependencies": {
+        "recorded": true,
+        "dependencies": [
+          {
+            "phaseId": "phase-b",
+            "stepId": "step-b2",
+            "dependsOn": [
+              {
+                "phaseId": "phase-b",
+                "stepId": "step-b1"
+              },
+              {
+                "phaseId": "phase-a",
+                "stepId": "step-a2"
+              }
+            ]
+          },
+          {
+            "phaseId": "phase-c",
+            "stepId": "step-c1",
+            "dependsOn": [
+              {
+                "phaseId": "phase-b",
+                "stepId": "step-b2"
+              }
+            ]
+          }
+        ],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

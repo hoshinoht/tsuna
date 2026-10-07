@@ -1,0 +1,50 @@
+{
+  "id": "tools/dependencies-invalid/dep-plan--validate",
+  "fixture": "dependencies-invalid",
+  "generationRoot": "/private/tmp/shiori-fx/run/dependencies-invalid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "dep-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 989,
+    "rawOutputUtf8Bytes": 989,
+    "outputSha256": "e8b0d7bf608f7ab8a6ce0e55e120ffb9c1259ee81af2e6c2a512edba7faa6cb7",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/dep-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/dep-plan.md",
+      "valid": false,
+      "issueCount": 3,
+      "issues": [
+        "dependencies: dependencies.2.dependsOn.1: Step ghost/x does not exist",
+        "dependencies: dependencies: Cycle detected: p/s1 -> p/s2 -> p/s1",
+        "dependencies: dependencies: Cycle detected: p/s3 -> p/s3"
+      ],
+      "workplan": {
+        "id": "dep-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/dep-plan.md",
+        "phaseCount": 1,
+        "stepCount": 3,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "0ef4dc8f307c3e09b380557a91a171504701eb911e71edfa7bd00d9fb302b9c5",
+      "stateHash": "32c4a6acb874a97780354ff9a625ca8c3fa8a6eb35d3d5cc1cd2ff151643f796",
+      "planFresh": true,
+      "dependenciesRecorded": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

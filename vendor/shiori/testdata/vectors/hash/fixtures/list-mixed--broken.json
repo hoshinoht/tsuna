@@ -1,0 +1,9 @@
+{
+  "id": "hash/fixtures/list-mixed--broken",
+  "fixture": "list-mixed",
+  "planId": "broken",
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan JSON at $ROOT/.opencode/workplan/broken.json: JSON Parse error: Expected '}'"
+  }
+}

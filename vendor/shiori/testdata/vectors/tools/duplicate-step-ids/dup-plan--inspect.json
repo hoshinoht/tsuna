@@ -1,0 +1,20 @@
+{
+  "id": "tools/duplicate-step-ids/dup-plan--inspect",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "dup-plan"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan dup-plan has duplicate step id in phase phase-anchor: step-dup. Migrate ids before targeted inspect or update calls."
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

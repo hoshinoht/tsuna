@@ -1,0 +1,9 @@
+{
+  "id": "hash/fixtures/invalid-schema--wrong-version",
+  "fixture": "invalid-schema",
+  "planId": "wrong-version",
+  "expect": {
+    "kind": "error",
+    "message": "schemaVersion: Invalid input: expected 2"
+  }
+}

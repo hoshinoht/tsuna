@@ -1,0 +1,17 @@
+{
+  "id": "validation/input/compact_preview--ok",
+  "tool": "workplan_compact_preview",
+  "input": {
+    "id": "x",
+    "archiveReason": "r"
+  },
+  "expect": {
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "archiveReason": "r"
+      }
+    }
+  }
+}

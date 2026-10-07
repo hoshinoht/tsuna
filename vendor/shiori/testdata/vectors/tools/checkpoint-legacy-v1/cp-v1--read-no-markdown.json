@@ -1,0 +1,92 @@
+{
+  "id": "tools/checkpoint-legacy-v1/cp-v1--read-no-markdown",
+  "fixture": "checkpoint-legacy-v1",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-legacy-v1",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "cp-v1",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1608,
+    "rawOutputUtf8Bytes": 1608,
+    "outputSha256": "55c6e0e397ab236aef9f17ca12561a7e77fef3c1333897f7882ed6bcf9d3a405",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-v1.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "cp-v1",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/cp-v1.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/cp-v1.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "39e8e85b836ea1fd5255c41ad92bbe82210a2ef9402421bc59e2715dc840c833",
+      "stateHash": "04f896b4212d0eab5c856851a38819a1397991885be293944973920b4772d8a0"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

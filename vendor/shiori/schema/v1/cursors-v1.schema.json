@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/cursors-v1.schema.json",
+  "title": "Pagination cursor payloads, version 1",
+  "description": "Opaque cursor tokens are unpadded base64url of the compact JSON payload (keys in the order listed). checksum = lowercase hex SHA-256 of '<domain>\\n' + compact JSON of the payload WITHOUT checksum, keys in the same order. Domains: 'workplan-inspect-cursor-v1', 'workplan-resume-cursor-v1'. A cursor is bound to stateHash and options; it is not authority.",
+  "$defs": {
+    "inspect": {
+      "type": "object",
+      "properties": {
+        "version": { "const": 1 },
+        "stateHash": { "$ref": "common.schema.json#/$defs/hash" },
+        "phaseId": { "type": ["string", "null"] },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 500 },
+        "offset": { "type": "integer", "minimum": 0 },
+        "checksum": { "$ref": "common.schema.json#/$defs/hash" }
+      },
+      "required": ["version", "stateHash", "phaseId", "limit", "offset", "checksum"],
+      "x-shiori-key-order": ["version", "stateHash", "phaseId", "limit", "offset", "checksum"],
+      "x-shiori-errors": {
+        "undecodable": "Invalid workplan inspect cursor; restart without a cursor",
+        "mismatch": "Stale or option-mismatched workplan inspect cursor; restart from the first page"
+      }
+    },
+    "resume": {
+      "type": "object",
+      "properties": {
+        "version": { "const": 1 },
+        "stateHash": { "$ref": "common.schema.json#/$defs/hash" },
+        "maxChars": { "type": "integer", "minimum": 4096, "maximum": 64000 },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 100 },
+        "phaseId": { "type": ["string", "null"] },
+        "stepId": { "type": ["string", "null"] },
+        "offset": { "type": "integer", "minimum": 0 },
+        "checksum": { "$ref": "common.schema.json#/$defs/hash" }
+      },
+      "required": ["version", "stateHash", "maxChars", "limit", "phaseId", "stepId", "offset", "checksum"],
+      "x-shiori-key-order": ["version", "stateHash", "maxChars", "limit", "phaseId", "stepId", "offset", "checksum"],
+      "x-shiori-errors": {
+        "undecodable": "Invalid workplan resume cursor; restart without a cursor",
+        "mismatch": "Stale or option-mismatched workplan resume cursor; restart from the first page"
+      }
+    }
+  }
+}

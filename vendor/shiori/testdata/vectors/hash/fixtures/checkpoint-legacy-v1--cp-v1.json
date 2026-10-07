@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/checkpoint-legacy-v1--cp-v1",
+  "fixture": "checkpoint-legacy-v1",
+  "planId": "cp-v1",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/cp-v1.json",
+        "sha256": "9abdca039a85ff29549191bdce7a75745799ded72240655aaaa0fbe54cd89aba"
+      },
+      {
+        "path": ".opencode/workplan/cp-v1.md",
+        "sha256": "18f8746fdb8b91564d729d53e75e558f08d28733fa0b479d9f67247b506e72d3"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/cp-v1.checkpoint.json",
+        "sha256": "09bd2f2da3583cf4258947ed1b8d53af23e30eb7b1725e2cd83ef546d1577d0d"
+      },
+      {
+        "path": ".opencode/workplan/cp-v1.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/cp-v1.json",
+        "sha256": "9abdca039a85ff29549191bdce7a75745799ded72240655aaaa0fbe54cd89aba"
+      },
+      {
+        "path": ".opencode/workplan/cp-v1.md",
+        "sha256": "18f8746fdb8b91564d729d53e75e558f08d28733fa0b479d9f67247b506e72d3"
+      },
+      {
+        "path": ".opencode/workplan/cp-v1.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "39e8e85b836ea1fd5255c41ad92bbe82210a2ef9402421bc59e2715dc840c833",
+    "stateHash": "04f896b4212d0eab5c856851a38819a1397991885be293944973920b4772d8a0",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/cp-v1.md",
+    "normalizedSpecFiles": []
+  }
+}

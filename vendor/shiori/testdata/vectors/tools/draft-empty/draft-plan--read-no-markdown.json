@@ -1,0 +1,62 @@
+{
+  "id": "tools/draft-empty/draft-plan--read-no-markdown",
+  "fixture": "draft-empty",
+  "generationRoot": "/private/tmp/shiori-fx/run/draft-empty",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "draft-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1033,
+    "rawOutputUtf8Bytes": 1033,
+    "outputSha256": "fc581630420c13dc70cdfebe743ecc757809db7aec0290404b47f7d7f2f84567",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/draft-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "draft-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/draft-plan.md",
+        "specFiles": [],
+        "phases": [],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": []
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/draft-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "6e7fa477ae060d8e7f57b5e0eb32895ccedc76c857346df02cfdfddc52e6aac4",
+      "stateHash": "4b7e2c88a6740f190a36e9d0a19c21953e3e5d450198161f73bc98a9a32059fa"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

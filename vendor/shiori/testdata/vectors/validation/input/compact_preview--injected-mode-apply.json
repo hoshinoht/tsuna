@@ -1,0 +1,15 @@
+{
+  "id": "validation/input/compact_preview--injected-mode-apply",
+  "tool": "workplan_compact_preview",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "mode": "apply"
+  },
+  "expect": {
+    "native": {
+      "ok": false,
+      "message": "Invalid compact_preview input: $: Unrecognized key: \"mode\""
+    }
+  }
+}

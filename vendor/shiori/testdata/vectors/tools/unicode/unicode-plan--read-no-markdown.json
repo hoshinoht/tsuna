@@ -1,0 +1,123 @@
+{
+  "id": "tools/unicode/unicode-plan--read-no-markdown",
+  "fixture": "unicode",
+  "generationRoot": "/private/tmp/shiori-fx/run/unicode",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "unicode-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2519,
+    "rawOutputUtf8Bytes": 2561,
+    "outputSha256": "2c71ae5cf5fbb8871ab2879a750ce4af3b1892ded951ff5eeef325551923d5ce",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/unicode-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "unicode-plan",
+        "kind": "general",
+        "title": "Unicode 😀 \"quoted\" \\ back <b>&amp;   sep",
+        "goal": "Tab\there, bell\u0007, nul-free",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/unicode-plan.md",
+        "specFiles": [
+          "docs/Ａ-spec.md",
+          "docs/𝒜-spec.md",
+          "docs/café.md",
+          "docs/quote\"back\\slash.md",
+          "docs/lt<gt>amp&.md"
+        ],
+        "phases": [
+          {
+            "id": "phase-x",
+            "title": "𝒜 phase",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-t",
+                "title": "Été step",
+                "action": "Do Été step",
+                "validation": "Check Été step",
+                "status": "draft"
+              },
+              {
+                "id": "step-2",
+                "title": "Emoji 😀",
+                "action": "Do Emoji 😀",
+                "validation": "Check Emoji 😀",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [
+          {
+            "severity": "major",
+            "title": "𝒜𝒜",
+            "detail": "para",
+            "source": "café.ts:1",
+            "status": "open"
+          }
+        ],
+        "notes": [
+          "line1\r\nline2",
+          "\u0000-free but \u001f unit-sep"
+        ],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-x",
+            "title": "𝒜 phase",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-t",
+                "title": "Été step",
+                "action": "Do Été step",
+                "validation": "Check Été step",
+                "status": "draft"
+              },
+              {
+                "id": "step-2",
+                "title": "Emoji 😀",
+                "action": "Do Emoji 😀",
+                "validation": "Check Emoji 😀",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/unicode-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "07eb486279853e18d7cad3c7648616998b0417a66be5d6eb1cab49fa7ce6330d",
+      "stateHash": "02d4d08f453032dc946ee42b6c111c26f703844975ccb1948affe8308faac809"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

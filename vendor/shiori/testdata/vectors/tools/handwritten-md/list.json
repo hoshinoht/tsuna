@@ -1,0 +1,48 @@
+{
+  "id": "tools/handwritten-md/list",
+  "fixture": "handwritten-md",
+  "generationRoot": "/private/tmp/shiori-fx/run/handwritten-md",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 826,
+    "rawOutputUtf8Bytes": 826,
+    "outputSha256": "e80069f5728d4e9dc70c7a0976407452ae6116b81cce145face24c7906dd32e8",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 1,
+      "workplans": [
+        {
+          "valid": false,
+          "issues": [
+            "Linked spec is empty: docs/blank.md"
+          ],
+          "id": "hand-plan",
+          "kind": "general",
+          "title": null,
+          "goal": "g",
+          "status": "draft",
+          "planFile": ".opencode/workplan/hand-plan.md",
+          "phaseCount": 1,
+          "stepCount": 1,
+          "specFileCount": 1,
+          "openFindingCount": 0,
+          "updatedAt": "2026-01-02T03:04:05.000Z",
+          "planHash": "e508db25d90af5bd1ba8ef173f88c45fe815375182d301ac3e351c856061caf6",
+          "stateHash": "a1609cec33723534f8b31d2a5daafb245dcfadd87b55bd5b01a011a58c23f6d5",
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": []
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

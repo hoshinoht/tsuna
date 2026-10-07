@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/legacy-fields--legacy-plan",
+  "fixture": "legacy-fields",
+  "planId": "legacy-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/legacy-plan.json",
+        "sha256": "f94d3f39ae93046d6a25bd2c9ad64beb00b569a15dd10718c6641cd53e482d9a"
+      },
+      {
+        "path": ".opencode/workplan/legacy-plan.md",
+        "sha256": "c9aa648823ae3a76602f3791dd1ae30089dfa57febcf2836b913be1a704fae0c"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/legacy-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/legacy-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/legacy-plan.json",
+        "sha256": "f94d3f39ae93046d6a25bd2c9ad64beb00b569a15dd10718c6641cd53e482d9a"
+      },
+      {
+        "path": ".opencode/workplan/legacy-plan.md",
+        "sha256": "c9aa648823ae3a76602f3791dd1ae30089dfa57febcf2836b913be1a704fae0c"
+      },
+      {
+        "path": ".opencode/workplan/legacy-plan.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "b514987272fb628fc4f635dfbcc351652bab6776ce0ac7f5ae598b591ce45134",
+    "stateHash": "0606a6d3060f96323697bae97d8900fefb5638f97b68c01f00e7ada2e567cb2a",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": false,
+    "normalizedPlanFile": ".opencode/workplan/legacy-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

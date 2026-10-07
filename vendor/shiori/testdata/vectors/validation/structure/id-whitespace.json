@@ -1,0 +1,47 @@
+{
+  "id": "validation/structure/id-whitespace",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2,
+      "id": "   ",
+      "kind": "general",
+      "title": null,
+      "goal": "Ship the minimal plan",
+      "scope": [],
+      "nonGoals": [],
+      "constraints": [],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/minimal.md",
+      "specFiles": [],
+      "phases": [
+        {
+          "id": "phase-one",
+          "title": "Phase one",
+          "status": "draft",
+          "steps": [
+            {
+              "id": "step-one",
+              "title": "Step one",
+              "action": "Do Step one",
+              "validation": "Check Step one",
+              "status": "draft"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [],
+      "notes": [],
+      "status": "draft",
+      "createdAt": "2026-01-02T03:04:05.000Z",
+      "updatedAt": "2026-01-02T03:04:05.000Z"
+    },
+    "expectedId": null
+  },
+  "expect": {
+    "documentDecoded": true,
+    "issues": [
+      "id: Must not be empty"
+    ]
+  }
+}

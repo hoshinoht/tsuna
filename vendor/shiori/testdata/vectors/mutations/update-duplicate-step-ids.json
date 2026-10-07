@@ -1,0 +1,27 @@
+{
+  "id": "mutations/update-duplicate-step-ids",
+  "fixture": "invalid-structure",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-structure",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "broken-plan",
+      "updateSteps": [
+        {
+          "phaseId": "phase-x",
+          "stepId": "s1",
+          "action": "C"
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan id must contain at least one letter or number"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

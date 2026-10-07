@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/checkpoint--missing-nextAction",
+  "tool": "workplan_checkpoint",
+  "input": {
+    "id": "x",
+    "summary": "s",
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid checkpoint input: nextAction: Invalid input: expected string, received undefined"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid checkpoint input: nextAction: Invalid input: expected string, received undefined"
+    },
+    "nativeThenCore": null
+  }
+}

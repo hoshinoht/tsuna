@@ -1,0 +1,46 @@
+{
+  "id": "tools/minimal-valid/list",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 786,
+    "rawOutputUtf8Bytes": 786,
+    "outputSha256": "2e157c60b63387daecacbe1a2186b617a822d8849c2db4818b5386f9bb69a89b",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 1,
+      "workplans": [
+        {
+          "valid": true,
+          "issues": [],
+          "id": "minimal",
+          "kind": "general",
+          "title": null,
+          "goal": "Ship the minimal plan",
+          "status": "draft",
+          "planFile": ".opencode/workplan/minimal.md",
+          "phaseCount": 1,
+          "stepCount": 1,
+          "specFileCount": 0,
+          "openFindingCount": 0,
+          "updatedAt": "2026-01-02T03:04:05.000Z",
+          "planHash": "6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c",
+          "stateHash": "362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865",
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": []
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,46 @@
+{
+  "id": "tools/legacy-fields/legacy-plan--validate",
+  "fixture": "legacy-fields",
+  "generationRoot": "/private/tmp/shiori-fx/run/legacy-fields",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "legacy-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 803,
+    "rawOutputUtf8Bytes": 803,
+    "outputSha256": "56b56382f03782167e23a8440957478497d4d2facd5253ded555950271d97a9d",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/legacy-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/legacy-plan.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "legacy-plan",
+        "kind": "general",
+        "title": "Legacy plan",
+        "goal": "Keep legacy shape",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/legacy-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 1,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "b514987272fb628fc4f635dfbcc351652bab6776ce0ac7f5ae598b591ce45134",
+      "stateHash": "0606a6d3060f96323697bae97d8900fefb5638f97b68c01f00e7ada2e567cb2a",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

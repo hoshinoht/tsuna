@@ -1,0 +1,23 @@
+{
+  "id": "paging/resume-errors/tampered-offset",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "big-plan",
+      "maxChars": 4096,
+      "limit": 5,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwibWF4Q2hhcnMiOjQwOTYsImxpbWl0Ijo1LCJwaGFzZUlkIjpudWxsLCJzdGVwSWQiOm51bGwsIm9mZnNldCI6NiwiY2hlY2tzdW0iOiJjMjQ0NGU2ODBhNmM3MTc4OTA5YjYwNzUzMzMwNzlhZDFhMGFlMDA5NTRhYTk0NDgwZWIzZTdjNjgzODE3NTY4In0"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan resume cursor; restart without a cursor"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

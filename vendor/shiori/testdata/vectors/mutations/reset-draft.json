@@ -1,0 +1,59 @@
+{
+  "id": "mutations/reset-draft",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_reset",
+    "input": {
+      "id": "full-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 752,
+    "rawOutputUtf8Bytes": 752,
+    "outputSha256": "f994a83a1ba6694a6bf61603d6c74a4806b29f2f51f06f192c916f34c1d6918d",
+    "output": {
+      "reset": true,
+      "mode": "draft",
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/full-plan.md",
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "draft",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 0,
+        "stepCount": 0,
+        "specFileCount": 2,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "8a8bca25dfe9a5b1efb382f2fa494d3efa21e1bfd7b98acef62a8ac714c7b125",
+      "stateHash": "291f0e1368238a3aa2e2595761fd97b3c8c203a915efdc0311db417bb8489e21",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/full-plan.json": {
+      "sha256": "a838cc22200738b36036bba69534dfc66c5ab64115cd2048e328d6c72194c1f2",
+      "bytes": 605,
+      "file": "mutations/reset-draft.after/.opencode/workplan/full-plan.json"
+    },
+    ".opencode/workplan/full-plan.md": {
+      "sha256": "64aef2e9ecc3005e69de895fb6f6b42cc7c21da3b403a4390bddfb1f38a35fd2",
+      "bytes": 481,
+      "file": "mutations/reset-draft.after/.opencode/workplan/full-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

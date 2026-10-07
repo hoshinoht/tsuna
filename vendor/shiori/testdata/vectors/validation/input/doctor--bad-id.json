@@ -1,0 +1,18 @@
+{
+  "id": "validation/input/doctor--bad-id",
+  "tool": "workplan_doctor",
+  "input": {
+    "id": "!!"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid doctor input: id: Invalid string: must match pattern /[a-z0-9]/i"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid doctor input: id: Invalid string: must match pattern /[a-z0-9]/i"
+    },
+    "nativeThenCore": null
+  }
+}

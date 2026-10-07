@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "full-plan",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "dependencies": [
+    {
+      "phaseId": "phase-b",
+      "stepId": "step-b2",
+      "dependsOn": [
+        {
+          "phaseId": "phase-b",
+          "stepId": "step-b1"
+        },
+        {
+          "phaseId": "phase-a",
+          "stepId": "step-a2"
+        }
+      ]
+    },
+    {
+      "phaseId": "phase-c",
+      "stepId": "step-c1",
+      "dependsOn": [
+        {
+          "phaseId": "phase-b",
+          "stepId": "step-b2"
+        }
+      ]
+    }
+  ]
+}

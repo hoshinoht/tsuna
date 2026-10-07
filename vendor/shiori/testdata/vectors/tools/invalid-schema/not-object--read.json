@@ -1,0 +1,20 @@
+{
+  "id": "tools/invalid-schema/not-object--read",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "not-object"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "$: Invalid input: expected object, received array"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

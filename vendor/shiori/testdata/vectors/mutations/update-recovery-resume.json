@@ -1,0 +1,45 @@
+{
+  "id": "mutations/update-recovery-resume",
+  "fixture": "pending-journal",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "tx-plan",
+      "recovery": "resume"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 322,
+    "rawOutputUtf8Bytes": 322,
+    "outputSha256": "190133e21eb15ac04192960501cb25966ccdb202bc2d48d764b135c65dfd7b19",
+    "output": {
+      "recovered": true,
+      "recovery": "resume",
+      "id": "tx-plan",
+      "transactionId": "a08965ef-0c39-4702-ab24-15f3ca4ad0e8",
+      "planHash": "022e26b08c14db801d49c26e807a28bd5376f0654fcb47315fe77a04543f2af2",
+      "stateHash": "cc9bc05745dfeed94755755b78380e28d6bd57e27758b6bf1ef8369e0769100a",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/tx-plan.md": {
+      "sha256": "60ac62a534133e607e8b2157f3282eeef6c8491e3c7059581d08ce9c019d2180",
+      "bytes": 519,
+      "file": "mutations/update-recovery-resume.after/.opencode/workplan/tx-plan.md"
+    },
+    ".opencode/workplan/tx-plan.transaction.json": {
+      "deleted": true
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

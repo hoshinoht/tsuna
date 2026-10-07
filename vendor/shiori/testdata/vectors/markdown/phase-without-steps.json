@@ -1,0 +1,36 @@
+{
+  "id": "markdown/phase-without-steps",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [
+      {
+        "id": "phase-a",
+        "title": "A",
+        "status": "draft",
+        "steps": []
+      }
+    ],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/phase-without-steps.expected.md",
+    "sha256": "8917b8f92d09d7f84459cf0db8a9a7dfe3b9952ef820622d88ae6958e65a64a5",
+    "utf8Bytes": 439
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "id": "tools/checkpoint-corrupt/cp-bad--read-no-markdown",
+  "fixture": "checkpoint-corrupt",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-corrupt",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "cp-bad",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1731,
+    "rawOutputUtf8Bytes": 1731,
+    "outputSha256": "017414104e1ff9633ff4082caff7363ad77fbef0df1050a2de98061137a4a7bb",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-bad.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "cp-bad",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/cp-bad.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/cp-bad.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": true,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": [
+          "schemaVersion: Invalid input: expected 1",
+          "dependencies: Invalid input: expected array, received string"
+        ]
+      },
+      "planHash": "ecbbc450efd22409170fbb9b61c3225f4df7c247be7d02ec6f719fa17f4df83e",
+      "stateHash": "f9ce0338d1b6bbb9365c5a76b07c128b33aedf1831594bbae1640ca32c2d778f"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

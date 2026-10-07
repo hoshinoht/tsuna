@@ -1,0 +1,56 @@
+{
+  "id": "hash/fixtures/handwritten-md--hand-plan",
+  "fixture": "handwritten-md",
+  "planId": "hand-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/hand-plan.json",
+        "sha256": "d4af5cd0c195af789d8b25056ce72f9c027059c53bb51069dee656202fcc6a29"
+      },
+      {
+        "path": ".opencode/workplan/hand-plan.md",
+        "sha256": "79ee9ef8464b222d6015c4aec1318e8b40d1657464e77816e5c4d818b97e8e76"
+      },
+      {
+        "path": "docs/blank.md",
+        "sha256": "3ee42a8fa03e7fcdcb07efcd9194f20bfb64d15733407d6f90fccffd92df3666"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/hand-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/hand-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/hand-plan.json",
+        "sha256": "d4af5cd0c195af789d8b25056ce72f9c027059c53bb51069dee656202fcc6a29"
+      },
+      {
+        "path": ".opencode/workplan/hand-plan.md",
+        "sha256": "79ee9ef8464b222d6015c4aec1318e8b40d1657464e77816e5c4d818b97e8e76"
+      },
+      {
+        "path": ".opencode/workplan/hand-plan.transaction.json",
+        "missing": true
+      },
+      {
+        "path": "docs/blank.md",
+        "sha256": "3ee42a8fa03e7fcdcb07efcd9194f20bfb64d15733407d6f90fccffd92df3666"
+      }
+    ],
+    "planHash": "e508db25d90af5bd1ba8ef173f88c45fe815375182d301ac3e351c856061caf6",
+    "stateHash": "a1609cec33723534f8b31d2a5daafb245dcfadd87b55bd5b01a011a58c23f6d5",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/hand-plan.md",
+    "normalizedSpecFiles": [
+      "docs/blank.md"
+    ]
+  }
+}

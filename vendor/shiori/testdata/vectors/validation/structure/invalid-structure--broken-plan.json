@@ -1,0 +1,83 @@
+{
+  "id": "validation/structure/invalid-structure--broken-plan",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2,
+      "id": "broken-plan",
+      "kind": " ",
+      "title": null,
+      "goal": "Broken",
+      "scope": [],
+      "nonGoals": [],
+      "constraints": [],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/broken-plan.md",
+      "specFiles": [],
+      "phases": [
+        {
+          "id": "phase-x",
+          "title": "X",
+          "status": "draft",
+          "steps": [
+            {
+              "id": "s1",
+              "title": "S1",
+              "status": "draft"
+            },
+            {
+              "id": "s1",
+              "title": " ",
+              "action": "a",
+              "validation": " ",
+              "status": "draft"
+            }
+          ]
+        },
+        {
+          "id": "phase-x",
+          "title": "X again",
+          "status": "draft",
+          "steps": []
+        },
+        {
+          "id": "",
+          "title": "",
+          "status": "draft",
+          "steps": [
+            {
+              "id": "",
+              "title": "t",
+              "action": "a",
+              "validation": "v",
+              "status": "draft"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [],
+      "notes": [],
+      "status": "draft",
+      "createdAt": "yesterday",
+      "updatedAt": "2026-01-02T03:04:05Z"
+    },
+    "expectedId": "broken-plan"
+  },
+  "expect": {
+    "documentDecoded": true,
+    "issues": [
+      "kind: Must not be empty",
+      "createdAt: Invalid datetime",
+      "phases.0.steps.0.action: Required for executable workplans",
+      "phases.0.steps.0.validation: Required for executable workplans",
+      "phases.0.steps.1.id: Duplicate step id s1 in phase phase-x",
+      "phases.0.steps.1.title: Must not be empty",
+      "phases.0.steps.1.validation: Required for executable workplans",
+      "phases.1.id: Duplicate phase id phase-x",
+      "phases.1.steps: At least one step is required",
+      "phases.2.id: Must not be empty",
+      "phases.2.title: Must not be empty",
+      "phases.2.steps.0.id: Must not be empty"
+    ]
+  }
+}

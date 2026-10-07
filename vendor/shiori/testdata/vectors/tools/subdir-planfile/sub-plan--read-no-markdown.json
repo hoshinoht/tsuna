@@ -1,0 +1,94 @@
+{
+  "id": "tools/subdir-planfile/sub-plan--read-no-markdown",
+  "fixture": "subdir-planfile",
+  "generationRoot": "/private/tmp/shiori-fx/run/subdir-planfile",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "sub-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1652,
+    "rawOutputUtf8Bytes": 1652,
+    "outputSha256": "464de416425e476f9ab4eab14c47899fe011185b2fcf8030f575f5e28f93c241",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/sub-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "sub-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/sub/dir/sub-plan.md",
+        "specFiles": [
+          "docs/spec.md"
+        ],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/sub/dir/sub-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "d3d03ebd57b91b4e8d83d9d437842bbcf41f1de97de963c2dfb0db237a847909",
+      "stateHash": "90dacb9e345b6843533e59a2e03355c4c421298123d9d9ec974ade061063a684"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

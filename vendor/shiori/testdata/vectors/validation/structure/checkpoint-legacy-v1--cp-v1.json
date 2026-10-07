@@ -1,0 +1,45 @@
+{
+  "id": "validation/structure/checkpoint-legacy-v1--cp-v1",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2,
+      "id": "cp-v1",
+      "kind": "general",
+      "title": null,
+      "goal": "g",
+      "scope": [],
+      "nonGoals": [],
+      "constraints": [],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/cp-v1.md",
+      "specFiles": [],
+      "phases": [
+        {
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "steps": [
+            {
+              "id": "s",
+              "title": "S",
+              "action": "Do S",
+              "validation": "Check S",
+              "status": "draft"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [],
+      "notes": [],
+      "status": "draft",
+      "createdAt": "2026-01-02T03:04:05.000Z",
+      "updatedAt": "2026-01-02T03:04:05.000Z"
+    },
+    "expectedId": "cp-v1"
+  },
+  "expect": {
+    "documentDecoded": true,
+    "issues": []
+  }
+}

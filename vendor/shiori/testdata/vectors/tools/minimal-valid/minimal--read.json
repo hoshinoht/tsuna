@@ -1,0 +1,92 @@
+{
+  "id": "tools/minimal-valid/minimal--read",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "minimal"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2355,
+    "rawOutputUtf8Bytes": 2355,
+    "outputSha256": "4fca07afd6d944db82ac591757e5e8c49a94245d78e6da49edad6277e71b2102",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/minimal.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "minimal",
+        "kind": "general",
+        "title": null,
+        "goal": "Ship the minimal plan",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/minimal.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "phase-one",
+            "title": "Phase one",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-one",
+                "title": "Step one",
+                "action": "Do Step one",
+                "validation": "Check Step one",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-one",
+            "title": "Phase one",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-one",
+                "title": "Step one",
+                "action": "Do Step one",
+                "validation": "Check Step one",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/minimal.md",
+        "exists": true,
+        "content": "# minimal\n\n## Goal\nShip the minimal plan\n\n## Scope\n_None_\n\n## Non-goals\n_None_\n\n## Constraints\n_None_\n\n## Relevant files\n_None_\n\n## Spec files\n_None_\n\n## Execution phases\n### 1. Phase one <!-- workplan-phase-id: phase-one -->\n- Status: draft\n- Id: phase-one\n#### 1.1 Step one <!-- workplan-step-id: step-one -->\n- Status: draft\n- Id: step-one\n- Action: Do Step one\n- Validation: Check Step one\n\n## Adversarial review findings\n_None_\n\n## Notes\n_None_\n\n## Status\n- Overall status: draft\n- Metadata file: .opencode/workplan/minimal.json\n- Detailed plan file: .opencode/workplan/minimal.md\n"
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c",
+      "stateHash": "362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

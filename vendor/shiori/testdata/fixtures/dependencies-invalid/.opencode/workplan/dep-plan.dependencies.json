@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "dep-plan",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "dependencies": [
+    {
+      "phaseId": "p",
+      "stepId": "s1",
+      "dependsOn": [
+        {
+          "phaseId": "p",
+          "stepId": "s2"
+        }
+      ]
+    },
+    {
+      "phaseId": "p",
+      "stepId": "s2",
+      "dependsOn": [
+        {
+          "phaseId": "p",
+          "stepId": "s1"
+        }
+      ]
+    },
+    {
+      "phaseId": "p",
+      "stepId": "s3",
+      "dependsOn": [
+        {
+          "phaseId": "p",
+          "stepId": "s3"
+        },
+        {
+          "phaseId": "ghost",
+          "stepId": "x"
+        }
+      ]
+    }
+  ]
+}

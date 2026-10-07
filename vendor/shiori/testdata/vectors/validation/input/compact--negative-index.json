@@ -1,0 +1,22 @@
+{
+  "id": "validation/input/compact--negative-index",
+  "tool": "workplan_compact",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "noteIndexes": [
+      -1
+    ]
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid compact input: noteIndexes.0: Too small: expected number to be >=0"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid compact input: noteIndexes.0: Too small: expected number to be >=0"
+    },
+    "nativeThenCore": null
+  }
+}

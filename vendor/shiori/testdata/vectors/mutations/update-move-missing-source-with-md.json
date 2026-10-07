@@ -1,0 +1,60 @@
+{
+  "id": "mutations/update-move-missing-source-with-md",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "missing-plan",
+      "planFile": ".opencode/workplan/moved.md",
+      "planMarkdown": "# Repaired"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 715,
+    "rawOutputUtf8Bytes": 715,
+    "outputSha256": "9c815e54ce1cedf80f190dcbd1500cf1063c28a2be1b9626943a70c5d64b4664",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/missing-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/moved.md",
+      "workplan": {
+        "id": "missing-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/moved.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 2,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "a532bbd0f89eaf64f2620ae8629b95d8df87b032b11932a6f890b7837dcb0d0e",
+      "stateHash": "43815f5164e8ce7a88c2a50a2bbefb84e8f600f4e4a524e21fdc129c9265d926",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/missing-plan.json": {
+      "sha256": "8e854a5de969fa88cc9ee6be6e5d32ceddda236bad1d11f88bb30aebefda0514",
+      "bytes": 710,
+      "file": "mutations/update-move-missing-source-with-md.after/.opencode/workplan/missing-plan.json"
+    },
+    ".opencode/workplan/moved.md": {
+      "sha256": "80bd18323159ef5fa52031bf8eeb57be88da362cf4ef447d7d50cc9c4657124a",
+      "bytes": 11,
+      "file": "mutations/update-move-missing-source-with-md.after/.opencode/workplan/moved.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

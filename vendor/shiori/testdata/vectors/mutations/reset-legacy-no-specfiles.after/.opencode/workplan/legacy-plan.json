@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "id": "legacy-plan",
+  "kind": "general",
+  "title": "Legacy plan",
+  "goal": "Keep legacy shape",
+  "scope": [
+    "s"
+  ],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/legacy-plan.md",
+  "phases": [],
+  "reviewFindings": [],
+  "notes": [],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "xMiddle": "top-level unknown between known keys",
+  "xExtension": {
+    "nested": {
+      "deep": [
+        1,
+        2,
+        {
+          "k": "v"
+        }
+      ]
+    }
+  },
+  "bigInt": 12345678901234567000,
+  "float": 1,
+  "exp": 1e+21
+}

@@ -1,0 +1,26 @@
+{
+  "id": "validation/input/update--no-hash",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "appendNotes": [
+      "n"
+    ]
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "appendNotes": [
+          "n"
+        ]
+      }
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid update input: expectedHash: Native existing-state writes require the current stateHash"
+    },
+    "nativeThenCore": null
+  }
+}

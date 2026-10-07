@@ -1,0 +1,23 @@
+{
+  "name": "hoshi-omp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "test": "bun test tests",
+    "typecheck": "tsc --noEmit",
+    "setup": "bun scripts/setup.ts",
+    "smoke": "bun scripts/smoke.ts",
+    "start": "bun bin/hoshi-omp"
+  },
+  "dependencies": {
+    "@oh-my-pi/pi-coding-agent": "18.8.0",
+    "smol-toml": "^1.7.0",
+    "yaml": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.9.0"
+  }
+}

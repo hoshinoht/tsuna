@@ -1,0 +1,153 @@
+{
+  "id": "tools/large-paging/big-plan--compact-preview",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_compact",
+    "input": {
+      "id": "big-plan",
+      "archiveReason": "tidy",
+      "completedPhaseIds": [
+        "phase-1"
+      ],
+      "noteIndexes": [
+        0,
+        1
+      ],
+      "resolvedFindingIndexes": [
+        0
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 5937,
+    "rawOutputUtf8Bytes": 5937,
+    "outputSha256": "c5007f0f958d3e01dc176553c11a205ae7009b6a015bd1005ae3652077271a16",
+    "output": {
+      "mode": "preview",
+      "workplanId": "big-plan",
+      "confirmationRequiredForApply": "ARCHIVE_SELECTED_HISTORY",
+      "requiresFreshCheckpoint": true,
+      "checkpointFreshness": "fresh",
+      "archiveReason": "tidy",
+      "previewToken": "v1-c86740e4fd681d979c71c144bd493902da00f6dc29900d3161b8ac637fd4f0d2",
+      "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+      "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69",
+      "canonicalSelection": {
+        "completedPhaseIds": [
+          "phase-1"
+        ],
+        "noteIndexes": [
+          0,
+          1
+        ],
+        "resolvedFindingIndexes": [
+          0
+        ]
+      },
+      "selected": {
+        "completedPhases": [
+          {
+            "id": "phase-1",
+            "title": "Phase 1",
+            "stepCount": 40
+          }
+        ],
+        "notes": [
+          {
+            "index": 0,
+            "preview": "Note 0: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+            "contentHash": "cf97b448d36e15ad65f52ac724948e35f013a06e3087aa97073509fcd8da372e"
+          },
+          {
+            "index": 1,
+            "preview": "Note 1: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+            "contentHash": "044311e590feb4f9912a0b77a2333f88040b2c987edd4df39b665a5959024eab"
+          }
+        ],
+        "resolvedFindings": [
+          {
+            "index": 0,
+            "severity": "blocker",
+            "title": "Finding 0",
+            "contentHash": "681107c2441ed7fa1552c5a6fc4b37afb0a517f255a28b780ebc2eb0727eeedf"
+          }
+        ]
+      },
+      "removals": {
+        "digest": "f55e232855c8a7c6101e028a3705648d4a76e4ebf21523fdf38a15b9f0d6a2c7",
+        "phaseCount": 1,
+        "noteCount": 2,
+        "resolvedFindingCount": 1
+      },
+      "activeAfterCompaction": {
+        "phaseCount": 3,
+        "noteCount": 59,
+        "findingCount": 29,
+        "openFindingCount": 22
+      },
+      "protected": [
+        "scope",
+        "nonGoals",
+        "constraints",
+        "unfinished phases and steps",
+        "open findings",
+        "handwritten Markdown"
+      ],
+      "linkedMarkdownTreatment": "generated-refresh",
+      "archivePath": "$ROOT/.opencode/workplan/archive/big-plan/state-ef23629bf762-c86740e4fd68.json",
+      "writeIntent": {
+        "writePaths": [
+          "$ROOT/.opencode/workplan/archive/big-plan/state-ef23629bf762-c86740e4fd68.json",
+          "$ROOT/.opencode/workplan/big-plan.json",
+          "$ROOT/.opencode/workplan/big-plan.md",
+          "$ROOT/.opencode/workplan/big-plan.checkpoint.json"
+        ],
+        "journalPath": "$ROOT/.opencode/workplan/big-plan.transaction.json",
+        "lockPaths": [
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "$ROOT/.opencode/workplan/.big-plan.lock"
+        ],
+        "stagingPaths": [
+          "$ROOT/.opencode/workplan/archive/big-plan/.state-ef23629bf762-c86740e4fd68.json.c86740e4fd681d97.0.stage",
+          "$ROOT/.opencode/workplan/.big-plan.json.c86740e4fd681d97.1.stage",
+          "$ROOT/.opencode/workplan/.big-plan.md.c86740e4fd681d97.2.stage",
+          "$ROOT/.opencode/workplan/.big-plan.checkpoint.json.c86740e4fd681d97.3.stage",
+          "$ROOT/.opencode/workplan/.big-plan.transaction.c86740e4fd681d97.stage"
+        ],
+        "resources": [
+          "$ROOT/.opencode/workplan/archive/big-plan/state-ef23629bf762-c86740e4fd68.json",
+          "$ROOT/.opencode/workplan/big-plan.json",
+          "$ROOT/.opencode/workplan/big-plan.md",
+          "$ROOT/.opencode/workplan/big-plan.checkpoint.json",
+          "$ROOT/.opencode/workplan/archive/big-plan/.state-ef23629bf762-c86740e4fd68.json.c86740e4fd681d97.0.stage",
+          "$ROOT/.opencode/workplan/.big-plan.json.c86740e4fd681d97.1.stage",
+          "$ROOT/.opencode/workplan/.big-plan.md.c86740e4fd681d97.2.stage",
+          "$ROOT/.opencode/workplan/.big-plan.checkpoint.json.c86740e4fd681d97.3.stage",
+          "$ROOT/.opencode/workplan/.big-plan.transaction.c86740e4fd681d97.stage",
+          "$ROOT/.opencode/workplan/big-plan.transaction.json",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "$ROOT/.opencode/workplan/.big-plan.lock",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.reclaim",
+          "$ROOT/.opencode/workplan/.big-plan.lock.reclaim",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.dead-c86740e4fd681d97-workspace-reclaim",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.dead-c86740e4fd681d97-plan-reclaim",
+          "$ROOT/.opencode/workplan/.big-plan.lock.dead-c86740e4fd681d97-workspace-reclaim",
+          "$ROOT/.opencode/workplan/.big-plan.lock.dead-c86740e4fd681d97-plan-reclaim",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.release-c86740e4fd681d97-workspace",
+          "$ROOT/.opencode/workplan/.big-plan.lock.release-c86740e4fd681d97-plan",
+          "$ROOT/.opencode/workplan/archive/big-plan",
+          "$ROOT/.opencode/workplan",
+          "$ROOT/.opencode/workplan/archive",
+          "$ROOT/.opencode"
+        ]
+      }
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

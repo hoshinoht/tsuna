@@ -1,0 +1,76 @@
+{
+  "mcpServers": {
+    "workplan": {
+      "type": "stdio",
+      "enabled": true,
+      "command": "${HOSHI_OMP_ROOT}/vendor/shiori/shiori",
+      "args": [
+        "mcp",
+        "--write-approval",
+        "client"
+      ]
+    },
+    "deepwiki": {
+      "type": "http",
+      "enabled": false,
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "context7": {
+      "type": "http",
+      "enabled": true,
+      "url": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "${CONTEXT7_API_KEY}"
+      }
+    },
+    "researcher-mcp": {
+      "type": "stdio",
+      "enabled": true,
+      "command": "sh",
+      "args": [
+        "-c",
+        "${HOSHI_OMP_ROOT}/mcps/researcher-mcp/bin/researcher-mcp"
+      ]
+    },
+    "gofetch": {
+      "type": "stdio",
+      "enabled": true,
+      "command": "sh",
+      "args": [
+        "-c",
+        "${HOSHI_OMP_ROOT}/mcps/gofetch-mcp/bin/gofetch"
+      ]
+    },
+    "ats-tailor": {
+      "type": "stdio",
+      "enabled": false,
+      "command": "sh",
+      "args": [
+        "-c",
+        "uv run --project \"$ATS_TAILOR_PROJECT\" ats-tailor mcp --repo \"$ATS_TAILOR_DATA\""
+      ],
+      "env": {
+        "ATS_TAILOR_PROJECT": "${ATS_TAILOR_PROJECT}",
+        "ATS_TAILOR_DATA": "${ATS_TAILOR_DATA}"
+      },
+      "timeout": 300000
+    },
+    "lsp-tools": {
+      "type": "stdio",
+      "enabled": true,
+      "command": "sh",
+      "args": [
+        "-c",
+        "node ${HOSHI_OMP_ROOT}/mcps/lsp-tools-mcp/mcp-no-idle.mjs"
+      ],
+      "env": {
+        "LSP_TOOLS_MCP_PROJECT_CONFIG": ".opencode/lsp.json"
+      }
+    },
+    "grep_app": {
+      "type": "http",
+      "enabled": false,
+      "url": "https://mcp.grep.app"
+    }
+  }
+}

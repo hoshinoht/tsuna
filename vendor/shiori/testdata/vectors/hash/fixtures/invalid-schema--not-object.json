@@ -1,0 +1,9 @@
+{
+  "id": "hash/fixtures/invalid-schema--not-object",
+  "fixture": "invalid-schema",
+  "planId": "not-object",
+  "expect": {
+    "kind": "error",
+    "message": "$: Invalid input: expected object, received array"
+  }
+}

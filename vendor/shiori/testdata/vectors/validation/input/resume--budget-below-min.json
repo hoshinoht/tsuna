@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/resume--budget-below-min",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "maxChars": 4095
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Too small: expected number to be >=4096"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Too small: expected number to be >=4096"
+    },
+    "nativeThenCore": null
+  }
+}

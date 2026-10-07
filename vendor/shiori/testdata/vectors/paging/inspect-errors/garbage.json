@@ -1,0 +1,22 @@
+{
+  "id": "paging/inspect-errors/garbage",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "limit": 50,
+      "cursor": "!!not-base64!!"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan inspect cursor; restart without a cursor"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

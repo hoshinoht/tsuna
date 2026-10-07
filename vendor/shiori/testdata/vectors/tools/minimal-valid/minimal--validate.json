@@ -1,0 +1,46 @@
+{
+  "id": "tools/minimal-valid/minimal--validate",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "minimal"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 776,
+    "rawOutputUtf8Bytes": 776,
+    "outputSha256": "c17b2a7445b4894648c85dede0312d5970aa33a5593635bfefd41ee36547379d",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/minimal.json",
+      "planPath": "$ROOT/.opencode/workplan/minimal.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "minimal",
+        "kind": "general",
+        "title": null,
+        "goal": "Ship the minimal plan",
+        "status": "draft",
+        "planFile": ".opencode/workplan/minimal.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c",
+      "stateHash": "362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

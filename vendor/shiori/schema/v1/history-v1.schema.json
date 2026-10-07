@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/history-v1.schema.json",
+  "title": "Change log line, v 1",
+  "description": "One line of .opencode/workplan/<id>.history.jsonl (spec 06 X4, contracts §24): a committed write, appended under the commit's locks after the transaction completes. Parent-owned, outside the plan and state hashes, advisory: a lost append or an out-of-band edit is a gap, detected through the hashes. prev is the sha256 of the previous line's bytes (without its newline); a rotated log continues the chain in its next segment.",
+  "type": "object",
+  "properties": {
+    "seq": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "prev": {
+      "anyOf": [
+        { "$ref": "common.schema.json#/$defs/hash" },
+        { "type": "null" }
+      ]
+    },
+    "v": {
+      "const": 1
+    },
+    "at": {
+      "type": "string"
+    },
+    "op": {
+      "description": "The journal operation label: create, create:overwrite, update, patch, checkpoint, compact:apply, reset:<mode>, recovery:<mode>.",
+      "type": "string"
+    },
+    "source": {
+      "description": "Set by the trusted caller, never by model input.",
+      "enum": ["agent", "cli", "mcp"]
+    },
+    "tx": {
+      "type": "string"
+    },
+    "before": { "$ref": "#/$defs/hashes" },
+    "after": { "$ref": "#/$defs/hashes" },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "goal, status, notes, findings/<index>, phases, phases/<phaseId>, phases/<phaseId>/steps, phases/<phaseId>/steps/<stepId>, plan, markdown, dependencies, checkpoint, evidence, lanes, ...",
+            "type": "string"
+          },
+          "op": {
+            "enum": ["added", "removed", "changed", "appended", "reordered"]
+          },
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "count": { "type": "integer", "minimum": 0 }
+        },
+        "required": ["path", "op"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["seq", "prev", "v", "at", "op", "source", "tx", "before", "after", "changes"],
+  "additionalProperties": false,
+  "$defs": {
+    "hashes": {
+      "description": "null: the plan did not exist (before) or no longer exists (after).",
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "planHash": { "$ref": "common.schema.json#/$defs/hash" },
+            "stateHash": { "$ref": "common.schema.json#/$defs/hash" }
+          },
+          "required": ["planHash", "stateHash"],
+          "additionalProperties": false
+        },
+        { "type": "null" }
+      ]
+    }
+  }
+}

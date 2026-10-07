@@ -1,0 +1,92 @@
+{
+  "id": "hash/fixtures/unicode--unicode-plan",
+  "fixture": "unicode",
+  "planId": "unicode-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/unicode-plan.json",
+        "sha256": "394264a2252bd142dca03b667b4b48e18c68d1a8284c17837a29cc41f8703710"
+      },
+      {
+        "path": ".opencode/workplan/unicode-plan.md",
+        "sha256": "87e41af67bb042798d9aacc3111a930ec0a15dc0c2f105b0068bab1422bb81f3"
+      },
+      {
+        "path": "docs/café.md",
+        "sha256": "c18fbe7151307d260267f8d78853bad65a437aee98d5c161bc3b513e18f99fab"
+      },
+      {
+        "path": "docs/lt<gt>amp&.md",
+        "sha256": "f5f2eba9904f263c03ca419ed2531c394e807545975447a9e3b14f1043824e54"
+      },
+      {
+        "path": "docs/quote\"back/slash.md",
+        "sha256": "de8f7e39309eaab1dbfc67a9f5f63177f8c3b72c825fb7da0f70d4e84b2494ff"
+      },
+      {
+        "path": "docs/𝒜-spec.md",
+        "sha256": "8843f660573d447e18f5908e846b9b6e17c22c3cb2aae34162c1fb5e56092edd"
+      },
+      {
+        "path": "docs/Ａ-spec.md",
+        "sha256": "a7f44c16d88425a273fb7a6e69b0700f4c1e593d67dbdbd77d3adc5ca302140c"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/unicode-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/unicode-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/unicode-plan.json",
+        "sha256": "394264a2252bd142dca03b667b4b48e18c68d1a8284c17837a29cc41f8703710"
+      },
+      {
+        "path": ".opencode/workplan/unicode-plan.md",
+        "sha256": "87e41af67bb042798d9aacc3111a930ec0a15dc0c2f105b0068bab1422bb81f3"
+      },
+      {
+        "path": ".opencode/workplan/unicode-plan.transaction.json",
+        "missing": true
+      },
+      {
+        "path": "docs/café.md",
+        "sha256": "c18fbe7151307d260267f8d78853bad65a437aee98d5c161bc3b513e18f99fab"
+      },
+      {
+        "path": "docs/lt<gt>amp&.md",
+        "sha256": "f5f2eba9904f263c03ca419ed2531c394e807545975447a9e3b14f1043824e54"
+      },
+      {
+        "path": "docs/quote\"back/slash.md",
+        "sha256": "de8f7e39309eaab1dbfc67a9f5f63177f8c3b72c825fb7da0f70d4e84b2494ff"
+      },
+      {
+        "path": "docs/𝒜-spec.md",
+        "sha256": "8843f660573d447e18f5908e846b9b6e17c22c3cb2aae34162c1fb5e56092edd"
+      },
+      {
+        "path": "docs/Ａ-spec.md",
+        "sha256": "a7f44c16d88425a273fb7a6e69b0700f4c1e593d67dbdbd77d3adc5ca302140c"
+      }
+    ],
+    "planHash": "07eb486279853e18d7cad3c7648616998b0417a66be5d6eb1cab49fa7ce6330d",
+    "stateHash": "02d4d08f453032dc946ee42b6c111c26f703844975ccb1948affe8308faac809",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/unicode-plan.md",
+    "normalizedSpecFiles": [
+      "docs/Ａ-spec.md",
+      "docs/𝒜-spec.md",
+      "docs/café.md",
+      "docs/quote\"back\\slash.md",
+      "docs/lt<gt>amp&.md"
+    ]
+  }
+}

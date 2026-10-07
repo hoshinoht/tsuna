@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/checkpoint-v1.schema.json",
+  "title": "Checkpoint sidecar, schemaVersion 1 (legacy)",
+  "description": "Legacy checkpoint at .opencode/workplan/<id>.checkpoint.json binding only the primary JSON bytes via sourceHash. MUST be read but classified legacy/unverified; reads never upgrade it. Its summary/nextAction must not drive execution.",
+  "type": "object",
+  "allOf": [{ "$ref": "#/$defs/shared" }],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "sourceHash": { "$ref": "common.schema.json#/$defs/hash", "description": "SHA-256 of the primary plan JSON bytes at checkpoint time." }
+  },
+  "required": ["schemaVersion", "sourceHash"],
+  "x-shiori-unknown-fields": "Reference decoder accepts and ignores unknown keys (non-strict object). Sidecars are replaced wholesale on write, so unknown keys are not carried forward.",
+  "$defs": {
+    "position": {
+      "type": "object",
+      "properties": {
+        "phaseId": { "$ref": "common.schema.json#/$defs/nonblank" },
+        "phaseTitle": { "type": "string" },
+        "phaseStatus": { "$ref": "common.schema.json#/$defs/status" },
+        "stepId": { "$ref": "common.schema.json#/$defs/nonblank" },
+        "stepTitle": { "type": "string" },
+        "stepStatus": { "$ref": "common.schema.json#/$defs/status" }
+      },
+      "required": ["phaseId", "phaseTitle", "phaseStatus", "stepId", "stepTitle", "stepStatus"]
+    },
+    "shared": {
+      "type": "object",
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/nonblank" },
+        "sourceUpdatedAt": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/status" },
+        "summary": { "type": "string" },
+        "current": { "oneOf": [{ "$ref": "#/$defs/position" }, { "type": "null" }] },
+        "nextAction": { "type": "string" },
+        "blockers": { "$ref": "common.schema.json#/$defs/stringList" },
+        "recentValidation": { "$ref": "common.schema.json#/$defs/stringList" },
+        "guardrails": { "$ref": "common.schema.json#/$defs/stringList" },
+        "references": { "$ref": "common.schema.json#/$defs/stringList" }
+      },
+      "required": ["id", "sourceUpdatedAt", "createdAt", "updatedAt", "status", "summary", "current", "nextAction", "blockers", "recentValidation", "guardrails", "references"]
+    }
+  }
+}

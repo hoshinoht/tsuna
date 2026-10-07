@@ -1,0 +1,89 @@
+{
+  "id": "tools/unicode/unicode-plan--doctor",
+  "fixture": "unicode",
+  "generationRoot": "/private/tmp/shiori-fx/run/unicode",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "unicode-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1770,
+    "rawOutputUtf8Bytes": 1774,
+    "outputSha256": "3d56f2d69bc3bd1e19dec1c8337549cc6393de361cc335084c0301c3d73274df",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "unicode-plan",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "unicode-plan",
+            "kind": "general",
+            "title": "Unicode 😀 \"quoted\" \\ back <b>&amp;   sep",
+            "goal": "Tab\there, bell\u0007, nul-free",
+            "status": "draft",
+            "planFile": ".opencode/workplan/unicode-plan.md",
+            "phaseCount": 1,
+            "stepCount": 2,
+            "specFileCount": 5,
+            "openFindingCount": 1,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "07eb486279853e18d7cad3c7648616998b0417a66be5d6eb1cab49fa7ce6330d",
+          "stateHash": "02d4d08f453032dc946ee42b6c111c26f703844975ccb1948affe8308faac809",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

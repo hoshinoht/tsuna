@@ -1,0 +1,139 @@
+{
+  "importedAt": "2026-10-07",
+  "sourceCommit": "f1586302b214c1ae84b81c7ca508cd1f20004428",
+  "includesWorkingTree": true,
+  "agents": 17,
+  "commands": 7,
+  "skills": 18,
+  "mcp": [
+    "workplan",
+    "deepwiki",
+    "context7",
+    "researcher-mcp",
+    "gofetch",
+    "ats-tailor",
+    "lsp-tools",
+    "grep_app"
+  ],
+  "plugins": [
+    "-opencode.plan",
+    "-opencode.config.compatibility",
+    {
+      "package": "./packages/workplan-permissions"
+    },
+    {
+      "package": "./packages/reasoning-router",
+      "options": {
+        "diagnosticsLimit": 100,
+        "providers": {
+          "openai": {},
+          "anthropic": {
+            "option": "effort",
+            "efforts": [
+              "low",
+              "medium",
+              "high"
+            ]
+          }
+        },
+        "providerAgentPolicy": {
+          "anthropic": {
+            "explore": {
+              "def": "low",
+              "min": "low",
+              "max": "medium"
+            },
+            "tester": {
+              "def": "low",
+              "min": "low",
+              "max": "medium"
+            },
+            "code-writer": {
+              "def": "medium",
+              "min": "low",
+              "max": "medium"
+            },
+            "code-engineer": {
+              "def": "medium",
+              "min": "medium",
+              "max": "high"
+            },
+            "frontend-engineer": {
+              "def": "medium",
+              "min": "low",
+              "max": "medium"
+            },
+            "researcher": {
+              "def": "medium",
+              "min": "low",
+              "max": "medium"
+            },
+            "document-writer": {
+              "def": "medium",
+              "min": "low",
+              "max": "medium"
+            },
+            "document-proofreader": {
+              "def": "low",
+              "min": "low",
+              "max": "medium"
+            },
+            "plan": {
+              "def": "high",
+              "min": "medium",
+              "max": "high"
+            },
+            "plan-checker": {
+              "def": "medium",
+              "min": "medium",
+              "max": "high"
+            },
+            "code-checker": {
+              "def": "medium",
+              "min": "low",
+              "max": "high"
+            },
+            "oracle": {
+              "def": "medium",
+              "min": "medium",
+              "max": "medium"
+            }
+          }
+        }
+      }
+    },
+    {
+      "package": "./packages/openai-long-context"
+    },
+    {
+      "package": "./packages/usage-tracker",
+      "options": {
+        "quotaReminderRemainingPercent": {
+          "openai": 10,
+          "anthropic": 10
+        }
+      }
+    },
+    {
+      "package": "./packages/docs"
+    },
+    {
+      "package": "./packages/subagent-control"
+    },
+    {
+      "package": "./packages/image-budget"
+    },
+    {
+      "package": "./packages/cache-guard",
+      "options": {
+        "mode": "advisory",
+        "riskAfterMinutes": 30,
+        "minCacheReadTokens": 10000
+      }
+    },
+    "@ex-machina/opencode-anthropic-auth@next",
+    "@mohak34/opencode-notifier@latest",
+    "@tarquinen/opencode-dcp@latest"
+  ],
+  "permissionsSource": "Actual agent frontmatter (active configuration); original generator YAML retained under source-config."
+}

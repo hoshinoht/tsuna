@@ -1,0 +1,142 @@
+{
+  "id": "tools/invalid-structure/broken-plan--read-no-markdown",
+  "fixture": "invalid-structure",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-structure",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "broken-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2592,
+    "rawOutputUtf8Bytes": 2592,
+    "outputSha256": "e3dab77d40457b9a45c515d955de30166ac1610e387178ababeba68d48cb0c54",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/broken-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "broken-plan",
+        "kind": " ",
+        "title": null,
+        "goal": "Broken",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/broken-plan.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "phase-x",
+            "title": "X",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s1",
+                "title": "S1",
+                "status": "draft"
+              },
+              {
+                "id": "s1",
+                "title": " ",
+                "action": "a",
+                "validation": " ",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-x",
+            "title": "X again",
+            "status": "draft",
+            "steps": []
+          },
+          {
+            "id": "",
+            "title": "",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "",
+                "title": "t",
+                "action": "a",
+                "validation": "v",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "yesterday",
+        "updatedAt": "2026-01-02T03:04:05Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-x",
+            "title": "X",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s1",
+                "title": "S1",
+                "status": "draft"
+              },
+              {
+                "id": "s1",
+                "title": " ",
+                "action": "a",
+                "validation": " ",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-x",
+            "title": "X again",
+            "status": "draft",
+            "steps": []
+          },
+          {
+            "id": "",
+            "title": "",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "",
+                "title": "t",
+                "action": "a",
+                "validation": "v",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/broken-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "593d3f2b1fbdc7d6495afb9cce6d91f1c949cb1b94229468c7cd6b5285a8593e",
+      "stateHash": "da53c86fd8cec017803e8f5934938ef46aa5c6e8b808adf42f88be2ca24b093a"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

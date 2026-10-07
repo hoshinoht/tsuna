@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "id": "draft-plan",
+  "kind": "general",
+  "title": null,
+  "goal": "",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/draft-plan.md",
+  "specFiles": [],
+  "phases": [],
+  "reviewFindings": [],
+  "notes": [],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

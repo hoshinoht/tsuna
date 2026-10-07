@@ -1,0 +1,147 @@
+{
+  "id": "paging/inspect-big-phase2-limit7/page-03",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "phaseId": "phase-2",
+      "limit": 7,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6InBoYXNlLTIiLCJsaW1pdCI6Nywib2Zmc2V0IjoyMSwiY2hlY2tzdW0iOiI1M2UyOWM1ZmIzZWJlNTlhOWNlOTMyYjg1NmZlNzZhNzRjYjczNmNlYzFjYWU2ZGY2NTRjZGQzYjc2NmU2YzhjIn0"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3420,
+    "rawOutputUtf8Bytes": 3420,
+    "outputSha256": "fb8e42faf53cdbf8a357afec5283e751fa7eae2077824b5b468437592094e748",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/big-plan.json",
+      "workplan": {
+        "id": "big-plan",
+        "kind": "general",
+        "title": "Big plan",
+        "goal": "Paging",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/big-plan.md",
+        "phaseCount": 4,
+        "stepCount": 160,
+        "specFileCount": 0,
+        "openFindingCount": 22,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/big-plan.md",
+        "exists": true
+      },
+      "phases": [],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-21",
+          "title": "Step 2.21",
+          "status": "draft",
+          "target": "src/mod20.ts",
+          "index": 20,
+          "indexPath": "2.21",
+          "markdownMarker": "<!-- workplan-step-id: step-21 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-22",
+          "title": "Step 2.22",
+          "status": "draft",
+          "target": "src/mod21.ts",
+          "index": 21,
+          "indexPath": "2.22",
+          "markdownMarker": "<!-- workplan-step-id: step-22 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-23",
+          "title": "Step 2.23",
+          "status": "draft",
+          "target": "src/mod22.ts",
+          "index": 22,
+          "indexPath": "2.23",
+          "markdownMarker": "<!-- workplan-step-id: step-23 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-24",
+          "title": "Step 2.24",
+          "status": "draft",
+          "target": "src/mod23.ts",
+          "index": 23,
+          "indexPath": "2.24",
+          "markdownMarker": "<!-- workplan-step-id: step-24 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-25",
+          "title": "Step 2.25",
+          "status": "draft",
+          "target": "src/mod24.ts",
+          "index": 24,
+          "indexPath": "2.25",
+          "markdownMarker": "<!-- workplan-step-id: step-25 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-26",
+          "title": "Step 2.26",
+          "status": "draft",
+          "target": "src/mod25.ts",
+          "index": 25,
+          "indexPath": "2.26",
+          "markdownMarker": "<!-- workplan-step-id: step-26 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-27",
+          "title": "Step 2.27",
+          "status": "draft",
+          "target": "src/mod26.ts",
+          "index": 26,
+          "indexPath": "2.27",
+          "markdownMarker": "<!-- workplan-step-id: step-27 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 41,
+        "offset": 21,
+        "returned": 7,
+        "omitted": 13,
+        "nextCursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6InBoYXNlLTIiLCJsaW1pdCI6Nywib2Zmc2V0IjoyOCwiY2hlY2tzdW0iOiI3MzVkMGFkOTYyZWRiNzIzOTk3ZWQyNjMzOWI2MzFmN2JmNjliYTBjZTMzMjg5YzgxMjk4M2IzNTU3ZDFhM2E2In0"
+      },
+      "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+      "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

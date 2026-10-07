@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/create--id-non-bmp-only",
+  "tool": "workplan_create",
+  "input": {
+    "id": "𝒜𝒜",
+    "goal": "g"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: id: Invalid string: must match pattern /[a-z0-9]/i"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: id: Invalid string: must match pattern /[a-z0-9]/i"
+    },
+    "nativeThenCore": null
+  }
+}

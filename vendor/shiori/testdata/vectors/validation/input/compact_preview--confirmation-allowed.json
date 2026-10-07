@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/compact_preview--confirmation-allowed",
+  "tool": "workplan_compact_preview",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "confirmation": "ARCHIVE_SELECTED_HISTORY"
+  },
+  "expect": {
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "archiveReason": "r",
+        "confirmation": "ARCHIVE_SELECTED_HISTORY"
+      }
+    }
+  }
+}

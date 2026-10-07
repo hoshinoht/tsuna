@@ -1,0 +1,45 @@
+{
+  "id": "validation/input/create--overwrite-with-hash",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g",
+    "overwrite": true,
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": true,
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": true,
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": true,
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "validation/input/reset--defaults",
+  "tool": "workplan_reset",
+  "input": {
+    "id": "x",
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "draft",
+        "preserveNotes": false,
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "draft",
+        "preserveNotes": false,
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "draft",
+        "preserveNotes": false,
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    }
+  }
+}

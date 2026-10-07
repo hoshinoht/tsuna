@@ -1,0 +1,21 @@
+{
+  "id": "paging/inspect-errors/unknown-phase",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "phaseId": "phase-9"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Phase not found: phase-9"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

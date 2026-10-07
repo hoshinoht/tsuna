@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_compact_preview.input.schema.json",
+  "title": "workplan_compact_preview input (native surface)",
+  "description": "Read-only preview of the exact history selection and archive intent; never applies.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "archiveReason": {
+      "description": "Reason recorded with archived history.",
+      "type": "string"
+    },
+    "completedPhaseIds": {
+      "description": "Completed phases to archive.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "noteIndexes": {
+      "description": "Indexes of notes to archive.",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      }
+    },
+    "resolvedFindingIndexes": {
+      "description": "Indexes of resolved findings to archive.",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      }
+    },
+    "noteRollover": {
+      "description": "D.4 (approved 2026-09-30): select notes by rollover instead of noteIndexes. Every note older than the latest keepLatest is archived unless it is pinned: explicitly ([pinned] in its text, or listed in pinNoteIndexes), as a decision record (the words decision/decisions/decided, or the uppercase USER marker), by naming an open step as <phaseId>/<stepId> or quoting an open finding's title, or as one of the latest 3 compaction archive pointers (D.4.2, approved 2026-10-01; older pointer notes roll over like other notes and are archived). Apply needs a fresh checkpoint, so every archived note predates the newest checkpoint. The preview token binds these parameters and the resulting indexes. Cannot be combined with noteIndexes.",
+      "type": "object",
+      "properties": {
+        "keepLatest": {
+          "description": "How many of the newest notes always stay (default 20).",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "pinNoteIndexes": {
+          "description": "Zero-based indexes of further notes to keep.",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "confirmation": {
+      "description": "Must be ARCHIVE_SELECTED_HISTORY for apply.",
+      "type": "string"
+    },
+    "previewToken": {
+      "description": "Token from the matching preview.",
+      "type": "string"
+    },
+    "expectedHash": {
+      "description": "stateHash from the latest read; binds the write to that exact state.",
+      "$ref": "../common.schema.json#/$defs/hash"
+    }
+  },
+  "required": [
+    "id",
+    "archiveReason"
+  ],
+  "additionalProperties": false,
+  "x-shiori-mutating": false,
+  "x-shiori-rules": [
+    {
+      "when": "input contains mode",
+      "path": "$",
+      "native": "Unrecognized key: \"mode\""
+    },
+    {
+      "when": "noteRollover and noteIndexes both present",
+      "path": "noteRollover",
+      "native": "noteRollover cannot be combined with noteIndexes; noteRollover selects the notes",
+      "core": "noteRollover cannot be combined with noteIndexes; noteRollover selects the notes"
+    }
+  ],
+  "x-shiori-core-surface": "Native-only tool; core equivalent is workplan_compact with mode=preview.",
+  "x-shiori-nested-unknown-keys": "noteRollover (D.4) rejects unknown keys like the top level."
+}

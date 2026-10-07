@@ -1,0 +1,92 @@
+{
+  "id": "tools/list-mixed/a-10--read-no-markdown",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "a-10",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1592,
+    "rawOutputUtf8Bytes": 1592,
+    "outputSha256": "f298dce6e8dedc797e4ef25f24cb0c638a9116bd0ab6c79d390a888fdc01a41c",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/a-10.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "a-10",
+        "kind": "general",
+        "title": null,
+        "goal": "goal a-10",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/a-10.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/a-10.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "77e54d591d3ad5c2b1475c7d092e7b749d57caae2d88b2c1bf5607e6b6b803eb",
+      "stateHash": "a9a65a37f7f38a279a5e2fad9b59f783d5b5e654a12abb17e96cbf82092e00f6"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

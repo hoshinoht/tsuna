@@ -1,0 +1,86 @@
+{
+  "id": "tools/checkpoint-corrupt/cp-bad--inspect",
+  "fixture": "checkpoint-corrupt",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-corrupt",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "cp-bad"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1566,
+    "rawOutputUtf8Bytes": 1566,
+    "outputSha256": "1a3521c0cf55566f980dbf9fbb7f58b80c1b4669da9d951b1c83575523c4a000",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-bad.json",
+      "workplan": {
+        "id": "cp-bad",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/cp-bad.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/cp-bad.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s",
+          "title": "S",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": true,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": [
+          "schemaVersion: Invalid input: expected 1",
+          "dependencies: Invalid input: expected array, received string"
+        ]
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "ecbbc450efd22409170fbb9b61c3225f4df7c247be7d02ec6f719fa17f4df83e",
+      "stateHash": "f9ce0338d1b6bbb9365c5a76b07c128b33aedf1831594bbae1640ca32c2d778f"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,9 @@
+{
+  "id": "hash/fixtures/list-mixed--Bad Name",
+  "fixture": "list-mixed",
+  "planId": "Bad Name",
+  "expect": {
+    "kind": "error",
+    "message": "Workplan file not found: $ROOT/.opencode/workplan/bad-name.json"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "id": "tools/checkpoint-stale-v2/cp-stale--read-no-markdown",
+  "fixture": "checkpoint-stale-v2",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-stale-v2",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "cp-stale",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2006,
+    "rawOutputUtf8Bytes": 2006,
+    "outputSha256": "59f95df447daed52473f5b80418ba9bfd2fe142659c2681968cb594b8a361349",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-stale.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "cp-stale",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/cp-stale.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              },
+              {
+                "id": "s2",
+                "title": "S2",
+                "action": "Do S2",
+                "validation": "Check S2",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [
+          "changed after checkpoint"
+        ],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              },
+              {
+                "id": "s2",
+                "title": "S2",
+                "action": "Do S2",
+                "validation": "Check S2",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/cp-stale.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "178889b7a8fef8cce118de6a1d371cdd4e06f546d7d1d26a136ef983d5794158",
+      "stateHash": "876fb159bd96a59e015bcc42b9984e3b36713f1a47336037c43aabe6222a2720"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

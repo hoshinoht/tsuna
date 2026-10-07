@@ -1,0 +1,20 @@
+{
+  "id": "tools/list-mixed/UPPER--inspect",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "UPPER"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "schemaVersion: Invalid input: expected 2; id: Invalid input: expected string, received undefined; kind: Invalid input: expected string, received undefined; title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received undefined; scope: Invalid input: expected array, received undefined; nonGoals: Invalid input: expected array, received undefined; constraints: Invalid input: expected array, received undefined; relevantFiles: Invalid input: expected array, received undefined; planFile: Invalid input: expected string, received undefined; phases: Invalid input: expected array, received undefined; reviewFindings: Invalid input: expected array, received undefined; notes: Invalid input: expected array, received undefined; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; createdAt: Invalid input: expected string, received undefined; updatedAt: Invalid input: expected string, received undefined"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

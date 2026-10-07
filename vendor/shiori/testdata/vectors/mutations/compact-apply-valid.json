@@ -1,0 +1,82 @@
+{
+  "id": "mutations/compact-apply-valid",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_compact",
+    "input": {
+      "id": "big-plan",
+      "archiveReason": "tidy",
+      "completedPhaseIds": [
+        "phase-1"
+      ],
+      "noteIndexes": [
+        0,
+        1
+      ],
+      "mode": "apply",
+      "previewToken": "v1-6de1925673568cd35413c410a751c495f3e26a9b76ba34448a2b74263a9a1307",
+      "confirmation": "ARCHIVE_SELECTED_HISTORY",
+      "expectedHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 753,
+    "rawOutputUtf8Bytes": 753,
+    "outputSha256": "b90ae3c277ae5bf3b9ec79d30ff919a8a9e360981271d384c6e81b2a785ef610",
+    "output": {
+      "compacted": true,
+      "workplanId": "big-plan",
+      "archivePath": "$ROOT/.opencode/workplan/archive/big-plan/state-ef23629bf762-6de192567356.json",
+      "previewToken": "v1-6de1925673568cd35413c410a751c495f3e26a9b76ba34448a2b74263a9a1307",
+      "archived": {
+        "phaseCount": 1,
+        "noteCount": 2,
+        "resolvedFindingCount": 0
+      },
+      "activeAfterCompaction": {
+        "phaseCount": 3,
+        "noteCount": 59,
+        "findingCount": 30,
+        "openFindingCount": 22
+      },
+      "linkedMarkdownUpdated": true,
+      "checkpointRefreshed": true,
+      "planHash": "0a8103ec30d5d13ccaad39bc1f366a2c198d7f1895365018f360a0c4eff49ca4",
+      "stateHash": "7a7a06c3e52bdfc3104d05f1069b4e70c40f91964f5c9d76e2c4ab5e81a6c824",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/archive/big-plan/state-ef23629bf762-6de192567356.json": {
+      "sha256": "8eb8da50c1a527c17d9ef7f8dc26d706764979bfe531243533a54a9417652877",
+      "bytes": 97652,
+      "file": "mutations/compact-apply-valid.after/.opencode/workplan/archive/big-plan/state-ef23629bf762-6de192567356.json"
+    },
+    ".opencode/workplan/big-plan.checkpoint.json": {
+      "sha256": "00fe8ac96406ed5f01bb5a3515b2a27e8aa5376a67465926e48c393535f0b140",
+      "bytes": 1828,
+      "file": "mutations/compact-apply-valid.after/.opencode/workplan/big-plan.checkpoint.json"
+    },
+    ".opencode/workplan/big-plan.json": {
+      "sha256": "7316cbdb16ce4c86a04333bf19b40400b298aef5f7fc5d9bc1edd966261a3fd2",
+      "bytes": 36033,
+      "file": "mutations/compact-apply-valid.after/.opencode/workplan/big-plan.json"
+    },
+    ".opencode/workplan/big-plan.md": {
+      "sha256": "b2dce98fde61af91a3c47ca697cee2209273c4bb02965631c4e18e9e8310ed7b",
+      "bytes": 25504,
+      "file": "mutations/compact-apply-valid.after/.opencode/workplan/big-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": false,
+  "note": "previewToken was obtained from a preview at a different root path; see rootDependence note in MANIFEST."
+}

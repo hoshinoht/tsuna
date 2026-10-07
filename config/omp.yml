@@ -1,0 +1,63 @@
+# Native settings plus the compatibility extensions preserve the imported policies.
+tools:
+  approvalMode: yolo
+  xdev: false
+task:
+  maxConcurrency: 4
+  maxRecursionDepth: 2
+  isolation:
+    enabled: false
+    apply: false
+    merge: false
+    commits: false
+skills:
+  enableAgentsUser: false
+  enableAgentsProject: false
+  enableClaudeUser: false
+  enableClaudeProject: false
+  enableCodexUser: false
+  ignoredSkills: [opencode-plugin-dev]
+disabledProviders:
+  - opencode
+  - claude
+  - claude-plugins
+  - codex
+  - gemini
+  - cursor
+  - windsurf
+  - vscode
+  - github
+  - skillshare
+  - agents
+  - mcp-json
+recap:
+  enabled: false
+advisor:
+  enabled: false
+memory:
+  backend: off
+compaction:
+  supersedeReads: false
+  dropUseless: false
+  idleEnabled: false
+checkpoint:
+  enabled: false
+statusLine:
+  preset: custom
+  separator: none
+  contextLine: percentage
+  leftSegments: [model, path, git, subagents]
+  rightSegments: [cache_hit, token_rate, context_pct, time_spent, usage]
+composer:
+  tokenRate: true
+completion:
+  notify: on
+error:
+  notify: on
+ask:
+  notify: on
+  timeout: 0
+terminal:
+  showImages: true
+tui:
+  mouse: false

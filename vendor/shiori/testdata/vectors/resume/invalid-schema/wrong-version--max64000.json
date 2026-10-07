@@ -1,0 +1,21 @@
+{
+  "id": "resume/invalid-schema/wrong-version--max64000",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "wrong-version",
+      "maxChars": 64000
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "schemaVersion: Invalid input: expected 2"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

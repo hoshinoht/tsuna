@@ -1,0 +1,2948 @@
+{
+  "id": "tools/large-paging/big-plan--read-no-markdown",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "big-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 87780,
+    "rawOutputUtf8Bytes": 87780,
+    "outputSha256": "4c921a6cfd9ec8bcd8393d91d046607f26ad636546935c806702766b755c3b24",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/big-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "big-plan",
+        "kind": "general",
+        "title": "Big plan",
+        "goal": "Paging",
+        "scope": [
+          "Scope 0",
+          "Scope 1",
+          "Scope 2",
+          "Scope 3",
+          "Scope 4",
+          "Scope 5",
+          "Scope 6",
+          "Scope 7",
+          "Scope 8",
+          "Scope 9",
+          "Scope 10",
+          "Scope 11"
+        ],
+        "nonGoals": [],
+        "constraints": [
+          "Constraint 0",
+          "Constraint 1",
+          "Constraint 2",
+          "Constraint 3",
+          "Constraint 4",
+          "Constraint 5",
+          "Constraint 6",
+          "Constraint 7",
+          "Constraint 8",
+          "Constraint 9",
+          "Constraint 10",
+          "Constraint 11"
+        ],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/big-plan.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "phase-1",
+            "title": "Phase 1",
+            "status": "completed",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 1.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 1.1",
+                "validation": "Check Step 1.1",
+                "status": "completed"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 1.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 1.2",
+                "validation": "Check Step 1.2",
+                "status": "completed"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 1.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 1.3",
+                "validation": "Check Step 1.3",
+                "status": "completed"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 1.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 1.4",
+                "validation": "Check Step 1.4",
+                "status": "completed"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 1.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 1.5",
+                "validation": "Check Step 1.5",
+                "status": "completed"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 1.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 1.6",
+                "validation": "Check Step 1.6",
+                "status": "completed"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 1.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 1.7",
+                "validation": "Check Step 1.7",
+                "status": "completed"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 1.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 1.8",
+                "validation": "Check Step 1.8",
+                "status": "completed"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 1.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 1.9",
+                "validation": "Check Step 1.9",
+                "status": "completed"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 1.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 1.10",
+                "validation": "Check Step 1.10",
+                "status": "completed"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 1.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 1.11",
+                "validation": "Check Step 1.11",
+                "status": "completed"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 1.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 1.12",
+                "validation": "Check Step 1.12",
+                "status": "completed"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 1.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 1.13",
+                "validation": "Check Step 1.13",
+                "status": "completed"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 1.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 1.14",
+                "validation": "Check Step 1.14",
+                "status": "completed"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 1.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 1.15",
+                "validation": "Check Step 1.15",
+                "status": "completed"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 1.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 1.16",
+                "validation": "Check Step 1.16",
+                "status": "completed"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 1.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 1.17",
+                "validation": "Check Step 1.17",
+                "status": "completed"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 1.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 1.18",
+                "validation": "Check Step 1.18",
+                "status": "completed"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 1.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 1.19",
+                "validation": "Check Step 1.19",
+                "status": "completed"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 1.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 1.20",
+                "validation": "Check Step 1.20",
+                "status": "completed"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 1.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 1.21",
+                "validation": "Check Step 1.21",
+                "status": "completed"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 1.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 1.22",
+                "validation": "Check Step 1.22",
+                "status": "completed"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 1.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 1.23",
+                "validation": "Check Step 1.23",
+                "status": "completed"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 1.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 1.24",
+                "validation": "Check Step 1.24",
+                "status": "completed"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 1.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 1.25",
+                "validation": "Check Step 1.25",
+                "status": "completed"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 1.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 1.26",
+                "validation": "Check Step 1.26",
+                "status": "completed"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 1.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 1.27",
+                "validation": "Check Step 1.27",
+                "status": "completed"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 1.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 1.28",
+                "validation": "Check Step 1.28",
+                "status": "completed"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 1.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 1.29",
+                "validation": "Check Step 1.29",
+                "status": "completed"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 1.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 1.30",
+                "validation": "Check Step 1.30",
+                "status": "completed"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 1.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 1.31",
+                "validation": "Check Step 1.31",
+                "status": "completed"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 1.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 1.32",
+                "validation": "Check Step 1.32",
+                "status": "completed"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 1.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 1.33",
+                "validation": "Check Step 1.33",
+                "status": "completed"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 1.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 1.34",
+                "validation": "Check Step 1.34",
+                "status": "completed"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 1.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 1.35",
+                "validation": "Check Step 1.35",
+                "status": "completed"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 1.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 1.36",
+                "validation": "Check Step 1.36",
+                "status": "completed"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 1.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 1.37",
+                "validation": "Check Step 1.37",
+                "status": "completed"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 1.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 1.38",
+                "validation": "Check Step 1.38",
+                "status": "completed"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 1.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 1.39",
+                "validation": "Check Step 1.39",
+                "status": "completed"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 1.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 1.40",
+                "validation": "Check Step 1.40",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "id": "phase-2",
+            "title": "Phase 2",
+            "status": "in_progress",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 2.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 2.1",
+                "validation": "Check Step 2.1",
+                "status": "completed"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 2.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 2.2",
+                "validation": "Check Step 2.2",
+                "status": "completed"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 2.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 2.3",
+                "validation": "Check Step 2.3",
+                "status": "completed"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 2.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 2.4",
+                "validation": "Check Step 2.4",
+                "status": "completed"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 2.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 2.5",
+                "validation": "Check Step 2.5",
+                "status": "completed"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 2.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 2.6",
+                "validation": "Check Step 2.6",
+                "status": "completed"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 2.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 2.7",
+                "validation": "Check Step 2.7",
+                "status": "completed"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 2.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 2.8",
+                "validation": "Check Step 2.8",
+                "status": "completed"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 2.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 2.9",
+                "validation": "Check Step 2.9",
+                "status": "completed"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 2.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 2.10",
+                "validation": "Check Step 2.10",
+                "status": "completed"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 2.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 2.11",
+                "validation": "Check Step 2.11",
+                "status": "draft"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 2.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 2.12",
+                "validation": "Check Step 2.12",
+                "status": "draft"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 2.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 2.13",
+                "validation": "Check Step 2.13",
+                "status": "draft"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 2.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 2.14",
+                "validation": "Check Step 2.14",
+                "status": "draft"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 2.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 2.15",
+                "validation": "Check Step 2.15",
+                "status": "draft"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 2.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 2.16",
+                "validation": "Check Step 2.16",
+                "status": "draft"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 2.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 2.17",
+                "validation": "Check Step 2.17",
+                "status": "draft"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 2.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 2.18",
+                "validation": "Check Step 2.18",
+                "status": "draft"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 2.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 2.19",
+                "validation": "Check Step 2.19",
+                "status": "draft"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 2.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 2.20",
+                "validation": "Check Step 2.20",
+                "status": "draft"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 2.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 2.21",
+                "validation": "Check Step 2.21",
+                "status": "draft"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 2.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 2.22",
+                "validation": "Check Step 2.22",
+                "status": "draft"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 2.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 2.23",
+                "validation": "Check Step 2.23",
+                "status": "draft"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 2.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 2.24",
+                "validation": "Check Step 2.24",
+                "status": "draft"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 2.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 2.25",
+                "validation": "Check Step 2.25",
+                "status": "draft"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 2.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 2.26",
+                "validation": "Check Step 2.26",
+                "status": "draft"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 2.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 2.27",
+                "validation": "Check Step 2.27",
+                "status": "draft"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 2.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 2.28",
+                "validation": "Check Step 2.28",
+                "status": "draft"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 2.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 2.29",
+                "validation": "Check Step 2.29",
+                "status": "draft"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 2.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 2.30",
+                "validation": "Check Step 2.30",
+                "status": "draft"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 2.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 2.31",
+                "validation": "Check Step 2.31",
+                "status": "draft"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 2.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 2.32",
+                "validation": "Check Step 2.32",
+                "status": "draft"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 2.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 2.33",
+                "validation": "Check Step 2.33",
+                "status": "draft"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 2.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 2.34",
+                "validation": "Check Step 2.34",
+                "status": "draft"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 2.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 2.35",
+                "validation": "Check Step 2.35",
+                "status": "draft"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 2.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 2.36",
+                "validation": "Check Step 2.36",
+                "status": "draft"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 2.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 2.37",
+                "validation": "Check Step 2.37",
+                "status": "draft"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 2.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 2.38",
+                "validation": "Check Step 2.38",
+                "status": "draft"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 2.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 2.39",
+                "validation": "Check Step 2.39",
+                "status": "draft"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 2.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 2.40",
+                "validation": "Check Step 2.40",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-3",
+            "title": "Phase 3",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 3.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 3.1",
+                "validation": "Check Step 3.1",
+                "status": "draft"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 3.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 3.2",
+                "validation": "Check Step 3.2",
+                "status": "draft"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 3.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 3.3",
+                "validation": "Check Step 3.3",
+                "status": "draft"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 3.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 3.4",
+                "validation": "Check Step 3.4",
+                "status": "draft"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 3.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 3.5",
+                "validation": "Check Step 3.5",
+                "status": "draft"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 3.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 3.6",
+                "validation": "Check Step 3.6",
+                "status": "draft"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 3.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 3.7",
+                "validation": "Check Step 3.7",
+                "status": "draft"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 3.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 3.8",
+                "validation": "Check Step 3.8",
+                "status": "draft"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 3.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 3.9",
+                "validation": "Check Step 3.9",
+                "status": "draft"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 3.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 3.10",
+                "validation": "Check Step 3.10",
+                "status": "draft"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 3.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 3.11",
+                "validation": "Check Step 3.11",
+                "status": "draft"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 3.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 3.12",
+                "validation": "Check Step 3.12",
+                "status": "draft"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 3.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 3.13",
+                "validation": "Check Step 3.13",
+                "status": "draft"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 3.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 3.14",
+                "validation": "Check Step 3.14",
+                "status": "draft"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 3.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 3.15",
+                "validation": "Check Step 3.15",
+                "status": "draft"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 3.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 3.16",
+                "validation": "Check Step 3.16",
+                "status": "draft"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 3.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 3.17",
+                "validation": "Check Step 3.17",
+                "status": "draft"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 3.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 3.18",
+                "validation": "Check Step 3.18",
+                "status": "draft"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 3.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 3.19",
+                "validation": "Check Step 3.19",
+                "status": "draft"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 3.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 3.20",
+                "validation": "Check Step 3.20",
+                "status": "draft"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 3.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 3.21",
+                "validation": "Check Step 3.21",
+                "status": "draft"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 3.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 3.22",
+                "validation": "Check Step 3.22",
+                "status": "draft"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 3.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 3.23",
+                "validation": "Check Step 3.23",
+                "status": "draft"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 3.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 3.24",
+                "validation": "Check Step 3.24",
+                "status": "draft"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 3.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 3.25",
+                "validation": "Check Step 3.25",
+                "status": "draft"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 3.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 3.26",
+                "validation": "Check Step 3.26",
+                "status": "draft"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 3.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 3.27",
+                "validation": "Check Step 3.27",
+                "status": "draft"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 3.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 3.28",
+                "validation": "Check Step 3.28",
+                "status": "draft"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 3.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 3.29",
+                "validation": "Check Step 3.29",
+                "status": "draft"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 3.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 3.30",
+                "validation": "Check Step 3.30",
+                "status": "draft"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 3.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 3.31",
+                "validation": "Check Step 3.31",
+                "status": "draft"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 3.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 3.32",
+                "validation": "Check Step 3.32",
+                "status": "draft"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 3.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 3.33",
+                "validation": "Check Step 3.33",
+                "status": "draft"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 3.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 3.34",
+                "validation": "Check Step 3.34",
+                "status": "draft"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 3.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 3.35",
+                "validation": "Check Step 3.35",
+                "status": "draft"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 3.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 3.36",
+                "validation": "Check Step 3.36",
+                "status": "draft"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 3.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 3.37",
+                "validation": "Check Step 3.37",
+                "status": "draft"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 3.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 3.38",
+                "validation": "Check Step 3.38",
+                "status": "draft"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 3.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 3.39",
+                "validation": "Check Step 3.39",
+                "status": "draft"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 3.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 3.40",
+                "validation": "Check Step 3.40",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-4",
+            "title": "Phase 4",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 4.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 4.1",
+                "validation": "Check Step 4.1",
+                "status": "draft"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 4.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 4.2",
+                "validation": "Check Step 4.2",
+                "status": "draft"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 4.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 4.3",
+                "validation": "Check Step 4.3",
+                "status": "draft"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 4.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 4.4",
+                "validation": "Check Step 4.4",
+                "status": "draft"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 4.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 4.5",
+                "validation": "Check Step 4.5",
+                "status": "draft"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 4.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 4.6",
+                "validation": "Check Step 4.6",
+                "status": "draft"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 4.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 4.7",
+                "validation": "Check Step 4.7",
+                "status": "draft"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 4.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 4.8",
+                "validation": "Check Step 4.8",
+                "status": "draft"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 4.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 4.9",
+                "validation": "Check Step 4.9",
+                "status": "draft"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 4.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 4.10",
+                "validation": "Check Step 4.10",
+                "status": "draft"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 4.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 4.11",
+                "validation": "Check Step 4.11",
+                "status": "draft"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 4.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 4.12",
+                "validation": "Check Step 4.12",
+                "status": "draft"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 4.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 4.13",
+                "validation": "Check Step 4.13",
+                "status": "draft"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 4.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 4.14",
+                "validation": "Check Step 4.14",
+                "status": "draft"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 4.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 4.15",
+                "validation": "Check Step 4.15",
+                "status": "draft"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 4.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 4.16",
+                "validation": "Check Step 4.16",
+                "status": "draft"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 4.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 4.17",
+                "validation": "Check Step 4.17",
+                "status": "draft"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 4.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 4.18",
+                "validation": "Check Step 4.18",
+                "status": "draft"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 4.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 4.19",
+                "validation": "Check Step 4.19",
+                "status": "draft"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 4.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 4.20",
+                "validation": "Check Step 4.20",
+                "status": "draft"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 4.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 4.21",
+                "validation": "Check Step 4.21",
+                "status": "draft"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 4.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 4.22",
+                "validation": "Check Step 4.22",
+                "status": "draft"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 4.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 4.23",
+                "validation": "Check Step 4.23",
+                "status": "draft"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 4.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 4.24",
+                "validation": "Check Step 4.24",
+                "status": "draft"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 4.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 4.25",
+                "validation": "Check Step 4.25",
+                "status": "draft"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 4.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 4.26",
+                "validation": "Check Step 4.26",
+                "status": "draft"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 4.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 4.27",
+                "validation": "Check Step 4.27",
+                "status": "draft"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 4.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 4.28",
+                "validation": "Check Step 4.28",
+                "status": "draft"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 4.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 4.29",
+                "validation": "Check Step 4.29",
+                "status": "draft"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 4.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 4.30",
+                "validation": "Check Step 4.30",
+                "status": "draft"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 4.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 4.31",
+                "validation": "Check Step 4.31",
+                "status": "draft"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 4.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 4.32",
+                "validation": "Check Step 4.32",
+                "status": "draft"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 4.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 4.33",
+                "validation": "Check Step 4.33",
+                "status": "draft"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 4.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 4.34",
+                "validation": "Check Step 4.34",
+                "status": "draft"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 4.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 4.35",
+                "validation": "Check Step 4.35",
+                "status": "draft"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 4.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 4.36",
+                "validation": "Check Step 4.36",
+                "status": "draft"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 4.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 4.37",
+                "validation": "Check Step 4.37",
+                "status": "draft"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 4.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 4.38",
+                "validation": "Check Step 4.38",
+                "status": "draft"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 4.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 4.39",
+                "validation": "Check Step 4.39",
+                "status": "draft"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 4.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 4.40",
+                "validation": "Check Step 4.40",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [
+          {
+            "severity": "blocker",
+            "title": "Finding 0",
+            "detail": "detail 0",
+            "status": "resolved"
+          },
+          {
+            "severity": "critical",
+            "title": "Finding 1",
+            "detail": "detail 1",
+            "status": "open"
+          },
+          {
+            "severity": "major",
+            "title": "Finding 2",
+            "detail": "detail 2",
+            "status": "open"
+          },
+          {
+            "severity": "minor",
+            "title": "Finding 3",
+            "detail": "detail 3",
+            "status": "open"
+          },
+          {
+            "severity": "note",
+            "title": "Finding 4",
+            "detail": "detail 4",
+            "status": "resolved"
+          },
+          {
+            "severity": "question",
+            "title": "Finding 5",
+            "detail": "detail 5",
+            "status": "open"
+          },
+          {
+            "severity": "blocker",
+            "title": "Finding 6",
+            "detail": "detail 6",
+            "status": "open"
+          },
+          {
+            "severity": "critical",
+            "title": "Finding 7",
+            "detail": "detail 7",
+            "status": "open"
+          },
+          {
+            "severity": "major",
+            "title": "Finding 8",
+            "detail": "detail 8",
+            "status": "resolved"
+          },
+          {
+            "severity": "minor",
+            "title": "Finding 9",
+            "detail": "detail 9",
+            "status": "open"
+          },
+          {
+            "severity": "note",
+            "title": "Finding 10",
+            "detail": "detail 10",
+            "status": "open"
+          },
+          {
+            "severity": "question",
+            "title": "Finding 11",
+            "detail": "detail 11",
+            "status": "open"
+          },
+          {
+            "severity": "blocker",
+            "title": "Finding 12",
+            "detail": "detail 12",
+            "status": "resolved"
+          },
+          {
+            "severity": "critical",
+            "title": "Finding 13",
+            "detail": "detail 13",
+            "status": "open"
+          },
+          {
+            "severity": "major",
+            "title": "Finding 14",
+            "detail": "detail 14",
+            "status": "open"
+          },
+          {
+            "severity": "minor",
+            "title": "Finding 15",
+            "detail": "detail 15",
+            "status": "open"
+          },
+          {
+            "severity": "note",
+            "title": "Finding 16",
+            "detail": "detail 16",
+            "status": "resolved"
+          },
+          {
+            "severity": "question",
+            "title": "Finding 17",
+            "detail": "detail 17",
+            "status": "open"
+          },
+          {
+            "severity": "blocker",
+            "title": "Finding 18",
+            "detail": "detail 18",
+            "status": "open"
+          },
+          {
+            "severity": "critical",
+            "title": "Finding 19",
+            "detail": "detail 19",
+            "status": "open"
+          },
+          {
+            "severity": "major",
+            "title": "Finding 20",
+            "detail": "detail 20",
+            "status": "resolved"
+          },
+          {
+            "severity": "minor",
+            "title": "Finding 21",
+            "detail": "detail 21",
+            "status": "open"
+          },
+          {
+            "severity": "note",
+            "title": "Finding 22",
+            "detail": "detail 22",
+            "status": "open"
+          },
+          {
+            "severity": "question",
+            "title": "Finding 23",
+            "detail": "detail 23",
+            "status": "open"
+          },
+          {
+            "severity": "blocker",
+            "title": "Finding 24",
+            "detail": "detail 24",
+            "status": "resolved"
+          },
+          {
+            "severity": "critical",
+            "title": "Finding 25",
+            "detail": "detail 25",
+            "status": "open"
+          },
+          {
+            "severity": "major",
+            "title": "Finding 26",
+            "detail": "detail 26",
+            "status": "open"
+          },
+          {
+            "severity": "minor",
+            "title": "Finding 27",
+            "detail": "detail 27",
+            "status": "open"
+          },
+          {
+            "severity": "note",
+            "title": "Finding 28",
+            "detail": "detail 28",
+            "status": "resolved"
+          },
+          {
+            "severity": "question",
+            "title": "Finding 29",
+            "detail": "detail 29",
+            "status": "open"
+          }
+        ],
+        "notes": [
+          "Note 0: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 1: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 2: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 3: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 4: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 5: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 6: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 7: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 8: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 9: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 10: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 11: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 12: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 13: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 14: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 15: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 16: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 17: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 18: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 19: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 20: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 21: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 22: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 23: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 24: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 25: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 26: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 27: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 28: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 29: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 30: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 31: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 32: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 33: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 34: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 35: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 36: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 37: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 38: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 39: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 40: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 41: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 42: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 43: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 44: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 45: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 46: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 47: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 48: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 49: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 50: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 51: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 52: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 53: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 54: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 55: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 56: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 57: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 58: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+          "Note 59: lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum"
+        ],
+        "status": "in_progress",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-1",
+            "title": "Phase 1",
+            "status": "completed",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 1.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 1.1",
+                "validation": "Check Step 1.1",
+                "status": "completed"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 1.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 1.2",
+                "validation": "Check Step 1.2",
+                "status": "completed"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 1.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 1.3",
+                "validation": "Check Step 1.3",
+                "status": "completed"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 1.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 1.4",
+                "validation": "Check Step 1.4",
+                "status": "completed"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 1.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 1.5",
+                "validation": "Check Step 1.5",
+                "status": "completed"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 1.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 1.6",
+                "validation": "Check Step 1.6",
+                "status": "completed"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 1.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 1.7",
+                "validation": "Check Step 1.7",
+                "status": "completed"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 1.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 1.8",
+                "validation": "Check Step 1.8",
+                "status": "completed"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 1.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 1.9",
+                "validation": "Check Step 1.9",
+                "status": "completed"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 1.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 1.10",
+                "validation": "Check Step 1.10",
+                "status": "completed"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 1.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 1.11",
+                "validation": "Check Step 1.11",
+                "status": "completed"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 1.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 1.12",
+                "validation": "Check Step 1.12",
+                "status": "completed"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 1.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 1.13",
+                "validation": "Check Step 1.13",
+                "status": "completed"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 1.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 1.14",
+                "validation": "Check Step 1.14",
+                "status": "completed"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 1.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 1.15",
+                "validation": "Check Step 1.15",
+                "status": "completed"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 1.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 1.16",
+                "validation": "Check Step 1.16",
+                "status": "completed"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 1.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 1.17",
+                "validation": "Check Step 1.17",
+                "status": "completed"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 1.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 1.18",
+                "validation": "Check Step 1.18",
+                "status": "completed"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 1.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 1.19",
+                "validation": "Check Step 1.19",
+                "status": "completed"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 1.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 1.20",
+                "validation": "Check Step 1.20",
+                "status": "completed"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 1.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 1.21",
+                "validation": "Check Step 1.21",
+                "status": "completed"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 1.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 1.22",
+                "validation": "Check Step 1.22",
+                "status": "completed"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 1.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 1.23",
+                "validation": "Check Step 1.23",
+                "status": "completed"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 1.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 1.24",
+                "validation": "Check Step 1.24",
+                "status": "completed"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 1.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 1.25",
+                "validation": "Check Step 1.25",
+                "status": "completed"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 1.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 1.26",
+                "validation": "Check Step 1.26",
+                "status": "completed"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 1.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 1.27",
+                "validation": "Check Step 1.27",
+                "status": "completed"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 1.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 1.28",
+                "validation": "Check Step 1.28",
+                "status": "completed"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 1.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 1.29",
+                "validation": "Check Step 1.29",
+                "status": "completed"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 1.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 1.30",
+                "validation": "Check Step 1.30",
+                "status": "completed"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 1.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 1.31",
+                "validation": "Check Step 1.31",
+                "status": "completed"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 1.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 1.32",
+                "validation": "Check Step 1.32",
+                "status": "completed"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 1.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 1.33",
+                "validation": "Check Step 1.33",
+                "status": "completed"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 1.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 1.34",
+                "validation": "Check Step 1.34",
+                "status": "completed"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 1.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 1.35",
+                "validation": "Check Step 1.35",
+                "status": "completed"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 1.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 1.36",
+                "validation": "Check Step 1.36",
+                "status": "completed"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 1.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 1.37",
+                "validation": "Check Step 1.37",
+                "status": "completed"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 1.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 1.38",
+                "validation": "Check Step 1.38",
+                "status": "completed"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 1.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 1.39",
+                "validation": "Check Step 1.39",
+                "status": "completed"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 1.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 1.40",
+                "validation": "Check Step 1.40",
+                "status": "completed"
+              }
+            ]
+          },
+          {
+            "id": "phase-2",
+            "title": "Phase 2",
+            "status": "in_progress",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 2.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 2.1",
+                "validation": "Check Step 2.1",
+                "status": "completed"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 2.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 2.2",
+                "validation": "Check Step 2.2",
+                "status": "completed"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 2.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 2.3",
+                "validation": "Check Step 2.3",
+                "status": "completed"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 2.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 2.4",
+                "validation": "Check Step 2.4",
+                "status": "completed"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 2.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 2.5",
+                "validation": "Check Step 2.5",
+                "status": "completed"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 2.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 2.6",
+                "validation": "Check Step 2.6",
+                "status": "completed"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 2.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 2.7",
+                "validation": "Check Step 2.7",
+                "status": "completed"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 2.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 2.8",
+                "validation": "Check Step 2.8",
+                "status": "completed"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 2.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 2.9",
+                "validation": "Check Step 2.9",
+                "status": "completed"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 2.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 2.10",
+                "validation": "Check Step 2.10",
+                "status": "completed"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 2.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 2.11",
+                "validation": "Check Step 2.11",
+                "status": "draft"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 2.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 2.12",
+                "validation": "Check Step 2.12",
+                "status": "draft"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 2.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 2.13",
+                "validation": "Check Step 2.13",
+                "status": "draft"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 2.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 2.14",
+                "validation": "Check Step 2.14",
+                "status": "draft"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 2.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 2.15",
+                "validation": "Check Step 2.15",
+                "status": "draft"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 2.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 2.16",
+                "validation": "Check Step 2.16",
+                "status": "draft"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 2.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 2.17",
+                "validation": "Check Step 2.17",
+                "status": "draft"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 2.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 2.18",
+                "validation": "Check Step 2.18",
+                "status": "draft"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 2.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 2.19",
+                "validation": "Check Step 2.19",
+                "status": "draft"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 2.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 2.20",
+                "validation": "Check Step 2.20",
+                "status": "draft"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 2.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 2.21",
+                "validation": "Check Step 2.21",
+                "status": "draft"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 2.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 2.22",
+                "validation": "Check Step 2.22",
+                "status": "draft"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 2.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 2.23",
+                "validation": "Check Step 2.23",
+                "status": "draft"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 2.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 2.24",
+                "validation": "Check Step 2.24",
+                "status": "draft"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 2.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 2.25",
+                "validation": "Check Step 2.25",
+                "status": "draft"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 2.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 2.26",
+                "validation": "Check Step 2.26",
+                "status": "draft"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 2.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 2.27",
+                "validation": "Check Step 2.27",
+                "status": "draft"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 2.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 2.28",
+                "validation": "Check Step 2.28",
+                "status": "draft"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 2.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 2.29",
+                "validation": "Check Step 2.29",
+                "status": "draft"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 2.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 2.30",
+                "validation": "Check Step 2.30",
+                "status": "draft"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 2.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 2.31",
+                "validation": "Check Step 2.31",
+                "status": "draft"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 2.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 2.32",
+                "validation": "Check Step 2.32",
+                "status": "draft"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 2.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 2.33",
+                "validation": "Check Step 2.33",
+                "status": "draft"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 2.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 2.34",
+                "validation": "Check Step 2.34",
+                "status": "draft"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 2.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 2.35",
+                "validation": "Check Step 2.35",
+                "status": "draft"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 2.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 2.36",
+                "validation": "Check Step 2.36",
+                "status": "draft"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 2.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 2.37",
+                "validation": "Check Step 2.37",
+                "status": "draft"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 2.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 2.38",
+                "validation": "Check Step 2.38",
+                "status": "draft"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 2.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 2.39",
+                "validation": "Check Step 2.39",
+                "status": "draft"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 2.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 2.40",
+                "validation": "Check Step 2.40",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-3",
+            "title": "Phase 3",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 3.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 3.1",
+                "validation": "Check Step 3.1",
+                "status": "draft"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 3.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 3.2",
+                "validation": "Check Step 3.2",
+                "status": "draft"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 3.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 3.3",
+                "validation": "Check Step 3.3",
+                "status": "draft"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 3.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 3.4",
+                "validation": "Check Step 3.4",
+                "status": "draft"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 3.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 3.5",
+                "validation": "Check Step 3.5",
+                "status": "draft"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 3.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 3.6",
+                "validation": "Check Step 3.6",
+                "status": "draft"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 3.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 3.7",
+                "validation": "Check Step 3.7",
+                "status": "draft"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 3.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 3.8",
+                "validation": "Check Step 3.8",
+                "status": "draft"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 3.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 3.9",
+                "validation": "Check Step 3.9",
+                "status": "draft"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 3.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 3.10",
+                "validation": "Check Step 3.10",
+                "status": "draft"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 3.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 3.11",
+                "validation": "Check Step 3.11",
+                "status": "draft"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 3.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 3.12",
+                "validation": "Check Step 3.12",
+                "status": "draft"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 3.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 3.13",
+                "validation": "Check Step 3.13",
+                "status": "draft"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 3.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 3.14",
+                "validation": "Check Step 3.14",
+                "status": "draft"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 3.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 3.15",
+                "validation": "Check Step 3.15",
+                "status": "draft"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 3.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 3.16",
+                "validation": "Check Step 3.16",
+                "status": "draft"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 3.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 3.17",
+                "validation": "Check Step 3.17",
+                "status": "draft"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 3.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 3.18",
+                "validation": "Check Step 3.18",
+                "status": "draft"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 3.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 3.19",
+                "validation": "Check Step 3.19",
+                "status": "draft"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 3.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 3.20",
+                "validation": "Check Step 3.20",
+                "status": "draft"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 3.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 3.21",
+                "validation": "Check Step 3.21",
+                "status": "draft"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 3.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 3.22",
+                "validation": "Check Step 3.22",
+                "status": "draft"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 3.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 3.23",
+                "validation": "Check Step 3.23",
+                "status": "draft"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 3.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 3.24",
+                "validation": "Check Step 3.24",
+                "status": "draft"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 3.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 3.25",
+                "validation": "Check Step 3.25",
+                "status": "draft"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 3.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 3.26",
+                "validation": "Check Step 3.26",
+                "status": "draft"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 3.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 3.27",
+                "validation": "Check Step 3.27",
+                "status": "draft"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 3.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 3.28",
+                "validation": "Check Step 3.28",
+                "status": "draft"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 3.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 3.29",
+                "validation": "Check Step 3.29",
+                "status": "draft"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 3.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 3.30",
+                "validation": "Check Step 3.30",
+                "status": "draft"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 3.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 3.31",
+                "validation": "Check Step 3.31",
+                "status": "draft"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 3.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 3.32",
+                "validation": "Check Step 3.32",
+                "status": "draft"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 3.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 3.33",
+                "validation": "Check Step 3.33",
+                "status": "draft"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 3.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 3.34",
+                "validation": "Check Step 3.34",
+                "status": "draft"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 3.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 3.35",
+                "validation": "Check Step 3.35",
+                "status": "draft"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 3.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 3.36",
+                "validation": "Check Step 3.36",
+                "status": "draft"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 3.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 3.37",
+                "validation": "Check Step 3.37",
+                "status": "draft"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 3.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 3.38",
+                "validation": "Check Step 3.38",
+                "status": "draft"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 3.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 3.39",
+                "validation": "Check Step 3.39",
+                "status": "draft"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 3.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 3.40",
+                "validation": "Check Step 3.40",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-4",
+            "title": "Phase 4",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-1",
+                "title": "Step 4.1",
+                "target": "src/mod0.ts",
+                "action": "Do Step 4.1",
+                "validation": "Check Step 4.1",
+                "status": "draft"
+              },
+              {
+                "id": "step-2",
+                "title": "Step 4.2",
+                "target": "src/mod1.ts",
+                "action": "Do Step 4.2",
+                "validation": "Check Step 4.2",
+                "status": "draft"
+              },
+              {
+                "id": "step-3",
+                "title": "Step 4.3",
+                "target": "src/mod2.ts",
+                "action": "Do Step 4.3",
+                "validation": "Check Step 4.3",
+                "status": "draft"
+              },
+              {
+                "id": "step-4",
+                "title": "Step 4.4",
+                "target": "src/mod3.ts",
+                "action": "Do Step 4.4",
+                "validation": "Check Step 4.4",
+                "status": "draft"
+              },
+              {
+                "id": "step-5",
+                "title": "Step 4.5",
+                "target": "src/mod4.ts",
+                "action": "Do Step 4.5",
+                "validation": "Check Step 4.5",
+                "status": "draft"
+              },
+              {
+                "id": "step-6",
+                "title": "Step 4.6",
+                "target": "src/mod5.ts",
+                "action": "Do Step 4.6",
+                "validation": "Check Step 4.6",
+                "status": "draft"
+              },
+              {
+                "id": "step-7",
+                "title": "Step 4.7",
+                "target": "src/mod6.ts",
+                "action": "Do Step 4.7",
+                "validation": "Check Step 4.7",
+                "status": "draft"
+              },
+              {
+                "id": "step-8",
+                "title": "Step 4.8",
+                "target": "src/mod7.ts",
+                "action": "Do Step 4.8",
+                "validation": "Check Step 4.8",
+                "status": "draft"
+              },
+              {
+                "id": "step-9",
+                "title": "Step 4.9",
+                "target": "src/mod8.ts",
+                "action": "Do Step 4.9",
+                "validation": "Check Step 4.9",
+                "status": "draft"
+              },
+              {
+                "id": "step-10",
+                "title": "Step 4.10",
+                "target": "src/mod9.ts",
+                "action": "Do Step 4.10",
+                "validation": "Check Step 4.10",
+                "status": "draft"
+              },
+              {
+                "id": "step-11",
+                "title": "Step 4.11",
+                "target": "src/mod10.ts",
+                "action": "Do Step 4.11",
+                "validation": "Check Step 4.11",
+                "status": "draft"
+              },
+              {
+                "id": "step-12",
+                "title": "Step 4.12",
+                "target": "src/mod11.ts",
+                "action": "Do Step 4.12",
+                "validation": "Check Step 4.12",
+                "status": "draft"
+              },
+              {
+                "id": "step-13",
+                "title": "Step 4.13",
+                "target": "src/mod12.ts",
+                "action": "Do Step 4.13",
+                "validation": "Check Step 4.13",
+                "status": "draft"
+              },
+              {
+                "id": "step-14",
+                "title": "Step 4.14",
+                "target": "src/mod13.ts",
+                "action": "Do Step 4.14",
+                "validation": "Check Step 4.14",
+                "status": "draft"
+              },
+              {
+                "id": "step-15",
+                "title": "Step 4.15",
+                "target": "src/mod14.ts",
+                "action": "Do Step 4.15",
+                "validation": "Check Step 4.15",
+                "status": "draft"
+              },
+              {
+                "id": "step-16",
+                "title": "Step 4.16",
+                "target": "src/mod15.ts",
+                "action": "Do Step 4.16",
+                "validation": "Check Step 4.16",
+                "status": "draft"
+              },
+              {
+                "id": "step-17",
+                "title": "Step 4.17",
+                "target": "src/mod16.ts",
+                "action": "Do Step 4.17",
+                "validation": "Check Step 4.17",
+                "status": "draft"
+              },
+              {
+                "id": "step-18",
+                "title": "Step 4.18",
+                "target": "src/mod17.ts",
+                "action": "Do Step 4.18",
+                "validation": "Check Step 4.18",
+                "status": "draft"
+              },
+              {
+                "id": "step-19",
+                "title": "Step 4.19",
+                "target": "src/mod18.ts",
+                "action": "Do Step 4.19",
+                "validation": "Check Step 4.19",
+                "status": "draft"
+              },
+              {
+                "id": "step-20",
+                "title": "Step 4.20",
+                "target": "src/mod19.ts",
+                "action": "Do Step 4.20",
+                "validation": "Check Step 4.20",
+                "status": "draft"
+              },
+              {
+                "id": "step-21",
+                "title": "Step 4.21",
+                "target": "src/mod20.ts",
+                "action": "Do Step 4.21",
+                "validation": "Check Step 4.21",
+                "status": "draft"
+              },
+              {
+                "id": "step-22",
+                "title": "Step 4.22",
+                "target": "src/mod21.ts",
+                "action": "Do Step 4.22",
+                "validation": "Check Step 4.22",
+                "status": "draft"
+              },
+              {
+                "id": "step-23",
+                "title": "Step 4.23",
+                "target": "src/mod22.ts",
+                "action": "Do Step 4.23",
+                "validation": "Check Step 4.23",
+                "status": "draft"
+              },
+              {
+                "id": "step-24",
+                "title": "Step 4.24",
+                "target": "src/mod23.ts",
+                "action": "Do Step 4.24",
+                "validation": "Check Step 4.24",
+                "status": "draft"
+              },
+              {
+                "id": "step-25",
+                "title": "Step 4.25",
+                "target": "src/mod24.ts",
+                "action": "Do Step 4.25",
+                "validation": "Check Step 4.25",
+                "status": "draft"
+              },
+              {
+                "id": "step-26",
+                "title": "Step 4.26",
+                "target": "src/mod25.ts",
+                "action": "Do Step 4.26",
+                "validation": "Check Step 4.26",
+                "status": "draft"
+              },
+              {
+                "id": "step-27",
+                "title": "Step 4.27",
+                "target": "src/mod26.ts",
+                "action": "Do Step 4.27",
+                "validation": "Check Step 4.27",
+                "status": "draft"
+              },
+              {
+                "id": "step-28",
+                "title": "Step 4.28",
+                "target": "src/mod27.ts",
+                "action": "Do Step 4.28",
+                "validation": "Check Step 4.28",
+                "status": "draft"
+              },
+              {
+                "id": "step-29",
+                "title": "Step 4.29",
+                "target": "src/mod28.ts",
+                "action": "Do Step 4.29",
+                "validation": "Check Step 4.29",
+                "status": "draft"
+              },
+              {
+                "id": "step-30",
+                "title": "Step 4.30",
+                "target": "src/mod29.ts",
+                "action": "Do Step 4.30",
+                "validation": "Check Step 4.30",
+                "status": "draft"
+              },
+              {
+                "id": "step-31",
+                "title": "Step 4.31",
+                "target": "src/mod30.ts",
+                "action": "Do Step 4.31",
+                "validation": "Check Step 4.31",
+                "status": "draft"
+              },
+              {
+                "id": "step-32",
+                "title": "Step 4.32",
+                "target": "src/mod31.ts",
+                "action": "Do Step 4.32",
+                "validation": "Check Step 4.32",
+                "status": "draft"
+              },
+              {
+                "id": "step-33",
+                "title": "Step 4.33",
+                "target": "src/mod32.ts",
+                "action": "Do Step 4.33",
+                "validation": "Check Step 4.33",
+                "status": "draft"
+              },
+              {
+                "id": "step-34",
+                "title": "Step 4.34",
+                "target": "src/mod33.ts",
+                "action": "Do Step 4.34",
+                "validation": "Check Step 4.34",
+                "status": "draft"
+              },
+              {
+                "id": "step-35",
+                "title": "Step 4.35",
+                "target": "src/mod34.ts",
+                "action": "Do Step 4.35",
+                "validation": "Check Step 4.35",
+                "status": "draft"
+              },
+              {
+                "id": "step-36",
+                "title": "Step 4.36",
+                "target": "src/mod35.ts",
+                "action": "Do Step 4.36",
+                "validation": "Check Step 4.36",
+                "status": "draft"
+              },
+              {
+                "id": "step-37",
+                "title": "Step 4.37",
+                "target": "src/mod36.ts",
+                "action": "Do Step 4.37",
+                "validation": "Check Step 4.37",
+                "status": "draft"
+              },
+              {
+                "id": "step-38",
+                "title": "Step 4.38",
+                "target": "src/mod37.ts",
+                "action": "Do Step 4.38",
+                "validation": "Check Step 4.38",
+                "status": "draft"
+              },
+              {
+                "id": "step-39",
+                "title": "Step 4.39",
+                "target": "src/mod38.ts",
+                "action": "Do Step 4.39",
+                "validation": "Check Step 4.39",
+                "status": "draft"
+              },
+              {
+                "id": "step-40",
+                "title": "Step 4.40",
+                "target": "src/mod39.ts",
+                "action": "Do Step 4.40",
+                "validation": "Check Step 4.40",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/big-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+      "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/common.schema.json",
+  "title": "Shiori shared definitions (contract v1)",
+  "description": "Shared definitions referenced by the other v1 schemas. $id values use the reserved .invalid domain: they are identifiers, never fetch locations.",
+  "$defs": {
+    "hash": {
+      "description": "Lowercase hex SHA-256 digest.",
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "status": {
+      "description": "Lifecycle status shared by plans, phases and steps. Order is significant: draft is the default and the update placeholder value.",
+      "type": "string",
+      "enum": ["draft", "in_progress", "blocked", "review", "completed", "cancelled"]
+    },
+    "severity": {
+      "description": "Review finding severity, most to least severe.",
+      "type": "string",
+      "enum": ["blocker", "critical", "major", "minor", "note", "question"]
+    },
+    "findingStatus": {
+      "description": "Finding lifecycle. Absent in legacy documents; absent is NOT resolved.",
+      "type": "string",
+      "enum": ["open", "resolved"]
+    },
+    "stringList": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "nonblank": {
+      "description": "String that is non-empty after trimming the ECMAScript whitespace set (U+0009-U+000D, U+0020, U+00A0, U+1680, U+2000-U+200A, U+2028, U+2029, U+202F, U+205F, U+3000, U+FEFF). Validators must trim with exactly that set, not a locale or ASCII-only set.",
+      "type": "string",
+      "minLength": 1,
+      "pattern": "[^\\u0009-\\u000D\\u0020\\u00A0\\u1680\\u2000-\\u200A\\u2028\\u2029\\u202F\\u205F\\u3000\\uFEFF]",
+      "x-shiori-trim": "ecmascript-whitespace"
+    },
+    "workplanId": {
+      "description": "Caller-supplied workplan id. Must contain at least one ASCII letter or digit (case-insensitive) and be nonblank after trimming. Stored ids are the normalized form (see x-shiori-normalization).",
+      "allOf": [
+        { "$ref": "#/$defs/nonblank" },
+        { "type": "string", "pattern": "[A-Za-z0-9]" }
+      ],
+      "x-shiori-normalization": "trim; lowercase; replace each maximal run of characters outside [a-z0-9] with a single '-'; strip leading/trailing '-'; truncate to 80 UTF-16 code units; empty result is an error 'Workplan id must contain at least one letter or number'."
+    },
+    "isoDatetimeUtc": {
+      "description": "UTC ISO-8601 timestamp as accepted by the reference validator: YYYY-MM-DDTHH:MM with optional :SS and optional fractional seconds, mandatory trailing Z, no offsets. Calendar validity (month lengths, leap years) is checked semantically.",
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2}(\\.\\d+)?)?Z$"
+    },
+    "manifestEntry": {
+      "description": "One artifact in a snapshot manifest. Exactly one of sha256 or missing=true. Canonical key order for hashing is path, then sha256 or missing.",
+      "type": "object",
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "description": "Project-relative path with '/' separators." },
+        "sha256": { "$ref": "#/$defs/hash" },
+        "missing": { "const": true }
+      },
+      "required": ["path"],
+      "oneOf": [
+        { "required": ["sha256"], "not": { "required": ["missing"] } },
+        { "required": ["missing"], "not": { "required": ["sha256"] } }
+      ]
+    },
+    "stepRef": {
+      "description": "Composite step identity. Step ids are unique only within a phase.",
+      "type": "object",
+      "properties": {
+        "phaseId": { "$ref": "#/$defs/nonblank" },
+        "stepId": { "$ref": "#/$defs/nonblank" }
+      },
+      "required": ["phaseId", "stepId"]
+    }
+  }
+}

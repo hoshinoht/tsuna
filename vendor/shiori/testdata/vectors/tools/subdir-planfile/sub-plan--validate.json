@@ -1,0 +1,46 @@
+{
+  "id": "tools/subdir-planfile/sub-plan--validate",
+  "fixture": "subdir-planfile",
+  "generationRoot": "/private/tmp/shiori-fx/run/subdir-planfile",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "sub-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 780,
+    "rawOutputUtf8Bytes": 780,
+    "outputSha256": "a7f49a27b5ffc35a1e314840e116492762302e183329f64010639119fc68594f",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/sub-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/sub/dir/sub-plan.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "sub-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/sub/dir/sub-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 1,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "d3d03ebd57b91b4e8d83d9d437842bbcf41f1de97de963c2dfb0db237a847909",
+      "stateHash": "90dacb9e345b6843533e59a2e03355c4c421298123d9d9ec974ade061063a684",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

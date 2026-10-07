@@ -1,0 +1,76 @@
+{
+  "id": "tools/invalid-schema/wrong-types--doctor",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "wrong-types"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1948,
+    "rawOutputUtf8Bytes": 1948,
+    "outputSha256": "71d8cf04375fd29991144a06c5efb6b3836ac70d1a2b9d1f6db1fbd40ce0a644",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 4,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "wrong-types",
+          "valid": false,
+          "issues": [
+            "title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received number; scope: Invalid input: expected array, received string; constraints.0: Invalid input: expected string, received number; phases.0.status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; phases.0.steps.0.title: Invalid input: expected string, received undefined; reviewFindings.0.severity: Invalid option: expected one of \"blocker\"|\"critical\"|\"major\"|\"minor\"|\"note\"|\"question\"; reviewFindings.0.status: Invalid option: expected one of \"open\"|\"resolved\"; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+          ],
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

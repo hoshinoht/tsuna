@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/transaction-journal-v1.schema.json",
+  "title": "Transaction recovery journal, schemaVersion 1",
+  "description": "Stored at .opencode/workplan/<id>.transaction.json and published durably before the first artifact replacement. Its presence means recovery (explicit resume or rollback) is required; it is part of stateHash. Content fields carry the exact bytes, base64-encoded (standard alphabet, padded).",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "transactionId": { "$ref": "common.schema.json#/$defs/nonblank", "description": "Random UUID in the reference implementation. Not authority." },
+    "workplanId": { "$ref": "common.schema.json#/$defs/nonblank" },
+    "operation": { "$ref": "common.schema.json#/$defs/nonblank", "description": "Reference values: create, create:overwrite, update, patch, reset:draft, reset:markdown-only, checkpoint, compact:apply; D.3 adds reset:wipe (plan, Markdown, archive, checkpoint and dependency targets; sidecars may be deleted) and lets reset:draft delete the checkpoint; D.3.1 lets create:overwrite of an unreadable plan add an archive target (the damaged bytes); recovery uses the operation label recovery:resume or recovery:rollback for its own authorization intent. An operation string never grants authority beyond what journal validation proves." },
+    "createdAt": { "type": "string" },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "minLength": 1, "description": "Project-relative path with '/' separators." },
+          "beforeHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }], "description": "null = artifact absent before." },
+          "afterHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }], "description": "null = artifact absent after (deletion)." },
+          "beforeContent": { "type": ["string", "null"], "contentEncoding": "base64" },
+          "afterContent": { "type": ["string", "null"], "contentEncoding": "base64" },
+          "mode": { "type": "integer", "minimum": 0, "maximum": 511, "description": "POSIX permission bits (0..0o777) to apply on publication." }
+        },
+        "required": ["path", "beforeHash", "afterHash", "beforeContent", "afterContent", "mode"]
+      }
+    }
+  },
+  "required": ["schemaVersion", "transactionId", "workplanId", "operation", "createdAt", "targets"],
+  "x-shiori-rules": [
+    "hash fields must equal SHA-256 of the decoded content (null with null)",
+    "target paths are canonical, unique and belong to this plan's recognized artifact set",
+    "a changed normalized planFile requires its exact new Markdown target with null before-image and non-null after-image",
+    "every current target must match its before- or after-hash before any recovery write (third state => abort, keep journal)"
+  ],
+  "x-shiori-unknown-fields": "Accepted and ignored on read."
+}

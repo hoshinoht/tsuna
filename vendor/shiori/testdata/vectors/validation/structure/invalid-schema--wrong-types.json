@@ -1,0 +1,58 @@
+{
+  "id": "validation/structure/invalid-schema--wrong-types",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2,
+      "id": "wrong-types",
+      "kind": "general",
+      "goal": 5,
+      "scope": "x",
+      "nonGoals": [],
+      "constraints": [
+        1
+      ],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/wrong-types.md",
+      "phases": [
+        {
+          "id": "p",
+          "title": "P",
+          "status": "done",
+          "steps": [
+            {
+              "id": "s",
+              "status": "draft"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [
+        {
+          "severity": "fatal",
+          "title": "t",
+          "status": "closed"
+        }
+      ],
+      "notes": [],
+      "status": "finished",
+      "createdAt": "2026-01-02T03:04:05.000Z",
+      "updatedAt": "2026-01-02T03:04:05.000Z"
+    },
+    "expectedId": "wrong-types"
+  },
+  "expect": {
+    "documentDecoded": false,
+    "issues": [
+      "title: Invalid input: expected string, received undefined",
+      "goal: Invalid input: expected string, received number",
+      "scope: Invalid input: expected array, received string",
+      "constraints.0: Invalid input: expected string, received number",
+      "phases.0.status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"",
+      "phases.0.steps.0.title: Invalid input: expected string, received undefined",
+      "reviewFindings.0.severity: Invalid option: expected one of \"blocker\"|\"critical\"|\"major\"|\"minor\"|\"note\"|\"question\"",
+      "reviewFindings.0.status: Invalid option: expected one of \"open\"|\"resolved\"",
+      "status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+    ]
+  }
+}

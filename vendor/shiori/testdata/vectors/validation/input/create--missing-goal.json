@@ -1,0 +1,18 @@
+{
+  "id": "validation/input/create--missing-goal",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: goal: Invalid input: expected string, received undefined"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: goal: Invalid input: expected string, received undefined"
+    },
+    "nativeThenCore": null
+  }
+}

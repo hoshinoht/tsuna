@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 2,
+  "id": "new-plan",
+  "kind": "general",
+  "title": "New",
+  "goal": "g",
+  "scope": [
+    "a",
+    "b"
+  ],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/new-plan.md",
+  "specFiles": [
+    "docs/x.md"
+  ],
+  "phases": [
+    {
+      "id": "phase-one",
+      "title": "P1",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "s-1",
+          "title": "s1",
+          "action": "act",
+          "validation": "val",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [
+    {
+      "severity": "note",
+      "title": "f",
+      "source": "src",
+      "status": "open"
+    }
+  ],
+  "notes": [
+    "n"
+  ],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

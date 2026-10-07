@@ -1,0 +1,131 @@
+{
+  "id": "tools/legacy-fields/legacy-plan--read",
+  "fixture": "legacy-fields",
+  "generationRoot": "/private/tmp/shiori-fx/run/legacy-fields",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "legacy-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3030,
+    "rawOutputUtf8Bytes": 3030,
+    "outputSha256": "d3c59a537a7939520447fcca92f106b5355507f9969797d521672f4e32f85666",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/legacy-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "legacy-plan",
+        "kind": "general",
+        "title": "Legacy plan",
+        "goal": "Keep legacy shape",
+        "scope": [
+          "s"
+        ],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/legacy-plan.md",
+        "phases": [
+          {
+            "id": "phase-l",
+            "title": "L",
+            "status": "in_progress",
+            "steps": [
+              {
+                "id": "step-l1",
+                "title": "L1",
+                "action": "a",
+                "validation": "v",
+                "status": "draft",
+                "estimate": 1.5,
+                "custom": null
+              }
+            ],
+            "owner": {
+              "name": "worker-1",
+              "tags": [
+                "x"
+              ]
+            }
+          }
+        ],
+        "reviewFindings": [
+          {
+            "severity": "major",
+            "title": "Old finding",
+            "legacyRef": 7
+          }
+        ],
+        "notes": [],
+        "status": "in_progress",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z",
+        "xMiddle": "top-level unknown between known keys",
+        "xExtension": {
+          "nested": {
+            "deep": [
+              1,
+              2,
+              {
+                "k": "v"
+              }
+            ]
+          }
+        },
+        "bigInt": 12345678901234567000,
+        "float": 1,
+        "exp": 1e+21,
+        "specFiles": []
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-l",
+            "title": "L",
+            "status": "in_progress",
+            "steps": [
+              {
+                "id": "step-l1",
+                "title": "L1",
+                "action": "a",
+                "validation": "v",
+                "status": "draft",
+                "estimate": 1.5,
+                "custom": null
+              }
+            ],
+            "owner": {
+              "name": "worker-1",
+              "tags": [
+                "x"
+              ]
+            }
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/legacy-plan.md",
+        "exists": true,
+        "content": "# Legacy plan\n\n## Goal\nKeep legacy shape\n\n## Scope\n- s\n\n## Non-goals\n_None_\n\n## Constraints\n_None_\n\n## Relevant files\n_None_\n\n## Spec files\n_None_\n\n## Execution phases\n### 1. L <!-- workplan-phase-id: phase-l -->\n- Status: in_progress\n- Id: phase-l\n#### 1.1 L1 <!-- workplan-step-id: step-l1 -->\n- Status: draft\n- Id: step-l1\n- Action: a\n- Validation: v\n\n## Adversarial review findings\n- [major] Old finding\n\n## Notes\n_None_\n\n## Status\n- Overall status: in_progress\n- Metadata file: .opencode/workplan/legacy-plan.json\n- Detailed plan file: .opencode/workplan/legacy-plan.md\n"
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "b514987272fb628fc4f635dfbcc351652bab6776ce0ac7f5ae598b591ce45134",
+      "stateHash": "0606a6d3060f96323697bae97d8900fefb5638f97b68c01f00e7ada2e567cb2a"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,23 @@
+{
+  "id": "paging/resume-errors/garbage",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "big-plan",
+      "maxChars": 4096,
+      "limit": 5,
+      "cursor": "garbage"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan resume cursor; restart without a cursor"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,24 @@
+{
+  "id": "resume/legacy-fields/legacy-plan--max12000",
+  "fixture": "legacy-fields",
+  "generationRoot": "/private/tmp/shiori-fx/run/legacy-fields",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "legacy-plan",
+      "maxChars": 12000
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3129,
+    "rawOutputUtf8Bytes": 3129,
+    "outputSha256": "448bbaf4ae7080ea45f64e9f8f4cd2267536cc47dbe3847dee69abcaf99fb2d1",
+    "outputText": "{\n  \"path\": \"$ROOT/.opencode/workplan/legacy-plan.json\",\n  \"planFile\": \".opencode/workplan/legacy-plan.md\",\n  \"hashes\": {\n    \"planHash\": \"b514987272fb628fc4f635dfbcc351652bab6776ce0ac7f5ae598b591ce45134\",\n    \"stateHash\": \"0606a6d3060f96323697bae97d8900fefb5638f97b68c01f00e7ada2e567cb2a\"\n  },\n  \"planFresh\": true,\n  \"checkpoint\": {\n    \"exists\": false,\n    \"fresh\": false,\n    \"freshness\": \"missing\",\n    \"sourceUpdatedAt\": null,\n    \"summary\": null,\n    \"current\": {\n      \"phaseId\": \"phase-l\",\n      \"phaseTitle\": \"L\",\n      \"phaseStatus\": \"in_progress\",\n      \"stepId\": \"step-l1\",\n      \"stepTitle\": \"L1\",\n      \"stepStatus\": \"draft\",\n      \"target\": null,\n      \"action\": \"a\",\n      \"validation\": \"v\"\n    },\n    \"nextAction\": null,\n    \"blockers\": [],\n    \"blockersTotal\": 0,\n    \"guardrails\": [],\n    \"guardrailsTotal\": 0,\n    \"references\": [],\n    \"referencesTotal\": 0,\n    \"recentValidation\": [],\n    \"evidenceStatus\": \"unverified\",\n    \"diagnostic\": null\n  },\n  \"workplan\": {\n    \"id\": \"legacy-plan\",\n    \"title\": \"Legacy plan\",\n    \"goal\": \"Keep legacy shape\",\n    \"status\": \"in_progress\",\n    \"scope\": [\n      \"s\"\n    ],\n    \"scopeTotal\": 1,\n    \"nonGoals\": [],\n    \"nonGoalsTotal\": 0,\n    \"constraints\": [],\n    \"constraintsTotal\": 0,\n    \"relevantFiles\": [],\n    \"updatedAt\": \"2026-01-02T03:04:05.000Z\"\n  },\n  \"currentDependencies\": {\n    \"recorded\": false,\n    \"valid\": true,\n    \"total\": 0,\n    \"references\": []\n  },\n  \"safety\": {\n    \"highFindings\": [\n      {\n        \"index\": 0,\n        \"severity\": \"major\",\n        \"title\": \"Old finding\",\n        \"detail\": null,\n        \"source\": null,\n        \"status\": \"open\",\n        \"metadataOmitted\": true\n      }\n    ],\n    \"highFindingsTotal\": 1,\n    \"highFindingCounts\": {\n      \"blocker\": 0,\n      \"critical\": 0,\n      \"major\": 1\n    },\n    \"unverifiedWarnings\": [],\n    \"unverifiedWarningCount\": 0,\n    \"unverifiedWarningsOmitted\": 0,\n    \"overflow\": true,\n    \"truncatedDangerFieldCount\": 1,\n    \"omittedDangerCounts\": {\n      \"constraints\": 0,\n      \"blockers\": 0,\n      \"highFindings\": 0,\n      \"dependencies\": 0,\n      \"guardrails\": 0,\n      \"references\": 0,\n      \"scope\": 0,\n      \"nonGoals\": 0\n    },\n    \"overflowPointers\": [\n      \"workplan_read:legacy-plan\",\n      \"workplan_inspect:legacy-plan\"\n    ]\n  },\n  \"page\": {\n    \"total\": 0,\n    \"offset\": 0,\n    \"limit\": 20,\n    \"returned\": 0,\n    \"omitted\": 0,\n    \"items\": [],\n    \"nextCursor\": null\n  },\n  \"counts\": {\n    \"activeWorkTotal\": 1,\n    \"findingsTotal\": 1,\n    \"highFindingsTotal\": 1,\n    \"referencesTotal\": 0,\n    \"historicalNotesOmitted\": 0,\n    \"resolvedFindingsOmitted\": 0\n  },\n  \"retrieval\": {\n    \"read\": \"workplan_read id=legacy-plan\",\n    \"inspect\": \"workplan_inspect id=legacy-plan\",\n    \"dependencies\": \".opencode/workplan/legacy-plan.dependencies.json\"\n  },\n  \"truncatedFields\": [\n    \"safety.highFindings[0].customMetadata\"\n  ],\n  \"truncatedFieldCount\": 1,\n  \"truncatedFieldPathsOmitted\": 0,\n  \"instruction\": \"Checkpoint guidance is not fresh. Reconfirm unverified guardrails, blockers and references before relying on them; nextAction is withheld.\"\n}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

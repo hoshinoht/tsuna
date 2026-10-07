@@ -1,0 +1,59 @@
+{
+  "id": "mutations/update-move-generated",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "minimal",
+      "planFile": ".opencode/workplan/next/minimal.md"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 731,
+    "rawOutputUtf8Bytes": 731,
+    "outputSha256": "06ee362b123d1e26319b2ed9ae1bc4c3b7019c42e0fe604ffc521bba67c49fba",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/minimal.json",
+      "planPath": "$ROOT/.opencode/workplan/next/minimal.md",
+      "workplan": {
+        "id": "minimal",
+        "kind": "general",
+        "title": null,
+        "goal": "Ship the minimal plan",
+        "status": "draft",
+        "planFile": ".opencode/workplan/next/minimal.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "83d6bcb4083533bada2c782085dd99b891bc7eaff5fb8ebad9ca3673d19e040b",
+      "stateHash": "2d8d11a30031cae0fb3dcaf269bb90bee6713355a82b4072835e5bac97db2a4d",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/minimal.json": {
+      "sha256": "b6d9f01fb88b147f2a8bf277e2645eabc94cf9c57eea96407128c953ba4f9add",
+      "bytes": 729,
+      "file": "mutations/update-move-generated.after/.opencode/workplan/minimal.json"
+    },
+    ".opencode/workplan/next/minimal.md": {
+      "sha256": "509b76d8b45d03a9408d7f510e7eb898eab001579c664879f4ac965f39b69f9a",
+      "bytes": 591,
+      "file": "mutations/update-move-generated.after/.opencode/workplan/next/minimal.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

@@ -1,0 +1,146 @@
+{
+  "id": "tools/dependencies-invalid/dep-plan--inspect",
+  "fixture": "dependencies-invalid",
+  "generationRoot": "/private/tmp/shiori-fx/run/dependencies-invalid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "dep-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2792,
+    "rawOutputUtf8Bytes": 2792,
+    "outputSha256": "00281ea327ea64a0d18875ba9c10802bda1b4f32e2f100cb2181a7ebf19c21e3",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/dep-plan.json",
+      "workplan": {
+        "id": "dep-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/dep-plan.md",
+        "phaseCount": 1,
+        "stepCount": 3,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/dep-plan.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 3,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s1",
+          "title": "S1",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s1 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s2",
+          "title": "S2",
+          "status": "draft",
+          "target": null,
+          "index": 1,
+          "indexPath": "1.2",
+          "markdownMarker": "<!-- workplan-step-id: s2 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s3",
+          "title": "S3",
+          "status": "draft",
+          "target": null,
+          "index": 2,
+          "indexPath": "1.3",
+          "markdownMarker": "<!-- workplan-step-id: s3 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": true,
+        "dependencies": [
+          {
+            "phaseId": "p",
+            "stepId": "s1",
+            "dependsOn": [
+              {
+                "phaseId": "p",
+                "stepId": "s2"
+              }
+            ]
+          },
+          {
+            "phaseId": "p",
+            "stepId": "s2",
+            "dependsOn": [
+              {
+                "phaseId": "p",
+                "stepId": "s1"
+              }
+            ]
+          },
+          {
+            "phaseId": "p",
+            "stepId": "s3",
+            "dependsOn": [
+              {
+                "phaseId": "p",
+                "stepId": "s3"
+              },
+              {
+                "phaseId": "ghost",
+                "stepId": "x"
+              }
+            ]
+          }
+        ],
+        "terminalSummaries": [],
+        "issues": [
+          "dependencies.2.dependsOn.1: Step ghost/x does not exist",
+          "dependencies: Cycle detected: p/s1 -> p/s2 -> p/s1",
+          "dependencies: Cycle detected: p/s3 -> p/s3"
+        ]
+      },
+      "pagination": {
+        "total": 4,
+        "offset": 0,
+        "returned": 4,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "0ef4dc8f307c3e09b380557a91a171504701eb911e71edfa7bd00d9fb302b9c5",
+      "stateHash": "32c4a6acb874a97780354ff9a625ca8c3fa8a6eb35d3d5cc1cd2ff151643f796"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

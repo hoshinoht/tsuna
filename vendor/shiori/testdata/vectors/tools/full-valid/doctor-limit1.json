@@ -1,0 +1,94 @@
+{
+  "id": "tools/full-valid/doctor-limit1",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "limit": 1
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1818,
+    "rawOutputUtf8Bytes": 1818,
+    "outputSha256": "010c70781d202ee313a92cadbe824ca18fc4345b037830c88c162d6f93eb1a58",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "full-plan",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "full-plan",
+            "kind": "feature",
+            "title": "Full plan",
+            "goal": "Exercise every known field",
+            "status": "in_progress",
+            "planFile": ".opencode/workplan/full-plan.md",
+            "phaseCount": 3,
+            "stepCount": 5,
+            "specFileCount": 2,
+            "openFindingCount": 5,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+          "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+          "checkpointFreshness": "fresh",
+          "dependenciesRecorded": true,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": "full-plan.checkpoint.json",
+          "kind": "checkpoint"
+        }
+      ],
+      "sidecarCount": 2,
+      "omittedSidecars": 1,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

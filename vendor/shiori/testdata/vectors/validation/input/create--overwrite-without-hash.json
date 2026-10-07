@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/create--overwrite-without-hash",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g",
+    "overwrite": true
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: expectedHash: overwrite requires the current stateHash"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: expectedHash: Native existing-state writes require the current stateHash"
+    },
+    "nativeThenCore": null
+  }
+}

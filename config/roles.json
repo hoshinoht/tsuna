@@ -1,0 +1,138 @@
+{
+  "ats-tailor": {
+    "description": "ATS resume-application specialist. Uses the ats-tailor MCP to triage postings, ground every claim in the resume index, generate and review one-page resumes, and track user-confirmed outcomes.",
+    "mode": "primary",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": true
+  },
+  "build": {
+    "description": "Lightweight development orchestrator for everyday fixes and focused changes.",
+    "mode": "primary",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "code-checker": {
+    "description": "Code verification specialist. Three-pillar analysis: smells, spec alignment, correctness.",
+    "mode": "subagent",
+    "model": "cliproxy-openai/gpt-5.6-terra:medium",
+    "directModel": "openai-codex/gpt-5.6-terra:medium",
+    "sourceModel": "openai/gpt-5.6-terra-1m#medium",
+    "hidden": false
+  },
+  "code-engineer": {
+    "description": "Judgment-capable implementation subagent for complex code writing.\nTakes slices with residual ambiguity and resolves minor unsures with\nstated rationale; escalates consequential decisions to the parent.\n",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "code-writer": {
+    "description": "Scoped implementation subagent that checks current docs before writing code.\nCarries out a single plan step or review-fix pass per delegation.\n",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-opus-5-5:low",
+    "directModel": "anthropic/claude-opus-5-5:low",
+    "sourceModel": "anthropic/claude-opus-5-5#low",
+    "hidden": false
+  },
+  "document-proofreader": {
+    "description": "Academic proofreader. Reviews documents for evidence, argument quality, and style without editing files.",
+    "mode": "subagent",
+    "model": "cliproxy-openai/gpt-5.6-terra:medium",
+    "directModel": "openai-codex/gpt-5.6-terra:medium",
+    "sourceModel": "openai/gpt-5.6-terra-1m#medium",
+    "hidden": false
+  },
+  "document-writer": {
+    "description": "Document-authoring subagent for polished technical and academic writing.\nProduces papers, reports and styled PDFs through the pandoc-based docs toolchain.\n",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "experimenter": {
+    "description": "Run a bounded metric-driven experiment loop in an isolated git worktree; keep or revert each change by a mechanical metric and report baseline, best and results.tsv. Never merges or pushes.",
+    "mode": "subagent",
+    "model": "cliproxy-openai/gpt-5.6-terra:high",
+    "directModel": "openai-codex/gpt-5.6-terra:high",
+    "sourceModel": "openai/gpt-5.6-terra-1m#high",
+    "hidden": false
+  },
+  "explore": {
+    "description": "Fast file system navigator. Locates files, logs, configs, or code relevant to tasks.",
+    "mode": "subagent",
+    "model": "cliproxy-openai/gpt-6-luna:low",
+    "directModel": "openai-codex/gpt-6-luna:low",
+    "sourceModel": "openai/gpt-6-luna#low",
+    "hidden": false
+  },
+  "frontend-engineer": {
+    "description": "Frontend specialist for production-grade UI architecture, accessibility, responsiveness, interaction, and visual implementation.",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "oracle": {
+    "description": "Exceptional read-only architecture or debugging advisor. Use after contradictory evidence, high-impact uncertainty, or repeated failed approaches.",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-fable-5-1:medium",
+    "directModel": "anthropic/claude-fable-5-1:medium",
+    "sourceModel": "anthropic/claude-fable-5-1#medium",
+    "hidden": false
+  },
+  "orchestrator": {
+    "description": "Custom development orchestrator. Plans, delegates, integrates, and verifies complex code changes.",
+    "mode": "primary",
+    "model": "cliproxy-anthropic/claude-opus-5-5:high",
+    "directModel": "anthropic/claude-opus-5-5:high",
+    "sourceModel": "anthropic/claude-opus-5-5#high",
+    "hidden": false
+  },
+  "plan-checker": {
+    "description": "Plan verification specialist. Reviews workplans, specs, handoffs, and workflow risks before implementation.",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "plan": {
+    "description": "Software-engineering planner. Returns a concise executable approach by default and creates durable workplans only when coordination warrants it.",
+    "mode": "all",
+    "model": "cliproxy-anthropic/claude-opus-5-5:high",
+    "directModel": "anthropic/claude-opus-5-5:high",
+    "sourceModel": "anthropic/claude-opus-5-5#high",
+    "hidden": false
+  },
+  "researcher": {
+    "description": "Literature-review researcher that synthesizes current external sources into\nan evidence-grounded review; may inspect the codebase read-only for context.\n",
+    "mode": "subagent",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "scholar": {
+    "description": "Academic research and LaTeX authoring agent. Finds and verifies scholarly sources, drafts and compiles LaTeX papers with BibTeX/biblatex, and proofreads for evidence, argument, and style.",
+    "mode": "primary",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "hidden": false
+  },
+  "tester": {
+    "description": "Run specified tests and smoke checks; return commands, exit status and evidence. Does not implement fixes.",
+    "mode": "subagent",
+    "model": "cliproxy-openai/gpt-6-luna:low",
+    "directModel": "openai-codex/gpt-6-luna:low",
+    "sourceModel": "openai/gpt-6-luna#low",
+    "hidden": false
+  }
+}

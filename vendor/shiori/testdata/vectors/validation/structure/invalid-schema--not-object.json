@@ -1,0 +1,14 @@
+{
+  "id": "validation/structure/invalid-schema--not-object",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": [],
+    "expectedId": "not-object"
+  },
+  "expect": {
+    "documentDecoded": false,
+    "issues": [
+      "$: Invalid input: expected object, received array"
+    ]
+  }
+}

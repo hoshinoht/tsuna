@@ -1,0 +1,59 @@
+{
+  "id": "tools/invalid-structure/broken-plan--validate",
+  "fixture": "invalid-structure",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-structure",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "broken-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1391,
+    "rawOutputUtf8Bytes": 1391,
+    "outputSha256": "d5a21a27bf80e65f37796ef9f005f71ce746e5554053a292e410842e5d2e47f9",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/broken-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/broken-plan.md",
+      "valid": false,
+      "issueCount": 12,
+      "issues": [
+        "kind: Must not be empty",
+        "createdAt: Invalid datetime",
+        "phases.0.steps.0.action: Required for executable workplans",
+        "phases.0.steps.0.validation: Required for executable workplans",
+        "phases.0.steps.1.id: Duplicate step id s1 in phase phase-x",
+        "phases.0.steps.1.title: Must not be empty",
+        "phases.0.steps.1.validation: Required for executable workplans",
+        "phases.1.id: Duplicate phase id phase-x",
+        "phases.1.steps: At least one step is required",
+        "phases.2.id: Must not be empty",
+        "phases.2.title: Must not be empty",
+        "phases.2.steps.0.id: Must not be empty"
+      ],
+      "workplan": {
+        "id": "broken-plan",
+        "kind": " ",
+        "title": null,
+        "goal": "Broken",
+        "status": "draft",
+        "planFile": ".opencode/workplan/broken-plan.md",
+        "phaseCount": 3,
+        "stepCount": 3,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05Z"
+      },
+      "planHash": "593d3f2b1fbdc7d6495afb9cce6d91f1c949cb1b94229468c7cd6b5285a8593e",
+      "stateHash": "da53c86fd8cec017803e8f5934938ef46aa5c6e8b808adf42f88be2ca24b093a",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

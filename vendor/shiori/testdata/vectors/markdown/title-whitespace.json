@@ -1,0 +1,29 @@
+{
+  "id": "markdown/title-whitespace",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "   ",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/title-whitespace.expected.md",
+    "sha256": "055b53f4144b90c581e29ded522e8fc9aa9a87201f323e02b09c07dda4124f4f",
+    "utf8Bytes": 371
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "validation/input/update--with-hash",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "appendNotes": [
+      "n"
+    ],
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "appendNotes": [
+          "n"
+        ]
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "appendNotes": [
+          "n"
+        ]
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "appendNotes": [
+          "n"
+        ]
+      }
+    }
+  }
+}

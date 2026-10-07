@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_compact.input.schema.json",
+  "title": "workplan_compact input (native surface)",
+  "description": "Preview or apply archival of selected completed history. In apply mode, pass expectedHash = the stateHash from your latest read or successful write.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "mode": {
+      "description": "Operation mode.",
+      "default": "preview",
+      "type": "string",
+      "enum": [
+        "preview",
+        "apply"
+      ]
+    },
+    "archiveReason": {
+      "description": "Reason recorded with archived history.",
+      "type": "string"
+    },
+    "completedPhaseIds": {
+      "description": "Completed phases to archive.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "noteIndexes": {
+      "description": "Indexes of notes to archive.",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      }
+    },
+    "resolvedFindingIndexes": {
+      "description": "Indexes of resolved findings to archive.",
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      }
+    },
+    "noteRollover": {
+      "description": "D.4 (approved 2026-09-30): select notes by rollover instead of noteIndexes. Every note older than the latest keepLatest is archived unless it is pinned: explicitly ([pinned] in its text, or listed in pinNoteIndexes), as a decision record (the words decision/decisions/decided, or the uppercase USER marker), by naming an open step as <phaseId>/<stepId> or quoting an open finding's title, or as one of the latest 3 compaction archive pointers (D.4.2, approved 2026-10-01; older pointer notes roll over like other notes and are archived). Apply needs a fresh checkpoint, so every archived note predates the newest checkpoint. The preview token binds these parameters and the resulting indexes. Cannot be combined with noteIndexes.",
+      "type": "object",
+      "properties": {
+        "keepLatest": {
+          "description": "How many of the newest notes always stay (default 20).",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        },
+        "pinNoteIndexes": {
+          "description": "Zero-based indexes of further notes to keep.",
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "confirmation": {
+      "description": "Must be ARCHIVE_SELECTED_HISTORY for apply.",
+      "type": "string"
+    },
+    "previewToken": {
+      "description": "Token from the matching preview.",
+      "type": "string"
+    },
+    "expectedHash": {
+      "description": "stateHash from the latest read; binds the write to that exact state.",
+      "$ref": "../common.schema.json#/$defs/hash"
+    }
+  },
+  "required": [
+    "id",
+    "archiveReason"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "apply"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "expectedHash",
+          "previewToken",
+          "confirmation"
+        ],
+        "properties": {
+          "confirmation": {
+            "const": "ARCHIVE_SELECTED_HISTORY"
+          }
+        }
+      }
+    }
+  ],
+  "x-shiori-mutating": true,
+  "x-shiori-rules": [
+    {
+      "when": "mode == apply",
+      "path": "expectedHash",
+      "native": "Native existing-state writes require the current stateHash — pass expectedHash set to the stateHash from your last successful write, or re-read with workplan_resume or workplan_inspect first"
+    },
+    {
+      "when": "mode == apply and confirmation != ARCHIVE_SELECTED_HISTORY",
+      "path": "confirmation",
+      "native": "Apply requires confirmation=ARCHIVE_SELECTED_HISTORY"
+    },
+    {
+      "when": "mode == apply and previewToken not a string",
+      "path": "previewToken",
+      "native": "Apply requires the matching preview token",
+      "core": "apply requires the token from the matching preview"
+    },
+    {
+      "when": "noteRollover and noteIndexes both present",
+      "path": "noteRollover",
+      "native": "noteRollover cannot be combined with noteIndexes; noteRollover selects the notes",
+      "core": "noteRollover cannot be combined with noteIndexes; noteRollover selects the notes"
+    }
+  ],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key. The allOf conditions are native-surface rules; the core surface keeps expectedHash optional for legacy direct calls (a concurrent change must still be detected), and uses the 'core' messages in x-shiori-rules.",
+  "x-shiori-nested-unknown-keys": "noteRollover (D.4) rejects unknown keys like the top level."
+}

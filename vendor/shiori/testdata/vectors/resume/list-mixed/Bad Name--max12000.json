@@ -1,0 +1,21 @@
+{
+  "id": "resume/list-mixed/Bad Name--max12000",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "Bad Name",
+      "maxChars": 12000
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan file not found: $ROOT/.opencode/workplan/bad-name.json"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

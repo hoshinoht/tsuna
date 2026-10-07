@@ -1,0 +1,24 @@
+{
+  "id": "resume/pending-journal/tx-plan--max64000",
+  "fixture": "pending-journal",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "tx-plan",
+      "maxChars": 64000
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 281,
+    "rawOutputUtf8Bytes": 281,
+    "outputSha256": "74637d551cdffb71613ca425490a05edf978810615f54fe34d0fa4d4fd7682ad",
+    "outputText": "{\n  \"recoveryRequired\": true,\n  \"journalPath\": \".opencode/workplan/tx-plan.transaction.json\",\n  \"planHash\": \"c1c6101df52db2742e12f85eed8945ecc405468af31cbd519eacbae5d214ae94\",\n  \"stateHash\": \"0001675f2c7d5a7667a2cfedbc3b18507e83532c9fe5a1540224d5b119100071\",\n  \"planFresh\": false\n}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

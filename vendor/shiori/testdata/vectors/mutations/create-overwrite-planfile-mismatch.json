@@ -1,0 +1,24 @@
+{
+  "id": "mutations/create-overwrite-planfile-mismatch",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "minimal",
+      "goal": "g",
+      "overwrite": true,
+      "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "planFile": ".opencode/workplan/other.md"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Overwrite target does not match the existing linked planFile .opencode/workplan/minimal.md; use workplan_update to move or update it"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

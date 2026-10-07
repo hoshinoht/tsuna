@@ -1,0 +1,32 @@
+{
+  "id": "mutations/update-invalid-dependencies",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "dependencies": [
+        {
+          "phaseId": "phase-a",
+          "stepId": "step-a1",
+          "dependsOn": [
+            {
+              "phaseId": "ghost",
+              "stepId": "x"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid dependency metadata: dependencies.0.dependsOn.0: Step ghost/x does not exist"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

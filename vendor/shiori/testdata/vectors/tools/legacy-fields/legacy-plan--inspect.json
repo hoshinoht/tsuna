@@ -1,0 +1,83 @@
+{
+  "id": "tools/legacy-fields/legacy-plan--inspect",
+  "fixture": "legacy-fields",
+  "generationRoot": "/private/tmp/shiori-fx/run/legacy-fields",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "legacy-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1521,
+    "rawOutputUtf8Bytes": 1521,
+    "outputSha256": "5721da28c2900ed5ef31d58bdfd7671b6304ef9581210768f5fcddf5b291d0da",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/legacy-plan.json",
+      "workplan": {
+        "id": "legacy-plan",
+        "kind": "general",
+        "title": "Legacy plan",
+        "goal": "Keep legacy shape",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/legacy-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 1,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/legacy-plan.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "phase-l",
+          "title": "L",
+          "status": "in_progress",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: phase-l -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-l",
+          "phaseTitle": "L",
+          "id": "step-l1",
+          "title": "L1",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: step-l1 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "b514987272fb628fc4f635dfbcc351652bab6776ce0ac7f5ae598b591ce45134",
+      "stateHash": "0606a6d3060f96323697bae97d8900fefb5638f97b68c01f00e7ada2e567cb2a"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

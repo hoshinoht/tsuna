@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 2,
+  "id": "sub-plan",
+  "kind": "general",
+  "title": null,
+  "goal": "g",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/sub/dir/sub-plan.md",
+  "specFiles": [
+    "./docs/spec.md"
+  ],
+  "phases": [
+    {
+      "id": "p",
+      "title": "P",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "s",
+          "title": "S",
+          "action": "Do S",
+          "validation": "Check S",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [],
+  "notes": [],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

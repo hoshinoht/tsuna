@@ -1,0 +1,47 @@
+{
+  "id": "validation/input/compact--apply-full",
+  "tool": "workplan_compact",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "mode": "apply",
+    "previewToken": "t",
+    "confirmation": "ARCHIVE_SELECTED_HISTORY",
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "apply",
+        "archiveReason": "r",
+        "confirmation": "ARCHIVE_SELECTED_HISTORY",
+        "previewToken": "t",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "apply",
+        "archiveReason": "r",
+        "confirmation": "ARCHIVE_SELECTED_HISTORY",
+        "previewToken": "t",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "apply",
+        "archiveReason": "r",
+        "confirmation": "ARCHIVE_SELECTED_HISTORY",
+        "previewToken": "t",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    }
+  }
+}

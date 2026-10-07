@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/resume--budget-above-max",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "maxChars": 64001
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Too big: expected number to be <=64000"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Too big: expected number to be <=64000"
+    },
+    "nativeThenCore": null
+  }
+}

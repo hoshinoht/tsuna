@@ -1,0 +1,83 @@
+{
+  "id": "tools/handwritten-md/hand-plan--inspect",
+  "fixture": "handwritten-md",
+  "generationRoot": "/private/tmp/shiori-fx/run/handwritten-md",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "hand-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1447,
+    "rawOutputUtf8Bytes": 1447,
+    "outputSha256": "59fdc0d4eea0ad84b3e172dde608dc7ae574dd9fe0f5c10e81383c43f2140cd4",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/hand-plan.json",
+      "workplan": {
+        "id": "hand-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/hand-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 1,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/hand-plan.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s",
+          "title": "S",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "e508db25d90af5bd1ba8ef173f88c45fe815375182d301ac3e351c856061caf6",
+      "stateHash": "a1609cec33723534f8b31d2a5daafb245dcfadd87b55bd5b01a011a58c23f6d5"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

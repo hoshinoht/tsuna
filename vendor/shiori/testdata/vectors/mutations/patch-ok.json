@@ -1,0 +1,42 @@
+{
+  "id": "mutations/patch-ok",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_patch",
+    "input": {
+      "id": "minimal",
+      "patchText": "*** Begin Patch\n*** Update File: .opencode/workplan/minimal.md\n@@\n-Ship the minimal plan\n+Ship the minimal plan, patched\n*** End Patch"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 116,
+    "rawOutputUtf8Bytes": 116,
+    "outputSha256": "9ec6351b6adf276878ed36ced030620f4238019fae7935204d71b0670615556f",
+    "outputText": "Patched workplan minimal plan file: .opencode/workplan/minimal.md\nRun workplan_validate if you need full validation.",
+    "metadata": {
+      "id": "minimal",
+      "planFile": ".opencode/workplan/minimal.md",
+      "patched": true,
+      "validate": false,
+      "planHash": "55eb2753d3c71f35453de13e91cd564cd9e497c0fe2b14278fa83afdd5df9b4b",
+      "stateHash": "71f83caa79372dfebc7c2d092e506a7f8e128e10df01afb8c273046edbd49c1e"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/minimal.md": {
+      "sha256": "023983e8a919a2753f8158839cf04e87bdbfb4bafed169aac7b3ac0456b7763b",
+      "bytes": 595,
+      "file": "mutations/patch-ok.after/.opencode/workplan/minimal.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

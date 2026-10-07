@@ -1,0 +1,84 @@
+{
+  "id": "tools/pending-journal-precreate/doctor",
+  "fixture": "pending-journal-precreate",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal-precreate",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1590,
+    "rawOutputUtf8Bytes": 1590,
+    "outputSha256": "3881f240ff7ed92aaec5241ed52d578c233a29f2c4bbc06e6f6b9f87d48ba1d4",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 0,
+      "returnedPlans": 0,
+      "omittedPlans": 0,
+      "plans": [],
+      "sidecars": [
+        {
+          "name": "tx-new.transaction.json",
+          "kind": "transaction"
+        },
+        {
+          "name": ".tx-new.json.9cad1368-21a7-45fd-9ee1-6eaad4b88160.0.stage",
+          "kind": "temporary"
+        },
+        {
+          "name": ".tx-new.md.9cad1368-21a7-45fd-9ee1-6eaad4b88160.1.stage",
+          "kind": "temporary"
+        }
+      ],
+      "sidecarCount": 3,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [
+        {
+          "path": "$ROOT/.opencode/workplan/tx-new.transaction.json",
+          "workplanId": "tx-new",
+          "valid": true,
+          "transactionId": "9cad1368-21a7-45fd-9ee1-6eaad4b88160",
+          "targetCount": 2
+        }
+      ],
+      "pendingTransactionCount": 1,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

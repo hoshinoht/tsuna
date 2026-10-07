@@ -1,0 +1,39 @@
+{
+  "id": "validation/input/read--filters",
+  "tool": "workplan_read",
+  "input": {
+    "id": "x",
+    "phaseId": "p",
+    "stepId": "s",
+    "includeMarkdown": false
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "phaseId": "p",
+        "stepId": "s",
+        "includeMarkdown": false
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "phaseId": "p",
+        "stepId": "s",
+        "includeMarkdown": false
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "phaseId": "p",
+        "stepId": "s",
+        "includeMarkdown": false
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "shiori-opencode",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shiori native OpenCode adapter: the thirteen workplan_* tools over the Go core's stdio protocol",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "verify-host": "bun scripts/verify-host.ts"
+  },
+  "peerDependencies": {
+    "@opencode/plugin": "2.0.20"
+  }
+}

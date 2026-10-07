@@ -1,0 +1,27 @@
+{
+  "id": "tools/empty-workspace/list",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 198,
+    "rawOutputUtf8Bytes": 198,
+    "outputSha256": "ec828b54b03b6cabbe8cfc2d2897ef97f7f7ed5ec6d0e13c8ed45653bb5b40d5",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 0,
+      "workplans": [],
+      "sidecars": []
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

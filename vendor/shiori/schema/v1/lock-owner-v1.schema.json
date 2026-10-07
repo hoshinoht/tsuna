@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/lock-owner-v1.schema.json",
+  "title": "Lock owner metadata",
+  "description": "Content of .opencode/workplan/.workspace-mutation.lock and .<id>.lock. Age alone never permits reclaim.",
+  "type": "object",
+  "properties": {
+    "hostname": { "type": "string", "minLength": 1 },
+    "pid": { "type": "integer", "minimum": 1 },
+    "nonce": { "type": "string", "minLength": 1 },
+    "startedAt": { "$ref": "common.schema.json#/$defs/isoDatetimeUtc" }
+  },
+  "required": ["hostname", "pid", "nonce", "startedAt"]
+}

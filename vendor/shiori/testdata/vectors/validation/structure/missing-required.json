@@ -1,0 +1,30 @@
+{
+  "id": "validation/structure/missing-required",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2
+    },
+    "expectedId": null
+  },
+  "expect": {
+    "documentDecoded": false,
+    "issues": [
+      "id: Invalid input: expected string, received undefined",
+      "kind: Invalid input: expected string, received undefined",
+      "title: Invalid input: expected string, received undefined",
+      "goal: Invalid input: expected string, received undefined",
+      "scope: Invalid input: expected array, received undefined",
+      "nonGoals: Invalid input: expected array, received undefined",
+      "constraints: Invalid input: expected array, received undefined",
+      "relevantFiles: Invalid input: expected array, received undefined",
+      "planFile: Invalid input: expected string, received undefined",
+      "phases: Invalid input: expected array, received undefined",
+      "reviewFindings: Invalid input: expected array, received undefined",
+      "notes: Invalid input: expected array, received undefined",
+      "status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"",
+      "createdAt: Invalid input: expected string, received undefined",
+      "updatedAt: Invalid input: expected string, received undefined"
+    ]
+  }
+}

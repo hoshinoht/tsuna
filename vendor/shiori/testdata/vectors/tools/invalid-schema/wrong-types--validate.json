@@ -1,0 +1,29 @@
+{
+  "id": "tools/invalid-schema/wrong-types--validate",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "wrong-types"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 824,
+    "rawOutputUtf8Bytes": 824,
+    "outputSha256": "0f385ae1f04c9fd657a56ac69250fa3ad77e9e77efd39386e5c8b1f93c684cc9",
+    "output": {
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received number; scope: Invalid input: expected array, received string; constraints.0: Invalid input: expected string, received number; phases.0.status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; phases.0.steps.0.title: Invalid input: expected string, received undefined; reviewFindings.0.severity: Invalid option: expected one of \"blocker\"|\"critical\"|\"major\"|\"minor\"|\"note\"|\"question\"; reviewFindings.0.status: Invalid option: expected one of \"open\"|\"resolved\"; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

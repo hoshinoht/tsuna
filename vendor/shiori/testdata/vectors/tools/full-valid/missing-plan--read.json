@@ -1,0 +1,20 @@
+{
+  "id": "tools/full-valid/missing-plan--read",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "nope"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan file not found: $ROOT/.opencode/workplan/nope.json"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

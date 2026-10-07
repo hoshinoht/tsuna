@@ -1,0 +1,135 @@
+{
+  "id": "paging/inspect-big-phase2-limit7/page-05",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "phaseId": "phase-2",
+      "limit": 7,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6InBoYXNlLTIiLCJsaW1pdCI6Nywib2Zmc2V0IjozNSwiY2hlY2tzdW0iOiJkMTRlMzAwZTIwMGU3OGVlM2MxODRjMGViZTc2MzVjMTQzMjAyYjUwNjIwMzUzYzNmOTk0ZWY4ZTFhMzU3NjMzIn0"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2829,
+    "rawOutputUtf8Bytes": 2829,
+    "outputSha256": "ad4542062e682a0c2b5ecaa6991be1efaf5f3a1837766b786317de1788aedb52",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/big-plan.json",
+      "workplan": {
+        "id": "big-plan",
+        "kind": "general",
+        "title": "Big plan",
+        "goal": "Paging",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/big-plan.md",
+        "phaseCount": 4,
+        "stepCount": 160,
+        "specFileCount": 0,
+        "openFindingCount": 22,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/big-plan.md",
+        "exists": true
+      },
+      "phases": [],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-35",
+          "title": "Step 2.35",
+          "status": "draft",
+          "target": "src/mod34.ts",
+          "index": 34,
+          "indexPath": "2.35",
+          "markdownMarker": "<!-- workplan-step-id: step-35 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-36",
+          "title": "Step 2.36",
+          "status": "draft",
+          "target": "src/mod35.ts",
+          "index": 35,
+          "indexPath": "2.36",
+          "markdownMarker": "<!-- workplan-step-id: step-36 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-37",
+          "title": "Step 2.37",
+          "status": "draft",
+          "target": "src/mod36.ts",
+          "index": 36,
+          "indexPath": "2.37",
+          "markdownMarker": "<!-- workplan-step-id: step-37 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-38",
+          "title": "Step 2.38",
+          "status": "draft",
+          "target": "src/mod37.ts",
+          "index": 37,
+          "indexPath": "2.38",
+          "markdownMarker": "<!-- workplan-step-id: step-38 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-39",
+          "title": "Step 2.39",
+          "status": "draft",
+          "target": "src/mod38.ts",
+          "index": 38,
+          "indexPath": "2.39",
+          "markdownMarker": "<!-- workplan-step-id: step-39 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-2",
+          "phaseTitle": "Phase 2",
+          "id": "step-40",
+          "title": "Step 2.40",
+          "status": "draft",
+          "target": "src/mod39.ts",
+          "index": 39,
+          "indexPath": "2.40",
+          "markdownMarker": "<!-- workplan-step-id: step-40 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 41,
+        "offset": 35,
+        "returned": 6,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+      "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

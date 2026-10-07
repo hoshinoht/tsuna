@@ -1,0 +1,34 @@
+{
+  "id": "markdown/error-empty-marker-id",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [
+      {
+        "id": "!!!",
+        "title": "Bad",
+        "status": "draft",
+        "steps": []
+      }
+    ],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan id must contain at least one letter or number"
+  }
+}

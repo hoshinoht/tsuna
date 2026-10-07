@@ -1,0 +1,59 @@
+{
+  "id": "mutations/reset-legacy-no-specfiles",
+  "fixture": "legacy-fields",
+  "generationRoot": "/private/tmp/shiori-fx/run/legacy-fields",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_reset",
+    "input": {
+      "id": "legacy-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 759,
+    "rawOutputUtf8Bytes": 759,
+    "outputSha256": "cda845dec95a08f5655df40c17a05d741412aee0e29a8852cdad0be965d3f71a",
+    "output": {
+      "reset": true,
+      "mode": "draft",
+      "path": "$ROOT/.opencode/workplan/legacy-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/legacy-plan.md",
+      "workplan": {
+        "id": "legacy-plan",
+        "kind": "general",
+        "title": "Legacy plan",
+        "goal": "Keep legacy shape",
+        "status": "draft",
+        "planFile": ".opencode/workplan/legacy-plan.md",
+        "phaseCount": 0,
+        "stepCount": 0,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "c1eb44ba5c0b0c8c87cff713d6aea8e2cb1b9cbd683df719ee35a8d40e41a003",
+      "stateHash": "4a1a28c5bd6f44be9f8ce96c5a96852ad60acb714d7710819740284697b9f899",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/legacy-plan.json": {
+      "sha256": "084a9c822e5bc7735a4008c10d256c6b4efb8695b67dad3a6cf82661066d23a0",
+      "bytes": 674,
+      "file": "mutations/reset-legacy-no-specfiles.after/.opencode/workplan/legacy-plan.json"
+    },
+    ".opencode/workplan/legacy-plan.md": {
+      "sha256": "0298b8cb6ebf3b2145dd225db5a0189f88cdb6a728908404a29e6b7dbec70cdb",
+      "bytes": 393,
+      "file": "mutations/reset-legacy-no-specfiles.after/.opencode/workplan/legacy-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

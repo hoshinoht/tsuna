@@ -1,0 +1,96 @@
+{
+  "id": "tools/list-mixed/UPPER--doctor",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "UPPER"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1782,
+    "rawOutputUtf8Bytes": 1782,
+    "outputSha256": "8bb0bf79b401461624a28537ea379d1c761d964c0b03c5709c713b48fb2423c1",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 7,
+      "returnedPlans": 0,
+      "omittedPlans": 0,
+      "plans": [],
+      "sidecars": [
+        {
+          "name": ".x.tmp-1",
+          "kind": "temporary"
+        },
+        {
+          "name": "a-plan.checkpoint.json",
+          "kind": "checkpoint"
+        },
+        {
+          "name": "b-plan.dependencies.json",
+          "kind": "dependencies"
+        },
+        {
+          "name": ".workspace-mutation.lock",
+          "kind": "lock"
+        },
+        {
+          "name": ".a-plan.json.0000.0.stage",
+          "kind": "temporary"
+        }
+      ],
+      "sidecarCount": 5,
+      "omittedSidecars": 0,
+      "locks": [
+        {
+          "path": "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "present": true,
+          "owner": null,
+          "diagnostic": "Ambiguous lock owner: JSON Parse error: Unexpected EOF"
+        }
+      ],
+      "lockCount": 1,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "Primary workplan not found: upper",
+        "$ROOT/.opencode/workplan/.workspace-mutation.lock: Ambiguous lock owner: JSON Parse error: Unexpected EOF"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

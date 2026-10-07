@@ -1,0 +1,29 @@
+{
+  "id": "tools/invalid-schema/wrong-version--validate",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "wrong-version"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 105,
+    "rawOutputUtf8Bytes": 105,
+    "outputSha256": "346b841838834a1d3b39034f46321ee6ae4cb635cb03a68ef8f9e72b84ca7703",
+    "output": {
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "schemaVersion: Invalid input: expected 2"
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,123 @@
+{
+  "id": "tools/checkpoint-stale-v2/cp-stale--compact-preview",
+  "fixture": "checkpoint-stale-v2",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-stale-v2",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_compact",
+    "input": {
+      "id": "cp-stale",
+      "archiveReason": "tidy",
+      "noteIndexes": [
+        0
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 5600,
+    "rawOutputUtf8Bytes": 5600,
+    "outputSha256": "89c70a545e386c60b4b11408546afac77d2e2ab9ecc120e3a0e8ec1d43e4584b",
+    "output": {
+      "mode": "preview",
+      "workplanId": "cp-stale",
+      "confirmationRequiredForApply": "ARCHIVE_SELECTED_HISTORY",
+      "requiresFreshCheckpoint": true,
+      "checkpointFreshness": "stale",
+      "archiveReason": "tidy",
+      "previewToken": "v1-46eb75699e3c94223f78e3ad137c97244555d5d1f80f6e17014874635a8671c9",
+      "planHash": "178889b7a8fef8cce118de6a1d371cdd4e06f546d7d1d26a136ef983d5794158",
+      "stateHash": "876fb159bd96a59e015bcc42b9984e3b36713f1a47336037c43aabe6222a2720",
+      "canonicalSelection": {
+        "completedPhaseIds": [],
+        "noteIndexes": [
+          0
+        ],
+        "resolvedFindingIndexes": []
+      },
+      "selected": {
+        "completedPhases": [],
+        "notes": [
+          {
+            "index": 0,
+            "preview": "changed after checkpoint",
+            "contentHash": "640ac852600ba3eb399d887af9727f6b945752398dd16938265cca770888433e"
+          }
+        ],
+        "resolvedFindings": []
+      },
+      "removals": {
+        "digest": "71fd2778a66ecfe628aae4224dfda5ee0125de4ebbb6e27312f9a12454006211",
+        "phaseCount": 0,
+        "noteCount": 1,
+        "resolvedFindingCount": 0
+      },
+      "activeAfterCompaction": {
+        "phaseCount": 1,
+        "noteCount": 1,
+        "findingCount": 0,
+        "openFindingCount": 0
+      },
+      "protected": [
+        "scope",
+        "nonGoals",
+        "constraints",
+        "unfinished phases and steps",
+        "open findings",
+        "handwritten Markdown"
+      ],
+      "linkedMarkdownTreatment": "generated-refresh",
+      "archivePath": "$ROOT/.opencode/workplan/archive/cp-stale/state-876fb159bd96-46eb75699e3c.json",
+      "writeIntent": {
+        "writePaths": [
+          "$ROOT/.opencode/workplan/archive/cp-stale/state-876fb159bd96-46eb75699e3c.json",
+          "$ROOT/.opencode/workplan/cp-stale.json",
+          "$ROOT/.opencode/workplan/cp-stale.md",
+          "$ROOT/.opencode/workplan/cp-stale.checkpoint.json"
+        ],
+        "journalPath": "$ROOT/.opencode/workplan/cp-stale.transaction.json",
+        "lockPaths": [
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "$ROOT/.opencode/workplan/.cp-stale.lock"
+        ],
+        "stagingPaths": [
+          "$ROOT/.opencode/workplan/archive/cp-stale/.state-876fb159bd96-46eb75699e3c.json.46eb75699e3c9422.0.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.json.46eb75699e3c9422.1.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.md.46eb75699e3c9422.2.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.checkpoint.json.46eb75699e3c9422.3.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.transaction.46eb75699e3c9422.stage"
+        ],
+        "resources": [
+          "$ROOT/.opencode/workplan/archive/cp-stale/state-876fb159bd96-46eb75699e3c.json",
+          "$ROOT/.opencode/workplan/cp-stale.json",
+          "$ROOT/.opencode/workplan/cp-stale.md",
+          "$ROOT/.opencode/workplan/cp-stale.checkpoint.json",
+          "$ROOT/.opencode/workplan/archive/cp-stale/.state-876fb159bd96-46eb75699e3c.json.46eb75699e3c9422.0.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.json.46eb75699e3c9422.1.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.md.46eb75699e3c9422.2.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.checkpoint.json.46eb75699e3c9422.3.stage",
+          "$ROOT/.opencode/workplan/.cp-stale.transaction.46eb75699e3c9422.stage",
+          "$ROOT/.opencode/workplan/cp-stale.transaction.json",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "$ROOT/.opencode/workplan/.cp-stale.lock",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.reclaim",
+          "$ROOT/.opencode/workplan/.cp-stale.lock.reclaim",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.dead-46eb75699e3c9422-workspace-reclaim",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.dead-46eb75699e3c9422-plan-reclaim",
+          "$ROOT/.opencode/workplan/.cp-stale.lock.dead-46eb75699e3c9422-workspace-reclaim",
+          "$ROOT/.opencode/workplan/.cp-stale.lock.dead-46eb75699e3c9422-plan-reclaim",
+          "$ROOT/.opencode/workplan/.workspace-mutation.lock.release-46eb75699e3c9422-workspace",
+          "$ROOT/.opencode/workplan/.cp-stale.lock.release-46eb75699e3c9422-plan",
+          "$ROOT/.opencode/workplan/archive/cp-stale",
+          "$ROOT/.opencode/workplan",
+          "$ROOT/.opencode/workplan/archive",
+          "$ROOT/.opencode"
+        ]
+      }
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

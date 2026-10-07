@@ -1,0 +1,21 @@
+{
+  "id": "tools/full-valid/full-plan--read-missing-phase",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "full-plan",
+      "phaseId": "Phase-B"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Phase not found: Phase-B"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

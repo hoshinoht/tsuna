@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 2,
+  "id": "tx-new",
+  "kind": "general",
+  "title": null,
+  "goal": "g",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/tx-new.md",
+  "specFiles": [],
+  "phases": [
+    {
+      "id": "p",
+      "title": "P",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "s",
+          "title": "S",
+          "action": "Do S",
+          "validation": "Check S",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [],
+  "notes": [],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

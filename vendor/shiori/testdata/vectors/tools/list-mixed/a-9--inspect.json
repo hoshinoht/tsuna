@@ -1,0 +1,83 @@
+{
+  "id": "tools/list-mixed/a-9--inspect",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "a-9"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1422,
+    "rawOutputUtf8Bytes": 1422,
+    "outputSha256": "14e3357b7d97694afa10782c8b947aeb9ed6cf383ce0a0a21d2cf0750dbcde38",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/a-9.json",
+      "workplan": {
+        "id": "a-9",
+        "kind": "general",
+        "title": null,
+        "goal": "goal a-9",
+        "status": "draft",
+        "planFile": ".opencode/workplan/a-9.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/a-9.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s",
+          "title": "S",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "66630984aa5848c6cc6c224d7830dc326e48076d7310fdbdf3cac87ca9201bcb",
+      "stateHash": "6b479ff9d6d31ad0b94a37ddcc596c4047981f2187fe6be840d683d0c8322e5e"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

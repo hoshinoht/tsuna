@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_list.input.schema.json",
+  "title": "workplan_list input (native surface)",
+  "description": "List workplans and classified sidecars in .opencode/workplan.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false,
+  "x-shiori-mutating": false,
+  "x-shiori-rules": [],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key.",
+  "x-shiori-nested-unknown-keys": "n/a"
+}

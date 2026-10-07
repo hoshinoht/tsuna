@@ -1,0 +1,21 @@
+{
+  "id": "resume/invalid-structure/broken-plan--max12000",
+  "fixture": "invalid-structure",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-structure",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "broken-plan",
+      "maxChars": 12000
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan broken-plan has duplicate step id in phase phase-x: s1. Migrate ids before targeted inspect or update calls."
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

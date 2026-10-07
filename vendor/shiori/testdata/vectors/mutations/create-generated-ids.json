@@ -1,0 +1,71 @@
+{
+  "id": "mutations/create-generated-ids",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "gen",
+      "goal": "g",
+      "phases": [
+        {
+          "title": "P",
+          "steps": [
+            {
+              "title": "S"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 713,
+    "rawOutputUtf8Bytes": 713,
+    "outputSha256": "3a3bc58ca78cb6702636f004605567185632b004e634c0b2d307631c8582f642",
+    "output": {
+      "created": true,
+      "overwritten": false,
+      "path": "$ROOT/.opencode/workplan/gen.json",
+      "planPath": "$ROOT/.opencode/workplan/gen.md",
+      "workplan": {
+        "id": "gen",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/gen.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "1b9831bde344c54c55c5c09c5809c4fdd041fc917060144f9c89d267d4969cee",
+      "stateHash": "ace4644dc4819020a7628b2b56625e15337a708c2be8cd19c04abdc1eb3fa2aa",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/gen.json": {
+      "sha256": "bea6f29f29a4b85197fb7291e26ccb1207aba459e044d5255285d3857eae00db",
+      "bytes": 632,
+      "file": "mutations/create-generated-ids.after/.opencode/workplan/gen.json"
+    },
+    ".opencode/workplan/gen.md": {
+      "sha256": "5476d8b62188d4208dd2481cd1d9c82ddb07237b7e096c6269b00177f83fdf83",
+      "bytes": 544,
+      "file": "mutations/create-generated-ids.after/.opencode/workplan/gen.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true,
+  "note": "Generated ids depend on the random source; only the id format is contractual."
+}

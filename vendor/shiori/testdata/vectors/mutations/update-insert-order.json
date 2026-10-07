@@ -1,0 +1,92 @@
+{
+  "id": "mutations/update-insert-order",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "addPhases": [
+        {
+          "afterPhaseId": "phase-a",
+          "phase": {
+            "id": "phase-x",
+            "title": "X"
+          }
+        },
+        {
+          "afterPhaseId": "phase-a",
+          "phase": {
+            "id": "phase-y",
+            "title": "Y"
+          }
+        }
+      ],
+      "addSteps": [
+        {
+          "phaseId": "phase-a",
+          "afterStepId": "step-a1",
+          "step": {
+            "id": "step-x",
+            "title": "SX"
+          }
+        },
+        {
+          "phaseId": "phase-a",
+          "afterStepId": "step-a1",
+          "step": {
+            "id": "step-y",
+            "title": "SY"
+          }
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 741,
+    "rawOutputUtf8Bytes": 741,
+    "outputSha256": "18faa5d37cd0974c93dafdea25317eb996d266c9cf43f84d4326adf7e319146c",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/full-plan.md",
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 5,
+        "stepCount": 7,
+        "specFileCount": 2,
+        "openFindingCount": 5,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "04a0e18fad420e527b140290123ea1c8b8d9372ebf0c8645fa783b1b532c288e",
+      "stateHash": "2dc540c64a78195c80636aa6da5d151e92293d218798bc6f42534c9d53fd73d8",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/full-plan.json": {
+      "sha256": "11eecf1cbbe791e99692019cc5005be20cce65d57295e9b60763fbcf04fb4c3f",
+      "bytes": 2955,
+      "file": "mutations/update-insert-order.after/.opencode/workplan/full-plan.json"
+    },
+    ".opencode/workplan/full-plan.md": {
+      "sha256": "dbd2eab910215019da433323b84b5449d01f498bbd972a0760e61400c5c9cabc",
+      "bytes": 1929,
+      "file": "mutations/update-insert-order.after/.opencode/workplan/full-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

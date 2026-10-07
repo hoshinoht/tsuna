@@ -1,0 +1,29 @@
+{
+  "id": "tools/invalid-schema/not-object--validate",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "not-object"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 114,
+    "rawOutputUtf8Bytes": 114,
+    "outputSha256": "d217081807f43db862aef5878a46ee5eae4f1d994d0214a3fd641e9ba6207d9f",
+    "output": {
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "$: Invalid input: expected object, received array"
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

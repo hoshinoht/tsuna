@@ -1,0 +1,55 @@
+{
+  "id": "tools/checkpoint-corrupt/list",
+  "fixture": "checkpoint-corrupt",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-corrupt",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 940,
+    "rawOutputUtf8Bytes": 940,
+    "outputSha256": "261d2dd4564cdd00cd79ea8de935d04de105374bbc9b9a7399904fc0cce5e73f",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 1,
+      "workplans": [
+        {
+          "valid": true,
+          "issues": [],
+          "id": "cp-bad",
+          "kind": "general",
+          "title": null,
+          "goal": "g",
+          "status": "draft",
+          "planFile": ".opencode/workplan/cp-bad.md",
+          "phaseCount": 1,
+          "stepCount": 1,
+          "specFileCount": 0,
+          "openFindingCount": 0,
+          "updatedAt": "2026-01-02T03:04:05.000Z",
+          "planHash": "ecbbc450efd22409170fbb9b61c3225f4df7c247be7d02ec6f719fa17f4df83e",
+          "stateHash": "f9ce0338d1b6bbb9365c5a76b07c128b33aedf1831594bbae1640ca32c2d778f",
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": "cp-bad.checkpoint.json",
+          "kind": "checkpoint"
+        },
+        {
+          "name": "cp-bad.dependencies.json",
+          "kind": "dependencies"
+        }
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,26 @@
+{
+  "id": "paging/resume-big-4096-limit5/page-27",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "big-plan",
+      "maxChars": 4096,
+      "limit": 5,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwibWF4Q2hhcnMiOjQwOTYsImxpbWl0Ijo1LCJwaGFzZUlkIjpudWxsLCJzdGVwSWQiOm51bGwsIm9mZnNldCI6MTM1LCJjaGVja3N1bSI6ImMwN2M4ODQ5MjYxOTJkOWZmZjg1NzM4Zjk2ODQwMjZiM2MxNjYzYzgyY2EwNDQ3MTdkODQzNWVmODM5ODkxY2YifQ"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3072,
+    "rawOutputUtf8Bytes": 3072,
+    "outputSha256": "f3ce76f4de5feeae50e3a6ee529fb396ec1a4816e1f242d0e31adbac1b9a2585",
+    "outputText": "{\"path\":\"$ROOT/.opencode/workplan/big-plan.json\",\"planFile\":\".opencode/workplan/big-plan.md\",\"hashes\":{\"planHash\":\"d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983\",\"stateHash\":\"ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69\"},\"planFresh\":true,\"checkpoint\":{\"exists\":true,\"fresh\":true,\"freshness\":\"fresh\",\"sourceUpdatedAt\":\"2026-01-02T03:04:05.000Z\",\"summary\":\"Mid-way\",\"current\":{\"phaseId\":\"phase-2\",\"phaseTitle\":\"Phase 2\",\"phaseStatus\":\"in_progress\",\"stepId\":\"step-11\",\"stepTitle\":\"Step 2.11\",\"stepStatus\":\"draft\",\"target\":\"src/mod10.ts\",\"action\":\"Do Step 2.11\",\"validation\":\"Check Step 2.11\"},\"nextAction\":\"continue phase-2\",\"blockers\":[\"Blocker 0\",\"Blocker 1\",\"Blocker 2\",\"Blocker 3\"],\"blockersTotal\":8,\"guardrails\":[\"Guardrail 0\",\"Guardrail 1\",\"Guardrail 2\",\"Guardrail 3\"],\"guardrailsTotal\":25,\"references\":[\"ref-0.md\",\"ref-1.md\",\"ref-2.md\",\"ref-3.md\"],\"referencesTotal\":15,\"recentValidation\":[],\"evidenceStatus\":\"unverified\",\"diagnostic\":null},\"workplan\":{\"id\":\"big-plan\",\"title\":\"Big plan\",\"goal\":\"Paging\",\"status\":\"in_progress\",\"scope\":[\"Scope 0\",\"Scope 1\",\"Scope 2\",\"Scope 3\"],\"scopeTotal\":12,\"nonGoals\":[],\"nonGoalsTotal\":0,\"constraints\":[\"Constraint 0\",\"Constraint 1\",\"Constraint 2\",\"Constraint 3\"],\"constraintsTotal\":12,\"relevantFiles\":[],\"updatedAt\":\"2026-01-02T03:04:05.000Z\"},\"currentDependencies\":{\"recorded\":false,\"valid\":true,\"total\":0,\"references\":[]},\"safety\":{\"highFindings\":[{\"index\":6,\"severity\":\"blocker\",\"title\":\"Finding 6\",\"detail\":\"detail 6\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"index\":18,\"severity\":\"blocker\",\"title\":\"Finding 18\",\"detail\":\"detail 18\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"index\":1,\"severity\":\"critical\",\"title\":\"Finding 1\",\"detail\":\"detail 1\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"index\":7,\"severity\":\"critical\",\"title\":\"Finding 7\",\"detail\":\"detail 7\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false}],\"highFindingsTotal\":10,\"highFindingCounts\":{\"blocker\":2,\"critical\":5,\"major\":3},\"unverifiedWarnings\":[],\"unverifiedWarningCount\":0,\"unverifiedWarningsOmitted\":0,\"overflow\":true,\"truncatedDangerFieldCount\":0,\"omittedDangerCounts\":{\"constraints\":8,\"blockers\":4,\"highFindings\":6,\"dependencies\":0,\"guardrails\":21,\"references\":11,\"scope\":8,\"nonGoals\":0},\"overflowPointers\":[\"workplan_read:big-plan\",\"workplan_inspect:big-plan\"]},\"page\":{\"total\":136,\"offset\":135,\"limit\":5,\"returned\":1,\"omitted\":0,\"items\":[{\"kind\":\"reference\",\"reference\":\"ref-14.md\",\"source\":\"checkpoint\"}],\"nextCursor\":null},\"counts\":{\"activeWorkTotal\":110,\"findingsTotal\":22,\"highFindingsTotal\":10,\"referencesTotal\":15,\"historicalNotesOmitted\":60,\"resolvedFindingsOmitted\":8},\"retrieval\":{\"read\":\"workplan_read id=big-plan\",\"inspect\":\"workplan_inspect id=big-plan\",\"dependencies\":\".opencode/workplan/big-plan.dependencies.json\"},\"truncatedFields\":[],\"truncatedFieldCount\":0,\"truncatedFieldPathsOmitted\":0,\"instruction\":\"Start from the current step and recorded dependencies; recentValidation is evidence text marked unverified.\"}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

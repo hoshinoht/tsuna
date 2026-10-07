@@ -1,0 +1,82 @@
+{
+  "id": "validation/input/create--unknown-nested-phase-key",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g",
+    "phases": [
+      {
+        "title": "P",
+        "bogus": 1,
+        "steps": [
+          {
+            "title": "S",
+            "extra": true
+          }
+        ]
+      }
+    ]
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "phases": [
+          {
+            "title": "P",
+            "steps": [
+              {
+                "title": "S"
+              }
+            ]
+          }
+        ],
+        "status": "draft",
+        "overwrite": false
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "phases": [
+          {
+            "title": "P",
+            "steps": [
+              {
+                "title": "S"
+              }
+            ]
+          }
+        ],
+        "status": "draft",
+        "overwrite": false
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "phases": [
+          {
+            "title": "P",
+            "steps": [
+              {
+                "title": "S"
+              }
+            ]
+          }
+        ],
+        "status": "draft",
+        "overwrite": false
+      }
+    }
+  }
+}

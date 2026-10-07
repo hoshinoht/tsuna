@@ -1,0 +1,46 @@
+{
+  "id": "tools/full-valid/full-plan--validate",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "full-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 795,
+    "rawOutputUtf8Bytes": 795,
+    "outputSha256": "61d1d706d0668ec1651acdab47ee0f0c3cbb7ef3abfd2263189b11f012f23d2a",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/full-plan.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 3,
+        "stepCount": 5,
+        "specFileCount": 2,
+        "openFindingCount": 5,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+      "planFresh": true,
+      "dependenciesRecorded": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "resume/invalid-schema/not-object--max64000",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "not-object",
+      "maxChars": 64000
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "$: Invalid input: expected object, received array"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

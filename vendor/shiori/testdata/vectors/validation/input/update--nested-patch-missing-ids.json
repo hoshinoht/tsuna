@@ -1,0 +1,24 @@
+{
+  "id": "validation/input/update--nested-patch-missing-ids",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "updateSteps": [
+      {
+        "status": "completed"
+      }
+    ],
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid update input: updateSteps.0.phaseId: Invalid input: expected string, received undefined; updateSteps.0.stepId: Invalid input: expected string, received undefined"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid update input: updateSteps.0.phaseId: Invalid input: expected string, received undefined; updateSteps.0.stepId: Invalid input: expected string, received undefined"
+    },
+    "nativeThenCore": null
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "id": "big-plan",
+  "sourceUpdatedAt": "2026-01-02T03:04:05.000Z",
+  "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+  "manifest": [
+    {
+      "path": ".opencode/workplan/big-plan.json",
+      "sha256": "2dca15056aed5104da5af5a57d41547706bcf55e5c7ddbdc1a727eb5261f1533"
+    },
+    {
+      "path": ".opencode/workplan/big-plan.md",
+      "sha256": "b7ac13025e2a441147ba32bdb8a0d8c40607df5f784c35adb8a9d6c0b480e5c4"
+    }
+  ],
+  "evidenceStatus": "unverified",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "status": "in_progress",
+  "summary": "Mid-way",
+  "current": {
+    "phaseId": "phase-2",
+    "phaseTitle": "Phase 2",
+    "phaseStatus": "in_progress",
+    "stepId": "step-11",
+    "stepTitle": "Step 2.11",
+    "stepStatus": "draft"
+  },
+  "nextAction": "continue phase-2",
+  "blockers": [
+    "Blocker 0",
+    "Blocker 1",
+    "Blocker 2",
+    "Blocker 3",
+    "Blocker 4",
+    "Blocker 5",
+    "Blocker 6",
+    "Blocker 7"
+  ],
+  "recentValidation": [],
+  "guardrails": [
+    "Guardrail 0",
+    "Guardrail 1",
+    "Guardrail 2",
+    "Guardrail 3",
+    "Guardrail 4",
+    "Guardrail 5",
+    "Guardrail 6",
+    "Guardrail 7",
+    "Guardrail 8",
+    "Guardrail 9",
+    "Guardrail 10",
+    "Guardrail 11",
+    "Guardrail 12",
+    "Guardrail 13",
+    "Guardrail 14",
+    "Guardrail 15",
+    "Guardrail 16",
+    "Guardrail 17",
+    "Guardrail 18",
+    "Guardrail 19",
+    "Guardrail 20",
+    "Guardrail 21",
+    "Guardrail 22",
+    "Guardrail 23",
+    "Guardrail 24"
+  ],
+  "references": [
+    "ref-0.md",
+    "ref-1.md",
+    "ref-2.md",
+    "ref-3.md",
+    "ref-4.md",
+    "ref-5.md",
+    "ref-6.md",
+    "ref-7.md",
+    "ref-8.md",
+    "ref-9.md",
+    "ref-10.md",
+    "ref-11.md",
+    "ref-12.md",
+    "ref-13.md",
+    "ref-14.md"
+  ]
+}

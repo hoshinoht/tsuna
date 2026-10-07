@@ -1,0 +1,1732 @@
+{
+  "source": "reference workplan-tools native registration (generated; do not edit)",
+  "tools": [
+    {
+      "name": "workplan_create",
+      "description": "Create a structured workplan under .opencode/workplan as a JSON document plus a linked Markdown plan. With overwrite=true, pass expectedHash = the stateHash from your latest read or successful write.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "kind": {
+            "description": "Plan kind, such as feature, bugfix or research",
+            "default": "general",
+            "type": "string"
+          },
+          "title": {
+            "description": "Human-readable title",
+            "type": "string"
+          },
+          "goal": {
+            "description": "One-paragraph goal statement",
+            "type": "string"
+          },
+          "scope": {
+            "description": "In-scope items",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "nonGoals": {
+            "description": "Explicitly out-of-scope items",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "constraints": {
+            "description": "Constraints the work must respect",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "relevantFiles": {
+            "description": "Files relevant to the work",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "planFile": {
+            "description": "Linked Markdown path under .opencode/workplan/; defaults to <id>.md",
+            "type": "string"
+          },
+          "planMarkdown": {
+            "description": "Full Markdown body; generated from the JSON when omitted",
+            "type": "string"
+          },
+          "specFiles": {
+            "description": "Workspace-relative spec files the plan depends on",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "phases": {
+            "description": "Ordered execution phases",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "Stable phase id; a readable id is generated when omitted",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "Short phase title",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Phase status; defaults to draft",
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "in_progress",
+                    "blocked",
+                    "review",
+                    "completed",
+                    "cancelled"
+                  ]
+                },
+                "steps": {
+                  "description": "Ordered steps in this phase",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "Stable step id; a readable id is generated when omitted",
+                        "type": "string"
+                      },
+                      "title": {
+                        "description": "Short step title",
+                        "type": "string"
+                      },
+                      "target": {
+                        "description": "File, module or artifact the step touches",
+                        "type": "string"
+                      },
+                      "action": {
+                        "description": "What to do in this step",
+                        "type": "string"
+                      },
+                      "validation": {
+                        "description": "How to verify the step is done",
+                        "type": "string"
+                      },
+                      "status": {
+                        "description": "Step status; defaults to draft",
+                        "type": "string",
+                        "enum": [
+                          "draft",
+                          "in_progress",
+                          "blocked",
+                          "review",
+                          "completed",
+                          "cancelled"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "title"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          },
+          "reviewFindings": {
+            "description": "Adversarial review findings",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "severity": {
+                  "description": "Finding severity",
+                  "type": "string",
+                  "enum": [
+                    "blocker",
+                    "critical",
+                    "major",
+                    "minor",
+                    "note",
+                    "question"
+                  ]
+                },
+                "title": {
+                  "description": "Short finding title",
+                  "type": "string"
+                },
+                "detail": {
+                  "description": "Longer explanation",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "Where the finding came from, such as file:line or a reviewer",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Finding status; defaults to open",
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "resolved"
+                  ]
+                }
+              },
+              "required": [
+                "severity",
+                "title"
+              ]
+            }
+          },
+          "notes": {
+            "description": "Free-form notes",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "description": "Overall plan status",
+            "default": "draft",
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_progress",
+              "blocked",
+              "review",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "overwrite": {
+            "description": "Replace an existing plan with the same id (requires expectedHash)",
+            "default": false,
+            "type": "boolean"
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "replaceMarkdown": {
+            "description": "Allow replacing handwritten Markdown on overwrite",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "goal"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_update",
+      "description": "Update workplan metadata, the linked plan file, spec files, findings, dependencies, or targeted phase and step fields without rewriting the whole plan. Pass expectedHash = the stateHash from your latest read or successful write.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "rebase": {
+            "description": "Apply this write even if expectedHash is stale, when the plan's change log shows that every newer write changed other plan elements (other steps, phases, findings, or note appends). The newer changes are kept and the result names the writes rebased over. Refused as stale when a newer write touched an element this write changes, or when the log does not connect the two hashes",
+            "type": "boolean"
+          },
+          "recovery": {
+            "description": "Finish (resume) or undo (rollback) an interrupted transaction; exclusive with other fields",
+            "type": "string",
+            "enum": [
+              "resume",
+              "rollback"
+            ]
+          },
+          "replaceMarkdown": {
+            "description": "Allow a full regeneration or replacement of handwritten Markdown",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "New title",
+            "type": "string"
+          },
+          "goal": {
+            "description": "New goal",
+            "type": "string"
+          },
+          "status": {
+            "description": "New overall status; use workplan_reset to return to draft",
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_progress",
+              "blocked",
+              "review",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "scope": {
+            "description": "Replace the scope list",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "nonGoals": {
+            "description": "Replace the non-goals list",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "constraints": {
+            "description": "Replace the constraints list",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "planFile": {
+            "description": "Move the linked Markdown to this path under .opencode/workplan/",
+            "type": "string"
+          },
+          "planMarkdown": {
+            "description": "Replace the linked Markdown with this text",
+            "type": "string"
+          },
+          "specFiles": {
+            "description": "Replace the spec file list",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reviewFindings": {
+            "description": "Replace all review findings",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "severity": {
+                  "description": "Finding severity",
+                  "type": "string",
+                  "enum": [
+                    "blocker",
+                    "critical",
+                    "major",
+                    "minor",
+                    "note",
+                    "question"
+                  ]
+                },
+                "title": {
+                  "description": "Short finding title",
+                  "type": "string"
+                },
+                "detail": {
+                  "description": "Longer explanation",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "Where the finding came from, such as file:line or a reviewer",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Finding status; defaults to open",
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "resolved"
+                  ]
+                }
+              },
+              "required": [
+                "severity",
+                "title"
+              ]
+            }
+          },
+          "phases": {
+            "description": "Replace all phases",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "description": "Stable phase id; a readable id is generated when omitted",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "Short phase title",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Phase status; defaults to draft",
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "in_progress",
+                    "blocked",
+                    "review",
+                    "completed",
+                    "cancelled"
+                  ]
+                },
+                "steps": {
+                  "description": "Ordered steps in this phase",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "description": "Stable step id; a readable id is generated when omitted",
+                        "type": "string"
+                      },
+                      "title": {
+                        "description": "Short step title",
+                        "type": "string"
+                      },
+                      "target": {
+                        "description": "File, module or artifact the step touches",
+                        "type": "string"
+                      },
+                      "action": {
+                        "description": "What to do in this step",
+                        "type": "string"
+                      },
+                      "validation": {
+                        "description": "How to verify the step is done",
+                        "type": "string"
+                      },
+                      "status": {
+                        "description": "Step status; defaults to draft",
+                        "type": "string",
+                        "enum": [
+                          "draft",
+                          "in_progress",
+                          "blocked",
+                          "review",
+                          "completed",
+                          "cancelled"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "title"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          },
+          "updatePhases": {
+            "description": "Targeted phase field changes",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phaseId": {
+                  "description": "Id of the phase to change",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "New phase title",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "New phase status",
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "in_progress",
+                    "blocked",
+                    "review",
+                    "completed",
+                    "cancelled"
+                  ]
+                }
+              },
+              "required": [
+                "phaseId"
+              ]
+            }
+          },
+          "addPhases": {
+            "description": "Phases to insert or append",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "afterPhaseId": {
+                  "description": "Insert after this phase id; append when omitted",
+                  "type": "string"
+                },
+                "phase": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "Stable phase id; a readable id is generated when omitted",
+                      "type": "string"
+                    },
+                    "title": {
+                      "description": "Short phase title",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Phase status; defaults to draft",
+                      "type": "string",
+                      "enum": [
+                        "draft",
+                        "in_progress",
+                        "blocked",
+                        "review",
+                        "completed",
+                        "cancelled"
+                      ]
+                    },
+                    "steps": {
+                      "description": "Ordered steps in this phase",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "description": "Stable step id; a readable id is generated when omitted",
+                            "type": "string"
+                          },
+                          "title": {
+                            "description": "Short step title",
+                            "type": "string"
+                          },
+                          "target": {
+                            "description": "File, module or artifact the step touches",
+                            "type": "string"
+                          },
+                          "action": {
+                            "description": "What to do in this step",
+                            "type": "string"
+                          },
+                          "validation": {
+                            "description": "How to verify the step is done",
+                            "type": "string"
+                          },
+                          "status": {
+                            "description": "Step status; defaults to draft",
+                            "type": "string",
+                            "enum": [
+                              "draft",
+                              "in_progress",
+                              "blocked",
+                              "review",
+                              "completed",
+                              "cancelled"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "title"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "title"
+                  ]
+                }
+              },
+              "required": [
+                "phase"
+              ]
+            }
+          },
+          "updateSteps": {
+            "description": "Targeted step field changes",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phaseId": {
+                  "description": "Id of the phase holding the step",
+                  "type": "string"
+                },
+                "stepId": {
+                  "description": "Id of the step to change",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "New step title",
+                  "type": "string"
+                },
+                "target": {
+                  "description": "New step target",
+                  "type": "string"
+                },
+                "action": {
+                  "description": "New step action",
+                  "type": "string"
+                },
+                "validation": {
+                  "description": "New step validation",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "New step status",
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "in_progress",
+                    "blocked",
+                    "review",
+                    "completed",
+                    "cancelled"
+                  ]
+                }
+              },
+              "required": [
+                "phaseId",
+                "stepId"
+              ]
+            }
+          },
+          "addSteps": {
+            "description": "Steps to insert or append",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phaseId": {
+                  "description": "Phase that receives the new step",
+                  "type": "string"
+                },
+                "afterStepId": {
+                  "description": "Insert after this step id; append when omitted",
+                  "type": "string"
+                },
+                "step": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "Stable step id; a readable id is generated when omitted",
+                      "type": "string"
+                    },
+                    "title": {
+                      "description": "Short step title",
+                      "type": "string"
+                    },
+                    "target": {
+                      "description": "File, module or artifact the step touches",
+                      "type": "string"
+                    },
+                    "action": {
+                      "description": "What to do in this step",
+                      "type": "string"
+                    },
+                    "validation": {
+                      "description": "How to verify the step is done",
+                      "type": "string"
+                    },
+                    "status": {
+                      "description": "Step status; defaults to draft",
+                      "type": "string",
+                      "enum": [
+                        "draft",
+                        "in_progress",
+                        "blocked",
+                        "review",
+                        "completed",
+                        "cancelled"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "title"
+                  ]
+                }
+              },
+              "required": [
+                "phaseId",
+                "step"
+              ]
+            }
+          },
+          "addRelevantFiles": {
+            "description": "Relevant files to add",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "addSpecFiles": {
+            "description": "Spec files to add",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "removeSpecFiles": {
+            "description": "Spec files to remove",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "addReviewFindings": {
+            "description": "Findings to append",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "severity": {
+                  "description": "Finding severity",
+                  "type": "string",
+                  "enum": [
+                    "blocker",
+                    "critical",
+                    "major",
+                    "minor",
+                    "note",
+                    "question"
+                  ]
+                },
+                "title": {
+                  "description": "Short finding title",
+                  "type": "string"
+                },
+                "detail": {
+                  "description": "Longer explanation",
+                  "type": "string"
+                },
+                "source": {
+                  "description": "Where the finding came from, such as file:line or a reviewer",
+                  "type": "string"
+                },
+                "status": {
+                  "description": "Finding status; defaults to open",
+                  "type": "string",
+                  "enum": [
+                    "open",
+                    "resolved"
+                  ]
+                }
+              },
+              "required": [
+                "severity",
+                "title"
+              ]
+            }
+          },
+          "appendNotes": {
+            "description": "Notes to append",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dependencies": {
+            "description": "Replace the whole step dependency sidecar; omit to leave it unchanged",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phaseId": {
+                  "description": "Phase of the dependent step",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "stepId": {
+                  "description": "The dependent step",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "dependsOn": {
+                  "description": "Steps that must finish first",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "phaseId": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "stepId": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "phaseId",
+                      "stepId"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "phaseId",
+                "stepId",
+                "dependsOn"
+              ]
+            }
+          },
+          "recordEvidence": {
+            "description": "Append evidence for steps: the command you ran, its exit code and its output (only a sha256 is kept). Shiori binds it to the current git working tree; inspect/resume/doctor show whether it is still fresh. With only id, expectedHash and recordEvidence the plan and its hashes stay unchanged",
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phaseId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "stepId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "command": {
+                  "description": "The command as run",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                },
+                "exitCode": {
+                  "description": "Its exit code; 0 passes",
+                  "type": "integer",
+                  "minimum": -2147483648,
+                  "maximum": 2147483647
+                },
+                "output": {
+                  "description": "Its output (hashed, not stored); or pass outputDigest",
+                  "type": "string"
+                },
+                "outputDigest": {
+                  "description": "sha256 of the output",
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "summary": {
+                  "description": "One-line result",
+                  "type": "string",
+                  "maxLength": 500
+                },
+                "scope": {
+                  "description": "Project-relative paths this evidence covers; it goes stale only when they change (default: the whole project outside .opencode/workplan)",
+                  "maxItems": 50,
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "lane": {
+                  "description": "Active lane whose checkout the command ran in",
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "phaseId",
+                "stepId",
+                "command",
+                "exitCode"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "lanes": {
+            "description": "Worktree lanes, applied in order: propose a lane for steps with path claims (overlapping claims are refused), move it claimed → prepared (record its worktree checkout) → running → review → integrating → merged (or abandoned), or change its claims. Shiori records and checks lanes; it never creates, merges or removes worktrees. With only id, expectedHash, lanes and recordEvidence the plan and its hashes stay unchanged",
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "propose",
+                    "transition",
+                    "claims"
+                  ]
+                },
+                "laneId": {
+                  "description": "Lowercase [a-z0-9-] id, never reused",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "steps": {
+                  "description": "propose: steps the lane owns",
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "phaseId": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "stepId": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "phaseId",
+                      "stepId"
+                    ]
+                  }
+                },
+                "claims": {
+                  "description": "propose: project-relative paths the lane owns (everything under each)",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "state": {
+                  "description": "transition: next state",
+                  "type": "string",
+                  "enum": [
+                    "claimed",
+                    "prepared",
+                    "running",
+                    "review",
+                    "integrating",
+                    "merged",
+                    "abandoned"
+                  ]
+                },
+                "checkout": {
+                  "description": "transition to prepared: the lane's worktree of this repository, outside the project root",
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "branch": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "path"
+                  ],
+                  "additionalProperties": false
+                },
+                "add": {
+                  "description": "claims: paths to claim",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "remove": {
+                  "description": "claims: paths to release",
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "op",
+                "laneId"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "planLinks": {
+            "description": "Links from this plan to other plans in the same root, replacing the stored list: blocks (the other plan waits for this one), blockedBy (this plan waits for the other) or related. Plans that do not exist yet are kept with a warning. Shown in doctor's portfolio and, while an unfinished plan blocks this one, in resume. With only id, expectedHash and sidecar members the plan and its hashes stay unchanged",
+            "maxItems": 100,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "planId": {
+                  "description": "The other plan's id",
+                  "type": "string",
+                  "minLength": 1
+                },
+                "relation": {
+                  "type": "string",
+                  "enum": [
+                    "blocks",
+                    "blockedBy",
+                    "related"
+                  ]
+                },
+                "note": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "planId",
+                "relation"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_inspect",
+      "description": "List a workplan's stable phase and step ids and Markdown markers without returning the Markdown content.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "phaseId": {
+            "description": "Restrict to one phase",
+            "type": "string"
+          },
+          "limit": {
+            "description": "Records per page; defaults to 100",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          },
+          "cursor": {
+            "description": "Cursor from a previous page",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_validate",
+      "description": "Validate a workplan's JSON, linked Markdown and spec files before handing it to other agents. Read-only.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_read",
+      "description": "Read one workplan, optionally filtered to a phase or step, with its linked Markdown.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "phaseId": {
+            "description": "Return only this phase",
+            "type": "string"
+          },
+          "stepId": {
+            "description": "Return only this step",
+            "type": "string"
+          },
+          "includeMarkdown": {
+            "description": "Include the linked Markdown content; defaults to true",
+            "type": "boolean"
+          },
+          "includeNotes": {
+            "description": "With phaseId/stepId: also return reviewFindings and notes (default false). A filtered read returns the plan header, hashes and the selected phase/step; linked Markdown only with includeMarkdown=true. Without a filter, false leaves the notes out of the whole document (often most of a long plan)",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_list",
+      "description": "List the workplans stored in .opencode/workplan with their validity and hashes.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_patch",
+      "description": "Patch only the linked Markdown plan with a restricted single Update File patch; use workplan_update for JSON changes. Pass expectedHash = the stateHash from your latest read or successful write.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "patchText": {
+            "description": "Restricted patch with exactly one Update File section for the linked Markdown",
+            "type": "string"
+          },
+          "validate": {
+            "description": "Run workplan_validate after patching",
+            "type": "boolean"
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "patchText"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_reset",
+      "description": "Reset a workplan: draft resets every status (plan, phases, steps) to draft and removes the checkpoint, keeping phases, steps, notes, findings and dependencies; wipe clears phases, findings and notes after a preview and an exact confirmation, archiving the originals first; markdown-only only regenerates the linked Markdown from the JSON. Pass expectedHash = the stateHash from your latest read or successful write.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "mode": {
+            "description": "draft resets statuses only and keeps the plan content; wipe clears phases, findings and (unless preserveNotes) notes: call it first without previewToken/confirmation for a read-only preview, then again with that previewToken and confirmation=WIPE_PLAN_CONTENT; markdown-only only regenerates the Markdown",
+            "default": "draft",
+            "type": "string",
+            "enum": [
+              "draft",
+              "markdown-only",
+              "wipe"
+            ]
+          },
+          "preserveNotes": {
+            "description": "Keep notes during a wipe (a draft reset always keeps notes)",
+            "default": false,
+            "type": "boolean"
+          },
+          "replaceMarkdown": {
+            "description": "Allow replacing handwritten Markdown",
+            "type": "boolean"
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "previewToken": {
+            "description": "mode=wipe only: the previewToken returned by the wipe preview",
+            "type": "string"
+          },
+          "confirmation": {
+            "description": "mode=wipe only: must be WIPE_PLAN_CONTENT to apply the previewed wipe",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_resume",
+      "description": "Return a compact continuation packet for an existing workplan: checkpoint, active steps, unresolved findings, and current guardrails, without dumping historical notes or completed phase details.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "maxChars": {
+            "description": "Output size budget; defaults to 12000",
+            "type": "integer",
+            "minimum": 4096,
+            "maximum": 64000
+          },
+          "limit": {
+            "description": "Items per page; defaults to 20",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "cursor": {
+            "description": "Cursor from a previous page",
+            "type": "string"
+          },
+          "phaseId": {
+            "description": "Restrict to one phase",
+            "type": "string"
+          },
+          "stepId": {
+            "description": "Restrict to one step",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_checkpoint",
+      "description": "Write a concise, structured handoff checkpoint for the next session without replacing the full workplan. Include the current task, immediate next action, blockers, validation, and safety guardrails. Without merge=true it replaces the whole checkpoint (omitted fields become empty); to update it, pass merge=true (omitted fields keep their stored values) or read the current checkpoint first. Pass expectedHash = the stateHash from your latest read or successful write.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "summary": {
+            "description": "Concise summary of the current state (required unless merge=true; never copy a null/withheld value from workplan_resume)",
+            "type": "string"
+          },
+          "nextAction": {
+            "description": "The immediate next action for the next session (required unless merge=true)",
+            "type": "string"
+          },
+          "phaseId": {
+            "description": "Current phase id",
+            "type": "string"
+          },
+          "stepId": {
+            "description": "Current step id",
+            "type": "string"
+          },
+          "blockers": {
+            "description": "Open blockers",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recentValidation": {
+            "description": "Recent validation results",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "guardrails": {
+            "description": "Safety guardrails to keep in mind",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "references": {
+            "description": "Useful references",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "merge": {
+            "description": "Keep the stored checkpoint's value of every omitted field (summary, nextAction, phase/step, blockers, recentValidation, guardrails, references); given fields replace theirs",
+            "type": "boolean"
+          },
+          "appendValidation": {
+            "description": "Validation line(s) appended to recentValidation (exact duplicates skipped); use with merge=true to add evidence without rewriting the checkpoint",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_compact",
+      "description": "Preview or archive explicitly selected workplan history. Apply mode requires a fresh checkpoint and exact confirmation; it snapshots the original JSON, linked Markdown, and checkpoint before removing only selected completed phases, notes, and explicitly resolved findings. In apply mode, pass expectedHash = the stateHash from your latest read or successful write.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "mode": {
+            "description": "preview first, then apply with the preview token",
+            "default": "preview",
+            "type": "string",
+            "enum": [
+              "preview",
+              "apply"
+            ]
+          },
+          "archiveReason": {
+            "description": "Why this history is being archived",
+            "type": "string"
+          },
+          "completedPhaseIds": {
+            "description": "Completed phases to archive",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "noteIndexes": {
+            "description": "Zero-based note indexes to archive",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "resolvedFindingIndexes": {
+            "description": "Zero-based indexes of resolved findings to archive",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "noteRollover": {
+            "description": "Instead of noteIndexes: archive every note older than the latest keepLatest (default 20) except pinned ones: [pinned] in the text or pinNoteIndexes, decision records (decision/decided or USER), notes naming an open step as phaseId/stepId or quoting an open finding title, and the latest 3 compaction archive pointers (older ones roll over). Apply needs a fresh checkpoint; pass the same noteRollover to preview and apply",
+            "type": "object",
+            "properties": {
+              "keepLatest": {
+                "description": "Number of newest notes that always stay (default 20)",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10000
+              },
+              "pinNoteIndexes": {
+                "description": "Zero-based indexes of further notes to keep",
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "confirmation": {
+            "description": "Must be ARCHIVE_SELECTED_HISTORY to apply",
+            "type": "string"
+          },
+          "previewToken": {
+            "description": "Token from the matching preview",
+            "type": "string"
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "archiveReason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_doctor",
+      "description": "Read-only diagnosis of workplan artifacts, hashes, sidecars, locks, and injected runtime facts.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "limit": {
+            "description": "Maximum plans to diagnose; defaults to 50",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "workplan_compact_preview",
+      "description": "Read-only preview of the exact workplan history selection and archive intent; this tool never applies compaction.",
+      "input": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "Workplan id; normalised to lowercase kebab-case for the filename",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "[a-z0-9]"
+          },
+          "archiveReason": {
+            "description": "Why this history is being archived",
+            "type": "string"
+          },
+          "completedPhaseIds": {
+            "description": "Completed phases to archive",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "noteIndexes": {
+            "description": "Zero-based note indexes to archive",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "resolvedFindingIndexes": {
+            "description": "Zero-based indexes of resolved findings to archive",
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "noteRollover": {
+            "description": "Instead of noteIndexes: archive every note older than the latest keepLatest (default 20) except pinned ones: [pinned] in the text or pinNoteIndexes, decision records (decision/decided or USER), notes naming an open step as phaseId/stepId or quoting an open finding title, and the latest 3 compaction archive pointers (older ones roll over). Apply needs a fresh checkpoint; pass the same noteRollover to preview and apply",
+            "type": "object",
+            "properties": {
+              "keepLatest": {
+                "description": "Number of newest notes that always stay (default 20)",
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10000
+              },
+              "pinNoteIndexes": {
+                "description": "Zero-based indexes of further notes to keep",
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "confirmation": {
+            "description": "Must be ARCHIVE_SELECTED_HISTORY to apply",
+            "type": "string"
+          },
+          "previewToken": {
+            "description": "Token from the matching preview",
+            "type": "string"
+          },
+          "expectedHash": {
+            "description": "The stateHash last read for this plan; the write is refused if the plan changed since",
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "archiveReason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "d1": {
+    "note": "Approved design change D.1 (docs/contracts.md §11 item B, 2026-09-30). Removing this key and every listed addition reproduces the reference snapshot byte-for-byte (sha256 below).",
+    "referenceSha256": "f4dd36c8a942cebbd26945e53ca580839c4eeee9ffaf4398a8b4397f477e6935",
+    "additions": [
+      {
+        "tool": "workplan_read",
+        "property": "includeNotes"
+      }
+    ]
+  },
+  "d3": {
+    "note": "Approved design change D.3 (docs/contracts.md §13 item 1, 2026-09-30). Removing this key and the d1 key, every listed addition, and restoring each listed change to its reference value reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_reset",
+        "property": "previewToken"
+      },
+      {
+        "tool": "workplan_reset",
+        "property": "confirmation"
+      }
+    ],
+    "changes": [
+      {
+        "tool": "workplan_reset",
+        "path": [
+          "description"
+        ],
+        "reference": "Reset a workplan to the draft planning state, or only regenerate its linked Markdown from the JSON."
+      },
+      {
+        "tool": "workplan_reset",
+        "path": [
+          "input",
+          "properties",
+          "mode",
+          "description"
+        ],
+        "reference": "draft clears execution state; markdown-only only regenerates the Markdown"
+      },
+      {
+        "tool": "workplan_reset",
+        "path": [
+          "input",
+          "properties",
+          "mode",
+          "enum"
+        ],
+        "reference": [
+          "draft",
+          "markdown-only"
+        ]
+      },
+      {
+        "tool": "workplan_reset",
+        "path": [
+          "input",
+          "properties",
+          "preserveNotes",
+          "description"
+        ],
+        "reference": "Keep notes during a draft reset"
+      }
+    ]
+  },
+  "d4": {
+    "note": "Approved design change D.4 (docs/contracts.md §15, 2026-09-30): the note rollover selector of compaction (spec 06 P3). Removing this key with the d1/d3 keys, every listed addition, and restoring each d3 change reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_compact",
+        "property": "noteRollover"
+      },
+      {
+        "tool": "workplan_compact_preview",
+        "property": "noteRollover"
+      }
+    ]
+  },
+  "d4_1": {
+    "note": "Approved design change D.4.1 (docs/contracts.md §16, 2026-10-01): one sentence about expectedHash on the six mutating tools' descriptions. Restoring each listed change to its previous value (before the d3 changes), then applying the d4/d3/d1 reversal, reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "changes": [
+      {
+        "tool": "workplan_create",
+        "path": [
+          "description"
+        ],
+        "previous": "Create a structured workplan under .opencode/workplan as a JSON document plus a linked Markdown plan."
+      },
+      {
+        "tool": "workplan_update",
+        "path": [
+          "description"
+        ],
+        "previous": "Update workplan metadata, the linked plan file, spec files, findings, dependencies, or targeted phase and step fields without rewriting the whole plan."
+      },
+      {
+        "tool": "workplan_patch",
+        "path": [
+          "description"
+        ],
+        "previous": "Patch only the linked Markdown plan with a restricted single Update File patch; use workplan_update for JSON changes."
+      },
+      {
+        "tool": "workplan_reset",
+        "path": [
+          "description"
+        ],
+        "previous": "Reset a workplan: draft resets every status (plan, phases, steps) to draft and removes the checkpoint, keeping phases, steps, notes, findings and dependencies; wipe clears phases, findings and notes after a preview and an exact confirmation, archiving the originals first; markdown-only only regenerates the linked Markdown from the JSON."
+      },
+      {
+        "tool": "workplan_checkpoint",
+        "path": [
+          "description"
+        ],
+        "previous": "Write a concise, structured handoff checkpoint for the next session without replacing the full workplan. Include the current task, immediate next action, blockers, validation, and safety guardrails."
+      },
+      {
+        "tool": "workplan_compact",
+        "path": [
+          "description"
+        ],
+        "previous": "Preview or archive explicitly selected workplan history. Apply mode requires a fresh checkpoint and exact confirmation; it snapshots the original JSON, linked Markdown, and checkpoint before removing only selected completed phases, notes, and explicitly resolved findings."
+      }
+    ]
+  },
+  "d4_3": {
+    "note": "Approved design change D.4.3 (docs/contracts.md §18, 2026-10-01): workplan_checkpoint merge mode. Removing the listed additions and restoring each listed change to its previous value (before the d4_1 changes), then applying the d4_1/d4/d3/d1 reversal, reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_checkpoint",
+        "property": "merge"
+      },
+      {
+        "tool": "workplan_checkpoint",
+        "property": "appendValidation"
+      }
+    ],
+    "changes": [
+      {
+        "tool": "workplan_checkpoint",
+        "path": [
+          "description"
+        ],
+        "previous": "Write a concise, structured handoff checkpoint for the next session without replacing the full workplan. Include the current task, immediate next action, blockers, validation, and safety guardrails. Pass expectedHash = the stateHash from your latest read or successful write."
+      },
+      {
+        "tool": "workplan_checkpoint",
+        "path": [
+          "input",
+          "properties",
+          "summary",
+          "description"
+        ],
+        "previous": "Concise summary of the current state"
+      },
+      {
+        "tool": "workplan_checkpoint",
+        "path": [
+          "input",
+          "properties",
+          "nextAction",
+          "description"
+        ],
+        "previous": "The immediate next action for the next session"
+      },
+      {
+        "tool": "workplan_checkpoint",
+        "path": [
+          "input",
+          "required"
+        ],
+        "previous": [
+          "id",
+          "summary",
+          "nextAction"
+        ]
+      }
+    ]
+  },
+  "e1": {
+    "note": "Approved design change E1 (docs/contracts.md §20, 2026-10-07): the evidence ledger (spec 06 X2). Removing the listed additions, then applying the d4_3/d4_1/d4/d3/d1 reversal, reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_update",
+        "property": "recordEvidence"
+      }
+    ]
+  },
+  "x3": {
+    "note": "Approved design change X3 (docs/contracts.md §22, 2026-10-07): worktree lanes. Removing the listed additions, then applying the e1/d4_3/d4_1/d4/d3/d1 reversal, reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_update",
+        "property": "lanes"
+      }
+    ]
+  },
+  "x4": {
+    "note": "Approved design change X4 (docs/contracts.md §24, 2026-10-07): the change log and rebased writes. Removing the listed additions, then applying the x3/e1/d4_3/d4_1/d4/d3/d1 reversal, reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_update",
+        "property": "rebase"
+      }
+    ]
+  },
+  "x5": {
+    "note": "Approved design change X5 (docs/contracts.md §26, 2026-10-07): cross-plan links. Removing the listed additions, then applying the x4/x3/e1/d4_3/d4_1/d4/d3/d1 reversal, reproduces the reference snapshot byte-for-byte (d1.referenceSha256).",
+    "additions": [
+      {
+        "tool": "workplan_update",
+        "property": "planLinks"
+      }
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "hash/fixtures/invalid-schema--not-json",
+  "fixture": "invalid-schema",
+  "planId": "not-json",
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan JSON at $ROOT/.opencode/workplan/not-json.json: JSON Parse error: Property name must be a string literal"
+  }
+}

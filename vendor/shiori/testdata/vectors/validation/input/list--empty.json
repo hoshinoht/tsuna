@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/list--empty",
+  "tool": "workplan_list",
+  "input": {},
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {}
+    },
+    "native": {
+      "ok": true,
+      "data": {}
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {}
+    }
+  }
+}

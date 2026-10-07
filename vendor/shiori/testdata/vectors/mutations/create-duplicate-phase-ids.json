@@ -1,0 +1,31 @@
+{
+  "id": "mutations/create-duplicate-phase-ids",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "dup",
+      "goal": "g",
+      "phases": [
+        {
+          "id": "p",
+          "title": "A"
+        },
+        {
+          "id": "P",
+          "title": "B"
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Duplicate phase id: p"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

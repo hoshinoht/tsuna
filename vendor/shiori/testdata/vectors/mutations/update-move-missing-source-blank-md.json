@@ -1,0 +1,22 @@
+{
+  "id": "mutations/update-move-missing-source-blank-md",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "missing-plan",
+      "planFile": ".opencode/workplan/moved.md",
+      "planMarkdown": "   "
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Cannot move workplan link because source Markdown is missing; supply a nonblank planMarkdown explicitly"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

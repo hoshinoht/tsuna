@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/update--bad-recovery",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "recovery": "redo"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid update input: recovery: Invalid option: expected one of \"resume\"|\"rollback\""
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid update input: recovery: Invalid option: expected one of \"resume\"|\"rollback\""
+    },
+    "nativeThenCore": null
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_reset.input.schema.json",
+  "title": "workplan_reset input (native surface)",
+  "description": "Reset a plan's statuses to draft (keeping its content), wipe its phases/findings/notes after a preview and confirmation (archiving the originals), or regenerate only its Markdown. Pass expectedHash = the stateHash from your latest read or successful write.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "mode": {
+      "description": "Operation mode. draft (D.3): status-only reset; the plan, every phase and every step go back to draft and the checkpoint sidecar is removed; phases, steps, notes, findings, scope, constraints and the dependency graph are kept. wipe (D.3): clears phases, findings and (unless preserveNotes) notes after a preview and an exact previewToken + confirmation, archiving the complete originals first and removing the checkpoint and dependency sidecars. markdown-only: regenerates only the linked Markdown.",
+      "default": "draft",
+      "type": "string",
+      "enum": [
+        "draft",
+        "markdown-only",
+        "wipe"
+      ]
+    },
+    "preserveNotes": {
+      "description": "Keep notes on a wipe (D.3: a draft reset always keeps notes).",
+      "default": false,
+      "type": "boolean"
+    },
+    "replaceMarkdown": {
+      "description": "Allow replacing handwritten (non-generated) Markdown.",
+      "type": "boolean"
+    },
+    "expectedHash": {
+      "description": "stateHash from the latest read; binds the write to that exact state.",
+      "$ref": "../common.schema.json#/$defs/hash"
+    },
+    "previewToken": {
+      "description": "D.3, mode=wipe only: the previewToken of the wipe preview (a call without previewToken and confirmation). Binds the state, the removed content, preserveNotes and the Markdown treatment; it is not authority.",
+      "type": "string"
+    },
+    "confirmation": {
+      "description": "D.3, mode=wipe only: must be WIPE_PLAN_CONTENT to apply the wipe.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "required": [
+        "expectedHash"
+      ]
+    }
+  ],
+  "x-shiori-mutating": true,
+  "x-shiori-rules": [
+    {
+      "when": "always (native)",
+      "path": "expectedHash",
+      "native": "Native existing-state writes require the current stateHash — pass expectedHash set to the stateHash from your last successful write, or re-read with workplan_resume or workplan_inspect first"
+    },
+    {
+      "when": "previewToken or confirmation present and mode is not wipe (D.3)",
+      "path": "previewToken | confirmation",
+      "native": "previewToken and confirmation apply only to mode=wipe",
+      "core": "previewToken and confirmation apply only to mode=wipe"
+    },
+    {
+      "when": "mode is wipe and previewToken or confirmation is present (D.3 apply)",
+      "path": "confirmation",
+      "native": "Wipe apply requires confirmation=WIPE_PLAN_CONTENT",
+      "core": "Wipe apply requires confirmation=WIPE_PLAN_CONTENT"
+    },
+    {
+      "when": "mode is wipe and confirmation is present without previewToken (D.3 apply)",
+      "path": "previewToken",
+      "native": "Wipe apply requires the previewToken from a workplan_reset mode=wipe preview (call it without previewToken and confirmation first)",
+      "core": "Wipe apply requires the previewToken from a workplan_reset mode=wipe preview (call it without previewToken and confirmation first)"
+    }
+  ],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key. The allOf conditions are native-surface rules; the core surface keeps expectedHash optional for legacy direct calls (a concurrent change must still be detected), and uses the 'core' messages in x-shiori-rules.",
+  "x-shiori-nested-unknown-keys": "n/a"
+}

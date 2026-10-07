@@ -1,0 +1,40 @@
+{
+  "id": "tools/pending-journal-precreate/list",
+  "fixture": "pending-journal-precreate",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal-precreate",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 528,
+    "rawOutputUtf8Bytes": 528,
+    "outputSha256": "f84c13add425e744759942a34172b5ad7741c2d5c7620968df45cabe1083268e",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 0,
+      "workplans": [],
+      "sidecars": [
+        {
+          "name": "tx-new.transaction.json",
+          "kind": "transaction"
+        },
+        {
+          "name": ".tx-new.json.9cad1368-21a7-45fd-9ee1-6eaad4b88160.0.stage",
+          "kind": "temporary"
+        },
+        {
+          "name": ".tx-new.md.9cad1368-21a7-45fd-9ee1-6eaad4b88160.1.stage",
+          "kind": "temporary"
+        }
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

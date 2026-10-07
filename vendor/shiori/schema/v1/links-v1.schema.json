@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/links-v1.schema.json",
+  "title": "Plan links, schemaVersion 1",
+  "description": "Stored at .opencode/workplan/<id>.links.json (spec 06 X5, contracts §26): how this plan relates to other plans in the same root. Parent-owned, outside the state manifest; the portfolio view built from all of them is read-only and advisory. Written whole by workplan_update.planLinks.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "common.schema.json#/$defs/nonblank" },
+    "updatedAt": { "type": "string" },
+    "links": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "properties": {
+          "planId": { "$ref": "common.schema.json#/$defs/nonblank" },
+          "relation": {
+            "description": "blocks: the other plan waits for this one; blockedBy: this plan waits for the other; related: no order.",
+            "enum": ["blocks", "blockedBy", "related"]
+          },
+          "note": { "type": "string" }
+        },
+        "required": ["planId", "relation"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["schemaVersion", "id", "updatedAt", "links"],
+  "additionalProperties": false
+}

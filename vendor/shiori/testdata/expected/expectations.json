@@ -1,0 +1,1226 @@
+{
+  "note": "Every oracle vector whose Go output intentionally differs from the reference (docs/contracts.md). Each entry names the comparators that prove only the documented difference occurs (the reason and the contracts section) and, for approved design changes, pins the SHA-256 and UTF-16 length of the Go output (root-normalized; for a refusal, of the error text). Oracle divergences (contracts §7) are proved by their comparators without a pin. Re-pin after review with SHIORI_EXPECTED_UPDATE=1 go test ./internal/conformance ./internal/model.",
+  "vectors": {
+    "markdown/error-missing-specFiles": {
+      "reason": "a document without specFiles renders (normalized to [])",
+      "contracts": "§4",
+      "compare": [
+        "missing-specfiles-renders"
+      ]
+    },
+    "markdown/finding-permutations": {
+      "reason": "generated Markdown renders a finding as \"title (status)\"",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "finding-rendering"
+      ],
+      "outputSha256": "d2ce14dec028b85af5ec3e629f8b46255e9043ee1b2f11f16804f1bf29b62b58",
+      "rawOutputLength": 881
+    },
+    "mutations/checkpoint-missing-markdown": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "ba247c44a6c06c098db42e7224aa73c64528f8f0a3d7c7767992fcdd6dfa454c",
+      "rawOutputLength": 1517
+    },
+    "mutations/checkpoint-ok": {
+      "reason": "writes record whole-second timestamps; checkpoint writes warn about dropped list entries",
+      "contracts": "§14 item 5b; §18 item 2",
+      "compare": [
+        "whole-second-timestamps",
+        "drop-warnings"
+      ],
+      "outputSha256": "82b226b3f0930382ea805c46b5778d27c4bdcabe6331946a8d018f0b74621c6e",
+      "rawOutputLength": 2022
+    },
+    "mutations/compact-apply-valid": {
+      "reason": "root-independent preview token, archive name and removals digest; generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§7 D10; §14 item 5b",
+      "compare": [
+        "compact-apply",
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "3627586dd6e9f41967389daa1e5ae7f9f64289e897481abb49021b376a8cfd7b",
+      "rawOutputLength": 753
+    },
+    "mutations/create-blank-markdown": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "8ae1c5d1a04b53830c7b31ec4e907aed9281c8eadfe7929f0373823f6372b9e0",
+      "rawOutputLength": 717
+    },
+    "mutations/create-custom-markdown-no-newline": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "6747fc8ed9e961d34f47608d541f36a43a758a20a4e252688f85d835ee578be9",
+      "rawOutputLength": 721
+    },
+    "mutations/create-generated-ids": {
+      "reason": "generated ids are title slugs; writes record whole-second timestamps",
+      "contracts": "§13 item 5; §14 item 5b",
+      "compare": [
+        "title-slug-ids",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "19750565501572e6e848f04cd0d743bcc2c3f0aa88f041c42a25feb3442c786c",
+      "rawOutputLength": 709
+    },
+    "mutations/create-new-full": {
+      "reason": "a link to a missing spec file is refused before authorization; generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§13 item 5; §14 item 5b",
+      "compare": [
+        "missing-spec-refused",
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "0bfdcd46cb9b0a726fcec317a6d25cedd78d07e4348bfa7b2541521eaac2e74e",
+      "rawOutputLength": 108
+    },
+    "mutations/create-over-precreate-journal": {
+      "reason": "a pending pre-create journal is refused before authorization",
+      "contracts": "§7 D1, §10a",
+      "compare": [
+        "precreate-journal-refusal"
+      ],
+      "authorizations": 0
+    },
+    "mutations/create-overwrite-stale-hash": {
+      "reason": "expectedHash refusals append guidance",
+      "contracts": "§16",
+      "compare": [
+        "hash-guidance"
+      ],
+      "outputSha256": "521501bc3bac3c75253234309b84661b52fe8aed19394001b1e55ccbc099fd44",
+      "rawOutputLength": 267
+    },
+    "mutations/patch-validate": {
+      "reason": "patch validate returns the issue list and the drift warning",
+      "contracts": "§11 items C, D",
+      "compare": [
+        "patch-validate"
+      ]
+    },
+    "mutations/reset-draft": {
+      "reason": "draft reset keeps the structure and resets statuses; generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§13 item 1; §14 item 5b",
+      "compare": [
+        "draft-reset",
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "978ba39ab0a48c68b839230a494b519fef332c128c31b0949b7444a96c51da88",
+      "rawOutputLength": 777
+    },
+    "mutations/reset-draft-preserve-notes": {
+      "reason": "draft reset keeps the structure and resets statuses; generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§13 item 1; §14 item 5b",
+      "compare": [
+        "draft-reset",
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "978ba39ab0a48c68b839230a494b519fef332c128c31b0949b7444a96c51da88",
+      "rawOutputLength": 777
+    },
+    "mutations/reset-legacy-no-specfiles": {
+      "reason": "a plan with duplicate member names is readable but not mutable",
+      "contracts": "§7 D4",
+      "compare": [
+        "duplicate-members-refusal"
+      ],
+      "message": "Workplan legacy-plan has duplicate JSON member names: kind. Remove the duplicates before mutating the plan."
+    },
+    "mutations/reset-markdown-only-generated": {
+      "reason": "already-generated Markdown needs no authorization",
+      "contracts": "§7 D12",
+      "compare": [
+        "unchanged-markdown"
+      ],
+      "authorizations": 0
+    },
+    "mutations/update-dependencies-empty-replace": {
+      "reason": "generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "44ead3839a8b5557fa50fb371dc2404610809c23ad572fac2edc7e904f4d5930",
+      "rawOutputLength": 737
+    },
+    "mutations/update-duplicate-step-ids": {
+      "reason": "unrenderable ids are refused with field paths",
+      "contracts": "§7 D7",
+      "compare": [
+        "id-refusal"
+      ],
+      "message": "phases.2.id: Must not be empty; phases.2.steps.0.id: Must not be empty"
+    },
+    "mutations/update-duplicate-unrelated-field": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "1ab6962a759e6961a60222d40e2d98963e9702de3f9f0a3ffb2e4ab4d767442d",
+      "rawOutputLength": 711
+    },
+    "mutations/update-empty-step-title": {
+      "reason": "generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "073f78d7504bc23d1a80d0cacdbfa69559058affe600f41cab1207afce1d8c5b",
+      "rawOutputLength": 737
+    },
+    "mutations/update-handwritten-preserved": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "0471dff1a798fef04d1f341b34536c6012cd8d495d1f3f63558ebd1aac2b23a3",
+      "rawOutputLength": 707
+    },
+    "mutations/update-insert-order": {
+      "reason": "generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "f19ade5d29260bd22734caea7daa87727f6f97c17cdf4a7a951aa07dbb61b910",
+      "rawOutputLength": 737
+    },
+    "mutations/update-legacy-preserve": {
+      "reason": "a plan with duplicate member names is readable but not mutable",
+      "contracts": "§7 D4",
+      "compare": [
+        "duplicate-members-refusal"
+      ],
+      "message": "Workplan legacy-plan has duplicate JSON member names: kind. Remove the duplicates before mutating the plan."
+    },
+    "mutations/update-move-generated": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "ce9e7586dec316348d62724875539a11e617bd7df493a5005878212a433a9b4a",
+      "rawOutputLength": 727
+    },
+    "mutations/update-move-missing-source-with-md": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "9f316fc175489a3d1c94eda3686f5624205c302ba2038d9b1cc5b4cb038c582d",
+      "rawOutputLength": 711
+    },
+    "mutations/update-placeholders": {
+      "reason": "generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "f45f94a142031552cea9595e38bf007c25dbf4f17f8a09329bc6cf1f214df1da",
+      "rawOutputLength": 737
+    },
+    "mutations/update-recovery-precreate-resume": {
+      "reason": "a journal-only plan is recoverable",
+      "contracts": "§7 D1",
+      "compare": [
+        "precreate-resume"
+      ]
+    },
+    "mutations/update-recovery-resume": {
+      "reason": "recovery also removes the interrupted transaction's staging file",
+      "contracts": "§13 item 6",
+      "compare": [
+        "recovery-staging"
+      ]
+    },
+    "mutations/update-recovery-rollback": {
+      "reason": "recovery also removes the interrupted transaction's staging file",
+      "contracts": "§13 item 6",
+      "compare": [
+        "recovery-staging"
+      ]
+    },
+    "mutations/update-remove-spec-legacy-dot": {
+      "reason": "writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "85dbbfa5ec89a03b286486b736cddcb27df893ff04c055272ece96acde7de3fb",
+      "rawOutputLength": 721
+    },
+    "mutations/update-targeted-step": {
+      "reason": "generated Markdown renders a finding as \"title (status)\"; writes record whole-second timestamps",
+      "contracts": "§14 item 5b",
+      "compare": [
+        "finding-rendering",
+        "whole-second-timestamps"
+      ],
+      "outputSha256": "cb2827a7f8db49ed1761b8cdb5e016f292d20b2a62b1e484007648b4f9b3a53d",
+      "rawOutputLength": 737
+    },
+    "paging/resume-big-4096-limit5/page-00": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "c69256e8a7845b22265157b960c4aa2e9b6076cdd55c9ec7d8f1b7a4aa596e6a",
+      "rawOutputLength": 4005
+    },
+    "paging/resume-big-4096-limit5/page-01": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "9b8a3ba769694a5992771e9ab1a71092b6bd7eaa1907efe67d5c167e94c42893",
+      "rawOutputLength": 4005
+    },
+    "paging/resume-big-4096-limit5/page-02": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "89b9f7f9248bb205ffa0fc9fb59287ba9383cd24cc57f6c8d8508cc1a3a12221",
+      "rawOutputLength": 4007
+    },
+    "paging/resume-big-4096-limit5/page-03": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "441b160d2eee21413232eac5bab3bea21412bf0be04bb7582a14122e2631a7d1",
+      "rawOutputLength": 4007
+    },
+    "paging/resume-big-4096-limit5/page-04": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "a19fcaeac443716b2a5308e7d4b6c86f1dbda838993652e743f17e9513f6878b",
+      "rawOutputLength": 4007
+    },
+    "paging/resume-big-4096-limit5/page-05": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "249a1b6b5e293da30ee4dc33caee8c5a26f0dfce2c085725749ff386c0cb37f9",
+      "rawOutputLength": 4007
+    },
+    "paging/resume-big-4096-limit5/page-06": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "8eb3f6cef09959b73424ee78e859e6bfbf9eabceeaa8c970990eb53731bf646c",
+      "rawOutputLength": 3974
+    },
+    "paging/resume-big-4096-limit5/page-07": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "f3f3294115a7a99a9173bc5cc68f80dbeee33ca44b79a915c2c5449028f54118",
+      "rawOutputLength": 3973
+    },
+    "paging/resume-big-4096-limit5/page-08": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "6ea8d0724c4b0021c56fe483b21074f94543d7403042000c7a99ae7be4d5636f",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-09": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "b9662f3c13d504e42f1ce5085373b56176a7346e8e02378d944d6d1734d0c8f6",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-10": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "885387fa218c11a7b1458fd950c556a78c1e947766bcc04c7d7e1fed1ae62f39",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-11": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "bf41d08386f4858df00fda4fdcf6037c514080153d77d282101ec7058d2d79cc",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-12": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "f43fc0e440309747c0b0dfa4d01f2c0c54a11cf9cb611f1cb25006c51e2e98d2",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-13": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "21e7bee80d12c381c58146df9274d914081741a0dc7ab73f2205aab578e0bc6e",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-14": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "c823140350b91422735c7776dbef981862ee189f74402b3cf16fc5756260b913",
+      "rawOutputLength": 3973
+    },
+    "paging/resume-big-4096-limit5/page-15": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "d0156d86260b9d6994cc7a368add0b4fe67d8210b7cd9ce8e19d0ee7998828ad",
+      "rawOutputLength": 3973
+    },
+    "paging/resume-big-4096-limit5/page-16": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "396bea3bc4dd865e5fd0912e47a30eff988a041604e01e558871815ed7256f5d",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-17": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "f3a0c7de728af2366bdd9eb06baa8a260c90fa5b46681bd6bc014952bd341ce0",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-18": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "8c32d53431862a9fc97d36d7228586c9faa13a4c4193269eb8f329ac16c51242",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-19": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "7171df22dcfdf3ba458d9115eb60c51fd40f6abddffbe630e6a6aac2ceacbced",
+      "rawOutputLength": 3988
+    },
+    "paging/resume-big-4096-limit5/page-20": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "a5c27b15ef2032132d626220a0cc6fe1fdca59697d017e7b0a00a64e053f4f6d",
+      "rawOutputLength": 3991
+    },
+    "paging/resume-big-4096-limit5/page-21": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "b530663650ea15039d881878dbeb25853410742ec34532c7d23f17bce14b7b06",
+      "rawOutputLength": 3991
+    },
+    "paging/resume-stress-4096-limit1/page-00": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "dcb5178102545b651da12cee2324ff3067c95b3bbf1713fede0756f2e1060ef9",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-01": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "6732e91db60779a8676867302a7ba3ef475fca7b2705568163de680e23669980",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-02": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "fb68fb10bd21041fc9521bbd3f4bbb78684d4ada7b95612b696cb4b38fd398eb",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-03": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "2e34e8b21ca3366cdd6b5f2370b45ca410bcb5c2a0c8dffc578cb67d63f9e8fc",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-04": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "5952ef99435728795f642f59b159f2bb42b6b65d92f4bc157a50ddbdd4a07f06",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-05": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "0f07b30ae822742c56363d2bb14efa0ced2ea381f85cf1cd081712898177b91f",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-06": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "842e7ab82852e870eb471d2569eb7d60202546a21acb641bb05145e9e862e262",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-07": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "52655965d5a82febad3d04f601b59361a7f79c793f933c0014982ecaec6597d9",
+      "rawOutputLength": 4056
+    },
+    "paging/resume-stress-4096-limit1/page-08": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "b3006c458632e83726a589a3a7903e4e27d65b3fbe27c6613e8acd4aa92d3a09",
+      "rawOutputLength": 3743
+    },
+    "resume/checkpoint-legacy-v1/cp-v1--max12000": {
+      "reason": "resume names the withheld checkpoint fields",
+      "contracts": "§18 item 1",
+      "compare": [
+        "withheld-fields"
+      ],
+      "outputSha256": "6fefe1c535caed168abd1c7d6ed898809e26f9f115dfb054d02edcd80d7239ea",
+      "rawOutputLength": 3269
+    },
+    "resume/checkpoint-legacy-v1/cp-v1--max4096": {
+      "reason": "resume names the withheld checkpoint fields",
+      "contracts": "§18 item 1",
+      "compare": [
+        "withheld-fields"
+      ],
+      "outputSha256": "6fefe1c535caed168abd1c7d6ed898809e26f9f115dfb054d02edcd80d7239ea",
+      "rawOutputLength": 3269
+    },
+    "resume/checkpoint-legacy-v1/cp-v1--max64000": {
+      "reason": "resume names the withheld checkpoint fields",
+      "contracts": "§18 item 1",
+      "compare": [
+        "withheld-fields"
+      ],
+      "outputSha256": "6fefe1c535caed168abd1c7d6ed898809e26f9f115dfb054d02edcd80d7239ea",
+      "rawOutputLength": 3269
+    },
+    "resume/checkpoint-stale-v2/cp-stale--max12000": {
+      "reason": "resume names what changed in a stale checkpoint; resume names the withheld checkpoint fields",
+      "contracts": "§14 item 3; §18 item 1",
+      "compare": [
+        "stale-diagnostic",
+        "withheld-fields"
+      ],
+      "outputSha256": "e20c75e0ff25a789eda31f5b1c6dd11db227ed69510fea5a1c9fc3b48af38f02",
+      "rawOutputLength": 3634
+    },
+    "resume/checkpoint-stale-v2/cp-stale--max4096": {
+      "reason": "resume names what changed in a stale checkpoint; resume names the withheld checkpoint fields",
+      "contracts": "§14 item 3; §18 item 1",
+      "compare": [
+        "stale-diagnostic",
+        "withheld-fields"
+      ],
+      "outputSha256": "e20c75e0ff25a789eda31f5b1c6dd11db227ed69510fea5a1c9fc3b48af38f02",
+      "rawOutputLength": 3634
+    },
+    "resume/checkpoint-stale-v2/cp-stale--max64000": {
+      "reason": "resume names what changed in a stale checkpoint; resume names the withheld checkpoint fields",
+      "contracts": "§14 item 3; §18 item 1",
+      "compare": [
+        "stale-diagnostic",
+        "withheld-fields"
+      ],
+      "outputSha256": "e20c75e0ff25a789eda31f5b1c6dd11db227ed69510fea5a1c9fc3b48af38f02",
+      "rawOutputLength": 3634
+    },
+    "resume/full-valid/full-plan--max12000": {
+      "reason": "resume shows readiness and ranks ready work first; resume carries the compact critical path",
+      "contracts": "§12 G1, G3, G6; §14 item 4",
+      "compare": [
+        "graph-resume",
+        "resume-critical-path"
+      ],
+      "outputSha256": "8f7acc4ee220df9b198457e777d3144ee02861c381798f93fa7a8895ba7bd0c3",
+      "rawOutputLength": 5727
+    },
+    "resume/full-valid/full-plan--max4096": {
+      "reason": "resume shows readiness and ranks ready work first; resume carries the compact critical path",
+      "contracts": "§12 G1, G3, G6; §14 item 4",
+      "compare": [
+        "graph-resume",
+        "resume-critical-path"
+      ],
+      "outputSha256": "3e077c2a55a22cb09ac84ee33b194bd634789190109f18fa369fa0ce06abc8d1",
+      "rawOutputLength": 3935
+    },
+    "resume/full-valid/full-plan--max64000": {
+      "reason": "resume shows readiness and ranks ready work first; resume carries the compact critical path",
+      "contracts": "§12 G1, G3, G6; §14 item 4",
+      "compare": [
+        "graph-resume",
+        "resume-critical-path"
+      ],
+      "outputSha256": "8f7acc4ee220df9b198457e777d3144ee02861c381798f93fa7a8895ba7bd0c3",
+      "rawOutputLength": 5727
+    },
+    "resume/large-paging/big-plan--max4096": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "edf250ff5ef29397690332c5baccde13e58364b4b0c3e1616782ce773587d052",
+      "rawOutputLength": 4007
+    },
+    "resume/list-mixed/b-plan--max12000": {
+      "reason": "resume shows readiness and ranks ready work first",
+      "contracts": "§12 G1, G3, G6",
+      "compare": [
+        "graph-resume"
+      ],
+      "outputSha256": "c6c983a05a1a641f2a8c02841d0b27661fb759a83b71a0cadb1b02120c55e2d0",
+      "rawOutputLength": 2767
+    },
+    "resume/list-mixed/b-plan--max4096": {
+      "reason": "resume shows readiness and ranks ready work first",
+      "contracts": "§12 G1, G3, G6",
+      "compare": [
+        "graph-resume"
+      ],
+      "outputSha256": "c6c983a05a1a641f2a8c02841d0b27661fb759a83b71a0cadb1b02120c55e2d0",
+      "rawOutputLength": 2767
+    },
+    "resume/list-mixed/b-plan--max64000": {
+      "reason": "resume shows readiness and ranks ready work first",
+      "contracts": "§12 G1, G3, G6",
+      "compare": [
+        "graph-resume"
+      ],
+      "outputSha256": "c6c983a05a1a641f2a8c02841d0b27661fb759a83b71a0cadb1b02120c55e2d0",
+      "rawOutputLength": 2767
+    },
+    "resume/resume-stress/stress-plan--max12000": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "91270d3a6ec21fbfeb0acc8c17e11691e3377cf1016b80e6cbd04c51aed86dda",
+      "rawOutputLength": 11975
+    },
+    "resume/resume-stress/stress-plan--max4096": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "00d8ae96d0fafa391e5d6c41709518bef1354634e1f1efcc959d0cbed5d87b66",
+      "rawOutputLength": 4058
+    },
+    "resume/resume-stress/stress-plan--max64000": {
+      "reason": "resume keeps text readable and pages the rest",
+      "contracts": "§11 item A",
+      "compare": [
+        "resume-budget"
+      ],
+      "outputSha256": "4e3ecd73c90b72f50db99b8c9df63f7919614989e22dd6a2f2f74c60bac11031",
+      "rawOutputLength": 49587
+    },
+    "tools/checkpoint-stale-v2/cp-stale--compact-preview": {
+      "reason": "root-independent preview token and Shiori removals digest",
+      "contracts": "§7 D10",
+      "compare": [
+        "compact-preview"
+      ]
+    },
+    "tools/checkpoint-stale-v2/cp-stale--doctor": {
+      "reason": "the stale checkpoint issue names what changed",
+      "contracts": "§13 item 5",
+      "compare": [
+        "stale-detail"
+      ],
+      "outputSha256": "77da4ca7bf1363af4b46b8226ee61e0bf89bff60fb204372bf628a0705ab2bd8",
+      "rawOutputLength": 2253
+    },
+    "tools/checkpoint-stale-v2/doctor": {
+      "reason": "the stale checkpoint issue names what changed",
+      "contracts": "§13 item 5",
+      "compare": [
+        "stale-detail"
+      ],
+      "outputSha256": "77da4ca7bf1363af4b46b8226ee61e0bf89bff60fb204372bf628a0705ab2bd8",
+      "rawOutputLength": 2253
+    },
+    "tools/duplicate-step-ids/doctor": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§11 items C, F",
+      "compare": [
+        "additive-warnings"
+      ],
+      "outputSha256": "c2dc41cc7be35753f9ba62c960db31b93aa9b5610500a34244a2e4b569ba813d",
+      "rawOutputLength": 2294
+    },
+    "tools/duplicate-step-ids/dup-plan--doctor": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§11 items C, F",
+      "compare": [
+        "additive-warnings"
+      ],
+      "outputSha256": "c2dc41cc7be35753f9ba62c960db31b93aa9b5610500a34244a2e4b569ba813d",
+      "rawOutputLength": 2294
+    },
+    "tools/duplicate-step-ids/dup-plan--validate": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§11 items C, F",
+      "compare": [
+        "additive-warnings"
+      ],
+      "outputSha256": "e8e754008168be93596d28ff031a68e0d5a6475bb11441444acb554fc58413a7",
+      "rawOutputLength": 1252
+    },
+    "tools/full-valid/doctor": {
+      "reason": "validate/doctor add dependency order warnings and the critical path",
+      "contracts": "§12 G2, G3, G5, G6",
+      "compare": [
+        "graph-warnings"
+      ],
+      "outputSha256": "f5e3f518c68b4c75f49cfc3576a8dabd5384e4f82eb5adbe81111dd74841cded",
+      "rawOutputLength": 2510
+    },
+    "tools/full-valid/doctor-limit1": {
+      "reason": "validate/doctor add dependency order warnings and the critical path",
+      "contracts": "§12 G2, G3, G5, G6",
+      "compare": [
+        "graph-warnings"
+      ],
+      "outputSha256": "2c67648d1491e70674db81048d8035feb87652df7262976dbadd59099c80808b",
+      "rawOutputLength": 2423
+    },
+    "tools/full-valid/full-plan--doctor": {
+      "reason": "validate/doctor add dependency order warnings and the critical path",
+      "contracts": "§12 G2, G3, G5, G6",
+      "compare": [
+        "graph-warnings"
+      ],
+      "outputSha256": "f5e3f518c68b4c75f49cfc3576a8dabd5384e4f82eb5adbe81111dd74841cded",
+      "rawOutputLength": 2510
+    },
+    "tools/full-valid/full-plan--inspect": {
+      "reason": "inspect shows prerequisites, dependents, readiness and the critical path",
+      "contracts": "§12 G5, G6",
+      "compare": [
+        "graph-inspect"
+      ],
+      "outputSha256": "7990f455275102a40330afb96a3871bf5917b551c0f89d61a12e4dc3682392cb",
+      "rawOutputLength": 5282
+    },
+    "tools/full-valid/full-plan--read-phase": {
+      "reason": "a filtered read returns a slice without Markdown",
+      "contracts": "§11 item B",
+      "compare": [
+        "read-slice"
+      ],
+      "outputSha256": "ae21d5da627e188b641e827c2f859e6c25e94c4dff7ee053bb2599a22b70a2b0",
+      "rawOutputLength": 2454
+    },
+    "tools/full-valid/full-plan--read-step": {
+      "reason": "a filtered read returns a slice without Markdown",
+      "contracts": "§11 item B",
+      "compare": [
+        "read-slice"
+      ],
+      "outputSha256": "bab830e102d09f759eeabc96d9711c916e12d2149b4a7d173d91f0c19e155606",
+      "rawOutputLength": 2273
+    },
+    "tools/full-valid/full-plan--read-step-no-phase": {
+      "reason": "a filtered read returns a slice without Markdown",
+      "contracts": "§11 item B",
+      "compare": [
+        "read-slice"
+      ],
+      "outputSha256": "282cb0b9176d01da9f1abc60c87f9fd826bb51f4d4713477ca89191b4d6da2a7",
+      "rawOutputLength": 2268
+    },
+    "tools/handwritten-md/doctor": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts; handwritten Markdown without step markers warns",
+      "contracts": "§11 items C, F; §13 item 4",
+      "compare": [
+        "additive-warnings",
+        "step-markers"
+      ],
+      "outputSha256": "c0ea1108934da6c89eb2b9aa50b518cb83677d95a7fefd988b3664f49af72196",
+      "rawOutputLength": 2556
+    },
+    "tools/handwritten-md/hand-plan--doctor": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts; handwritten Markdown without step markers warns",
+      "contracts": "§11 items C, F; §13 item 4",
+      "compare": [
+        "additive-warnings",
+        "step-markers"
+      ],
+      "outputSha256": "c0ea1108934da6c89eb2b9aa50b518cb83677d95a7fefd988b3664f49af72196",
+      "rawOutputLength": 2556
+    },
+    "tools/handwritten-md/hand-plan--validate": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts; handwritten Markdown without step markers warns",
+      "contracts": "§11 items C, F; §13 item 4",
+      "compare": [
+        "additive-warnings",
+        "step-markers"
+      ],
+      "outputSha256": "e68471038d1a3ce9b2b36a92ea6e5cbb9ac0637e6bb181841d691a6d5029cacf",
+      "rawOutputLength": 1537
+    },
+    "tools/invalid-schema/doctor": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair; doctor recovers the planFile of an unparseable plan",
+      "contracts": "§13 item 2; §14 item 2b",
+      "compare": [
+        "raw-hashes",
+        "recovered-planfile"
+      ],
+      "outputSha256": "c726277274b4e94b112aee7b386c5596bf440483730bf00f9d4a9485ae274451",
+      "rawOutputLength": 3416
+    },
+    "tools/invalid-schema/list": {
+      "reason": "list entries carry an issues array; an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 5; §13 item 2",
+      "compare": [
+        "list-issues",
+        "raw-hashes"
+      ],
+      "outputSha256": "5daa13ca08f5068961f2bab59f5329cb31511ee29b384ac5cfc2a440bb896cb8",
+      "rawOutputLength": 2427
+    },
+    "tools/invalid-schema/not-json--doctor": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "fa1d2ef18b521e4bfa1ed28a5dca09df6402574c5c483071fccc387bbdb91369",
+      "rawOutputLength": 1522
+    },
+    "tools/invalid-schema/not-json--validate": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "c3cc4b00879a6e2aa098a55b24c506e48325134bdee1022f91a7df43d2eb885d",
+      "rawOutputLength": 393
+    },
+    "tools/invalid-schema/not-object--doctor": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "c322ff46234262855a969b7798f8776e9df4b3344487573835ccdc68bf117b1e",
+      "rawOutputLength": 1410
+    },
+    "tools/invalid-schema/not-object--validate": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "a5e189469d5b8b2cb747eeb22abf53289860bb5924c63b0a7b83b95759883bd9",
+      "rawOutputLength": 279
+    },
+    "tools/invalid-schema/wrong-types--doctor": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair; doctor recovers the planFile of an unparseable plan",
+      "contracts": "§13 item 2; §14 item 2b",
+      "compare": [
+        "raw-hashes",
+        "recovered-planfile"
+      ],
+      "outputSha256": "7d94adaf4cbe65110fa0b8a12833132a08a34f6b076f2a9f40118100c71d391d",
+      "rawOutputLength": 2185
+    },
+    "tools/invalid-schema/wrong-types--validate": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "2883c25cc497e22545a9b3268d5f7c4e5ca3d98854b4dadc80b780e42c50216f",
+      "rawOutputLength": 989
+    },
+    "tools/invalid-schema/wrong-version--doctor": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair; doctor recovers the planFile of an unparseable plan",
+      "contracts": "§13 item 2; §14 item 2b",
+      "compare": [
+        "raw-hashes",
+        "recovered-planfile"
+      ],
+      "outputSha256": "d3195bd28834fb1e3a457a10350a01e397169033719ba5d5d2b4d527950228d2",
+      "rawOutputLength": 1470
+    },
+    "tools/invalid-schema/wrong-version--validate": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "b9d783d589e6d0a213c10424c77262abf984116be755c554828d5f9567b4aa3b",
+      "rawOutputLength": 270
+    },
+    "tools/large-paging/big-plan--compact-preview": {
+      "reason": "root-independent preview token and Shiori removals digest",
+      "contracts": "§7 D10",
+      "compare": [
+        "compact-preview"
+      ]
+    },
+    "tools/legacy-fields/legacy-plan--read": {
+      "reason": "unknown numbers keep their exact spelling",
+      "contracts": "§7 D4",
+      "compare": [
+        "legacy-numbers"
+      ]
+    },
+    "tools/legacy-fields/legacy-plan--read-no-markdown": {
+      "reason": "unknown numbers keep their exact spelling",
+      "contracts": "§7 D4",
+      "compare": [
+        "legacy-numbers"
+      ]
+    },
+    "tools/list-mixed/Bad Name--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "f5624a25ee1c09790aa471626fa82d83e3d27732a24dd7543e2ed5ac1bf662b8",
+      "rawOutputLength": 2292
+    },
+    "tools/list-mixed/UPPER--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "da98b5783af86c63ab299378b1bba20bad24a25b95dcd645e49c40ba39a57447",
+      "rawOutputLength": 2289
+    },
+    "tools/list-mixed/UPPER--validate": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "47cde381200582842931346e7773214764cde0772ea71c1bc058418bb10cdc54",
+      "rawOutputLength": 1240
+    },
+    "tools/list-mixed/a-10--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "aa578a24047d989f0ae80dd59aa004014899351b2a715d7d90d45f0bb8d2aa59",
+      "rawOutputLength": 2969
+    },
+    "tools/list-mixed/a-9--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "252967550a3842e7e4c01b3c5766d55f4a07d3f7d087de8236bf4877886dde88",
+      "rawOutputLength": 2965
+    },
+    "tools/list-mixed/a-plan--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "0cb132b1660cd293ad7268fec6e8c46e105dc1da8c36b1893a4bab98ad1fa7a7",
+      "rawOutputLength": 3094
+    },
+    "tools/list-mixed/b-plan--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "a9127e4f9744a60dbc0c3e99ecc8f7575f699583bd1f29bbe8a85600974e0127",
+      "rawOutputLength": 2976
+    },
+    "tools/list-mixed/b-plan--inspect": {
+      "reason": "inspect shows prerequisites, dependents, readiness and the critical path",
+      "contracts": "§12 G5, G6",
+      "compare": [
+        "graph-inspect"
+      ],
+      "outputSha256": "443e84ae237f6f0afd330c0448710a2289d8269b3b7867b8b7350ca1912af3e8",
+      "rawOutputLength": 1554
+    },
+    "tools/list-mixed/broken--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts; an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§7 D6; §11 items C, F; §13 item 2",
+      "compare": [
+        "unordered-list",
+        "additive-warnings",
+        "raw-hashes"
+      ],
+      "outputSha256": "189a5ce3fbcdfd5a288c3e577ad0541a610e967c4af3438f12f58f67b97138c3",
+      "rawOutputLength": 2777
+    },
+    "tools/list-mixed/broken--validate": {
+      "reason": "an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§13 item 2",
+      "compare": [
+        "raw-hashes"
+      ],
+      "outputSha256": "a9e51e4e23c0454ec37015145f230a2cb0fdcd0fda8da082f5e1e4ddd0c6edc3",
+      "rawOutputLength": 386
+    },
+    "tools/list-mixed/doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts; an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§7 D6; §11 items C, F; §13 item 2",
+      "compare": [
+        "unordered-list",
+        "additive-warnings",
+        "raw-hashes"
+      ],
+      "outputSha256": "52a6ccb053e5d5adb3ff0c1e3abb9b0f7a0556628b9eae1811329f0d07662a04",
+      "rawOutputLength": 7070
+    },
+    "tools/list-mixed/doctor-limit2": {
+      "reason": "UTF-16 order changes which plans fill a limited page; validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "limited-doctor",
+        "additive-warnings"
+      ],
+      "outputSha256": "ebe618abae34f0fdecb29e47169b2234baf83285d7de22ea46bddaa1cff100d5",
+      "rawOutputLength": 3452
+    },
+    "tools/list-mixed/list": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); list entries carry an issues array; an unreadable plan reports raw-byte hashes for a repair",
+      "contracts": "§7 D6; §13 item 5; §13 item 2",
+      "compare": [
+        "unordered-list",
+        "list-issues",
+        "raw-hashes"
+      ],
+      "outputSha256": "2078065440a1221358fbc421f222374b51dc4190d67a4e89405cd52b64427ced",
+      "rawOutputLength": 3714
+    },
+    "tools/pending-journal-precreate/doctor": {
+      "reason": "a journal-only plan is listed with its interrupted state hash",
+      "contracts": "§7 D1, D6",
+      "compare": [
+        "journal-only-doctor"
+      ]
+    },
+    "tools/pending-journal-precreate/list": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets)",
+      "contracts": "§7 D6",
+      "compare": [
+        "unordered-list"
+      ]
+    },
+    "tools/pending-journal-precreate/tx-new--doctor": {
+      "reason": "a journal-only plan is listed with its interrupted state hash",
+      "contracts": "§7 D1, D6",
+      "compare": [
+        "journal-only-doctor"
+      ]
+    },
+    "tools/pending-journal/doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "9ccf1a0de8b01250d8604ad64bd476714e63f17793012375bbec937360da2e5b",
+      "rawOutputLength": 2728
+    },
+    "tools/pending-journal/list": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets)",
+      "contracts": "§7 D6",
+      "compare": [
+        "unordered-list"
+      ]
+    },
+    "tools/pending-journal/tx-plan--doctor": {
+      "reason": "plans and sidecars in UTF-16 order (compared as sets); validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§7 D6; §11 items C, F",
+      "compare": [
+        "unordered-list",
+        "additive-warnings"
+      ],
+      "outputSha256": "9ccf1a0de8b01250d8604ad64bd476714e63f17793012375bbec937360da2e5b",
+      "rawOutputLength": 2728
+    },
+    "tools/pending-journal/tx-plan--validate": {
+      "reason": "validate/doctor add non-failing warnings and stray artifacts",
+      "contracts": "§11 items C, F",
+      "compare": [
+        "additive-warnings"
+      ],
+      "outputSha256": "04ed7895f1163b30a63ec95bb6611fc6cc976dc53de00df1393b7207c02a6741",
+      "rawOutputLength": 1249
+    },
+    "tools/unicode/unicode-plan--validate": {
+      "reason": "an ambiguous backslash spec path is diagnosed",
+      "contracts": "§7 D5",
+      "compare": [
+        "backslash-validate"
+      ]
+    },
+    "validation/input/compact--apply-no-token": {
+      "reason": "expectedHash refusals append guidance",
+      "contracts": "§16",
+      "compare": [
+        "hash-guidance"
+      ],
+      "outputSha256": "8a3a0880c09b3558dd8177a472d67e066ac939f74a2234a4f682e979c1e2c173",
+      "rawOutputLength": 352
+    },
+    "validation/input/create--overwrite-without-hash": {
+      "reason": "expectedHash refusals append guidance",
+      "contracts": "§16",
+      "compare": [
+        "hash-guidance"
+      ],
+      "outputSha256": "ad06348d14cad8dc6b346b3823a08ae7acc3d16159dabeb2c5067ca81fc16550",
+      "rawOutputLength": 226
+    },
+    "validation/input/create--unknown-nested-phase-key": {
+      "reason": "unknown nested input keys are refused with their path",
+      "contracts": "§7 D2",
+      "compare": [
+        "nested-unknown-key"
+      ]
+    },
+    "validation/input/reset--bad-mode": {
+      "reason": "the reset mode enum lists wipe",
+      "contracts": "§13 item 1",
+      "compare": [
+        "wipe-mode-enum"
+      ]
+    },
+    "validation/input/update--no-hash": {
+      "reason": "expectedHash refusals append guidance",
+      "contracts": "§16",
+      "compare": [
+        "hash-guidance"
+      ],
+      "outputSha256": "334df52d83dbd84393824c03484a1a3b44160bb984d2f06be966ac3eb63848ec",
+      "rawOutputLength": 226
+    },
+    "validation/input/update--recovery-with-replaceMarkdown": {
+      "reason": "expectedHash refusals append guidance",
+      "contracts": "§16",
+      "compare": [
+        "hash-guidance"
+      ],
+      "outputSha256": "40c258bce0698724f8ebe0fa1873cf0b597bf186463e3d3b1b2eaceb9af49717",
+      "rawOutputLength": 296
+    },
+    "validation/input/update--recovery-with-title": {
+      "reason": "expectedHash refusals append guidance",
+      "contracts": "§16",
+      "compare": [
+        "hash-guidance"
+      ],
+      "outputSha256": "40c258bce0698724f8ebe0fa1873cf0b597bf186463e3d3b1b2eaceb9af49717",
+      "rawOutputLength": 296
+    }
+  }
+}

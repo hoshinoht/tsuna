@@ -1,0 +1,16 @@
+{
+  "name": "@hoshi-omp/docs",
+  "version": "1.0.0",
+  "description": "Pandoc/LaTeX document drafting and PDF compilation tools for hoshi-omp",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "test": "bun test src/"
+  },
+  "dependencies": {
+    "yaml": "^2.8.0"
+  }
+}

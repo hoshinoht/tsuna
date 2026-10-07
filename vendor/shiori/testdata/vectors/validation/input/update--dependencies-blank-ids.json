@@ -1,0 +1,26 @@
+{
+  "id": "validation/input/update--dependencies-blank-ids",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "dependencies": [
+      {
+        "phaseId": " ",
+        "stepId": "s",
+        "dependsOn": []
+      }
+    ],
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid update input: dependencies.0.phaseId: Too small: expected string to have >=1 characters"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid update input: dependencies.0.phaseId: Too small: expected string to have >=1 characters"
+    },
+    "nativeThenCore": null
+  }
+}

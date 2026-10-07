@@ -1,0 +1,66 @@
+{
+  "id": "mutations/update-targeted-step",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "updateSteps": [
+        {
+          "phaseId": "phase-b",
+          "stepId": "step-b1",
+          "status": "completed",
+          "action": "New action"
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 741,
+    "rawOutputUtf8Bytes": 741,
+    "outputSha256": "c4cb72ba834f367590f2680120e931d33ffdf46fb8c883c2a44be9c039a96087",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/full-plan.md",
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 3,
+        "stepCount": 5,
+        "specFileCount": 2,
+        "openFindingCount": 5,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "b2496b5e3e6938793b5708353fb757e495e6aacbef30fb265e0eba05fc60d198",
+      "stateHash": "074a07da4c762d6505b3e5ffc6928d022acb4c6bb968e27f3463d0718ec46665",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/full-plan.json": {
+      "sha256": "7fa3ae7c2adb164a956ff67b9f46e34f17a059bccf1766f1336b3f7b75a5b6f6",
+      "bytes": 2560,
+      "file": "mutations/update-targeted-step.after/.opencode/workplan/full-plan.json"
+    },
+    ".opencode/workplan/full-plan.md": {
+      "sha256": "7f0520c52636a9be1df58d8d0b330da73e08b62b482097503ab366117f7d1bd6",
+      "bytes": 1590,
+      "file": "mutations/update-targeted-step.after/.opencode/workplan/full-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

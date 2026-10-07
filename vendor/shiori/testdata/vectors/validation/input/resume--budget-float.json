@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/resume--budget-float",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "maxChars": 5000.5
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Invalid input: expected int, received number"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Invalid input: expected int, received number"
+    },
+    "nativeThenCore": null
+  }
+}

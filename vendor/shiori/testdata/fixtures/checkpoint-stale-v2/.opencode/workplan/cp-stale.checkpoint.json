@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "id": "cp-stale",
+  "sourceUpdatedAt": "2026-01-02T03:04:05.000Z",
+  "planHash": "18dfa24fcd3738c956032bd63059700a3e47f2f707af9d6076f08966dd6a2cbd",
+  "manifest": [
+    {
+      "path": ".opencode/workplan/cp-stale.json",
+      "sha256": "f22b6b0675b490cc43521acd881acf13d8895fafa29db24cb77bee109ae6cc39"
+    },
+    {
+      "path": ".opencode/workplan/cp-stale.md",
+      "sha256": "c4a0dc42711678a082170ec189cab475cf3f274ccd16c1f2d1cafe91456478f8"
+    }
+  ],
+  "evidenceStatus": "unverified",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "status": "draft",
+  "summary": "before change",
+  "current": {
+    "phaseId": "p",
+    "phaseTitle": "P",
+    "phaseStatus": "draft",
+    "stepId": "s",
+    "stepTitle": "S",
+    "stepStatus": "draft"
+  },
+  "nextAction": "do s",
+  "blockers": [
+    "stale blocker"
+  ],
+  "recentValidation": [],
+  "guardrails": [
+    "stale guardrail"
+  ],
+  "references": []
+}

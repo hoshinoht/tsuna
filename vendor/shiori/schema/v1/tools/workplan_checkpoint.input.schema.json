@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_checkpoint.input.schema.json",
+  "title": "workplan_checkpoint input (native surface)",
+  "description": "Record a checkpoint bound to the current plan manifest. Without merge=true this replaces the whole checkpoint (omitted lists become empty); to update it, pass merge=true or read the current checkpoint first. Pass expectedHash = the stateHash from your latest read or successful write.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "summary": {
+      "description": "Checkpoint summary. Required unless merge=true. Refused when, trimmed, it is null or undefined or starts with 'null ' or 'undefined ' (a withheld resume value, D.4.3).",
+      "type": "string"
+    },
+    "nextAction": {
+      "description": "Next action recorded in the checkpoint. Required unless merge=true. Refused like summary.",
+      "type": "string"
+    },
+    "phaseId": {
+      "description": "Phase id.",
+      "type": "string"
+    },
+    "stepId": {
+      "description": "Step id (unique within its phase).",
+      "type": "string"
+    },
+    "blockers": {
+      "description": "Current blockers.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "recentValidation": {
+      "description": "Recent validation evidence (recorded as unverified).",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "guardrails": {
+      "description": "Guardrails to reconfirm.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "references": {
+      "description": "References.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expectedHash": {
+      "description": "stateHash from the latest read; binds the write to that exact state.",
+      "$ref": "../common.schema.json#/$defs/hash"
+    },
+    "merge": {
+      "description": "D.4.3 (approved 2026-10-01): keep the stored checkpoint's value of every omitted field (summary, nextAction, phase/step position, blockers, recentValidation, guardrails, references); given fields replace theirs. A missing or unreadable checkpoint merges as an empty one; a legacy v1 checkpoint's fields are carried over. The result binds the current plan state like any checkpoint.",
+      "type": "boolean"
+    },
+    "appendValidation": {
+      "description": "D.4.3 (approved 2026-10-01): line(s) appended to recentValidation after merge or replacement; blank lines and exact duplicates of a line already present are skipped.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "id"
+  ],
+  "if": {
+    "required": [
+      "merge"
+    ],
+    "properties": {
+      "merge": {
+        "const": true
+      }
+    }
+  },
+  "else": {
+    "required": [
+      "summary",
+      "nextAction"
+    ]
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "required": [
+        "expectedHash"
+      ]
+    }
+  ],
+  "x-shiori-mutating": true,
+  "x-shiori-rules": [
+    {
+      "when": "always (native)",
+      "path": "expectedHash",
+      "native": "Native existing-state writes require the current stateHash — pass expectedHash set to the stateHash from your last successful write, or re-read with workplan_resume or workplan_inspect first"
+    },
+    {
+      "when": "summary or nextAction, trimmed, is null or undefined or starts with 'null ' or 'undefined ' (case-sensitive; D.4.3)",
+      "path": "summary | nextAction",
+      "native": "Checkpoint <field> starts with null/undefined, which is how workplan_resume shows a withheld field of a stale or legacy checkpoint, not its value — read the stored checkpoint first (the file named in the resume instruction), or pass merge=true and omit <field> to keep the stored value",
+      "core": "Checkpoint <field> starts with null/undefined, which is how workplan_resume shows a withheld field of a stale or legacy checkpoint, not its value — read the stored checkpoint first (the file named in the resume instruction), or pass merge=true and omit <field> to keep the stored value"
+    },
+    {
+      "when": "merge == true, summary or nextAction omitted, and no readable stored checkpoint has it (D.4.3; checked during preparation)",
+      "path": "summary | nextAction",
+      "native": "merge=true keeps the stored <field>, but there is no readable stored checkpoint — pass <field>",
+      "core": "merge=true keeps the stored <field>, but there is no readable stored checkpoint — pass <field>"
+    }
+  ],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key. The allOf conditions are native-surface rules; the core surface keeps expectedHash optional for legacy direct calls (a concurrent change must still be detected), and uses the 'core' messages in x-shiori-rules.",
+  "x-shiori-nested-unknown-keys": "n/a"
+}

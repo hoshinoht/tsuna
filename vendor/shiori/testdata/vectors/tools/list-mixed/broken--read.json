@@ -1,0 +1,20 @@
+{
+  "id": "tools/list-mixed/broken--read",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "broken"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan JSON at $ROOT/.opencode/workplan/broken.json: JSON Parse error: Expected '}'"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

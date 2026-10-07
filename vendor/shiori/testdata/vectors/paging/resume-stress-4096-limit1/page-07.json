@@ -1,0 +1,26 @@
+{
+  "id": "paging/resume-stress-4096-limit1/page-07",
+  "fixture": "resume-stress",
+  "generationRoot": "/private/tmp/shiori-fx/run/resume-stress",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "stress-plan",
+      "maxChars": 4096,
+      "limit": 1,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiI2MzlhNWNiZTI3ODhhOGMzZDg1YTA1ZGM5YzkwYTFmYzMzZTljZjliNjZmOWI2ZGFlMzEwMTViN2FiYWQzMjE5IiwibWF4Q2hhcnMiOjQwOTYsImxpbWl0IjoxLCJwaGFzZUlkIjpudWxsLCJzdGVwSWQiOm51bGwsIm9mZnNldCI6NywiY2hlY2tzdW0iOiIyNjVhMjYyOWVkZTk0MmQ4YjUwNGZhMTYzZTc4YmQxMTkxMGMzNjA2NmVjZjZiZTMwYzlhMGQ0NjI3Y2I5ZTBmIn0"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3742,
+    "rawOutputUtf8Bytes": 3878,
+    "outputSha256": "ce667946d9b684f91d4497d41d3542f82961ef5ab61232be92a71340e1a3dc78",
+    "outputText": "{\"path\":\"/private/…\",\"planFile\":\".opencode…\",\"hashes\":{\"planHash\":\"d77f4cc6d83da17ef15d17be2dec55f15e7e7e7952e87f6b1ed0579bfa9c06e1\",\"stateHash\":\"639a5cbe2788a8c3d85a05dc9c90a1fc33e9cf9b66f9b6dae31015b7abad3219\"},\"planFresh\":true,\"checkpoint\":{\"exists\":false,\"fresh\":false,\"freshness\":\"missing\",\"sourceUpdatedAt\":null,\"summary\":null,\"current\":{\"phaseId\":\"phase-s\",\"phaseTitle\":\"\\\"\\\\\\u0001😀<>& …\",\"phaseStatus\":\"in_progress\",\"stepId\":\"step-0\",\"stepTitle\":\"S0\",\"stepStatus\":\"draft\",\"target\":\"\\\"\\\\\\u0001😀<>& …\",\"action\":\"\\\"\\\\\\u0001😀<>& …\",\"validation\":\"\\\"\\\\\\u0001😀<>& …\"},\"nextAction\":null,\"blockers\":[],\"blockersTotal\":0,\"guardrails\":[],\"guardrailsTotal\":0,\"references\":[],\"referencesTotal\":0,\"recentValidation\":[],\"evidenceStatus\":\"unverified\",\"diagnostic\":null},\"workplan\":{\"id\":\"stress-plan\",\"title\":\"\\\"\\\\\\u0001😀<>& …\",\"goal\":\"\\\"\\\\\\u0001😀<>& …\",\"status\":\"in_progress\",\"scope\":[\"\\\"\\\\\\u0001😀<>& …\"],\"scopeTotal\":1,\"nonGoals\":[\"\\\"\\\\\\u0001😀<>& …\"],\"nonGoalsTotal\":1,\"constraints\":[\"0:\\\"\\\\\\u0001😀<>…\",\"1:\\\"\\\\\\u0001😀<>…\",\"2:\\\"\\\\\\u0001😀<>…\",\"3:\\\"\\\\\\u0001😀<>…\"],\"constraintsTotal\":20,\"relevantFiles\":[],\"updatedAt\":\"2026-01-02T03:04:05.000Z\"},\"currentDependencies\":{\"recorded\":false,\"valid\":true,\"total\":0,\"references\":[]},\"safety\":{\"highFindings\":[{\"index\":0,\"severity\":\"blocker\",\"title\":\"0 \\\"\\\\\\u0001😀<>…\",\"detail\":\"\\\"\\\\\\u0001😀<>& …\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"index\":3,\"severity\":\"blocker\",\"title\":\"3 \\\"\\\\\\u0001😀<>…\",\"detail\":\"\\\"\\\\\\u0001😀<>& …\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"index\":6,\"severity\":\"blocker\",\"title\":\"6 \\\"\\\\\\u0001😀<>…\",\"detail\":\"\\\"\\\\\\u0001😀<>& …\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"index\":9,\"severity\":\"blocker\",\"title\":\"9 \\\"\\\\\\u0001😀<>…\",\"detail\":\"\\\"\\\\\\u0001😀<>& …\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false}],\"highFindingsTotal\":15,\"highFindingCounts\":{\"blocker\":5,\"critical\":5,\"major\":5},\"unverifiedWarnings\":[],\"unverifiedWarningCount\":0,\"unverifiedWarningsOmitted\":0,\"overflow\":true,\"truncatedDangerFieldCount\":14,\"omittedDangerCounts\":{\"constraints\":16,\"blockers\":0,\"highFindings\":11,\"dependencies\":0,\"guardrails\":0,\"references\":0,\"scope\":0,\"nonGoals\":0},\"overflowPointers\":[\"workplan_read:stress-plan\",\"workplan_inspect:stress-plan\"]},\"page\":{\"total\":9,\"offset\":7,\"limit\":1,\"returned\":1,\"omitted\":1,\"items\":[{\"kind\":\"active-wo…\",\"phaseId\":\"phase-s\",\"phaseTitle\":\"\\\"\\\\\\u0001😀<>& …\",\"phaseStatus\":\"in_progress\",\"stepId\":\"step-8\",\"title\":\"S8\",\"status\":\"draft\",\"target\":\"\\\"\\\\\\u0001😀<>& …\",\"action\":\"\\\"\\\\\\u0001😀<>& …\",\"validation\":\"\\\"\\\\\\u0001😀<>& …\"}],\"nextCursor\":\"eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiI2MzlhNWNiZTI3ODhhOGMzZDg1YTA1ZGM5YzkwYTFmYzMzZTljZjliNjZmOWI2ZGFlMzEwMTViN2FiYWQzMjE5IiwibWF4Q2hhcnMiOjQwOTYsImxpbWl0IjoxLCJwaGFzZUlkIjpudWxsLCJzdGVwSWQiOm51bGwsIm9mZnNldCI6OCwiY2hlY2tzdW0iOiJlMjhjZDczYWZhNmQyOWUyNjQ3YzUzNTkxZmFiZjk2ODhlNGE4YzBiMDZjOWQwNWViZGQ5NDlkM2Q5MTlmNzBhIn0\"},\"counts\":{\"activeWorkTotal\":10,\"findingsTotal\":15,\"highFindingsTotal\":15,\"referencesTotal\":0,\"historicalNotesOmitted\":0,\"resolvedFindingsOmitted\":0},\"retrieval\":{\"read\":\"workplan_read id=stress-plan\",\"inspect\":\"workplan_inspect id=stress-plan\",\"dependencies\":\".opencode/workplan/stress-plan.dependencies.json\"},\"truncatedFields\":[\"workplan.scope[0]\",\"workplan.nonGoals[0]\",\"workplan.constraints[0]\",\"workplan.constraints[1]\",\"workplan.constraints[2]\",\"workplan.constraints[3]\",\"safety.highFindings[0].title\",\"safety.highFindings[0].detail\",\"safety.highFindings[1].title\",\"safety.highFindings[1].detail\",\"safety.highFindings[2].title\",\"safety.highFindings[2].detail\",\"safety.highFindings[3].title\",\"safety.highFindings[3].detail\",\"path\",\"planFile\"],\"truncatedFieldCount\":28,\"truncatedFieldPathsOmitted\":12,\"instruction\":\"Checkpoin…\"}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

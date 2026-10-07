@@ -1,0 +1,46 @@
+{
+  "id": "tools/checkpoint-stale-v2/cp-stale--validate",
+  "fixture": "checkpoint-stale-v2",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-stale-v2",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "cp-stale"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 772,
+    "rawOutputUtf8Bytes": 772,
+    "outputSha256": "7228b1c4575946ef315a2ad3faaa73855513afa206f0741ea946084ba0c3712f",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-stale.json",
+      "planPath": "$ROOT/.opencode/workplan/cp-stale.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "cp-stale",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/cp-stale.md",
+        "phaseCount": 1,
+        "stepCount": 2,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "178889b7a8fef8cce118de6a1d371cdd4e06f546d7d1d26a136ef983d5794158",
+      "stateHash": "876fb159bd96a59e015bcc42b9984e3b36713f1a47336037c43aabe6222a2720",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 2,
+  "id": "full-plan",
+  "kind": "feature",
+  "title": "Full plan",
+  "goal": "Exercise every known field",
+  "scope": [
+    "core",
+    "adapter"
+  ],
+  "nonGoals": [
+    "worktrees"
+  ],
+  "constraints": [
+    "no automatic migration"
+  ],
+  "relevantFiles": [
+    "src/a.ts",
+    "src/b.ts"
+  ],
+  "planFile": ".opencode/workplan/full-plan.md",
+  "specFiles": [
+    "docs/spec-a.md",
+    "docs/nested/spec-b.md"
+  ],
+  "phases": [
+    {
+      "id": "phase-a",
+      "title": "Phase A",
+      "status": "completed",
+      "steps": [
+        {
+          "id": "step-a1",
+          "title": "A1",
+          "target": "src/a.ts",
+          "action": "Do A1",
+          "validation": "Check A1",
+          "status": "completed"
+        },
+        {
+          "id": "step-x",
+          "title": "SX",
+          "status": "draft"
+        },
+        {
+          "id": "step-y",
+          "title": "SY",
+          "status": "draft"
+        },
+        {
+          "id": "step-a2",
+          "title": "A2",
+          "action": "Do A2",
+          "validation": "Check A2",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": "phase-x",
+      "title": "X",
+      "status": "draft",
+      "steps": []
+    },
+    {
+      "id": "phase-y",
+      "title": "Y",
+      "status": "draft",
+      "steps": []
+    },
+    {
+      "id": "phase-b",
+      "title": "Phase B",
+      "status": "in_progress",
+      "steps": [
+        {
+          "id": "step-b1",
+          "title": "B1",
+          "action": "Do B1",
+          "validation": "Check B1",
+          "status": "in_progress"
+        },
+        {
+          "id": "step-b2",
+          "title": "B2",
+          "action": "Do B2",
+          "validation": "Check B2",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "phase-c",
+      "title": "Phase C",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "step-c1",
+          "title": "C1",
+          "action": "Do C1",
+          "validation": "Check C1",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [
+    {
+      "severity": "blocker",
+      "title": "Blocker finding",
+      "detail": "why",
+      "source": "a.ts:1",
+      "status": "open"
+    },
+    {
+      "severity": "critical",
+      "title": "Critical finding",
+      "status": "resolved"
+    },
+    {
+      "severity": "major",
+      "title": "Major finding",
+      "detail": "d",
+      "status": "open"
+    },
+    {
+      "severity": "minor",
+      "title": "Minor finding",
+      "source": "b.ts:2",
+      "status": "open"
+    },
+    {
+      "severity": "note",
+      "title": "Note finding",
+      "status": "open"
+    },
+    {
+      "severity": "question",
+      "title": "Question finding",
+      "status": "open"
+    }
+  ],
+  "notes": [
+    "first note",
+    "second note"
+  ],
+  "status": "in_progress",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

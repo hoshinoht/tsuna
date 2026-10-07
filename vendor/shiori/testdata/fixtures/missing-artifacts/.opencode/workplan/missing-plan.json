@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "id": "missing-plan",
+  "kind": "general",
+  "title": null,
+  "goal": "g",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/missing-plan.md",
+  "specFiles": [
+    "docs/present.md",
+    "docs/absent.md"
+  ],
+  "phases": [
+    {
+      "id": "p",
+      "title": "P",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "s",
+          "title": "S",
+          "action": "Do S",
+          "validation": "Check S",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [],
+  "notes": [],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

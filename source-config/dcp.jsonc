@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Opencode-DCP/opencode-dynamic-context-pruning/master/dcp.schema.json",
+  // Trial from 2026-10-05: model-invoked `compress` only, in primary sessions (allowSubAgents stays off).
+  // The automatic strategies rewrite earlier history whenever a file is re-read or a tool fails,
+  // which breaks the prompt cache (93-98% of input is cache reads here) for small savings.
+  "strategies": {
+    "deduplication": { "enabled": false },
+    "purgeErrors": { "enabled": false }
+  },
+  "compress": {
+    // Defaults (50k/100k) would nudge constantly: orchestrator's median peak context is ~330k.
+    "minContextLimit": 200000,
+    "maxContextLimit": 450000,
+    // Keep the user's own instructions verbatim through any compression.
+    "protectUserMessages": true
+  }
+}

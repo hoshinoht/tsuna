@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/evidence-v1.schema.json",
+  "title": "Evidence ledger, schemaVersion 1",
+  "description": "Stored at .opencode/workplan/<id>.evidence.json (spec 06 X2). Not part of the state manifest: writing it never changes planHash or stateHash. An invalid ledger degrades only the evidence views and is never overwritten.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "common.schema.json#/$defs/nonblank"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "phaseId": {
+            "$ref": "common.schema.json#/$defs/nonblank"
+          },
+          "stepId": {
+            "$ref": "common.schema.json#/$defs/nonblank"
+          },
+          "command": {
+            "$ref": "common.schema.json#/$defs/nonblank"
+          },
+          "exitCode": {
+            "type": "integer"
+          },
+          "outputDigest": {
+            "anyOf": [
+              {
+                "$ref": "common.schema.json#/$defs/hash"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "treeOid": {
+            "description": "Git tree of the project root's working state (uncommitted and untracked, non-ignored files; .opencode/workplan excluded); null outside a git work tree.",
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "scope": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "$ref": "common.schema.json#/$defs/nonblank"
+                },
+                "digest": {
+                  "description": "sha256 of `git ls-files -s -z -- <path>` in that tree; null when the path had no entries.",
+                  "anyOf": [
+                    {
+                      "$ref": "common.schema.json#/$defs/hash"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "path",
+                "digest"
+              ]
+            }
+          },
+          "source": {
+            "enum": [
+              "agent",
+              "cli",
+              "cli-run"
+            ]
+          },
+          "recordedAt": {
+            "type": "string"
+          },
+          "lane": {
+            "description": "Lane whose checkout the command ran in.",
+            "$ref": "common.schema.json#/$defs/nonblank"
+          }
+        },
+        "required": [
+          "phaseId",
+          "stepId",
+          "command",
+          "exitCode",
+          "outputDigest",
+          "treeOid",
+          "source",
+          "recordedAt"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "updatedAt",
+    "records"
+  ],
+  "x-shiori-write-key-order": [
+    "schemaVersion",
+    "id",
+    "updatedAt",
+    "records"
+  ],
+  "x-shiori-unknown-fields": "Accepted and ignored on read; the ledger is rewritten wholesale (append order, retention per (step, command)) on write."
+}

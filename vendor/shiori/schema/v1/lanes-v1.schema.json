@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/lanes-v1.schema.json",
+  "title": "Worktree lanes, schemaVersion 1",
+  "description": "Stored at .opencode/workplan/<id>.lanes.json (spec 06 X3, spec 04). Parent-owned and outside the state manifest. A record, never authority to run git, create, merge or remove worktrees.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "common.schema.json#/$defs/nonblank"
+    },
+    "updatedAt": {
+      "type": "string"
+    },
+    "lanes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "laneId": {
+            "type": "string",
+            "pattern": "^[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"
+          },
+          "state": {
+            "enum": [
+              "claimed",
+              "prepared",
+              "running",
+              "review",
+              "integrating",
+              "merged",
+              "abandoned"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/stepRef"
+            }
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "baseline": {
+            "type": "object",
+            "properties": {
+              "treeOid": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "description": "Parent working tree at proposal (uncommitted included, .opencode/workplan excluded)."
+              },
+              "head": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "dirty": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Paths whose working state differed from head; a worktree from head omits them."
+              }
+            },
+            "required": [
+              "treeOid",
+              "head",
+              "dirty"
+            ]
+          },
+          "checkout": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "branch": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "path",
+                  "branch"
+                ]
+              }
+            ]
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "state": {
+                  "enum": [
+                    "claimed",
+                    "prepared",
+                    "running",
+                    "review",
+                    "integrating",
+                    "merged",
+                    "abandoned"
+                  ]
+                },
+                "at": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "state",
+                "at",
+                "source"
+              ]
+            }
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "laneId",
+          "state",
+          "steps",
+          "claims",
+          "baseline",
+          "checkout",
+          "history",
+          "createdAt",
+          "updatedAt"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "updatedAt",
+    "lanes"
+  ],
+  "x-shiori-rules": [
+    "lane ids are unique and never reused",
+    "a step belongs to at most one active (not merged/abandoned) lane",
+    "claims of active lanes never overlap (a path claims everything under it)",
+    "transitions: claimed→prepared|abandoned, prepared→running|abandoned, running→review|abandoned, review→running|integrating|abandoned, integrating→merged|review|abandoned"
+  ],
+  "x-shiori-unknown-fields": "Accepted and ignored on read; rewritten wholesale on write."
+}

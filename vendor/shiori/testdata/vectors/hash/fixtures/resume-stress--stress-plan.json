@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/resume-stress--stress-plan",
+  "fixture": "resume-stress",
+  "planId": "stress-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/stress-plan.json",
+        "sha256": "3c87b3a781898049a90c9bc4c9ae5afc33b5ad442303da5703e197ee2966c94a"
+      },
+      {
+        "path": ".opencode/workplan/stress-plan.md",
+        "sha256": "2030c0c7dbcc40688809afc0ec043c0bbe06d91af9ba94dee9c7acb9717e6e8c"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/stress-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/stress-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/stress-plan.json",
+        "sha256": "3c87b3a781898049a90c9bc4c9ae5afc33b5ad442303da5703e197ee2966c94a"
+      },
+      {
+        "path": ".opencode/workplan/stress-plan.md",
+        "sha256": "2030c0c7dbcc40688809afc0ec043c0bbe06d91af9ba94dee9c7acb9717e6e8c"
+      },
+      {
+        "path": ".opencode/workplan/stress-plan.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "d77f4cc6d83da17ef15d17be2dec55f15e7e7e7952e87f6b1ed0579bfa9c06e1",
+    "stateHash": "639a5cbe2788a8c3d85a05dc9c90a1fc33e9cf9b66f9b6dae31015b7abad3219",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/stress-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

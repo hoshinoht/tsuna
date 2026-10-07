@@ -1,0 +1,12 @@
+name: hoshi-omp
+
+services:
+  gateway:
+    image: eceasy/cli-proxy-api@sha256:2a7d31faf13e4f9a92112edd0d947faaed9fb1d529b5a825f9b829df98088634
+    container_name: hoshi-omp-gateway
+    ports:
+      - "127.0.0.1:18317:8317"
+    volumes:
+      - ./.runtime/proxy/config.yaml:/CLIProxyAPI/config.yaml:ro
+      - ./.runtime/proxy/auth:/root/.cli-proxy-api
+    restart: unless-stopped

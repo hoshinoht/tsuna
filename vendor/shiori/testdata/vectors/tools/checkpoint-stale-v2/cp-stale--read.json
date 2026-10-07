@@ -1,0 +1,108 @@
+{
+  "id": "tools/checkpoint-stale-v2/cp-stale--read",
+  "fixture": "checkpoint-stale-v2",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-stale-v2",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "cp-stale"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2706,
+    "rawOutputUtf8Bytes": 2706,
+    "outputSha256": "3e2bf4fb19751eada836b248f52774d82a3fdb95339bb236a2f351347c6bb67d",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-stale.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "cp-stale",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/cp-stale.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              },
+              {
+                "id": "s2",
+                "title": "S2",
+                "action": "Do S2",
+                "validation": "Check S2",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [
+          "changed after checkpoint"
+        ],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              },
+              {
+                "id": "s2",
+                "title": "S2",
+                "action": "Do S2",
+                "validation": "Check S2",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/cp-stale.md",
+        "exists": true,
+        "content": "# cp-stale\n\n## Goal\ng\n\n## Scope\n_None_\n\n## Non-goals\n_None_\n\n## Constraints\n_None_\n\n## Relevant files\n_None_\n\n## Spec files\n_None_\n\n## Execution phases\n### 1. P <!-- workplan-phase-id: p -->\n- Status: draft\n- Id: p\n#### 1.1 S <!-- workplan-step-id: s -->\n- Status: draft\n- Id: s\n- Action: Do S\n- Validation: Check S\n#### 1.2 S2 <!-- workplan-step-id: s2 -->\n- Status: draft\n- Id: s2\n- Action: Do S2\n- Validation: Check S2\n\n## Adversarial review findings\n_None_\n\n## Notes\n- changed after checkpoint\n\n## Status\n- Overall status: draft\n- Metadata file: .opencode/workplan/cp-stale.json\n- Detailed plan file: .opencode/workplan/cp-stale.md\n"
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "178889b7a8fef8cce118de6a1d371cdd4e06f546d7d1d26a136ef983d5794158",
+      "stateHash": "876fb159bd96a59e015bcc42b9984e3b36713f1a47336037c43aabe6222a2720"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

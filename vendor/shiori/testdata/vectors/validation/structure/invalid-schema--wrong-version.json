@@ -1,0 +1,31 @@
+{
+  "id": "validation/structure/invalid-schema--wrong-version",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 1,
+      "id": "wrong-version",
+      "kind": "general",
+      "title": null,
+      "goal": "g",
+      "scope": [],
+      "nonGoals": [],
+      "constraints": [],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/wrong-version.md",
+      "phases": [],
+      "reviewFindings": [],
+      "notes": [],
+      "status": "draft",
+      "createdAt": "2026-01-02T03:04:05.000Z",
+      "updatedAt": "2026-01-02T03:04:05.000Z"
+    },
+    "expectedId": "wrong-version"
+  },
+  "expect": {
+    "documentDecoded": false,
+    "issues": [
+      "schemaVersion: Invalid input: expected 2"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/resume--numeric-string",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "maxChars": "5000"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Invalid input: expected number, received string"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid resume input: maxChars: Invalid input: expected number, received string"
+    },
+    "nativeThenCore": null
+  }
+}

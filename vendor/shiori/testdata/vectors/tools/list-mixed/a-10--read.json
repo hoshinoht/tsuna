@@ -1,0 +1,92 @@
+{
+  "id": "tools/list-mixed/a-10--read",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "a-10"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2157,
+    "rawOutputUtf8Bytes": 2157,
+    "outputSha256": "41096e71f49d9780209dc62f9d1636b4fc83d4f7f595e70bd88ca0e07f72106c",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/a-10.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "a-10",
+        "kind": "general",
+        "title": null,
+        "goal": "goal a-10",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/a-10.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/a-10.md",
+        "exists": true,
+        "content": "# a-10\n\n## Goal\ngoal a-10\n\n## Scope\n_None_\n\n## Non-goals\n_None_\n\n## Constraints\n_None_\n\n## Relevant files\n_None_\n\n## Spec files\n_None_\n\n## Execution phases\n### 1. P <!-- workplan-phase-id: p -->\n- Status: draft\n- Id: p\n#### 1.1 S <!-- workplan-step-id: s -->\n- Status: draft\n- Id: s\n- Action: Do S\n- Validation: Check S\n\n## Adversarial review findings\n_None_\n\n## Notes\n_None_\n\n## Status\n- Overall status: draft\n- Metadata file: .opencode/workplan/a-10.json\n- Detailed plan file: .opencode/workplan/a-10.md\n"
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "77e54d591d3ad5c2b1475c7d092e7b749d57caae2d88b2c1bf5607e6b6b803eb",
+      "stateHash": "a9a65a37f7f38a279a5e2fad9b59f783d5b5e654a12abb17e96cbf82092e00f6"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

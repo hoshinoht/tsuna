@@ -1,0 +1,43 @@
+{
+  "id": "markdown/lists",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [
+      "a",
+      "b"
+    ],
+    "nonGoals": [
+      "n"
+    ],
+    "constraints": [
+      "c"
+    ],
+    "relevantFiles": [
+      "src/x.ts"
+    ],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [
+      "docs/s.md"
+    ],
+    "phases": [],
+    "reviewFindings": [],
+    "notes": [
+      "one",
+      "two"
+    ],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/lists.expected.md",
+    "sha256": "131b1b04f841fa49426de4627a1f0fc74d4666d31cd76530f440adb449140bef",
+    "utf8Bytes": 378
+  }
+}

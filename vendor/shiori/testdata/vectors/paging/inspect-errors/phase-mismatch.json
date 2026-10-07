@@ -1,0 +1,23 @@
+{
+  "id": "paging/inspect-errors/phase-mismatch",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "limit": 50,
+      "phaseId": "phase-1",
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6bnVsbCwibGltaXQiOjUwLCJvZmZzZXQiOjUwLCJjaGVja3N1bSI6ImY5OGJhZDljOTY1Y2E2YTUzYjc1YzcyNTJiN2UwNDM0ODQwMWFjNWQ1M2Y3YzQzODYxNmM5MGNlOTI4NmQ5NjkifQ"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Stale or option-mismatched workplan inspect cursor; restart from the first page"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

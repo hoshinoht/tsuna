@@ -1,0 +1,21 @@
+{
+  "id": "mutations/patch-add-file",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_patch",
+    "input": {
+      "id": "minimal",
+      "patchText": "*** Begin Patch\n*** Add File: x.md\n+x\n*** End Patch"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "workplan_patch does not support Add File sections"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

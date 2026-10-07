@@ -1,0 +1,21 @@
+{
+  "id": "tools/unicode/unicode-plan--read-unicode-step",
+  "fixture": "unicode",
+  "generationRoot": "/private/tmp/shiori-fx/run/unicode",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "unicode-plan",
+      "stepId": "step-été"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Step filter must identify exactly one step: step-été"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

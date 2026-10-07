@@ -1,0 +1,27 @@
+{
+  "id": "mutations/update-duplicate-step-ids-clean",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "dup-plan",
+      "updateSteps": [
+        {
+          "phaseId": "phase-anchor",
+          "stepId": "step-dup",
+          "action": "C"
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan dup-plan has duplicate step id in phase phase-anchor: step-dup. Migrate ids before targeted inspect or update calls."
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

@@ -1,0 +1,23 @@
+{
+  "id": "mutations/create-overwrite-missing",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "other",
+      "goal": "g",
+      "overwrite": true,
+      "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Cannot overwrite missing workplan: $ROOT/.opencode/workplan/other.json"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

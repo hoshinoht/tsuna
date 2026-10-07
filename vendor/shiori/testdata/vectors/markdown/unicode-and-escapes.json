@@ -1,0 +1,43 @@
+{
+  "id": "markdown/unicode-and-escapes",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "😀 \"q\" \\ <b>",
+    "goal": "line1\nline2\r\n ",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [
+      {
+        "id": "phase-𝒜",
+        "title": "Été",
+        "status": "draft",
+        "steps": [
+          {
+            "id": "step-é",
+            "title": "café",
+            "action": "tab\there",
+            "status": "draft"
+          }
+        ]
+      }
+    ],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/unicode-and-escapes.expected.md",
+    "sha256": "ab6f73fd8a7f08bf9d13d8bcd8c6b78e8721e5568857bb41de36ddccceba6f9e",
+    "utf8Bytes": 541
+  }
+}

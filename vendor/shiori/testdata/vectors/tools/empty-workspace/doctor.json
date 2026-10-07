@@ -1,0 +1,65 @@
+{
+  "id": "tools/empty-workspace/doctor",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1087,
+    "rawOutputUtf8Bytes": 1087,
+    "outputSha256": "78ae23fa226f9f56bdbdcd9b180be207613c69c8dae87cb6266769af315f0008",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 0,
+      "returnedPlans": 0,
+      "omittedPlans": 0,
+      "plans": [],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "Workplan directory is missing: $ROOT/.opencode/workplan"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

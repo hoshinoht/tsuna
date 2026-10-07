@@ -1,0 +1,42 @@
+{
+  "id": "mutations/update-dependencies-cycle",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "dependencies": [
+        {
+          "phaseId": "phase-a",
+          "stepId": "step-a1",
+          "dependsOn": [
+            {
+              "phaseId": "phase-a",
+              "stepId": "step-a2"
+            }
+          ]
+        },
+        {
+          "phaseId": "phase-a",
+          "stepId": "step-a2",
+          "dependsOn": [
+            {
+              "phaseId": "phase-a",
+              "stepId": "step-a1"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid dependency metadata: dependencies: Cycle detected: phase-a/step-a1 -> phase-a/step-a2 -> phase-a/step-a1"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

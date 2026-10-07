@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "id": "full-plan",
+  "kind": "feature",
+  "title": "Full plan",
+  "goal": "Exercise every known field",
+  "scope": [
+    "core",
+    "adapter"
+  ],
+  "nonGoals": [
+    "worktrees"
+  ],
+  "constraints": [
+    "no automatic migration"
+  ],
+  "relevantFiles": [
+    "src/a.ts",
+    "src/b.ts"
+  ],
+  "planFile": ".opencode/workplan/full-plan.md",
+  "specFiles": [
+    "docs/spec-a.md",
+    "docs/nested/spec-b.md"
+  ],
+  "phases": [],
+  "reviewFindings": [],
+  "notes": [
+    "first note",
+    "second note"
+  ],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

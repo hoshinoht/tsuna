@@ -1,0 +1,108 @@
+{
+  "id": "tools/pending-journal/doctor",
+  "fixture": "pending-journal",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2315,
+    "rawOutputUtf8Bytes": 2315,
+    "outputSha256": "8db50d2c7df36dff3fb1accbf65d24783c24f644bdafece92f0efa9d9d862c8d",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "tx-plan",
+          "valid": false,
+          "issues": [
+            "Recovery required: .opencode/workplan/tx-plan.transaction.json"
+          ],
+          "workplan": {
+            "id": "tx-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "g",
+            "status": "draft",
+            "planFile": ".opencode/workplan/tx-plan.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "c1c6101df52db2742e12f85eed8945ecc405468af31cbd519eacbae5d214ae94",
+          "stateHash": "0001675f2c7d5a7667a2cfedbc3b18507e83532c9fe5a1540224d5b119100071",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": true
+        }
+      ],
+      "sidecars": [
+        {
+          "name": ".tx-plan.md.a08965ef-0c39-4702-ab24-15f3ca4ad0e8.1.stage",
+          "kind": "temporary"
+        },
+        {
+          "name": "tx-plan.transaction.json",
+          "kind": "transaction"
+        }
+      ],
+      "sidecarCount": 2,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [
+        {
+          "path": "$ROOT/.opencode/workplan/tx-plan.transaction.json",
+          "workplanId": "tx-plan",
+          "valid": true,
+          "transactionId": "a08965ef-0c39-4702-ab24-15f3ca4ad0e8",
+          "targetCount": 2
+        }
+      ],
+      "pendingTransactionCount": 1,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

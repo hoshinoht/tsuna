@@ -1,0 +1,70 @@
+{
+  "id": "mutations/update-empty-step-title",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "updateSteps": [
+        {
+          "phaseId": "phase-b",
+          "stepId": "step-b1",
+          "title": "x"
+        },
+        {
+          "phaseId": "phase-b",
+          "stepId": "step-b2",
+          "title": "  "
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 741,
+    "rawOutputUtf8Bytes": 741,
+    "outputSha256": "28e21c70f53f4a56b86d507372163f56c5075578b0841fd2926ba8bb86230a81",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/full-plan.md",
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 3,
+        "stepCount": 5,
+        "specFileCount": 2,
+        "openFindingCount": 5,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "5332ef46c6a8eedef98da53a6e0ecf005e186ceeafcea6922b2afb22b9bacfcd",
+      "stateHash": "31fa9e74166991d7c800ea6185b8fd5f0e51bf531930ea61808b0a2520416a36",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/full-plan.json": {
+      "sha256": "5f1f9c47ce515a303e8585a37acbcaaeacc9900c46985acf0c1723e044755a73",
+      "bytes": 2556,
+      "file": "mutations/update-empty-step-title.after/.opencode/workplan/full-plan.json"
+    },
+    ".opencode/workplan/full-plan.md": {
+      "sha256": "615670e1c5f4c3532abb272deeb18aa9ec4df95eb8ff65908bc5b7009d3d47aa",
+      "bytes": 1586,
+      "file": "mutations/update-empty-step-title.after/.opencode/workplan/full-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

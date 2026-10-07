@@ -1,0 +1,49 @@
+{
+  "id": "tools/missing-artifacts/missing-plan--validate",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "missing-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 943,
+    "rawOutputUtf8Bytes": 943,
+    "outputSha256": "b9f73b5e8dad1661bc196dfe47e7bc0c2212d8644c84db9d17cfac7d150a8724",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/missing-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/missing-plan.md",
+      "valid": false,
+      "issueCount": 2,
+      "issues": [
+        "planFile: Linked Markdown is missing or empty: .opencode/workplan/missing-plan.md",
+        "specFiles: Linked spec is missing or empty: docs/absent.md"
+      ],
+      "workplan": {
+        "id": "missing-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/missing-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 2,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "3206cbef3b20cfd3826aed05d300c66b1fb16917404053c29ad25330856cc5e6",
+      "stateHash": "8f5ba1d7fcc279d793396d24e8e43e20383546efb85046f864a6caa64e878cba",
+      "planFresh": false,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

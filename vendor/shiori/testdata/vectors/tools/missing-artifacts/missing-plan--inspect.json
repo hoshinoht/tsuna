@@ -1,0 +1,83 @@
+{
+  "id": "tools/missing-artifacts/missing-plan--inspect",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "missing-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1466,
+    "rawOutputUtf8Bytes": 1466,
+    "outputSha256": "791dd810cb662b358151ce0bc37511ed4abec490aec7d0bf0f687d77a7d67c6c",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/missing-plan.json",
+      "workplan": {
+        "id": "missing-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/missing-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 2,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/missing-plan.md",
+        "exists": false
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s",
+          "title": "S",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "3206cbef3b20cfd3826aed05d300c66b1fb16917404053c29ad25330856cc5e6",
+      "stateHash": "8f5ba1d7fcc279d793396d24e8e43e20383546efb85046f864a6caa64e878cba"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

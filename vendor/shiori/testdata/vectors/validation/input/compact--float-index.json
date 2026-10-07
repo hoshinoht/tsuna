@@ -1,0 +1,22 @@
+{
+  "id": "validation/input/compact--float-index",
+  "tool": "workplan_compact",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "noteIndexes": [
+      1.5
+    ]
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid compact input: noteIndexes.0: Invalid input: expected int, received number"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid compact input: noteIndexes.0: Invalid input: expected int, received number"
+    },
+    "nativeThenCore": null
+  }
+}

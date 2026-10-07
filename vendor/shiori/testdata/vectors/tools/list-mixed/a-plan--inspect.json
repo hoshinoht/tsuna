@@ -1,0 +1,83 @@
+{
+  "id": "tools/list-mixed/a-plan--inspect",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "a-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1437,
+    "rawOutputUtf8Bytes": 1437,
+    "outputSha256": "d9d6c19411b17b4c91a4f3a3a811b087aaf14bf8b25bccaa436eb0ffa1ee0788",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/a-plan.json",
+      "workplan": {
+        "id": "a-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "goal a-plan",
+        "status": "draft",
+        "planFile": ".opencode/workplan/a-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/a-plan.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s",
+          "title": "S",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "9f47ef94674ecfb77b6cf8f962dda326836c0138757a7aa6b6854f71db2ef1b2",
+      "stateHash": "45bdb360c0cd75c98a69d9d978c26b64e927abed924db550cc318eaf4ed30ed2"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 2,
+  "id": "broken-plan",
+  "kind": " ",
+  "title": null,
+  "goal": "Broken",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/broken-plan.md",
+  "specFiles": [],
+  "phases": [
+    {
+      "id": "phase-x",
+      "title": "X",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "s1",
+          "title": "S1",
+          "status": "draft"
+        },
+        {
+          "id": "s1",
+          "title": " ",
+          "action": "a",
+          "validation": " ",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "phase-x",
+      "title": "X again",
+      "status": "draft",
+      "steps": []
+    },
+    {
+      "id": "",
+      "title": "",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "",
+          "title": "t",
+          "action": "a",
+          "validation": "v",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [],
+  "notes": [],
+  "status": "draft",
+  "createdAt": "yesterday",
+  "updatedAt": "2026-01-02T03:04:05Z"
+}

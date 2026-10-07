@@ -1,0 +1,56 @@
+{
+  "id": "mutations/reset-markdown-only-replace",
+  "fixture": "handwritten-md",
+  "generationRoot": "/private/tmp/shiori-fx/run/handwritten-md",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_reset",
+    "input": {
+      "id": "hand-plan",
+      "mode": "markdown-only",
+      "replaceMarkdown": true
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 736,
+    "rawOutputUtf8Bytes": 736,
+    "outputSha256": "5a69a5c12bf029395754fb150f393c5e33bda498c1ed3592ee7a0b2b35a26b83",
+    "output": {
+      "reset": true,
+      "mode": "markdown-only",
+      "path": "$ROOT/.opencode/workplan/hand-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/hand-plan.md",
+      "workplan": {
+        "id": "hand-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/hand-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 1,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "48eea52475adaa5828d8b770ba207f3ba84d4b66037c6a8efb79ab26252eba96",
+      "stateHash": "9d9addb5b8da006467114df09afe98c979e0b7f0854a65e9696acc48776b65db",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/hand-plan.md": {
+      "sha256": "70ebabcc32f20986018f1c9bd06832b38e80d3264c68fff7855b9c77e3fcc078",
+      "bytes": 522,
+      "file": "mutations/reset-markdown-only-replace.after/.opencode/workplan/hand-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

@@ -1,0 +1,42 @@
+{
+  "id": "mutations/patch-crlf-framing",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_patch",
+    "input": {
+      "id": "minimal",
+      "patchText": "\r\n  \r\n*** Begin Patch\r\n*** Update File: .opencode/workplan/minimal.md\r\n@@\r\n-Ship the minimal plan\r\n+CRLF patched\r\n*** End Patch\r\n\r\n"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 116,
+    "rawOutputUtf8Bytes": 116,
+    "outputSha256": "9ec6351b6adf276878ed36ced030620f4238019fae7935204d71b0670615556f",
+    "outputText": "Patched workplan minimal plan file: .opencode/workplan/minimal.md\nRun workplan_validate if you need full validation.",
+    "metadata": {
+      "id": "minimal",
+      "planFile": ".opencode/workplan/minimal.md",
+      "patched": true,
+      "validate": false,
+      "planHash": "c77d905e86b80dab4eb98b687950ed09593c73868ab3f6db83b0daff61b7fb5c",
+      "stateHash": "b7f44c174cc10fe574c77f2d219a8fe3e887c19df4505e52ed9a29d868a42fcd"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/minimal.md": {
+      "sha256": "102b95bd985c2b88b44efcf0f2bfe8e732cebd68cc8c120aea0fe628859da062",
+      "bytes": 577,
+      "file": "mutations/patch-crlf-framing.after/.opencode/workplan/minimal.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

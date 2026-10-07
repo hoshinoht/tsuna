@@ -1,0 +1,24 @@
+{
+  "id": "resume/full-valid/full-plan--max4096",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "full-plan",
+      "maxChars": 4096
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3628,
+    "rawOutputUtf8Bytes": 3628,
+    "outputSha256": "59b062c5bdcbe047d5e11e3e3d5e28bcc9b9579fc62c257531df10e703835742",
+    "outputText": "{\"path\":\"$ROOT/.opencode/workplan/full-plan.json\",\"planFile\":\".opencode/workplan/full-plan.md\",\"hashes\":{\"planHash\":\"db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723\",\"stateHash\":\"2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8\"},\"planFresh\":true,\"checkpoint\":{\"exists\":true,\"fresh\":true,\"freshness\":\"fresh\",\"sourceUpdatedAt\":\"2026-01-02T03:04:05.000Z\",\"summary\":\"Phase A done; B in progress\",\"current\":{\"phaseId\":\"phase-b\",\"phaseTitle\":\"Phase B\",\"phaseStatus\":\"in_progress\",\"stepId\":\"step-b1\",\"stepTitle\":\"B1\",\"stepStatus\":\"in_progress\",\"target\":null,\"action\":\"Do B1\",\"validation\":\"Check B1\"},\"nextAction\":\"Finish step-b1\",\"blockers\":[\"waiting on review\"],\"blockersTotal\":1,\"guardrails\":[\"do not touch adapter\"],\"guardrailsTotal\":1,\"references\":[\"docs/spec-a.md\"],\"referencesTotal\":1,\"recentValidation\":[\"bun test: 3 passed\"],\"evidenceStatus\":\"unverified\",\"diagnostic\":null},\"workplan\":{\"id\":\"full-plan\",\"title\":\"Full plan\",\"goal\":\"Exercise every known field\",\"status\":\"in_progress\",\"scope\":[\"core\",\"adapter\"],\"scopeTotal\":2,\"nonGoals\":[\"worktrees\"],\"nonGoalsTotal\":1,\"constraints\":[\"no automatic migration\"],\"constraintsTotal\":1,\"relevantFiles\":[\"src/a.ts\",\"src/b.ts\"],\"updatedAt\":\"2026-01-02T03:04:05.000Z\"},\"currentDependencies\":{\"recorded\":true,\"valid\":true,\"total\":0,\"references\":[]},\"safety\":{\"highFindings\":[{\"index\":0,\"severity\":\"blocker\",\"title\":\"Blocker finding\",\"detail\":\"why\",\"source\":\"a.ts:1\",\"status\":\"open\",\"metadataOmitted\":false},{\"index\":2,\"severity\":\"major\",\"title\":\"Major finding\",\"detail\":\"d\",\"source\":null,\"status\":\"open\",\"metadataOmitted\":false}],\"highFindingsTotal\":2,\"highFindingCounts\":{\"blocker\":1,\"critical\":0,\"major\":1},\"unverifiedWarnings\":[],\"unverifiedWarningCount\":0,\"unverifiedWarningsOmitted\":0,\"overflow\":false,\"truncatedDangerFieldCount\":0,\"omittedDangerCounts\":{\"constraints\":0,\"blockers\":0,\"highFindings\":0,\"dependencies\":0,\"guardrails\":0,\"references\":0,\"scope\":0,\"nonGoals\":0},\"overflowPointers\":[]},\"page\":{\"total\":8,\"offset\":0,\"limit\":20,\"returned\":8,\"omitted\":0,\"items\":[{\"kind\":\"active-work\",\"phaseId\":\"phase-b\",\"phaseTitle\":\"Phase B\",\"phaseStatus\":\"in_progress\",\"stepId\":\"step-b2\",\"title\":\"B2\",\"status\":\"draft\",\"target\":null,\"action\":\"Do B2\",\"validation\":\"Check B2\"},{\"kind\":\"active-work\",\"phaseId\":\"phase-c\",\"phaseTitle\":\"Phase C\",\"phaseStatus\":\"draft\",\"stepId\":\"step-c1\",\"title\":\"C1\",\"status\":\"draft\",\"target\":null,\"action\":\"Do C1\",\"validation\":\"Check C1\"},{\"kind\":\"finding\",\"index\":3,\"severity\":\"minor\",\"title\":\"Minor finding\",\"detail\":null,\"source\":\"b.ts:2\",\"status\":\"open\",\"metadataOmitted\":false},{\"kind\":\"finding\",\"index\":5,\"severity\":\"question\",\"title\":\"Question finding\",\"detail\":null,\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"kind\":\"finding\",\"index\":4,\"severity\":\"note\",\"title\":\"Note finding\",\"detail\":null,\"source\":null,\"status\":\"open\",\"metadataOmitted\":false},{\"kind\":\"reference\",\"reference\":\"src/a.ts\",\"source\":\"current-plan\"},{\"kind\":\"reference\",\"reference\":\"src/b.ts\",\"source\":\"current-plan\"},{\"kind\":\"reference\",\"reference\":\"docs/spec-a.md\",\"source\":\"checkpoint\"}],\"nextCursor\":null},\"counts\":{\"activeWorkTotal\":3,\"findingsTotal\":5,\"highFindingsTotal\":2,\"referencesTotal\":3,\"historicalNotesOmitted\":2,\"resolvedFindingsOmitted\":1},\"retrieval\":{\"read\":\"workplan_read id=full-plan\",\"inspect\":\"workplan_inspect id=full-plan\",\"dependencies\":\".opencode/workplan/full-plan.dependencies.json\"},\"truncatedFields\":[],\"truncatedFieldCount\":0,\"truncatedFieldPathsOmitted\":0,\"instruction\":\"Start from the current step and recorded dependencies; recentValidation is evidence text marked unverified.\"}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

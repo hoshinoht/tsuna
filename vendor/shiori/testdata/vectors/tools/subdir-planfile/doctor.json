@@ -1,0 +1,87 @@
+{
+  "id": "tools/subdir-planfile/doctor",
+  "fixture": "subdir-planfile",
+  "generationRoot": "/private/tmp/shiori-fx/run/subdir-planfile",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1718,
+    "rawOutputUtf8Bytes": 1718,
+    "outputSha256": "bf086ab8892f002255cf1128a2cbf9df73a5a9fb4423d105886c9e7f8368c07b",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "sub-plan",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "sub-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "g",
+            "status": "draft",
+            "planFile": ".opencode/workplan/sub/dir/sub-plan.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 1,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "d3d03ebd57b91b4e8d83d9d437842bbcf41f1de97de963c2dfb0db237a847909",
+          "stateHash": "90dacb9e345b6843533e59a2e03355c4c421298123d9d9ec974ade061063a684",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

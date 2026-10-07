@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/checkpoint-corrupt--cp-bad",
+  "fixture": "checkpoint-corrupt",
+  "planId": "cp-bad",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/cp-bad.json",
+        "sha256": "4d8c2614e4283d05b2964c478376cbbf32f7354fe41ef458daedfd4abe404de0"
+      },
+      {
+        "path": ".opencode/workplan/cp-bad.md",
+        "sha256": "4a0f22499331b2b9729b037ec68431a42f3bb784c19b8c4ffb50ce0024e913b9"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/cp-bad.checkpoint.json",
+        "sha256": "23790cf84da5ce5aa8d3f1334fd03b9f55f822513916071a7b2c38e78a2cacef"
+      },
+      {
+        "path": ".opencode/workplan/cp-bad.dependencies.json",
+        "sha256": "d281f16a7e6e3d4bac0da8e1d660136a770324245bcc93dc504f86702c7fe972"
+      },
+      {
+        "path": ".opencode/workplan/cp-bad.json",
+        "sha256": "4d8c2614e4283d05b2964c478376cbbf32f7354fe41ef458daedfd4abe404de0"
+      },
+      {
+        "path": ".opencode/workplan/cp-bad.md",
+        "sha256": "4a0f22499331b2b9729b037ec68431a42f3bb784c19b8c4ffb50ce0024e913b9"
+      },
+      {
+        "path": ".opencode/workplan/cp-bad.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "ecbbc450efd22409170fbb9b61c3225f4df7c247be7d02ec6f719fa17f4df83e",
+    "stateHash": "f9ce0338d1b6bbb9365c5a76b07c128b33aedf1831594bbae1640ca32c2d778f",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/cp-bad.md",
+    "normalizedSpecFiles": []
+  }
+}

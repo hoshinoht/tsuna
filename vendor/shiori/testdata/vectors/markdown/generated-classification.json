@@ -1,0 +1,171 @@
+{
+  "id": "markdown/generated-classification",
+  "description": "Whether each fixture's linked Markdown byte-equals renderWorkplanMarkdown(snapshot document).",
+  "rows": [
+    {
+      "fixture": "checkpoint-corrupt",
+      "planId": "cp-bad",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "checkpoint-legacy-v1",
+      "planId": "cp-v1",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "checkpoint-stale-v2",
+      "planId": "cp-stale",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "dependencies-invalid",
+      "planId": "dep-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "draft-empty",
+      "planId": "draft-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "duplicate-step-ids",
+      "planId": "dup-plan",
+      "markdownPresent": true,
+      "generated": false
+    },
+    {
+      "fixture": "full-valid",
+      "planId": "full-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "handwritten-md",
+      "planId": "hand-plan",
+      "markdownPresent": true,
+      "generated": false
+    },
+    {
+      "fixture": "invalid-schema",
+      "planId": "not-json",
+      "error": "Invalid workplan JSON at $ROOT/.opencode/workplan/not-json.json: JSON Parse error: Property name must be a string literal"
+    },
+    {
+      "fixture": "invalid-schema",
+      "planId": "not-object",
+      "error": "$: Invalid input: expected object, received array"
+    },
+    {
+      "fixture": "invalid-schema",
+      "planId": "wrong-types",
+      "error": "title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received number; scope: Invalid input: expected array, received string; constraints.0: Invalid input: expected string, received number; phases.0.status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; phases.0.steps.0.title: Invalid input: expected string, received undefined; reviewFindings.0.severity: Invalid option: expected one of \"blocker\"|\"critical\"|\"major\"|\"minor\"|\"note\"|\"question\"; reviewFindings.0.status: Invalid option: expected one of \"open\"|\"resolved\"; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+    },
+    {
+      "fixture": "invalid-schema",
+      "planId": "wrong-version",
+      "error": "schemaVersion: Invalid input: expected 2"
+    },
+    {
+      "fixture": "invalid-structure",
+      "planId": "broken-plan",
+      "error": "Workplan id must contain at least one letter or number"
+    },
+    {
+      "fixture": "large-paging",
+      "planId": "big-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "legacy-fields",
+      "planId": "legacy-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "Bad Name",
+      "error": "Workplan file not found: $ROOT/.opencode/workplan/bad-name.json"
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "UPPER",
+      "error": "schemaVersion: Invalid input: expected 2; id: Invalid input: expected string, received undefined; kind: Invalid input: expected string, received undefined; title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received undefined; scope: Invalid input: expected array, received undefined; nonGoals: Invalid input: expected array, received undefined; constraints: Invalid input: expected array, received undefined; relevantFiles: Invalid input: expected array, received undefined; planFile: Invalid input: expected string, received undefined; phases: Invalid input: expected array, received undefined; reviewFindings: Invalid input: expected array, received undefined; notes: Invalid input: expected array, received undefined; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; createdAt: Invalid input: expected string, received undefined; updatedAt: Invalid input: expected string, received undefined"
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "a-10",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "a-9",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "a-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "b-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "list-mixed",
+      "planId": "broken",
+      "error": "Invalid workplan JSON at $ROOT/.opencode/workplan/broken.json: JSON Parse error: Expected '}'"
+    },
+    {
+      "fixture": "minimal-valid",
+      "planId": "minimal",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "missing-artifacts",
+      "planId": "missing-plan",
+      "markdownPresent": false,
+      "generated": false
+    },
+    {
+      "fixture": "pending-journal",
+      "planId": "tx-plan",
+      "markdownPresent": true,
+      "generated": false
+    },
+    {
+      "fixture": "pending-journal-precreate",
+      "planId": "tx-new",
+      "error": "Workplan file not found: $ROOT/.opencode/workplan/tx-new.json"
+    },
+    {
+      "fixture": "resume-stress",
+      "planId": "stress-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "subdir-planfile",
+      "planId": "sub-plan",
+      "markdownPresent": true,
+      "generated": true
+    },
+    {
+      "fixture": "unicode",
+      "planId": "unicode-plan",
+      "markdownPresent": true,
+      "generated": true
+    }
+  ]
+}

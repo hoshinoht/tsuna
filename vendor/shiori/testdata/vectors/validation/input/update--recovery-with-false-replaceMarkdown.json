@@ -1,0 +1,26 @@
+{
+  "id": "validation/input/update--recovery-with-false-replaceMarkdown",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "recovery": "rollback",
+    "replaceMarkdown": false,
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "recovery": "rollback",
+        "replaceMarkdown": false
+      }
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid update input: recovery: recovery is mutually exclusive with ordinary update fields"
+    },
+    "nativeThenCore": null
+  }
+}

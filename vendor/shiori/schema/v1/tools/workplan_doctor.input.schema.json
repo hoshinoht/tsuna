@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_doctor.input.schema.json",
+  "title": "workplan_doctor input (native surface)",
+  "description": "Read-only diagnostics: roots, classification, freshness, locks, pending journals and recovery pointers.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "limit": {
+      "description": "Page size.",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    }
+  },
+  "additionalProperties": false,
+  "x-shiori-mutating": false,
+  "x-shiori-rules": [],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key.",
+  "x-shiori-nested-unknown-keys": "n/a"
+}

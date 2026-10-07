@@ -1,0 +1,29 @@
+{
+  "id": "tools/list-mixed/broken--validate",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "broken"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 190,
+    "rawOutputUtf8Bytes": 190,
+    "outputSha256": "4d0834f4ffaeb718790ae9b2335c763a1ee3ee229fc9d190006073f4af546a33",
+    "output": {
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "Invalid workplan JSON at $ROOT/.opencode/workplan/broken.json: JSON Parse error: Expected '}'"
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/plan-v2.schema.json",
+  "title": "Workplan document, schemaVersion 2",
+  "description": "Primary plan JSON stored at .opencode/workplan/<id>.json. This schema is the compatible DECODING contract: it is intentionally permissive (drafts with empty phases, blank strings and missing action/validation decode). Executable-structure rules are listed in x-shiori-structure-rules and are checked separately.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "id": { "type": "string" },
+    "kind": { "type": "string" },
+    "title": { "type": ["string", "null"] },
+    "goal": { "type": "string" },
+    "scope": { "$ref": "common.schema.json#/$defs/stringList" },
+    "nonGoals": { "$ref": "common.schema.json#/$defs/stringList" },
+    "constraints": { "$ref": "common.schema.json#/$defs/stringList" },
+    "relevantFiles": { "$ref": "common.schema.json#/$defs/stringList" },
+    "planFile": { "type": "string", "description": "Linked Markdown path, normally project-relative under .opencode/workplan/. Legacy './'-prefixed or absolute in-root values decode and are normalized in memory only." },
+    "specFiles": {
+      "$ref": "common.schema.json#/$defs/stringList",
+      "description": "OPTIONAL legacy-absent field. Absence must round-trip: a document without the key keeps it absent on unrelated writes."
+    },
+    "phases": { "type": "array", "items": { "$ref": "#/$defs/phase" } },
+    "reviewFindings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "notes": { "$ref": "common.schema.json#/$defs/stringList" },
+    "status": { "$ref": "common.schema.json#/$defs/status" },
+    "createdAt": { "type": "string", "description": "Decoded as any string; ISO validity is a structure rule." },
+    "updatedAt": { "type": "string", "description": "Decoded as any string; ISO validity is a structure rule." }
+  },
+  "required": ["schemaVersion", "id", "kind", "title", "goal", "scope", "nonGoals", "constraints", "relevantFiles", "planFile", "phases", "reviewFindings", "notes", "status", "createdAt", "updatedAt"],
+  "additionalProperties": true,
+  "x-shiori-preserve-unknown": "Unknown keys at document, phase, step and finding level MUST be preserved (values and nesting). See docs/contracts.md section 'Unknown-field preservation' for the frozen policy on key order, duplicate keys and number spelling, where the reference implementation is lossy.",
+  "x-shiori-structure-rules": [
+    "id: Must not be empty",
+    "id: Does not match filename id <normalized>",
+    "kind|goal|planFile: Must not be empty",
+    "createdAt|updatedAt: Invalid datetime (common.schema.json#/$defs/isoDatetimeUtc)",
+    "phases: At least one phase is required",
+    "phases.<i>.id: Must not be empty",
+    "phases.<i>.id: Duplicate phase id <id>",
+    "phases.<i>.title: Must not be empty",
+    "phases.<i>.steps: At least one step is required",
+    "phases.<i>.steps.<j>.id: Must not be empty",
+    "phases.<i>.steps.<j>.id: Duplicate step id <id> in phase <phaseId>",
+    "phases.<i>.steps.<j>.title: Must not be empty",
+    "phases.<i>.steps.<j>.action: Required for executable workplans",
+    "phases.<i>.steps.<j>.validation: Required for executable workplans"
+  ],
+  "$defs": {
+    "phase": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique within the plan (structure rule, not a decoding rule)." },
+        "title": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/status" },
+        "steps": { "type": "array", "items": { "$ref": "#/$defs/step" } }
+      },
+      "required": ["id", "title", "status", "steps"],
+      "additionalProperties": true
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique within its phase only; identity is (phaseId, stepId)." },
+        "title": { "type": "string" },
+        "target": { "type": "string" },
+        "action": { "type": "string" },
+        "validation": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/status" }
+      },
+      "required": ["id", "title", "status"],
+      "additionalProperties": true
+    },
+    "finding": {
+      "type": "object",
+      "properties": {
+        "severity": { "$ref": "common.schema.json#/$defs/severity" },
+        "title": { "type": "string" },
+        "detail": { "type": "string" },
+        "source": { "type": "string" },
+        "status": { "$ref": "common.schema.json#/$defs/findingStatus" }
+      },
+      "required": ["severity", "title"],
+      "additionalProperties": true
+    }
+  }
+}

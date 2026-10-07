@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/checkpoint.schema.json",
+  "title": "Checkpoint sidecar (any supported version)",
+  "oneOf": [
+    { "$ref": "checkpoint-v1.schema.json" },
+    { "$ref": "checkpoint-v2.schema.json" }
+  ]
+}

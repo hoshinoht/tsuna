@@ -1,0 +1,98 @@
+{
+  "id": "tools/invalid-schema/doctor",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2588,
+    "rawOutputUtf8Bytes": 2588,
+    "outputSha256": "60bd554e0fd5b70c2b968b621c26e080507e4f80df6278c443c2efa5c7a15835",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 4,
+      "returnedPlans": 4,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "not-json",
+          "valid": false,
+          "issues": [
+            "Invalid workplan JSON at $ROOT/.opencode/workplan/not-json.json: JSON Parse error: Property name must be a string literal"
+          ],
+          "recoveryRequired": false
+        },
+        {
+          "id": "not-object",
+          "valid": false,
+          "issues": [
+            "$: Invalid input: expected object, received array"
+          ],
+          "recoveryRequired": false
+        },
+        {
+          "id": "wrong-types",
+          "valid": false,
+          "issues": [
+            "title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received number; scope: Invalid input: expected array, received string; constraints.0: Invalid input: expected string, received number; phases.0.status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; phases.0.steps.0.title: Invalid input: expected string, received undefined; reviewFindings.0.severity: Invalid option: expected one of \"blocker\"|\"critical\"|\"major\"|\"minor\"|\"note\"|\"question\"; reviewFindings.0.status: Invalid option: expected one of \"open\"|\"resolved\"; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+          ],
+          "recoveryRequired": false
+        },
+        {
+          "id": "wrong-version",
+          "valid": false,
+          "issues": [
+            "schemaVersion: Invalid input: expected 2"
+          ],
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

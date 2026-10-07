@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/reset--bad-mode",
+  "tool": "workplan_reset",
+  "input": {
+    "id": "x",
+    "mode": "hard",
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid reset input: mode: Invalid option: expected one of \"draft\"|\"markdown-only\""
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid reset input: mode: Invalid option: expected one of \"draft\"|\"markdown-only\""
+    },
+    "nativeThenCore": null
+  }
+}

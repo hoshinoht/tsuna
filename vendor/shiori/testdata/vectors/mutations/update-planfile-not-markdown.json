@@ -1,0 +1,21 @@
+{
+  "id": "mutations/update-planfile-not-markdown",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "minimal",
+      "planFile": ".opencode/workplan/minimal.txt"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Plan file must be Markdown under .opencode/workplan/: .opencode/workplan/minimal.txt"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

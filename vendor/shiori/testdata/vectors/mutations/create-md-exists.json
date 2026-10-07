@@ -1,0 +1,22 @@
+{
+  "id": "mutations/create-md-exists",
+  "fixture": "handwritten-md",
+  "generationRoot": "/private/tmp/shiori-fx/run/handwritten-md",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "hand-plan-2",
+      "goal": "g",
+      "planFile": ".opencode/workplan/hand-plan.md"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Plan file already exists: $ROOT/.opencode/workplan/hand-plan.md"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

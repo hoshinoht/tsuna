@@ -1,0 +1,34 @@
+{
+  "id": "validation/input/compact--preview-default",
+  "tool": "workplan_compact",
+  "input": {
+    "id": "x",
+    "archiveReason": "r"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "preview",
+        "archiveReason": "r"
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "preview",
+        "archiveReason": "r"
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "preview",
+        "archiveReason": "r"
+      }
+    }
+  }
+}

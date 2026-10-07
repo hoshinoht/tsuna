@@ -1,0 +1,176 @@
+{
+  "id": "tools/full-valid/full-plan--inspect",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "full-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3676,
+    "rawOutputUtf8Bytes": 3676,
+    "outputSha256": "26b1a91d53402cf58cd605065ad0ee23e772a4fd160d7b455f10ff5e0397ed19",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 3,
+        "stepCount": 5,
+        "specFileCount": 2,
+        "openFindingCount": 5,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/full-plan.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "phase-a",
+          "title": "Phase A",
+          "status": "completed",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 2,
+          "markdownMarker": "<!-- workplan-phase-id: phase-a -->"
+        },
+        {
+          "type": "phase",
+          "id": "phase-b",
+          "title": "Phase B",
+          "status": "in_progress",
+          "index": 1,
+          "indexLabel": "2",
+          "stepCount": 2,
+          "markdownMarker": "<!-- workplan-phase-id: phase-b -->"
+        },
+        {
+          "type": "phase",
+          "id": "phase-c",
+          "title": "Phase C",
+          "status": "draft",
+          "index": 2,
+          "indexLabel": "3",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: phase-c -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-a",
+          "phaseTitle": "Phase A",
+          "id": "step-a1",
+          "title": "A1",
+          "status": "completed",
+          "target": "src/a.ts",
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: step-a1 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-a",
+          "phaseTitle": "Phase A",
+          "id": "step-a2",
+          "title": "A2",
+          "status": "completed",
+          "target": null,
+          "index": 1,
+          "indexPath": "1.2",
+          "markdownMarker": "<!-- workplan-step-id: step-a2 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-b",
+          "phaseTitle": "Phase B",
+          "id": "step-b1",
+          "title": "B1",
+          "status": "in_progress",
+          "target": null,
+          "index": 0,
+          "indexPath": "2.1",
+          "markdownMarker": "<!-- workplan-step-id: step-b1 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-b",
+          "phaseTitle": "Phase B",
+          "id": "step-b2",
+          "title": "B2",
+          "status": "draft",
+          "target": null,
+          "index": 1,
+          "indexPath": "2.2",
+          "markdownMarker": "<!-- workplan-step-id: step-b2 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-c",
+          "phaseTitle": "Phase C",
+          "id": "step-c1",
+          "title": "C1",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "3.1",
+          "markdownMarker": "<!-- workplan-step-id: step-c1 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": true,
+        "dependencies": [
+          {
+            "phaseId": "phase-b",
+            "stepId": "step-b2",
+            "dependsOn": [
+              {
+                "phaseId": "phase-b",
+                "stepId": "step-b1"
+              },
+              {
+                "phaseId": "phase-a",
+                "stepId": "step-a2"
+              }
+            ]
+          },
+          {
+            "phaseId": "phase-c",
+            "stepId": "step-c1",
+            "dependsOn": [
+              {
+                "phaseId": "phase-b",
+                "stepId": "step-b2"
+              }
+            ]
+          }
+        ],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 8,
+        "offset": 0,
+        "returned": 8,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,18 @@
+{
+  "id": "validation/input/list--extra",
+  "tool": "workplan_list",
+  "input": {
+    "id": "x"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid list input: $: Unrecognized key: \"id\""
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid list input: $: Unrecognized key: \"id\""
+    },
+    "nativeThenCore": null
+  }
+}

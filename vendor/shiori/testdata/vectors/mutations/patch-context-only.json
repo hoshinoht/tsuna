@@ -1,0 +1,21 @@
+{
+  "id": "mutations/patch-context-only",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_patch",
+    "input": {
+      "id": "minimal",
+      "patchText": "*** Begin Patch\n*** Update File: .opencode/workplan/minimal.md\n@@\n Ship the minimal plan\n*** End Patch"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Patch rejected: no additions or removals found"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

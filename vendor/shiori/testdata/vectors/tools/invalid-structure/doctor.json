@@ -1,0 +1,102 @@
+{
+  "id": "tools/invalid-structure/doctor",
+  "fixture": "invalid-structure",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-structure",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2460,
+    "rawOutputUtf8Bytes": 2460,
+    "outputSha256": "cc01a751cae3f7888dc7d65c82338c8b1ac4f1ea95e6b73c57d3184305406b6b",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "broken-plan",
+          "valid": false,
+          "issues": [
+            "kind: Must not be empty",
+            "createdAt: Invalid datetime",
+            "phases.0.steps.0.action: Required for executable workplans",
+            "phases.0.steps.0.validation: Required for executable workplans",
+            "phases.0.steps.1.id: Duplicate step id s1 in phase phase-x",
+            "phases.0.steps.1.title: Must not be empty",
+            "phases.0.steps.1.validation: Required for executable workplans",
+            "phases.1.id: Duplicate phase id phase-x",
+            "phases.1.steps: At least one step is required",
+            "phases.2.id: Must not be empty",
+            "phases.2.title: Must not be empty",
+            "phases.2.steps.0.id: Must not be empty"
+          ],
+          "workplan": {
+            "id": "broken-plan",
+            "kind": " ",
+            "title": null,
+            "goal": "Broken",
+            "status": "draft",
+            "planFile": ".opencode/workplan/broken-plan.md",
+            "phaseCount": 3,
+            "stepCount": 3,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05Z"
+          },
+          "planHash": "593d3f2b1fbdc7d6495afb9cce6d91f1c949cb1b94229468c7cd6b5285a8593e",
+          "stateHash": "da53c86fd8cec017803e8f5934938ef46aa5c6e8b808adf42f88be2ca24b093a",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,29 @@
+{
+  "id": "tools/pending-journal/tx-plan--read",
+  "fixture": "pending-journal",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "tx-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 279,
+    "rawOutputUtf8Bytes": 279,
+    "outputSha256": "8b5b57fb0e61afa84d19da6bddff24a875a4b09f97648ad619debae4ff2cf163",
+    "output": {
+      "recoveryRequired": true,
+      "journalPath": ".opencode/workplan/tx-plan.transaction.json",
+      "planHash": "c1c6101df52db2742e12f85eed8945ecc405468af31cbd519eacbae5d214ae94",
+      "stateHash": "0001675f2c7d5a7667a2cfedbc3b18507e83532c9fe5a1540224d5b119100071",
+      "workplan": null
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

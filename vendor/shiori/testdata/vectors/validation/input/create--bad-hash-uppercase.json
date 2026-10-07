@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/create--bad-hash-uppercase",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g",
+    "expectedHash": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: expectedHash: Invalid string: must match pattern /^[a-f0-9]{64}$/"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: expectedHash: Invalid string: must match pattern /^[a-f0-9]{64}$/"
+    },
+    "nativeThenCore": null
+  }
+}

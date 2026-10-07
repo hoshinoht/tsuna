@@ -1,0 +1,26 @@
+{
+  "id": "mutations/update-unknown-phase",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "updatePhases": [
+        {
+          "phaseId": "nope",
+          "status": "completed"
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Phase not found: nope"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

@@ -1,0 +1,93 @@
+{
+  "id": "tools/duplicate-step-ids/dup-plan--doctor",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "dup-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1880,
+    "rawOutputUtf8Bytes": 1880,
+    "outputSha256": "120ae4b6b04d12ea7461335d10921664d257fbc4b6c2ef62e3a5230c4935d040",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "dup-plan",
+          "valid": false,
+          "issues": [
+            "phases.0.steps.1.id: Duplicate step id step-dup in phase phase-anchor"
+          ],
+          "workplan": {
+            "id": "dup-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "g",
+            "status": "draft",
+            "planFile": ".opencode/workplan/dup-plan.md",
+            "phaseCount": 2,
+            "stepCount": 3,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "36b35ed008115d47540969d98bf9f39346d85f9e571f8591a2930828448c134d",
+          "stateHash": "f3bb532b5fa458ffcdc702b9a8fc41cf9eaaff76d8516f663b22bea57f1b34ca",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

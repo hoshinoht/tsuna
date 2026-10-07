@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "id": "dup-plan",
+  "kind": "general",
+  "title": null,
+  "goal": "g",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/dup-plan.md",
+  "specFiles": [],
+  "phases": [
+    {
+      "id": "phase-anchor",
+      "title": "A",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "step-dup",
+          "title": "One",
+          "action": "Do One",
+          "validation": "Check One",
+          "status": "draft"
+        },
+        {
+          "id": "step-dup",
+          "title": "Two",
+          "action": "Do Two",
+          "validation": "Check Two",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "phase-other",
+      "title": "B",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "step-dup",
+          "title": "Same id, other phase",
+          "action": "Do Same id, other phase",
+          "validation": "Check Same id, other phase",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [],
+  "notes": [
+    "unrelated"
+  ],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

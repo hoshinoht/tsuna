@@ -1,0 +1,56 @@
+{
+  "id": "mutations/update-handwritten-preserved",
+  "fixture": "handwritten-md",
+  "generationRoot": "/private/tmp/shiori-fx/run/handwritten-md",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "hand-plan",
+      "appendNotes": [
+        "n"
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 711,
+    "rawOutputUtf8Bytes": 711,
+    "outputSha256": "81df3fc486857c12678db38227cbe5a049ab17c0def5093b81a9c3ec5a3df691",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/hand-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/hand-plan.md",
+      "workplan": {
+        "id": "hand-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/hand-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 1,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "eb2f3f72ae119ebd61f5426e042b3b9341ce634bcab6e9f75713745b89cc81d8",
+      "stateHash": "1154a6370f3c06eae46a6a4bac5c9074645a9dd5fc02377a59911d97974a16b8",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/hand-plan.json": {
+      "sha256": "23606ba5c12bca7dcba41287fe707318ff6fd502bd14543c77911cb7186dba19",
+      "bytes": 698,
+      "file": "mutations/update-handwritten-preserved.after/.opencode/workplan/hand-plan.json"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

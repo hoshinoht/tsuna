@@ -1,0 +1,86 @@
+{
+  "id": "mutations/checkpoint-ok",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_checkpoint",
+    "input": {
+      "id": "full-plan",
+      "summary": "s",
+      "nextAction": "n",
+      "phaseId": "phase-c",
+      "stepId": "step-c1"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1658,
+    "rawOutputUtf8Bytes": 1658,
+    "outputSha256": "aaa2ae77086dc7d8b60d028090d7aadf68656c5f7880cad988e066f10736f485",
+    "output": {
+      "checkpointPath": "$ROOT/.opencode/workplan/full-plan.checkpoint.json",
+      "checkpoint": {
+        "schemaVersion": 2,
+        "id": "full-plan",
+        "sourceUpdatedAt": "2026-01-02T03:04:05.000Z",
+        "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+        "manifest": [
+          {
+            "path": ".opencode/workplan/full-plan.json",
+            "sha256": "175df5e950bb42b05162d7814c1569d51fd03b89a52b8e2db2516cc80d5660da"
+          },
+          {
+            "path": ".opencode/workplan/full-plan.md",
+            "sha256": "ec896e7d6551ba50e0df4903f86c0f02a7222e9bb0d2ee19e0a8431358520d62"
+          },
+          {
+            "path": "docs/nested/spec-b.md",
+            "sha256": "a7f230965ea62432980bad2d7fee211de4c4b4eed5cc11a0a316eb34ae0fc990"
+          },
+          {
+            "path": "docs/spec-a.md",
+            "sha256": "a9d757a6dd6728fb3499ccf11b48a7b7f7193c77868ab21ba536ff6f7a0f5d8b"
+          }
+        ],
+        "evidenceStatus": "unverified",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z",
+        "status": "in_progress",
+        "summary": "s",
+        "current": {
+          "phaseId": "phase-c",
+          "phaseTitle": "Phase C",
+          "phaseStatus": "draft",
+          "stepId": "step-c1",
+          "stepTitle": "C1",
+          "stepStatus": "draft"
+        },
+        "nextAction": "n",
+        "blockers": [],
+        "recentValidation": [],
+        "guardrails": [],
+        "references": []
+      },
+      "planFresh": true,
+      "evidenceStatus": "unverified",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "3a2a67de42e852c0ed08286c5fe1d037d391ba0ff944201996753f32c0506cd2",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/full-plan.checkpoint.json": {
+      "sha256": "9bee46f7efd484ba3a005ae22c61f074d3d95539a6f27d694eb4b9590378cf43",
+      "bytes": 1199,
+      "file": "mutations/checkpoint-ok.after/.opencode/workplan/full-plan.checkpoint.json"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

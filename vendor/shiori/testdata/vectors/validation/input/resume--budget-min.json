@@ -1,0 +1,31 @@
+{
+  "id": "validation/input/resume--budget-min",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "maxChars": 4096
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "maxChars": 4096
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "maxChars": 4096
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "maxChars": 4096
+      }
+    }
+  }
+}

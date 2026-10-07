@@ -1,0 +1,24 @@
+{
+  "id": "resume/dependencies-invalid/dep-plan--max64000",
+  "fixture": "dependencies-invalid",
+  "generationRoot": "/private/tmp/shiori-fx/run/dependencies-invalid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "dep-plan",
+      "maxChars": 64000
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3653,
+    "rawOutputUtf8Bytes": 3653,
+    "outputSha256": "fcae4be398ca6d197926f9bb0a9540bc69a7f365cae74c7e21e008814a053c6e",
+    "outputText": "{\n  \"path\": \"$ROOT/.opencode/workplan/dep-plan.json\",\n  \"planFile\": \".opencode/workplan/dep-plan.md\",\n  \"hashes\": {\n    \"planHash\": \"0ef4dc8f307c3e09b380557a91a171504701eb911e71edfa7bd00d9fb302b9c5\",\n    \"stateHash\": \"32c4a6acb874a97780354ff9a625ca8c3fa8a6eb35d3d5cc1cd2ff151643f796\"\n  },\n  \"planFresh\": true,\n  \"checkpoint\": {\n    \"exists\": false,\n    \"fresh\": false,\n    \"freshness\": \"missing\",\n    \"sourceUpdatedAt\": null,\n    \"summary\": null,\n    \"current\": {\n      \"phaseId\": \"p\",\n      \"phaseTitle\": \"P\",\n      \"phaseStatus\": \"draft\",\n      \"stepId\": \"s1\",\n      \"stepTitle\": \"S1\",\n      \"stepStatus\": \"draft\",\n      \"target\": null,\n      \"action\": \"Do S1\",\n      \"validation\": \"Check S1\"\n    },\n    \"nextAction\": null,\n    \"blockers\": [],\n    \"blockersTotal\": 0,\n    \"guardrails\": [],\n    \"guardrailsTotal\": 0,\n    \"references\": [],\n    \"referencesTotal\": 0,\n    \"recentValidation\": [],\n    \"evidenceStatus\": \"unverified\",\n    \"diagnostic\": null\n  },\n  \"workplan\": {\n    \"id\": \"dep-plan\",\n    \"title\": null,\n    \"goal\": \"g\",\n    \"status\": \"draft\",\n    \"scope\": [],\n    \"scopeTotal\": 0,\n    \"nonGoals\": [],\n    \"nonGoalsTotal\": 0,\n    \"constraints\": [],\n    \"constraintsTotal\": 0,\n    \"relevantFiles\": [],\n    \"updatedAt\": \"2026-01-02T03:04:05.000Z\"\n  },\n  \"currentDependencies\": {\n    \"recorded\": true,\n    \"valid\": false,\n    \"total\": 1,\n    \"references\": [\n      {\n        \"phaseId\": \"p\",\n        \"stepId\": \"s2\"\n      }\n    ]\n  },\n  \"safety\": {\n    \"highFindings\": [],\n    \"highFindingsTotal\": 0,\n    \"highFindingCounts\": {\n      \"blocker\": 0,\n      \"critical\": 0,\n      \"major\": 0\n    },\n    \"unverifiedWarnings\": [\n      \"Dependency metadata warning: dependencies.2.dependsOn.1: Step ghost/x does not exist\",\n      \"Dependency metadata warning: dependencies: Cycle detected: p/s1 -> p/s2 -> p/s1\",\n      \"Dependency metadata warning: dependencies: Cycle detected: p/s3 -> p/s3\"\n    ],\n    \"unverifiedWarningCount\": 3,\n    \"unverifiedWarningsOmitted\": 0,\n    \"overflow\": false,\n    \"truncatedDangerFieldCount\": 0,\n    \"omittedDangerCounts\": {\n      \"constraints\": 0,\n      \"blockers\": 0,\n      \"highFindings\": 0,\n      \"dependencies\": 0,\n      \"guardrails\": 0,\n      \"references\": 0,\n      \"scope\": 0,\n      \"nonGoals\": 0\n    },\n    \"overflowPointers\": []\n  },\n  \"page\": {\n    \"total\": 2,\n    \"offset\": 0,\n    \"limit\": 20,\n    \"returned\": 2,\n    \"omitted\": 0,\n    \"items\": [\n      {\n        \"kind\": \"active-work\",\n        \"phaseId\": \"p\",\n        \"phaseTitle\": \"P\",\n        \"phaseStatus\": \"draft\",\n        \"stepId\": \"s2\",\n        \"title\": \"S2\",\n        \"status\": \"draft\",\n        \"target\": null,\n        \"action\": \"Do S2\",\n        \"validation\": \"Check S2\"\n      },\n      {\n        \"kind\": \"active-work\",\n        \"phaseId\": \"p\",\n        \"phaseTitle\": \"P\",\n        \"phaseStatus\": \"draft\",\n        \"stepId\": \"s3\",\n        \"title\": \"S3\",\n        \"status\": \"draft\",\n        \"target\": null,\n        \"action\": \"Do S3\",\n        \"validation\": \"Check S3\"\n      }\n    ],\n    \"nextCursor\": null\n  },\n  \"counts\": {\n    \"activeWorkTotal\": 3,\n    \"findingsTotal\": 0,\n    \"highFindingsTotal\": 0,\n    \"referencesTotal\": 0,\n    \"historicalNotesOmitted\": 0,\n    \"resolvedFindingsOmitted\": 0\n  },\n  \"retrieval\": {\n    \"read\": \"workplan_read id=dep-plan\",\n    \"inspect\": \"workplan_inspect id=dep-plan\",\n    \"dependencies\": \".opencode/workplan/dep-plan.dependencies.json\"\n  },\n  \"truncatedFields\": [],\n  \"truncatedFieldCount\": 0,\n  \"truncatedFieldPathsOmitted\": 0,\n  \"instruction\": \"Checkpoint guidance is not fresh. Reconfirm unverified guardrails, blockers and references before relying on them; nextAction is withheld.\"\n}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

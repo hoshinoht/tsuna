@@ -1,0 +1,47 @@
+{
+  "id": "markdown/unknown-fields-ignored",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [
+      {
+        "id": "p",
+        "title": "P",
+        "status": "draft",
+        "owner": "w",
+        "steps": [
+          {
+            "id": "s",
+            "title": "S",
+            "status": "draft",
+            "estimate": 3
+          }
+        ]
+      }
+    ],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z",
+    "xExtra": {
+      "a": 1
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/unknown-fields-ignored.expected.md",
+    "sha256": "a25b6a885b42a9504b96d7f75f416d937a277925cc0bcbb84068e4047c7abf06",
+    "utf8Bytes": 471
+  }
+}

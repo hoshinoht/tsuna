@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/invalid-structure--broken-plan",
+  "fixture": "invalid-structure",
+  "planId": "broken-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/broken-plan.json",
+        "sha256": "b9de1d5ea7fe921743315e7eedbbc6ee9dd718fa17923685a876e1fc037b8f64"
+      },
+      {
+        "path": ".opencode/workplan/broken-plan.md",
+        "sha256": "2767e7f9bde9042ecb62a72ae0f0c2e460eeb2fa5d5a6608de6d06d4675e2fe6"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/broken-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/broken-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/broken-plan.json",
+        "sha256": "b9de1d5ea7fe921743315e7eedbbc6ee9dd718fa17923685a876e1fc037b8f64"
+      },
+      {
+        "path": ".opencode/workplan/broken-plan.md",
+        "sha256": "2767e7f9bde9042ecb62a72ae0f0c2e460eeb2fa5d5a6608de6d06d4675e2fe6"
+      },
+      {
+        "path": ".opencode/workplan/broken-plan.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "593d3f2b1fbdc7d6495afb9cce6d91f1c949cb1b94229468c7cd6b5285a8593e",
+    "stateHash": "da53c86fd8cec017803e8f5934938ef46aa5c6e8b808adf42f88be2ca24b093a",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/broken-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

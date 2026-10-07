@@ -1,0 +1,47 @@
+{
+  "id": "markdown/marker-normalization",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [
+      {
+        "id": "  Phase A_1 !! ",
+        "title": "Weird id",
+        "status": "draft",
+        "steps": [
+          {
+            "id": "STEP--X__y",
+            "title": "t",
+            "status": "draft"
+          },
+          {
+            "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "title": "long",
+            "status": "draft"
+          }
+        ]
+      }
+    ],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/marker-normalization.expected.md",
+    "sha256": "51ac7aeec5a68e76b60eeb931e5ea289f2b20dfe139bc95453a06f179ec060aa",
+    "utf8Bytes": 761
+  }
+}

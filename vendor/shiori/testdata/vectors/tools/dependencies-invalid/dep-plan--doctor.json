@@ -1,0 +1,100 @@
+{
+  "id": "tools/dependencies-invalid/dep-plan--doctor",
+  "fixture": "dependencies-invalid",
+  "generationRoot": "/private/tmp/shiori-fx/run/dependencies-invalid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "dep-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2117,
+    "rawOutputUtf8Bytes": 2117,
+    "outputSha256": "2d9d85987cf704b8f18b8b054f323656860435330ab8b215960643b6ba6f59c1",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "dep-plan",
+          "valid": false,
+          "issues": [
+            "dependencies: dependencies.2.dependsOn.1: Step ghost/x does not exist",
+            "dependencies: dependencies: Cycle detected: p/s1 -> p/s2 -> p/s1",
+            "dependencies: dependencies: Cycle detected: p/s3 -> p/s3"
+          ],
+          "workplan": {
+            "id": "dep-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "g",
+            "status": "draft",
+            "planFile": ".opencode/workplan/dep-plan.md",
+            "phaseCount": 1,
+            "stepCount": 3,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "0ef4dc8f307c3e09b380557a91a171504701eb911e71edfa7bd00d9fb302b9c5",
+          "stateHash": "32c4a6acb874a97780354ff9a625ca8c3fa8a6eb35d3d5cc1cd2ff151643f796",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": true,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": "dep-plan.dependencies.json",
+          "kind": "dependencies"
+        }
+      ],
+      "sidecarCount": 1,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

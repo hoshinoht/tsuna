@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/update--recovery-with-replaceMarkdown",
+  "tool": "workplan_update",
+  "input": {
+    "id": "x",
+    "recovery": "rollback",
+    "replaceMarkdown": true
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid update input: recovery: recovery is mutually exclusive with ordinary update fields"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid update input: expectedHash: Native existing-state writes require the current stateHash; recovery: recovery is mutually exclusive with ordinary update fields"
+    },
+    "nativeThenCore": null
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "resume/minimal-valid/minimal--max4096",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "minimal",
+      "maxChars": 4096
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2782,
+    "rawOutputUtf8Bytes": 2782,
+    "outputSha256": "806c2511767f246ee33d9a46bb76bb89b535e624e509b301820cd1c6a5c39be7",
+    "outputText": "{\n  \"path\": \"$ROOT/.opencode/workplan/minimal.json\",\n  \"planFile\": \".opencode/workplan/minimal.md\",\n  \"hashes\": {\n    \"planHash\": \"6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c\",\n    \"stateHash\": \"362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865\"\n  },\n  \"planFresh\": true,\n  \"checkpoint\": {\n    \"exists\": false,\n    \"fresh\": false,\n    \"freshness\": \"missing\",\n    \"sourceUpdatedAt\": null,\n    \"summary\": null,\n    \"current\": {\n      \"phaseId\": \"phase-one\",\n      \"phaseTitle\": \"Phase one\",\n      \"phaseStatus\": \"draft\",\n      \"stepId\": \"step-one\",\n      \"stepTitle\": \"Step one\",\n      \"stepStatus\": \"draft\",\n      \"target\": null,\n      \"action\": \"Do Step one\",\n      \"validation\": \"Check Step one\"\n    },\n    \"nextAction\": null,\n    \"blockers\": [],\n    \"blockersTotal\": 0,\n    \"guardrails\": [],\n    \"guardrailsTotal\": 0,\n    \"references\": [],\n    \"referencesTotal\": 0,\n    \"recentValidation\": [],\n    \"evidenceStatus\": \"unverified\",\n    \"diagnostic\": null\n  },\n  \"workplan\": {\n    \"id\": \"minimal\",\n    \"title\": null,\n    \"goal\": \"Ship the minimal plan\",\n    \"status\": \"draft\",\n    \"scope\": [],\n    \"scopeTotal\": 0,\n    \"nonGoals\": [],\n    \"nonGoalsTotal\": 0,\n    \"constraints\": [],\n    \"constraintsTotal\": 0,\n    \"relevantFiles\": [],\n    \"updatedAt\": \"2026-01-02T03:04:05.000Z\"\n  },\n  \"currentDependencies\": {\n    \"recorded\": false,\n    \"valid\": true,\n    \"total\": 0,\n    \"references\": []\n  },\n  \"safety\": {\n    \"highFindings\": [],\n    \"highFindingsTotal\": 0,\n    \"highFindingCounts\": {\n      \"blocker\": 0,\n      \"critical\": 0,\n      \"major\": 0\n    },\n    \"unverifiedWarnings\": [],\n    \"unverifiedWarningCount\": 0,\n    \"unverifiedWarningsOmitted\": 0,\n    \"overflow\": false,\n    \"truncatedDangerFieldCount\": 0,\n    \"omittedDangerCounts\": {\n      \"constraints\": 0,\n      \"blockers\": 0,\n      \"highFindings\": 0,\n      \"dependencies\": 0,\n      \"guardrails\": 0,\n      \"references\": 0,\n      \"scope\": 0,\n      \"nonGoals\": 0\n    },\n    \"overflowPointers\": []\n  },\n  \"page\": {\n    \"total\": 0,\n    \"offset\": 0,\n    \"limit\": 20,\n    \"returned\": 0,\n    \"omitted\": 0,\n    \"items\": [],\n    \"nextCursor\": null\n  },\n  \"counts\": {\n    \"activeWorkTotal\": 1,\n    \"findingsTotal\": 0,\n    \"highFindingsTotal\": 0,\n    \"referencesTotal\": 0,\n    \"historicalNotesOmitted\": 0,\n    \"resolvedFindingsOmitted\": 0\n  },\n  \"retrieval\": {\n    \"read\": \"workplan_read id=minimal\",\n    \"inspect\": \"workplan_inspect id=minimal\",\n    \"dependencies\": \".opencode/workplan/minimal.dependencies.json\"\n  },\n  \"truncatedFields\": [],\n  \"truncatedFieldCount\": 0,\n  \"truncatedFieldPathsOmitted\": 0,\n  \"instruction\": \"Checkpoint guidance is not fresh. Reconfirm unverified guardrails, blockers and references before relying on them; nextAction is withheld.\"\n}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

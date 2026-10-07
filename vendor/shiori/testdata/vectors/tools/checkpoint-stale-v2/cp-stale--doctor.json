@@ -1,0 +1,98 @@
+{
+  "id": "tools/checkpoint-stale-v2/cp-stale--doctor",
+  "fixture": "checkpoint-stale-v2",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-stale-v2",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "cp-stale"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1973,
+    "rawOutputUtf8Bytes": 1973,
+    "outputSha256": "6a4836b72fde7c3a2694e2d38a5aa6762c3b740e350617ded035d5d4fad3a805",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "cp-stale",
+          "valid": false,
+          "issues": [
+            "checkpoint: Checkpoint does not match the current JSON/Markdown/spec manifest"
+          ],
+          "workplan": {
+            "id": "cp-stale",
+            "kind": "general",
+            "title": null,
+            "goal": "g",
+            "status": "draft",
+            "planFile": ".opencode/workplan/cp-stale.md",
+            "phaseCount": 1,
+            "stepCount": 2,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "178889b7a8fef8cce118de6a1d371cdd4e06f546d7d1d26a136ef983d5794158",
+          "stateHash": "876fb159bd96a59e015bcc42b9984e3b36713f1a47336037c43aabe6222a2720",
+          "checkpointFreshness": "stale",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": "cp-stale.checkpoint.json",
+          "kind": "checkpoint"
+        }
+      ],
+      "sidecarCount": 1,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

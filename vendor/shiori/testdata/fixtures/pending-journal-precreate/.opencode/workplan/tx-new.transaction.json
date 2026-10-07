@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "transactionId": "9cad1368-21a7-45fd-9ee1-6eaad4b88160",
+  "workplanId": "tx-new",
+  "operation": "create",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "targets": [
+    {
+      "path": ".opencode/workplan/tx-new.json",
+      "beforeHash": null,
+      "afterHash": "79bfc1295de78a6962fc2f7d70f5a24dd438fb8e76e4709a4f3be4afc2dffd00",
+      "beforeContent": null,
+      "afterContent": "ewogICJzY2hlbWFWZXJzaW9uIjogMiwKICAiaWQiOiAidHgtbmV3IiwKICAia2luZCI6ICJnZW5lcmFsIiwKICAidGl0bGUiOiBudWxsLAogICJnb2FsIjogImciLAogICJzY29wZSI6IFtdLAogICJub25Hb2FscyI6IFtdLAogICJjb25zdHJhaW50cyI6IFtdLAogICJyZWxldmFudEZpbGVzIjogW10sCiAgInBsYW5GaWxlIjogIi5vcGVuY29kZS93b3JrcGxhbi90eC1uZXcubWQiLAogICJzcGVjRmlsZXMiOiBbXSwKICAicGhhc2VzIjogWwogICAgewogICAgICAiaWQiOiAicCIsCiAgICAgICJ0aXRsZSI6ICJQIiwKICAgICAgInN0YXR1cyI6ICJkcmFmdCIsCiAgICAgICJzdGVwcyI6IFsKICAgICAgICB7CiAgICAgICAgICAiaWQiOiAicyIsCiAgICAgICAgICAidGl0bGUiOiAiUyIsCiAgICAgICAgICAiYWN0aW9uIjogIkRvIFMiLAogICAgICAgICAgInZhbGlkYXRpb24iOiAiQ2hlY2sgUyIsCiAgICAgICAgICAic3RhdHVzIjogImRyYWZ0IgogICAgICAgIH0KICAgICAgXQogICAgfQogIF0sCiAgInJldmlld0ZpbmRpbmdzIjogW10sCiAgIm5vdGVzIjogW10sCiAgInN0YXR1cyI6ICJkcmFmdCIsCiAgImNyZWF0ZWRBdCI6ICIyMDI2LTAxLTAyVDAzOjA0OjA1LjAwMFoiLAogICJ1cGRhdGVkQXQiOiAiMjAyNi0wMS0wMlQwMzowNDowNS4wMDBaIgp9Cg==",
+      "mode": 384
+    },
+    {
+      "path": ".opencode/workplan/tx-new.md",
+      "beforeHash": null,
+      "afterHash": "080789e7ff4582921c57cd0fa3886f7fc8d8f9af66edd9382aece4214afa8e56",
+      "beforeContent": null,
+      "afterContent": "IyB0eC1uZXcKCiMjIEdvYWwKZwoKIyMgU2NvcGUKX05vbmVfCgojIyBOb24tZ29hbHMKX05vbmVfCgojIyBDb25zdHJhaW50cwpfTm9uZV8KCiMjIFJlbGV2YW50IGZpbGVzCl9Ob25lXwoKIyMgU3BlYyBmaWxlcwpfTm9uZV8KCiMjIEV4ZWN1dGlvbiBwaGFzZXMKIyMjIDEuIFAgPCEtLSB3b3JrcGxhbi1waGFzZS1pZDogcCAtLT4KLSBTdGF0dXM6IGRyYWZ0Ci0gSWQ6IHAKIyMjIyAxLjEgUyA8IS0tIHdvcmtwbGFuLXN0ZXAtaWQ6IHMgLS0+Ci0gU3RhdHVzOiBkcmFmdAotIElkOiBzCi0gQWN0aW9uOiBEbyBTCi0gVmFsaWRhdGlvbjogQ2hlY2sgUwoKIyMgQWR2ZXJzYXJpYWwgcmV2aWV3IGZpbmRpbmdzCl9Ob25lXwoKIyMgTm90ZXMKX05vbmVfCgojIyBTdGF0dXMKLSBPdmVyYWxsIHN0YXR1czogZHJhZnQKLSBNZXRhZGF0YSBmaWxlOiAub3BlbmNvZGUvd29ya3BsYW4vdHgtbmV3Lmpzb24KLSBEZXRhaWxlZCBwbGFuIGZpbGU6IC5vcGVuY29kZS93b3JrcGxhbi90eC1uZXcubWQK",
+      "mode": 384
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "id": "markdown/finding-permutations",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [],
+    "reviewFindings": [
+      {
+        "severity": "major",
+        "title": "F"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "detail": ""
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "detail": "",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "detail": "why"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "detail": "why",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "open"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "open",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "open",
+        "detail": ""
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "open",
+        "detail": "",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "open",
+        "detail": "why"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "open",
+        "detail": "why",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "resolved"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "resolved",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "resolved",
+        "detail": ""
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "resolved",
+        "detail": "",
+        "source": "a.ts:1"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "resolved",
+        "detail": "why"
+      },
+      {
+        "severity": "major",
+        "title": "F",
+        "status": "resolved",
+        "detail": "why",
+        "source": "a.ts:1"
+      }
+    ],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/finding-permutations.expected.md",
+    "sha256": "fd6ad4a1c4439b96d86ab23c595a091791e5fdbd9f5961e77d7505a33d53135d",
+    "utf8Bytes": 869
+  }
+}

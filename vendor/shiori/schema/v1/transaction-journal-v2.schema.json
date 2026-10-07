@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/transaction-journal-v2.schema.json",
+  "title": "Transaction recovery journal, schemaVersion 2 (spec 06 P4)",
+  "description": "Same role and path as v1, with images by reference: each after image is the staged file the transaction publishes, each before image a hard link to the replaced file, both next to the target. Writing it costs a few hundred bytes instead of the base64 of every image. v1 stays readable and recoverable; `--journal-version 1` writes v1.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "transactionId": { "type": "string", "pattern": "^[0-9a-f-]{1,64}$" },
+    "workplanId": { "$ref": "common.schema.json#/$defs/nonblank" },
+    "operation": { "$ref": "common.schema.json#/$defs/nonblank" },
+    "createdAt": { "type": "string" },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "beforeHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }] },
+          "afterHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }] },
+          "beforeBackup": { "type": ["string", "null"], "description": "\".<base>.<transactionId>.<index>.before\" next to the target; null when beforeHash is null." },
+          "afterStage": { "type": ["string", "null"], "description": "\".<base>.<transactionId>.<index>.stage\" next to the target; null when afterHash is null." },
+          "mode": { "type": "integer", "minimum": 0, "maximum": 511 }
+        },
+        "required": ["path", "beforeHash", "afterHash", "beforeBackup", "afterStage", "mode"]
+      }
+    }
+  },
+  "required": ["schemaVersion", "transactionId", "workplanId", "operation", "createdAt", "targets"],
+  "x-shiori-rules": [
+    "beforeBackup/afterStage are exactly the names derived from the path, transaction id and target index; any other name invalidates the journal",
+    "an image is read from the target itself when it already holds that hash, else from its backup or staged file; an image found nowhere refuses only the recovery direction that needs it",
+    "the v1 rules on paths, planFile moves and third states apply unchanged"
+  ],
+  "x-shiori-unknown-fields": "Accepted and ignored on read."
+}

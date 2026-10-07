@@ -1,0 +1,28 @@
+{
+  "id": "validation/input/compact--apply-no-confirmation",
+  "tool": "workplan_compact",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "mode": "apply",
+    "previewToken": "t",
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "mode": "apply",
+        "archiveReason": "r",
+        "previewToken": "t",
+        "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid compact input: confirmation: Apply requires confirmation=ARCHIVE_SELECTED_HISTORY"
+    },
+    "nativeThenCore": null
+  }
+}

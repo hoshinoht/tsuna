@@ -1,0 +1,21 @@
+{
+  "id": "tools/invalid-schema/not-json--read-no-markdown",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "not-json",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan JSON at $ROOT/.opencode/workplan/not-json.json: JSON Parse error: Property name must be a string literal"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,27 @@
+{
+  "id": "validation/input/validate--ok",
+  "tool": "workplan_validate",
+  "input": {
+    "id": "x"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x"
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x"
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x"
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "id": "tools/minimal-valid/minimal--inspect",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "minimal"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1518,
+    "rawOutputUtf8Bytes": 1518,
+    "outputSha256": "f30f442a296fe94f4d0549b944d82439a516aab2516162eb6e8f68ba5a5f7cbe",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/minimal.json",
+      "workplan": {
+        "id": "minimal",
+        "kind": "general",
+        "title": null,
+        "goal": "Ship the minimal plan",
+        "status": "draft",
+        "planFile": ".opencode/workplan/minimal.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/minimal.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "phase-one",
+          "title": "Phase one",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: phase-one -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-one",
+          "phaseTitle": "Phase one",
+          "id": "step-one",
+          "title": "Step one",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: step-one -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c",
+      "stateHash": "362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

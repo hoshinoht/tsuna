@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "cp-v1",
+  "sourceHash": "9abdca039a85ff29549191bdce7a75745799ded72240655aaaa0fbe54cd89aba",
+  "sourceUpdatedAt": "2026-01-02T03:04:05.000Z",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "status": "draft",
+  "summary": "legacy summary",
+  "current": {
+    "phaseId": "p",
+    "phaseTitle": "P",
+    "phaseStatus": "draft",
+    "stepId": "s",
+    "stepTitle": "S",
+    "stepStatus": "draft"
+  },
+  "nextAction": "legacy next action",
+  "blockers": [
+    "legacy blocker"
+  ],
+  "recentValidation": [],
+  "guardrails": [
+    "legacy guardrail"
+  ],
+  "references": []
+}

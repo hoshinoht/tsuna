@@ -1,0 +1,134 @@
+{
+  "id": "tools/duplicate-step-ids/dup-plan--read",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "dup-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 3750,
+    "rawOutputUtf8Bytes": 3750,
+    "outputSha256": "310ce13cd442e9b372d34dc96b85fa7750e766e028f07b7745c00738f257a08b",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/dup-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "dup-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/dup-plan.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "phase-anchor",
+            "title": "A",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "One",
+                "action": "Do One",
+                "validation": "Check One",
+                "status": "draft"
+              },
+              {
+                "id": "step-dup",
+                "title": "Two",
+                "action": "Do Two",
+                "validation": "Check Two",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-other",
+            "title": "B",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "Same id, other phase",
+                "action": "Do Same id, other phase",
+                "validation": "Check Same id, other phase",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-anchor",
+            "title": "A",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "One",
+                "action": "Do One",
+                "validation": "Check One",
+                "status": "draft"
+              },
+              {
+                "id": "step-dup",
+                "title": "Two",
+                "action": "Do Two",
+                "validation": "Check Two",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-other",
+            "title": "B",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "Same id, other phase",
+                "action": "Do Same id, other phase",
+                "validation": "Check Same id, other phase",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/dup-plan.md",
+        "exists": true,
+        "content": "# dup-plan\n\n## Goal\ng\n\n## Scope\n_None_\n\n## Non-goals\n_None_\n\n## Constraints\n_None_\n\n## Relevant files\n_None_\n\n## Spec files\n_None_\n\n## Execution phases\n### 1. A <!-- workplan-phase-id: phase-anchor -->\n- Status: draft\n- Id: phase-anchor\n#### 1.1 One <!-- workplan-step-id: step-dup -->\n- Status: draft\n- Id: step-dup\n- Action: Do One\n- Validation: Check One\n#### 1.2 Two <!-- workplan-step-id: step-two -->\n- Status: draft\n- Id: step-two\n- Action: Do Two\n- Validation: Check Two\n\n### 2. B <!-- workplan-phase-id: phase-other -->\n- Status: draft\n- Id: phase-other\n#### 2.1 Same id, other phase <!-- workplan-step-id: step-dup -->\n- Status: draft\n- Id: step-dup\n- Action: Do Same id, other phase\n- Validation: Check Same id, other phase\n\n## Adversarial review findings\n_None_\n\n## Notes\n_None_\n\n## Status\n- Overall status: draft\n- Metadata file: .opencode/workplan/dup-plan.json\n- Detailed plan file: .opencode/workplan/dup-plan.md\n"
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "36b35ed008115d47540969d98bf9f39346d85f9e571f8591a2930828448c134d",
+      "stateHash": "f3bb532b5fa458ffcdc702b9a8fc41cf9eaaff76d8516f663b22bea57f1b34ca"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

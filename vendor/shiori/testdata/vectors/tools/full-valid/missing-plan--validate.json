@@ -1,0 +1,29 @@
+{
+  "id": "tools/full-valid/missing-plan--validate",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "nope"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 156,
+    "rawOutputUtf8Bytes": 156,
+    "outputSha256": "7c75e6edbea2969d81d5813bafc97500c8a622b51cc18bd423857af666e6035e",
+    "output": {
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "Workplan file not found: $ROOT/.opencode/workplan/nope.json"
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

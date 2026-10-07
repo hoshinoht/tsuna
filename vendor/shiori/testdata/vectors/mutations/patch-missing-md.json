@@ -1,0 +1,21 @@
+{
+  "id": "mutations/patch-missing-md",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_patch",
+    "input": {
+      "id": "missing-plan",
+      "patchText": "*** Begin Patch\n*** Update File: .opencode/workplan/missing-plan.md\n@@\n-a\n+b\n*** End Patch"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Plan file not found: .opencode/workplan/missing-plan.md"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

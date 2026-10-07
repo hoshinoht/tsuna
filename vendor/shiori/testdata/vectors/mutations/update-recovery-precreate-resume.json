@@ -1,0 +1,21 @@
+{
+  "id": "mutations/update-recovery-precreate-resume",
+  "fixture": "pending-journal-precreate",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal-precreate",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "tx-new",
+      "recovery": "resume"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan file not found: $ROOT/.opencode/workplan/tx-new.json"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

@@ -1,0 +1,46 @@
+{
+  "id": "tools/checkpoint-legacy-v1/cp-v1--validate",
+  "fixture": "checkpoint-legacy-v1",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-legacy-v1",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "cp-v1"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 762,
+    "rawOutputUtf8Bytes": 762,
+    "outputSha256": "4a9743776fa8fd5faa218b5b910baf15ef981d16c3c542bb2192e5e5505ff4e4",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-v1.json",
+      "planPath": "$ROOT/.opencode/workplan/cp-v1.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "cp-v1",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/cp-v1.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "39e8e85b836ea1fd5255c41ad92bbe82210a2ef9402421bc59e2715dc840c833",
+      "stateHash": "04f896b4212d0eab5c856851a38819a1397991885be293944973920b4772d8a0",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

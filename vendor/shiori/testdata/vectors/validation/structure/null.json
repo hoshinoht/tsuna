@@ -1,0 +1,14 @@
+{
+  "id": "validation/structure/null",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": null,
+    "expectedId": null
+  },
+  "expect": {
+    "documentDecoded": false,
+    "issues": [
+      "$: Invalid input: expected object, received null"
+    ]
+  }
+}

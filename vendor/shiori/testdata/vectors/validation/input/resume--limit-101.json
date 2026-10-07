@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/resume--limit-101",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "limit": 101
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid resume input: limit: Too big: expected number to be <=100"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid resume input: limit: Too big: expected number to be <=100"
+    },
+    "nativeThenCore": null
+  }
+}

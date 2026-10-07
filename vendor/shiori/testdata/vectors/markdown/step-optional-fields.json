@@ -1,0 +1,76 @@
+{
+  "id": "markdown/step-optional-fields",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "Title",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [
+      {
+        "id": "phase-a",
+        "title": "A",
+        "status": "in_progress",
+        "steps": [
+          {
+            "id": "s1",
+            "title": "All",
+            "target": "t",
+            "action": "a",
+            "validation": "v",
+            "status": "draft"
+          },
+          {
+            "id": "s2",
+            "title": "None",
+            "status": "completed"
+          },
+          {
+            "id": "s3",
+            "title": "Empty strings",
+            "target": "",
+            "action": "",
+            "validation": "",
+            "status": "draft"
+          },
+          {
+            "id": "s4",
+            "title": "Only validation",
+            "validation": "v",
+            "status": "blocked"
+          }
+        ]
+      },
+      {
+        "id": "phase-b",
+        "title": "B",
+        "status": "draft",
+        "steps": [
+          {
+            "id": "s1",
+            "title": "Same id other phase",
+            "status": "draft"
+          }
+        ]
+      }
+    ],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/step-optional-fields.expected.md",
+    "sha256": "884b242ca58fe0eed5726dbdc70ad0f3bfcf6599d44269d07c05932a307cc5c5",
+    "utf8Bytes": 942
+  }
+}

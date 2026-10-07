@@ -1,0 +1,49 @@
+{
+  "id": "mutations/reset-markdown-only-generated",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_reset",
+    "input": {
+      "id": "minimal",
+      "mode": "markdown-only"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 746,
+    "rawOutputUtf8Bytes": 746,
+    "outputSha256": "c0baf16c726183dd3a6fd02900b33d9617ddcbb92ced404a22b8b74dfa6c8f4c",
+    "output": {
+      "reset": true,
+      "mode": "markdown-only",
+      "path": "$ROOT/.opencode/workplan/minimal.json",
+      "planPath": "$ROOT/.opencode/workplan/minimal.md",
+      "workplan": {
+        "id": "minimal",
+        "kind": "general",
+        "title": null,
+        "goal": "Ship the minimal plan",
+        "status": "draft",
+        "planFile": ".opencode/workplan/minimal.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c",
+      "stateHash": "362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {},
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

@@ -1,0 +1,59 @@
+{
+  "id": "validation/structure/dependencies-invalid--dep-plan",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2,
+      "id": "dep-plan",
+      "kind": "general",
+      "title": null,
+      "goal": "g",
+      "scope": [],
+      "nonGoals": [],
+      "constraints": [],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/dep-plan.md",
+      "specFiles": [],
+      "phases": [
+        {
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "steps": [
+            {
+              "id": "s1",
+              "title": "S1",
+              "action": "Do S1",
+              "validation": "Check S1",
+              "status": "draft"
+            },
+            {
+              "id": "s2",
+              "title": "S2",
+              "action": "Do S2",
+              "validation": "Check S2",
+              "status": "draft"
+            },
+            {
+              "id": "s3",
+              "title": "S3",
+              "action": "Do S3",
+              "validation": "Check S3",
+              "status": "draft"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [],
+      "notes": [],
+      "status": "draft",
+      "createdAt": "2026-01-02T03:04:05.000Z",
+      "updatedAt": "2026-01-02T03:04:05.000Z"
+    },
+    "expectedId": "dep-plan"
+  },
+  "expect": {
+    "documentDecoded": true,
+    "issues": []
+  }
+}

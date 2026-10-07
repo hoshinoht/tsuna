@@ -1,0 +1,95 @@
+{
+  "id": "tools/unicode/unicode-plan--inspect",
+  "fixture": "unicode",
+  "generationRoot": "/private/tmp/shiori-fx/run/unicode",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "unicode-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1861,
+    "rawOutputUtf8Bytes": 1875,
+    "outputSha256": "fadd898d7ccdcef0419f8b401b218eea90a200b8e5ae713300d4058ae36ba713",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/unicode-plan.json",
+      "workplan": {
+        "id": "unicode-plan",
+        "kind": "general",
+        "title": "Unicode 😀 \"quoted\" \\ back <b>&amp;   sep",
+        "goal": "Tab\there, bell\u0007, nul-free",
+        "status": "draft",
+        "planFile": ".opencode/workplan/unicode-plan.md",
+        "phaseCount": 1,
+        "stepCount": 2,
+        "specFileCount": 5,
+        "openFindingCount": 1,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/unicode-plan.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "phase-x",
+          "title": "𝒜 phase",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 2,
+          "markdownMarker": "<!-- workplan-phase-id: phase-x -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-x",
+          "phaseTitle": "𝒜 phase",
+          "id": "step-t",
+          "title": "Été step",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: step-t -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-x",
+          "phaseTitle": "𝒜 phase",
+          "id": "step-2",
+          "title": "Emoji 😀",
+          "status": "draft",
+          "target": null,
+          "index": 1,
+          "indexPath": "1.2",
+          "markdownMarker": "<!-- workplan-step-id: step-2 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 3,
+        "offset": 0,
+        "returned": 3,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "07eb486279853e18d7cad3c7648616998b0417a66be5d6eb1cab49fa7ce6330d",
+      "stateHash": "02d4d08f453032dc946ee42b6c111c26f703844975ccb1948affe8308faac809"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

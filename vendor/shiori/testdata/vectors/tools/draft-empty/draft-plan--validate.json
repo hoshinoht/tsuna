@@ -1,0 +1,49 @@
+{
+  "id": "tools/draft-empty/draft-plan--validate",
+  "fixture": "draft-empty",
+  "generationRoot": "/private/tmp/shiori-fx/run/draft-empty",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "draft-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 843,
+    "rawOutputUtf8Bytes": 843,
+    "outputSha256": "a5386fba084388e2f7a303360a725953bd9822b6054d52d6854daa0df51fffe3",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/draft-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/draft-plan.md",
+      "valid": false,
+      "issueCount": 2,
+      "issues": [
+        "goal: Must not be empty",
+        "phases: At least one phase is required"
+      ],
+      "workplan": {
+        "id": "draft-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "",
+        "status": "draft",
+        "planFile": ".opencode/workplan/draft-plan.md",
+        "phaseCount": 0,
+        "stepCount": 0,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "6e7fa477ae060d8e7f57b5e0eb32895ccedc76c857346df02cfdfddc52e6aac4",
+      "stateHash": "4b7e2c88a6740f190a36e9d0a19c21953e3e5d450198161f73bc98a9a32059fa",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

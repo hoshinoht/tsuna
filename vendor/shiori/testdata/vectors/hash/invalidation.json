@@ -1,0 +1,85 @@
+{
+  "id": "hash/invalidation",
+  "fixture": "full-valid",
+  "planId": "full-plan",
+  "description": "Which edits change planHash/stateHash (acceptance C04).",
+  "rows": [
+    {
+      "edit": "baseline",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+      "planHashChanged": false,
+      "stateHashChanged": false
+    },
+    {
+      "edit": "json-byte-change",
+      "planHash": "b54bd84bbed4061dd4059d06a96cc11c607433207e9c9d20bfe52b3974ea0eda",
+      "stateHash": "64e5a66ecf1af1901dce3ad04be27fc153b0640ad4c244421f84579ef86e2f16",
+      "planHashChanged": true,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "markdown-byte-change",
+      "planHash": "dc97fc7b67e370f4cce8ff4d1064ce958e7cbe5e715e3b183d37a06782afb19f",
+      "stateHash": "6a6eebe972d33f257848801088e6df387170d1c70685396e7d34f8c725a4a6b3",
+      "planHashChanged": true,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "spec-byte-change",
+      "planHash": "5e848ab664cde8979fb63b10d88312e545b27aabd837304e90a38db0970935b1",
+      "stateHash": "04ebb49ad7997b7cdb8b7db5e9777026c84733a7c980bc884634bf99f15e2d69",
+      "planHashChanged": true,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "spec-deleted",
+      "planHash": "24c1e817887dd72d0cf15ef9abb2a3b5ef5d7fcdc3e402941bbac28e03a8a173",
+      "stateHash": "a0a163f7dd8326ad005cae03cd49d1f1d28e44660eea0c60fce6fac5cc621cc8",
+      "planHashChanged": true,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "checkpoint-change",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "24a6651cf69c0ccc9249354545485c6779924846847223c1729ce2bb496a10e8",
+      "planHashChanged": false,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "dependencies-deleted",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "a3b58d43e0da3e85c0c11fe37723f6f212dee84b2e672e6b3d94049bbfd102e1",
+      "planHashChanged": false,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "journal-added",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "a7a2d9cd825e77f2ddcc18663c662e2a174ff81be84b3466b51e11aaccabe764",
+      "planHashChanged": false,
+      "stateHashChanged": true
+    },
+    {
+      "edit": "lock-and-stage-added",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+      "planHashChanged": false,
+      "stateHashChanged": false
+    },
+    {
+      "edit": "unrelated-file-added",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+      "planHashChanged": false,
+      "stateHashChanged": false
+    },
+    {
+      "edit": "mtime-only-touch",
+      "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+      "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+      "planHashChanged": false,
+      "stateHashChanged": false
+    }
+  ]
+}

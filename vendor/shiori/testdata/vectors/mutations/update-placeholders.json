@@ -1,0 +1,75 @@
+{
+  "id": "mutations/update-placeholders",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "full-plan",
+      "title": " ",
+      "goal": "",
+      "status": "draft",
+      "scope": [],
+      "phases": [],
+      "updateSteps": [
+        {
+          "phaseId": "phase-b",
+          "stepId": "step-b1",
+          "title": "",
+          "action": "",
+          "status": "draft"
+        }
+      ],
+      "appendNotes": [
+        "meaningful"
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 741,
+    "rawOutputUtf8Bytes": 741,
+    "outputSha256": "cc8cab1d3cc1e298423c13c82bdcbadfb57d2859be31986bf61d2d3d0c6a2682",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/full-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/full-plan.md",
+      "workplan": {
+        "id": "full-plan",
+        "kind": "feature",
+        "title": "Full plan",
+        "goal": "Exercise every known field",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/full-plan.md",
+        "phaseCount": 3,
+        "stepCount": 5,
+        "specFileCount": 2,
+        "openFindingCount": 5,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "8591fb28a4f72d0cb896f9a95a857bfbe19e16cc069f57cc3ad9585903c7f651",
+      "stateHash": "0ae8863ffa4613269bb0863d316e260fdaa995f509e2a8515331d1969f8d0756",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/full-plan.json": {
+      "sha256": "0ae50209512d67e94abeee8fdab05fca229d2bf23cd33d81521f5afed031e7da",
+      "bytes": 2575,
+      "file": "mutations/update-placeholders.after/.opencode/workplan/full-plan.json"
+    },
+    ".opencode/workplan/full-plan.md": {
+      "sha256": "1341dd3df1faa827ebaf8a1fdf63af1187330571e80f4fc06486195d5608bd4f",
+      "bytes": 1600,
+      "file": "mutations/update-placeholders.after/.opencode/workplan/full-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "paging/inspect-errors/tampered-offset",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "limit": 50,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6bnVsbCwibGltaXQiOjUwLCJvZmZzZXQiOjEsImNoZWNrc3VtIjoiZjk4YmFkOWM5NjVjYTZhNTNiNzVjNzI1MmI3ZTA0MzQ4NDAxYWM1ZDUzZjdjNDM4NjE2YzkwY2U5Mjg2ZDk2OSJ9"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Invalid workplan inspect cursor; restart without a cursor"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/duplicate-step-ids--dup-plan",
+  "fixture": "duplicate-step-ids",
+  "planId": "dup-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/dup-plan.json",
+        "sha256": "55e6caa3a09abec3c4857d86130dd94831de1c1c66f03563fd65972fa7e5e91b"
+      },
+      {
+        "path": ".opencode/workplan/dup-plan.md",
+        "sha256": "7961c943652d6f6a8ee296076051fc776083a6ce08c9151046437d26541e2c9f"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/dup-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/dup-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/dup-plan.json",
+        "sha256": "55e6caa3a09abec3c4857d86130dd94831de1c1c66f03563fd65972fa7e5e91b"
+      },
+      {
+        "path": ".opencode/workplan/dup-plan.md",
+        "sha256": "7961c943652d6f6a8ee296076051fc776083a6ce08c9151046437d26541e2c9f"
+      },
+      {
+        "path": ".opencode/workplan/dup-plan.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "36b35ed008115d47540969d98bf9f39346d85f9e571f8591a2930828448c134d",
+    "stateHash": "f3bb532b5fa458ffcdc702b9a8fc41cf9eaaff76d8516f663b22bea57f1b34ca",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/dup-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

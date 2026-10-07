@@ -1,0 +1,24 @@
+{
+  "id": "resume/list-mixed/a-10--max12000",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_resume",
+    "input": {
+      "id": "a-10",
+      "maxChars": 12000
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2705,
+    "rawOutputUtf8Bytes": 2705,
+    "outputSha256": "99e66091cd8deb2f84cf973f9a3849008073dc31b8544307914d67703f2428c5",
+    "outputText": "{\n  \"path\": \"$ROOT/.opencode/workplan/a-10.json\",\n  \"planFile\": \".opencode/workplan/a-10.md\",\n  \"hashes\": {\n    \"planHash\": \"77e54d591d3ad5c2b1475c7d092e7b749d57caae2d88b2c1bf5607e6b6b803eb\",\n    \"stateHash\": \"a9a65a37f7f38a279a5e2fad9b59f783d5b5e654a12abb17e96cbf82092e00f6\"\n  },\n  \"planFresh\": true,\n  \"checkpoint\": {\n    \"exists\": false,\n    \"fresh\": false,\n    \"freshness\": \"missing\",\n    \"sourceUpdatedAt\": null,\n    \"summary\": null,\n    \"current\": {\n      \"phaseId\": \"p\",\n      \"phaseTitle\": \"P\",\n      \"phaseStatus\": \"draft\",\n      \"stepId\": \"s\",\n      \"stepTitle\": \"S\",\n      \"stepStatus\": \"draft\",\n      \"target\": null,\n      \"action\": \"Do S\",\n      \"validation\": \"Check S\"\n    },\n    \"nextAction\": null,\n    \"blockers\": [],\n    \"blockersTotal\": 0,\n    \"guardrails\": [],\n    \"guardrailsTotal\": 0,\n    \"references\": [],\n    \"referencesTotal\": 0,\n    \"recentValidation\": [],\n    \"evidenceStatus\": \"unverified\",\n    \"diagnostic\": null\n  },\n  \"workplan\": {\n    \"id\": \"a-10\",\n    \"title\": null,\n    \"goal\": \"goal a-10\",\n    \"status\": \"draft\",\n    \"scope\": [],\n    \"scopeTotal\": 0,\n    \"nonGoals\": [],\n    \"nonGoalsTotal\": 0,\n    \"constraints\": [],\n    \"constraintsTotal\": 0,\n    \"relevantFiles\": [],\n    \"updatedAt\": \"2026-01-02T03:04:05.000Z\"\n  },\n  \"currentDependencies\": {\n    \"recorded\": false,\n    \"valid\": true,\n    \"total\": 0,\n    \"references\": []\n  },\n  \"safety\": {\n    \"highFindings\": [],\n    \"highFindingsTotal\": 0,\n    \"highFindingCounts\": {\n      \"blocker\": 0,\n      \"critical\": 0,\n      \"major\": 0\n    },\n    \"unverifiedWarnings\": [],\n    \"unverifiedWarningCount\": 0,\n    \"unverifiedWarningsOmitted\": 0,\n    \"overflow\": false,\n    \"truncatedDangerFieldCount\": 0,\n    \"omittedDangerCounts\": {\n      \"constraints\": 0,\n      \"blockers\": 0,\n      \"highFindings\": 0,\n      \"dependencies\": 0,\n      \"guardrails\": 0,\n      \"references\": 0,\n      \"scope\": 0,\n      \"nonGoals\": 0\n    },\n    \"overflowPointers\": []\n  },\n  \"page\": {\n    \"total\": 0,\n    \"offset\": 0,\n    \"limit\": 20,\n    \"returned\": 0,\n    \"omitted\": 0,\n    \"items\": [],\n    \"nextCursor\": null\n  },\n  \"counts\": {\n    \"activeWorkTotal\": 1,\n    \"findingsTotal\": 0,\n    \"highFindingsTotal\": 0,\n    \"referencesTotal\": 0,\n    \"historicalNotesOmitted\": 0,\n    \"resolvedFindingsOmitted\": 0\n  },\n  \"retrieval\": {\n    \"read\": \"workplan_read id=a-10\",\n    \"inspect\": \"workplan_inspect id=a-10\",\n    \"dependencies\": \".opencode/workplan/a-10.dependencies.json\"\n  },\n  \"truncatedFields\": [],\n  \"truncatedFieldCount\": 0,\n  \"truncatedFieldPathsOmitted\": 0,\n  \"instruction\": \"Checkpoint guidance is not fresh. Reconfirm unverified guardrails, blockers and references before relying on them; nextAction is withheld.\"\n}"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

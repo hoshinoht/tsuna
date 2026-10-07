@@ -1,0 +1,92 @@
+{
+  "id": "tools/draft-empty/doctor",
+  "fixture": "draft-empty",
+  "generationRoot": "/private/tmp/shiori-fx/run/draft-empty",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1868,
+    "rawOutputUtf8Bytes": 1868,
+    "outputSha256": "77dbcbac5f75218ecfc045c99fb7635376b353b10ee910512dcca2735cfa8c56",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "draft-plan",
+          "valid": false,
+          "issues": [
+            "goal: Must not be empty",
+            "phases: At least one phase is required"
+          ],
+          "workplan": {
+            "id": "draft-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "",
+            "status": "draft",
+            "planFile": ".opencode/workplan/draft-plan.md",
+            "phaseCount": 0,
+            "stepCount": 0,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "6e7fa477ae060d8e7f57b5e0eb32895ccedc76c857346df02cfdfddc52e6aac4",
+          "stateHash": "4b7e2c88a6740f190a36e9d0a19c21953e3e5d450198161f73bc98a9a32059fa",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [],
+      "sidecarCount": 0,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

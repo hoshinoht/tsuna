@@ -1,0 +1,20 @@
+{
+  "id": "tools/invalid-schema/wrong-version--inspect",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "wrong-version"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "schemaVersion: Invalid input: expected 2"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

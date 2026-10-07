@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/resume--limit-zero",
+  "tool": "workplan_resume",
+  "input": {
+    "id": "x",
+    "limit": 0
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid resume input: limit: Too small: expected number to be >=1"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid resume input: limit: Too small: expected number to be >=1"
+    },
+    "nativeThenCore": null
+  }
+}

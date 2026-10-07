@@ -1,0 +1,22 @@
+{
+  "id": "paging/inspect-errors/other-fixture-cursor",
+  "fixture": "full-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/full-valid",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "full-plan",
+      "limit": 50,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6bnVsbCwibGltaXQiOjUwLCJvZmZzZXQiOjUwLCJjaGVja3N1bSI6ImY5OGJhZDljOTY1Y2E2YTUzYjc1YzcyNTJiN2UwNDM0ODQwMWFjNWQ1M2Y3YzQzODYxNmM5MGNlOTI4NmQ5NjkifQ"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Stale or option-mismatched workplan inspect cursor; restart from the first page"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

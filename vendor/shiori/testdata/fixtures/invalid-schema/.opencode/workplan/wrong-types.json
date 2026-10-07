@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "id": "wrong-types",
+  "kind": "general",
+  "goal": 5,
+  "scope": "x",
+  "nonGoals": [],
+  "constraints": [
+    1
+  ],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/wrong-types.md",
+  "phases": [
+    {
+      "id": "p",
+      "title": "P",
+      "status": "done",
+      "steps": [
+        {
+          "id": "s",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [
+    {
+      "severity": "fatal",
+      "title": "t",
+      "status": "closed"
+    }
+  ],
+  "notes": [],
+  "status": "finished",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

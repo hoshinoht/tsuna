@@ -1,0 +1,39 @@
+#!/usr/bin/env bun
+import { realpathSync, readFileSync, existsSync } from "node:fs";
+import { dirname, join, relative } from "node:path";
+import { homedir } from "node:os";
+
+const root = dirname(dirname(realpathSync(process.argv[1])));
+const args = process.argv.slice(2);
+if (args[0] === "proxy") {
+  const child = Bun.spawn([process.execPath, join(root, "scripts/proxy.ts"), ...args.slice(1)], { stdin: "inherit", stdout: "inherit", stderr: "inherit" });
+  process.exit(await child.exited);
+}
+if (args[0] === "setup") {
+  const child = Bun.spawn([process.execPath, join(root, "scripts/setup.ts")], { stdin: "inherit", stdout: "inherit", stderr: "inherit" });
+  process.exit(await child.exited);
+}
+let role = "build";
+const index = args.indexOf("--agent");
+if (index >= 0) {
+  role = args[index + 1];
+  args.splice(index, 2);
+}
+const roles = JSON.parse(readFileSync(join(root, "config/roles.json"), "utf8"));
+if (!roles[role]) throw new Error(`Unknown hoshi role: ${role}`);
+const agentDir = join(root, ".runtime/omp/agent");
+if (!existsSync(join(agentDir, "config.yml"))) throw new Error("Run hoshi-omp setup first");
+const keyPath = join(root, ".runtime/proxy/client-key");
+const env = {
+  ...process.env, HOSHI_OMP_ROOT: root, HOSHI_AGENT: role,
+  HOSHI_AGENT_EXPLICIT: index >= 0 ? "1" : "0",
+  HOSHI_PROXY_KEY: existsSync(keyPath) ? readFileSync(keyPath, "utf8").trim() : "",
+  PI_CONFIG_DIR: relative(homedir(), join(root, ".runtime/omp")),
+  PI_CODING_AGENT_DIR: agentDir, OMP_PROFILE: "", PI_PROFILE: "",
+};
+const resumes = args.some(arg => ["--resume", "-r", "--continue", "-c"].includes(arg) || arg.startsWith("--resume="));
+const modelArgs = index >= 0 || !resumes ? ["--model", roles[role].model] : [];
+const child = Bun.spawn([process.execPath, join(root, "node_modules/@oh-my-pi/pi-coding-agent/dist/cli.js"), ...modelArgs, ...args], { env, stdin: "inherit", stdout: "inherit", stderr: "inherit" });
+process.on("SIGINT", () => child.kill("SIGINT"));
+process.on("SIGTERM", () => child.kill("SIGTERM"));
+process.exit(await child.exited);

@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/doctor--no-id",
+  "tool": "workplan_doctor",
+  "input": {},
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {}
+    },
+    "native": {
+      "ok": true,
+      "data": {}
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {}
+    }
+  }
+}

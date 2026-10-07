@@ -1,0 +1,29 @@
+{
+  "id": "markdown/title-padded",
+  "function": "renderWorkplanMarkdown",
+  "input": {
+    "schemaVersion": 2,
+    "id": "md-case",
+    "kind": "general",
+    "title": "  Padded  ",
+    "goal": "Goal",
+    "scope": [],
+    "nonGoals": [],
+    "constraints": [],
+    "relevantFiles": [],
+    "planFile": ".opencode/workplan/md-case.md",
+    "specFiles": [],
+    "phases": [],
+    "reviewFindings": [],
+    "notes": [],
+    "status": "draft",
+    "createdAt": "2026-01-02T03:04:05.000Z",
+    "updatedAt": "2026-01-02T03:04:05.000Z"
+  },
+  "expect": {
+    "kind": "output",
+    "file": "markdown/title-padded.expected.md",
+    "sha256": "52df411ddf93d15f96acac5b549bdd3ab56625ee2eee2ed398df9a1e668d1e7f",
+    "utf8Bytes": 370
+  }
+}

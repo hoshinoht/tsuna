@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "id": "legacy-plan",
+  "kind": "ignored-duplicate",
+  "kind": "general",
+  "title": "Legacy plan",
+  "goal": "Keep legacy shape",
+  "xMiddle": "top-level unknown between known keys",
+  "scope": [
+    "s"
+  ],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/legacy-plan.md",
+  "phases": [
+    {
+      "id": "phase-l",
+      "title": "L",
+      "status": "in_progress",
+      "owner": {
+        "name": "worker-1",
+        "tags": [
+          "x"
+        ]
+      },
+      "steps": [
+        {
+          "id": "step-l1",
+          "title": "L1",
+          "action": "a",
+          "validation": "v",
+          "status": "draft",
+          "estimate": 1.5,
+          "custom": null
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [
+    {
+      "severity": "major",
+      "title": "Old finding",
+      "legacyRef": 7
+    }
+  ],
+  "notes": [],
+  "status": "in_progress",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z",
+  "xExtension": {
+    "nested": {
+      "deep": [
+        1,
+        2,
+        {
+          "k": "v"
+        }
+      ]
+    }
+  },
+  "bigInt": 12345678901234567890,
+  "float": 1.0,
+  "exp": 1e+21
+}

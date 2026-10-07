@@ -1,0 +1,29 @@
+{
+  "id": "tools/list-mixed/Bad Name--validate",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "Bad Name"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 160,
+    "rawOutputUtf8Bytes": 160,
+    "outputSha256": "cead4e600d5775c0560e512b20775a192f2727fac6cd97cd513e0407e3b87446",
+    "output": {
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "Workplan file not found: $ROOT/.opencode/workplan/bad-name.json"
+      ]
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

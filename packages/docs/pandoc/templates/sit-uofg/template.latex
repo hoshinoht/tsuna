@@ -1,0 +1,358 @@
+% SIT / University of Glasgow report template for pandoc (hoshi-opencode2 docs plugin).
+% SPDX-License-Identifier: GPL-3.0-or-later
+% Written from scratch for this plugin. Title-page variables: logo-mode, sit-logo, uofg-logo,
+% logo, title, subtitle, course, project-title, version, date, project-topic-id, group,
+% authors (name / sit-id / glasgow-id), author. Also reads the usual pandoc variables
+% (fontsize, papersize, classoption, margin*, colorlinks, toc, numbersections, listings,
+% highlighting-macros, csl-refs, natbib, biblatex, header-includes, include-before/after).
+\documentclass[%
+  $if(fontsize)$$fontsize$$else$12pt$endif$,%
+  $if(papersize)$$papersize$paper$else$a4paper$endif$%
+  $for(classoption)$,$classoption$$endfor$%
+]{article}
+
+%% ---------------------------------------------------------------- page geometry
+\usepackage[%
+$if(margin)$
+  margin=$margin$%
+$else$
+  top=$if(top-margin)$$top-margin$$else$2.5cm$endif$,%
+  bottom=$if(bottom-margin)$$bottom-margin$$else$2.5cm$endif$,%
+  left=$if(left-margin)$$left-margin$$else$2.5cm$endif$,%
+  right=$if(right-margin)$$right-margin$$else$2.5cm$endif$%
+$endif$
+]{geometry}
+
+%% ---------------------------------------------------------------- engine and fonts
+\usepackage{iftex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\ifPDFTeX
+  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX}
+\fi
+$if(fontfamily)$
+\usepackage[$for(fontfamilyoptions)$$fontfamilyoptions$$sep$,$endfor$]{$fontfamily$}
+$else$
+\usepackage{lmodern}
+$endif$
+$if(linestretch)$
+\usepackage{setspace}
+\setstretch{$linestretch$}
+$endif$
+\usepackage{microtype}
+\setlength{\emergencystretch}{3em}
+\usepackage{parskip}
+
+%% ---------------------------------------------------------------- colour, links
+\usepackage[table]{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+  pdfcreator={SIT-UofG report template (pandoc)},
+$if(title-meta)$
+  pdftitle={$title-meta$},
+$endif$
+$if(author-meta)$
+  pdfauthor={$author-meta$},
+$endif$
+$if(colorlinks)$
+  colorlinks=true,
+  linkcolor={$if(linkcolor)$$linkcolor$$else$blue$endif$},
+  filecolor={$if(filecolor)$$filecolor$$else$blue$endif$},
+  citecolor={$if(citecolor)$$citecolor$$else$blue$endif$},
+  urlcolor={$if(urlcolor)$$urlcolor$$else$blue$endif$},
+$else$
+  hidelinks,
+$endif$
+  breaklinks=true,
+  unicode=true
+}
+\urlstyle{same}
+
+%% ---------------------------------------------------------------- code
+\newcommand{\passthrough}[1]{#1}
+$if(listings)$
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  frame=single,
+  frameround=tttt,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true,
+  extendedchars=true,
+  aboveskip=0.8em,
+  belowskip=0.8em
+}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+\usepackage{fvextra}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+$endif$
+
+%% ---------------------------------------------------------------- lists, tables, figures
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{calc}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\makeatletter
+% Pandoc wraps every image in \pandocbounded: shrink (never enlarge) to fit the line width
+% and the text height while keeping the aspect ratio.
+\newsavebox{\sitreport@imgbox}
+\newcommand{\pandocbounded}[1]{%
+  \begingroup
+  \sbox{\sitreport@imgbox}{#1}%
+  \ifdim\wd\sitreport@imgbox>\linewidth
+    \sbox{\sitreport@imgbox}{\resizebox{\linewidth}{!}{\usebox{\sitreport@imgbox}}}%
+  \fi
+  \ifdim\dimexpr\ht\sitreport@imgbox+\dp\sitreport@imgbox\relax>\textheight
+    \sbox{\sitreport@imgbox}{\resizebox*{!}{\textheight}{\usebox{\sitreport@imgbox}}}%
+  \fi
+  \usebox{\sitreport@imgbox}%
+  \endgroup}
+\makeatother
+$if(strikeout)$
+\usepackage{soul}
+$endif$
+
+%% ---------------------------------------------------------------- citations (citeproc)
+$if(csl-refs)$
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newcommand{\citeproctext}{}
+\newcommand{\citeproc}[2]{\hyperlink{sitcite-#1}{#2}}
+\newenvironment{CSLReferences}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\labelwidth}{0pt}%
+    \setlength{\labelsep}{0pt}%
+    \ifodd #1\relax
+      \setlength{\leftmargin}{\cslhangindent}%
+      \setlength{\itemindent}{-\cslhangindent}%
+    \else
+      \setlength{\leftmargin}{0pt}%
+      \setlength{\itemindent}{0pt}%
+    \fi
+    \setlength{\itemsep}{#2\baselineskip}}%
+  \renewcommand{\bibitem}[2][]{\item[]\hypertarget{sitcite-##2}{}}%
+}{\end{list}}
+\newcommand{\CSLBlock}[1]{\hfill\break#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth-\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+$if(natbib)$
+\usepackage[$natbiboptions$]{natbib}
+\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
+$endif$
+$if(biblatex)$
+\usepackage[$if(biblio-style)$style=$biblio-style$,$endif$$for(biblatexoptions)$$biblatexoptions$$sep$,$endfor$]{biblatex}
+$for(bibliography)$
+\addbibresource{$bibliography$}
+$endfor$
+$endif$
+
+%% ---------------------------------------------------------------- sectioning
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$}
+$else$
+\setcounter{secnumdepth}{-\maxdimen}
+$endif$
+
+%% ---------------------------------------------------------------- header / footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{$header-left$}
+\fancyhead[C]{$header-center$}
+\fancyhead[R]{$header-right$}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{$if(header-rule)$$header-rule$$else$0pt$endif$}
+\renewcommand{\footrulewidth}{0pt}
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+%% ---------------------------------------------------------------- title page helpers
+\newif\ifsitauthorsglasgow
+\newif\ifsitauthorssit
+\newcommand{\sitdash}[1]{\if\relax\detokenize{#1}\relax -\else #1\fi}
+\newcommand{\sitrowthree}[3]{#1 & \sitdash{#2} & #3 \\ \hline}
+\newcommand{\sitrowtwo}[3]{#1 & #2 \\ \hline}
+\newcommand{\sitrowone}[3]{#1 \\ \hline}
+\newcommand{\sitauthortable}[1]{%
+  \begingroup
+  \renewcommand{\arraystretch}{1.4}%
+  \ifsitauthorsglasgow
+    \let\sitrow\sitrowthree
+    \begin{tabular}{|l|l|l|}\hline
+      \textbf{Student name} & \textbf{SIT Student ID} & \textbf{Glasgow Student ID} \\ \hline
+      #1
+    \end{tabular}%
+  \else\ifsitauthorssit
+    \let\sitrow\sitrowtwo
+    \begin{tabular}{|l|l|}\hline
+      \textbf{Student name} & \textbf{SIT Student ID} \\ \hline
+      #1
+    \end{tabular}%
+  \else
+    \let\sitrow\sitrowone
+    \begin{tabular}{|l|}\hline
+      \textbf{Student name} \\ \hline
+      #1
+    \end{tabular}%
+  \fi\fi
+  \endgroup}
+\newcommand{\sitlogo}[2]{\includegraphics[height=#1,keepaspectratio]{#2}}
+
+\begin{document}
+
+$if(titlepage)$
+\begin{titlepage}
+\thispagestyle{empty}
+\noindent
+$if(logo-mode)$
+$if(sit-logo)$
+$if(uofg-logo)$
+\begin{minipage}[b]{0.45\textwidth}
+  \raggedright\sitlogo{3.6cm}{$sit-logo$}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.45\textwidth}
+  \raggedleft\raisebox{0.5cm}{\sitlogo{2.2cm}{$uofg-logo$}}
+\end{minipage}
+$else$
+\sitlogo{3.6cm}{$sit-logo$}
+$endif$
+$else$
+$if(uofg-logo)$
+\sitlogo{2.2cm}{$uofg-logo$}
+$endif$
+$endif$
+$else$
+$if(logo)$
+\sitlogo{3.6cm}{$logo$}
+$endif$
+$endif$
+\par\vspace*{1cm}
+\vspace*{1cm}
+
+\begin{center}
+$if(title)$
+{\LARGE\bfseries $title$\par}
+\vspace{0.5cm}
+$endif$
+$if(subtitle)$
+{\Large $subtitle$\par}
+\vspace{0.5cm}
+$endif$
+$if(course)$
+{\large $course$\par}
+\vspace{0.5cm}
+$endif$
+$if(project-title)$
+{\large\itshape $project-title$\par}
+\vspace{0.5cm}
+$endif$
+$if(version)$
+Version: $version$\par
+\vspace{0.5cm}
+$endif$
+$if(date)$
+Date: $date$\par
+\vspace{0.5cm}
+$endif$
+$if(project-topic-id)$
+Project Topic ID: $project-topic-id$\par
+\vspace{0.5cm}
+$endif$
+\end{center}
+
+\vspace{1cm}
+
+\begin{center}
+$if(group)$
+{\large\bfseries $group$\par}
+\vspace{0.5cm}
+$endif$
+$if(authors)$
+$for(authors)$
+$if(it.glasgow-id)$\sitauthorsglasgowtrue$endif$$if(it.sit-id)$\sitauthorssittrue$endif$
+$endfor$
+\sitauthortable{%
+$for(authors)$
+  \sitrow{$it.name$}{$it.sit-id$}{$it.glasgow-id$}
+$endfor$
+}
+$else$
+$if(author)$
+\vspace*{2cm}
+{\Large $for(author)$$author$$sep$, $endfor$\par}
+$endif$
+$endif$
+\end{center}
+
+\vfill
+\end{titlepage}
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$black$endif$}
+$endif$
+$if(toc-title)$
+\renewcommand{\contentsname}{$toc-title$}
+$endif$
+\setcounter{tocdepth}{$if(toc-depth)$$toc-depth$$else$3$endif$}
+\tableofcontents
+}
+$if(toc-own-page)$
+\newpage
+$endif$
+$endif$
+$if(lof)$
+\listoffigures
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+
+$body$
+
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+\renewcommand{\refname}{$biblio-title$}
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+$for(include-after)$
+$include-after$
+
+$endfor$
+\end{document}

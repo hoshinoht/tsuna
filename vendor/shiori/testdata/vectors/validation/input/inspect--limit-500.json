@@ -1,0 +1,31 @@
+{
+  "id": "validation/input/inspect--limit-500",
+  "tool": "workplan_inspect",
+  "input": {
+    "id": "x",
+    "limit": 500
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "limit": 500
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "limit": 500
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "limit": 500
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/create--unknown-top-level",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g",
+    "bogus": 1
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: $: Unrecognized key: \"bogus\""
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: $: Unrecognized key: \"bogus\""
+    },
+    "nativeThenCore": null
+  }
+}

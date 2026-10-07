@@ -1,0 +1,61 @@
+{
+  "id": "mutations/create-custom-markdown-no-newline",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "custom",
+      "goal": "g",
+      "planMarkdown": "# Custom"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 725,
+    "rawOutputUtf8Bytes": 725,
+    "outputSha256": "33798fad93e0fbe8c8c609680c17b0d485556c51e369c9fd1db973d56983ed3f",
+    "output": {
+      "created": true,
+      "overwritten": false,
+      "path": "$ROOT/.opencode/workplan/custom.json",
+      "planPath": "$ROOT/.opencode/workplan/custom.md",
+      "workplan": {
+        "id": "custom",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/custom.md",
+        "phaseCount": 0,
+        "stepCount": 0,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "708b5df38f4cd298aaaa70e221c8f437b8115b9ee4fe445e0416b8ebaac37d00",
+      "stateHash": "6dcc4fcf4b19e63c4d562049f00ae4c2ace3fdda954215495e55fb068edeb375",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/custom.json": {
+      "sha256": "da972dc86b75d9e4f6a967d508d7e11c6f3a18947b7856253e35a7c699ae167b",
+      "bytes": 400,
+      "file": "mutations/create-custom-markdown-no-newline.after/.opencode/workplan/custom.json"
+    },
+    ".opencode/workplan/custom.md": {
+      "sha256": "d0ccbcd863d68edceb11e75aec52143a7ffd09bb7b3605b6abf26fe3b76ff3ef",
+      "bytes": 9,
+      "file": "mutations/create-custom-markdown-no-newline.after/.opencode/workplan/custom.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

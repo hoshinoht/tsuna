@@ -1,0 +1,23 @@
+{
+  "id": "validation/input/create--wrong-types",
+  "tool": "workplan_create",
+  "input": {
+    "id": 5,
+    "goal": [
+      "g"
+    ],
+    "scope": "s",
+    "phases": {}
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: id: Invalid input: expected string, received number; goal: Invalid input: expected string, received array; scope: Invalid input: expected array, received string; phases: Invalid input: expected array, received object"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: id: Invalid input: expected string, received number; goal: Invalid input: expected string, received array; scope: Invalid input: expected array, received string; phases: Invalid input: expected array, received object"
+    },
+    "nativeThenCore": null
+  }
+}

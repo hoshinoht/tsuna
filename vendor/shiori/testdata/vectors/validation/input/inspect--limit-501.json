@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/inspect--limit-501",
+  "tool": "workplan_inspect",
+  "input": {
+    "id": "x",
+    "limit": 501
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid inspect input: limit: Too big: expected number to be <=500"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid inspect input: limit: Too big: expected number to be <=500"
+    },
+    "nativeThenCore": null
+  }
+}

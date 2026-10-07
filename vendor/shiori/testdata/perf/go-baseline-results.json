@@ -1,0 +1,284 @@
+{
+  "generatedAt": "2026-09-30T09:32:47Z",
+  "go": "go1.27.1",
+  "goarch": "arm64",
+  "goos": "darwin",
+  "rows": [
+    {
+      "size": "perf-100k",
+      "op": "read",
+      "warm": {
+        "medianMs": 0.7879795,
+        "p95Ms": 0.892792
+      },
+      "coldFirstCall": {
+        "medianMs": 0.899791,
+        "p95Ms": 3.446541
+      },
+      "coldTestProcessWall": {
+        "medianMs": 4.815167,
+        "p95Ms": 352.61325
+      },
+      "coldCliProcessWall": {
+        "medianMs": 6.59125,
+        "p95Ms": 432.671875
+      },
+      "peakRssCliMedianMiB": 9.34375,
+      "peakRssCliMaxMiB": 9.40625,
+      "outputChars": 293557
+    },
+    {
+      "size": "perf-100k",
+      "op": "inspect",
+      "warm": {
+        "medianMs": 0.4293955,
+        "p95Ms": 0.626541
+      },
+      "coldFirstCall": {
+        "medianMs": 0.614708,
+        "p95Ms": 0.726417
+      },
+      "coldTestProcessWall": {
+        "medianMs": 4.296334,
+        "p95Ms": 4.615708
+      },
+      "coldCliProcessWall": {
+        "medianMs": 5.612541,
+        "p95Ms": 5.839375
+      },
+      "peakRssCliMedianMiB": 6.59375,
+      "peakRssCliMaxMiB": 6.71875,
+      "outputChars": 34702
+    },
+    {
+      "size": "perf-100k",
+      "op": "resume",
+      "warm": {
+        "medianMs": 0.4576875,
+        "p95Ms": 0.661666
+      },
+      "coldFirstCall": {
+        "medianMs": 0.597542,
+        "p95Ms": 0.734709
+      },
+      "coldTestProcessWall": {
+        "medianMs": 4.1785,
+        "p95Ms": 4.704333
+      },
+      "coldCliProcessWall": {
+        "medianMs": 5.609167,
+        "p95Ms": 5.909541
+      },
+      "peakRssCliMedianMiB": 6.578125,
+      "peakRssCliMaxMiB": 6.671875,
+      "outputChars": 11489
+    },
+    {
+      "size": "perf-100k",
+      "op": "validate",
+      "warm": {
+        "medianMs": 0.3796045,
+        "p95Ms": 0.59175
+      },
+      "coldFirstCall": {
+        "medianMs": 0.5265,
+        "p95Ms": 0.58975
+      },
+      "coldTestProcessWall": {
+        "medianMs": 4.252625,
+        "p95Ms": 4.639916
+      },
+      "coldCliProcessWall": {
+        "medianMs": 5.73225,
+        "p95Ms": 6.579709
+      },
+      "peakRssCliMedianMiB": 6.1875,
+      "peakRssCliMaxMiB": 6.234375,
+      "outputChars": 913
+    },
+    {
+      "size": "perf-1m",
+      "op": "read",
+      "warm": {
+        "medianMs": 7.264291999999999,
+        "p95Ms": 7.827042
+      },
+      "coldFirstCall": {
+        "medianMs": 8.090708,
+        "p95Ms": 8.654542
+      },
+      "coldTestProcessWall": {
+        "medianMs": 12.34,
+        "p95Ms": 13.022125
+      },
+      "coldCliProcessWall": {
+        "medianMs": 14.286084,
+        "p95Ms": 15.08075
+      },
+      "peakRssCliMedianMiB": 25.265625,
+      "peakRssCliMaxMiB": 28.078125,
+      "outputChars": 3004245
+    },
+    {
+      "size": "perf-1m",
+      "op": "inspect",
+      "warm": {
+        "medianMs": 3.9114370000000003,
+        "p95Ms": 4.128042
+      },
+      "coldFirstCall": {
+        "medianMs": 4.172958,
+        "p95Ms": 4.465291
+      },
+      "coldTestProcessWall": {
+        "medianMs": 8.178625,
+        "p95Ms": 8.6065
+      },
+      "coldCliProcessWall": {
+        "medianMs": 9.470208,
+        "p95Ms": 9.729667
+      },
+      "peakRssCliMedianMiB": 11.65625,
+      "peakRssCliMaxMiB": 12.1875,
+      "outputChars": 34703
+    },
+    {
+      "size": "perf-1m",
+      "op": "resume",
+      "warm": {
+        "medianMs": 4.510042,
+        "p95Ms": 4.821375
+      },
+      "coldFirstCall": {
+        "medianMs": 4.845792,
+        "p95Ms": 4.969166
+      },
+      "coldTestProcessWall": {
+        "medianMs": 8.859125,
+        "p95Ms": 9.414166
+      },
+      "coldCliProcessWall": {
+        "medianMs": 10.340583,
+        "p95Ms": 10.925667
+      },
+      "peakRssCliMedianMiB": 14.1875,
+      "peakRssCliMaxMiB": 14.375,
+      "outputChars": 11573
+    },
+    {
+      "size": "perf-1m",
+      "op": "validate",
+      "warm": {
+        "medianMs": 3.932417,
+        "p95Ms": 4.248666
+      },
+      "coldFirstCall": {
+        "medianMs": 4.126959,
+        "p95Ms": 4.272958
+      },
+      "coldTestProcessWall": {
+        "medianMs": 8.128333,
+        "p95Ms": 8.4225
+      },
+      "coldCliProcessWall": {
+        "medianMs": 9.530792,
+        "p95Ms": 9.839667
+      },
+      "peakRssCliMedianMiB": 11.765625,
+      "peakRssCliMaxMiB": 11.96875,
+      "outputChars": 912
+    },
+    {
+      "size": "perf-10m",
+      "op": "read",
+      "warm": {
+        "medianMs": 81.8227495,
+        "p95Ms": 95.74375
+      },
+      "coldFirstCall": {
+        "medianMs": 86.896125,
+        "p95Ms": 94.949541
+      },
+      "coldTestProcessWall": {
+        "medianMs": 92.737333,
+        "p95Ms": 101.368542
+      },
+      "coldCliProcessWall": {
+        "medianMs": 101.268584,
+        "p95Ms": 105.058583
+      },
+      "peakRssCliMedianMiB": 176.015625,
+      "peakRssCliMaxMiB": 177.96875,
+      "outputChars": 30066219
+    },
+    {
+      "size": "perf-10m",
+      "op": "inspect",
+      "warm": {
+        "medianMs": 36.1463955,
+        "p95Ms": 36.735917
+      },
+      "coldFirstCall": {
+        "medianMs": 37.204125,
+        "p95Ms": 37.4185
+      },
+      "coldTestProcessWall": {
+        "medianMs": 42.060416,
+        "p95Ms": 42.205666
+      },
+      "coldCliProcessWall": {
+        "medianMs": 42.798125,
+        "p95Ms": 43.035667
+      },
+      "peakRssCliMedianMiB": 51.890625,
+      "peakRssCliMaxMiB": 52.140625,
+      "outputChars": 34710
+    },
+    {
+      "size": "perf-10m",
+      "op": "resume",
+      "warm": {
+        "medianMs": 40.584313,
+        "p95Ms": 42.723708
+      },
+      "coldFirstCall": {
+        "medianMs": 41.294542,
+        "p95Ms": 42.008334
+      },
+      "coldTestProcessWall": {
+        "medianMs": 46.241625,
+        "p95Ms": 47.44475
+      },
+      "coldCliProcessWall": {
+        "medianMs": 47.726042,
+        "p95Ms": 48.268
+      },
+      "peakRssCliMedianMiB": 71.40625,
+      "peakRssCliMaxMiB": 71.578125,
+      "outputChars": 11585
+    },
+    {
+      "size": "perf-10m",
+      "op": "validate",
+      "warm": {
+        "medianMs": 35.512021000000004,
+        "p95Ms": 36.538042
+      },
+      "coldFirstCall": {
+        "medianMs": 36.467,
+        "p95Ms": 38.12525
+      },
+      "coldTestProcessWall": {
+        "medianMs": 41.47975,
+        "p95Ms": 43.555625
+      },
+      "coldCliProcessWall": {
+        "medianMs": 42.942791,
+        "p95Ms": 43.346
+      },
+      "peakRssCliMedianMiB": 51.75,
+      "peakRssCliMaxMiB": 59.6875,
+      "outputChars": 917
+    }
+  ]
+}

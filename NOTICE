@@ -1,0 +1,45 @@
+hoshi-omp
+Copyright (C) 2026 hoshinoht
+
+Adapted from hoshi-opencode2 at f1586302b214c1ae84b81c7ca508cd1f20004428
+and its 2026-10-07 working tree. The OMP host adapters are modified versions.
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or (at your option) any later
+version. See LICENSE.
+
+Third-party components included in this repository keep their own licenses:
+
+- agent/skills/ast-grep/          MIT, Copyright (c) 2026 Yeongyu Kim; vendored from
+                                  code-yeongyu/ast-grep-skill (see its LICENSE)
+- agent/skills/shell-strategy/    MIT, Copyright (c) 2025 JRedeker (see its LICENSE)
+- agent/skills/frontend-design/  MIT, author Lucas (declared in SKILL.md frontmatter)
+- mcps/lsp-tools-mcp/             MIT (see its LICENSE and NOTICE)
+- agent/skills/logo-design/      Adapted, lightweight version of logo-design-skill;
+                                  MIT, Copyright (c) 2026 Kaan Kızıltuğ (kaankiziltug),
+                                  https://github.com/kaankiziltug/logo-design-skill
+                                  (see agent/skills/logo-design/LICENSE).
+- agent/skills/metric-loop/, agent/agents/experimenter.md, commands/autoresearch.md
+                                  Original work; concept inspired by the MIT-licensed
+                                  autoresearch by Udit Goenka
+                                  (https://github.com/uditgoenka/autoresearch).
+- packages/docs/pandoc/templates/eisvogel.latex
+                                  BSD-3-Clause, Copyright (c) Pascal Wagler and
+                                  John MacFarlane (see file header)
+- packages/docs/pandoc/assets/sit-logo.png, packages/docs/pandoc/assets/uofg-logo.png
+                                  Trademarks of Singapore Institute of Technology
+                                  and the University of Glasgow; not covered by
+                                  this project's license.
+
+- vendor/shiori/                GPL-3.0-or-later; source pin
+                                  03a1d9a4786d0f7270775d958365f4c8f8b51e02.
+- mcps/gofetch-mcp/, mcps/researcher-mcp/
+                                  MIT, Copyright (c) 2026 ht (see each LICENSE).
+- packages/usage-core/           GPL-3.0-or-later Hoshi provider helpers; provider
+                                  targets and quota concepts originally adapted
+                                  from Dylan Liew's MIT opencode-usage-tracker.
+
+Runtime dependencies are separately licensed: Oh My Pi 18.8.0 is MIT
+(including its bundled notices); CLIProxyAPI 8.0.18 is MIT and runs as a
+separate Docker image. Their source and release links are in README.md.

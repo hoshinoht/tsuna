@@ -1,0 +1,46 @@
+{
+  "id": "tools/draft-empty/list",
+  "fixture": "draft-empty",
+  "generationRoot": "/private/tmp/shiori-fx/run/draft-empty",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 767,
+    "rawOutputUtf8Bytes": 767,
+    "outputSha256": "267f062035c85fde21d733c084ae6aa131f40dd0728fbdf234f7d60bec3e8e0b",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 1,
+      "workplans": [
+        {
+          "valid": true,
+          "issues": [],
+          "id": "draft-plan",
+          "kind": "general",
+          "title": null,
+          "goal": "",
+          "status": "draft",
+          "planFile": ".opencode/workplan/draft-plan.md",
+          "phaseCount": 0,
+          "stepCount": 0,
+          "specFileCount": 0,
+          "openFindingCount": 0,
+          "updatedAt": "2026-01-02T03:04:05.000Z",
+          "planHash": "6e7fa477ae060d8e7f57b5e0eb32895ccedc76c857346df02cfdfddc52e6aac4",
+          "stateHash": "4b7e2c88a6740f190a36e9d0a19c21953e3e5d450198161f73bc98a9a32059fa",
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": []
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/draft-empty--draft-plan",
+  "fixture": "draft-empty",
+  "planId": "draft-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/draft-plan.json",
+        "sha256": "7a1eb465eaca7e3e81e20379009c5b1a2c784126864f1defe66ebed53923954c"
+      },
+      {
+        "path": ".opencode/workplan/draft-plan.md",
+        "sha256": "67927846d5e0ef269c4b11ff8614840cf20e858640f1120f1002a2831aa05e55"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/draft-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/draft-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/draft-plan.json",
+        "sha256": "7a1eb465eaca7e3e81e20379009c5b1a2c784126864f1defe66ebed53923954c"
+      },
+      {
+        "path": ".opencode/workplan/draft-plan.md",
+        "sha256": "67927846d5e0ef269c4b11ff8614840cf20e858640f1120f1002a2831aa05e55"
+      },
+      {
+        "path": ".opencode/workplan/draft-plan.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "6e7fa477ae060d8e7f57b5e0eb32895ccedc76c857346df02cfdfddc52e6aac4",
+    "stateHash": "4b7e2c88a6740f190a36e9d0a19c21953e3e5d450198161f73bc98a9a32059fa",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/draft-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

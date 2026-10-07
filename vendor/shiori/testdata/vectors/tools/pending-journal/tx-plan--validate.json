@@ -1,0 +1,48 @@
+{
+  "id": "tools/pending-journal/tx-plan--validate",
+  "fixture": "pending-journal",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "tx-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 848,
+    "rawOutputUtf8Bytes": 848,
+    "outputSha256": "bc656b5a34476fd0031dcde30ba0684af24a269b9c2093437c283e1485c4a814",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/tx-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/tx-plan.md",
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "transaction: Recovery required at .opencode/workplan/tx-plan.transaction.json"
+      ],
+      "workplan": {
+        "id": "tx-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/tx-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "c1c6101df52db2742e12f85eed8945ecc405468af31cbd519eacbae5d214ae94",
+      "stateHash": "0001675f2c7d5a7667a2cfedbc3b18507e83532c9fe5a1540224d5b119100071",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

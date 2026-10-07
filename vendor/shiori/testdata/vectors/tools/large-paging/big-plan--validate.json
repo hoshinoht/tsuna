@@ -1,0 +1,46 @@
+{
+  "id": "tools/large-paging/big-plan--validate",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "big-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 778,
+    "rawOutputUtf8Bytes": 778,
+    "outputSha256": "c899c3d915d31396845780440331682e26a3cea884a89c411dce5dc2865b9188",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/big-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/big-plan.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "big-plan",
+        "kind": "general",
+        "title": "Big plan",
+        "goal": "Paging",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/big-plan.md",
+        "phaseCount": 4,
+        "stepCount": 160,
+        "specFileCount": 0,
+        "openFindingCount": 22,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+      "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

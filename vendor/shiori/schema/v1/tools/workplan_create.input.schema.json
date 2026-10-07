@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/tools/workplan_create.input.schema.json",
+  "title": "workplan_create input (native surface)",
+  "description": "Create a structured workplan (JSON plus linked Markdown) under .opencode/workplan. With overwrite=true, pass expectedHash = the stateHash from your latest read or successful write.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Workplan id; normalized to lowercase [a-z0-9-] (max 80) before use.",
+      "$ref": "../common.schema.json#/$defs/workplanId"
+    },
+    "kind": {
+      "description": "Plan category label.",
+      "default": "general",
+      "type": "string"
+    },
+    "title": {
+      "description": "Plan title.",
+      "type": "string"
+    },
+    "goal": {
+      "description": "Plan goal; blank is allowed while drafting.",
+      "type": "string"
+    },
+    "scope": {
+      "description": "In-scope items.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "nonGoals": {
+      "description": "Explicit non-goals.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "constraints": {
+      "description": "Constraints that must hold.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relevantFiles": {
+      "description": "Relevant project files (not path-normalized).",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "planFile": {
+      "description": "Linked Markdown path under .opencode/workplan/ ending in .md.",
+      "type": "string"
+    },
+    "planMarkdown": {
+      "description": "Explicit full Markdown content for the linked plan file.",
+      "type": "string"
+    },
+    "specFiles": {
+      "description": "Project-relative spec files bound into planHash.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phases": {
+      "description": "Ordered phases; omitted ids are generated.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "in_progress",
+              "blocked",
+              "review",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "action": {
+                  "type": "string"
+                },
+                "validation": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "in_progress",
+                    "blocked",
+                    "review",
+                    "completed",
+                    "cancelled"
+                  ]
+                }
+              },
+              "required": [
+                "title"
+              ]
+            }
+          }
+        },
+        "required": [
+          "title"
+        ]
+      }
+    },
+    "reviewFindings": {
+      "description": "Review findings.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "blocker",
+              "critical",
+              "major",
+              "minor",
+              "note",
+              "question"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          }
+        },
+        "required": [
+          "severity",
+          "title"
+        ]
+      }
+    },
+    "notes": {
+      "description": "Notes.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "description": "Lifecycle status.",
+      "default": "draft",
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_progress",
+        "blocked",
+        "review",
+        "completed",
+        "cancelled"
+      ]
+    },
+    "overwrite": {
+      "description": "Replace an existing plan (requires expectedHash).",
+      "default": false,
+      "type": "boolean"
+    },
+    "expectedHash": {
+      "description": "stateHash from the latest read; binds the write to that exact state.",
+      "$ref": "../common.schema.json#/$defs/hash"
+    },
+    "replaceMarkdown": {
+      "description": "Allow replacing handwritten (non-generated) Markdown.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "goal"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "overwrite": {
+            "const": true
+          }
+        },
+        "required": [
+          "overwrite"
+        ]
+      },
+      "then": {
+        "required": [
+          "expectedHash"
+        ]
+      }
+    }
+  ],
+  "x-shiori-mutating": true,
+  "x-shiori-rules": [
+    {
+      "when": "overwrite == true",
+      "path": "expectedHash",
+      "native": "Native existing-state writes require the current stateHash — pass expectedHash set to the stateHash from your last successful write, or re-read with workplan_resume or workplan_inspect first",
+      "core": "overwrite requires the current stateHash"
+    }
+  ],
+  "x-shiori-core-surface": "The standalone CLI/core surface additionally accepts optional 'workspaceRoot' (string); the native surface rejects it as an unrecognized key. The allOf conditions are native-surface rules; the core surface keeps expectedHash optional for legacy direct calls (a concurrent change must still be detected), and uses the 'core' messages in x-shiori-rules.",
+  "x-shiori-nested-unknown-keys": "strip"
+}

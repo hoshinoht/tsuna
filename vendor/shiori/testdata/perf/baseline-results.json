@@ -1,0 +1,707 @@
+{
+  "description": "Raw TypeScript reference baseline results (docs/baseline.md). Times in ms, RSS in bytes.",
+  "machine": "Apple M4 Pro (8P+4E cores), 24 GiB, macOS 27.0.1 (26A434), AC power",
+  "bun": "1.4.0",
+  "runs": {
+    "run1": {
+      "perf-100k": {
+        "processBaseline": {
+          "wallMedianMs": 26.251125000000002,
+          "rssMedianBytes": 45121536
+        },
+        "read": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 30.500207999999986,
+            "p95": 35.754334
+          },
+          "coldFirstCallMs": {
+            "median": 4.804125000000003,
+            "p95": 9.869792
+          },
+          "warmMs": {
+            "median": 1.8864790000000013,
+            "p95": 2.7004170000000016
+          },
+          "peakRssBytes": {
+            "coldMedian": 51986432,
+            "coldMax": 52805632,
+            "warmProcess": 98729984
+          },
+          "outputChars": 293459
+        },
+        "inspect": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 33.038707999999815,
+            "p95": 35.4141249999999
+          },
+          "coldFirstCallMs": {
+            "median": 5.257332999999999,
+            "p95": 6.361917000000002
+          },
+          "warmMs": {
+            "median": 1.7001874999999984,
+            "p95": 2.324458000000007
+          },
+          "peakRssBytes": {
+            "coldMedian": 49266688,
+            "coldMax": 49692672,
+            "warmProcess": 85377024
+          },
+          "outputChars": 34604
+        },
+        "resume": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 33.47158399999989,
+            "p95": 35.16670799999997
+          },
+          "coldFirstCallMs": {
+            "median": 6.048708000000001,
+            "p95": 6.966666
+          },
+          "warmMs": {
+            "median": 1.91285400000001,
+            "p95": 2.5991669999999942
+          },
+          "peakRssBytes": {
+            "coldMedian": 49643520,
+            "coldMax": 50577408,
+            "warmProcess": 88866816
+          },
+          "outputChars": 11440
+        },
+        "validate": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 33.167583999999806,
+            "p95": 35.02587500000027
+          },
+          "coldFirstCallMs": {
+            "median": 5.701957999999998,
+            "p95": 7.222209000000003
+          },
+          "warmMs": {
+            "median": 1.6626455,
+            "p95": 2.4825000000000017
+          },
+          "peakRssBytes": {
+            "coldMedian": 49922048,
+            "coldMax": 50692096,
+            "warmProcess": 85147648
+          },
+          "outputChars": 815
+        },
+        "update": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 47.9730840000002,
+            "p95": 50.036749999999756
+          },
+          "coldFirstCallMs": {
+            "median": 20.229292,
+            "p95": 22.524834
+          },
+          "warmMs": {
+            "median": 10.300125000000008,
+            "p95": 11.956082999999978
+          },
+          "peakRssBytes": {
+            "coldMedian": 61407232,
+            "coldMax": 62603264,
+            "warmProcess": 144048128
+          },
+          "outputChars": 760
+        }
+      },
+      "perf-1m": {
+        "processBaseline": {
+          "wallMedianMs": 26.619083999999987,
+          "rssMedianBytes": 46383104
+        },
+        "read": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 42.65812500000001,
+            "p95": 45.100708
+          },
+          "coldFirstCallMs": {
+            "median": 14.780749999999998,
+            "p95": 15.566208
+          },
+          "warmMs": {
+            "median": 7.006458500000008,
+            "p95": 8.835
+          },
+          "peakRssBytes": {
+            "coldMedian": 87998464,
+            "coldMax": 93159424,
+            "warmProcess": 217956352
+          },
+          "outputChars": 3004147
+        },
+        "inspect": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 40.219916999999896,
+            "p95": 41.80333400000018
+          },
+          "coldFirstCallMs": {
+            "median": 12.230082999999997,
+            "p95": 12.505499999999998
+          },
+          "warmMs": {
+            "median": 4.721458499999997,
+            "p95": 7.06533300000001
+          },
+          "peakRssBytes": {
+            "coldMedian": 64946176,
+            "coldMax": 65634304,
+            "warmProcess": 109019136
+          },
+          "outputChars": 34605
+        },
+        "resume": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 44.87229199999979,
+            "p95": 46.36995799999977
+          },
+          "coldFirstCallMs": {
+            "median": 14.625833,
+            "p95": 15.20175
+          },
+          "warmMs": {
+            "median": 5.0219584999999896,
+            "p95": 6.751165999999998
+          },
+          "peakRssBytes": {
+            "coldMedian": 65470464,
+            "coldMax": 66273280,
+            "warmProcess": 119504896
+          },
+          "outputChars": 11524
+        },
+        "validate": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 44.963874999999916,
+            "p95": 46.23416700000007
+          },
+          "coldFirstCallMs": {
+            "median": 14.049374999999998,
+            "p95": 15.545749999999998
+          },
+          "warmMs": {
+            "median": 5.123708000000008,
+            "p95": 6.235250000000001
+          },
+          "peakRssBytes": {
+            "coldMedian": 66797568,
+            "coldMax": 67600384,
+            "warmProcess": 124305408
+          },
+          "outputChars": 814
+        },
+        "update": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 73.45029199999999,
+            "p95": 78.12570800000003
+          },
+          "coldFirstCallMs": {
+            "median": 44.190584,
+            "p95": 48.416042000000004
+          },
+          "warmMs": {
+            "median": 25.307042000000024,
+            "p95": 27.672458000000006
+          },
+          "peakRssBytes": {
+            "coldMedian": 132579328,
+            "coldMax": 137658368,
+            "warmProcess": 311001088
+          },
+          "outputChars": 759
+        }
+      },
+      "perf-10m": {
+        "processBaseline": {
+          "wallMedianMs": 30.471249999999998,
+          "rssMedianBytes": 63422464
+        },
+        "read": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 111.62233399999997,
+            "p95": 121.90254099999999
+          },
+          "coldFirstCallMs": {
+            "median": 78.356208,
+            "p95": 86.981625
+          },
+          "warmMs": {
+            "median": 60.566353999999976,
+            "p95": 71.23224999999996
+          },
+          "peakRssBytes": {
+            "coldMedian": 336740352,
+            "coldMax": 342622208,
+            "warmProcess": 884113408
+          },
+          "outputChars": 30066121
+        },
+        "inspect": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 72.30500000000006,
+            "p95": 75.80666700000006
+          },
+          "coldFirstCallMs": {
+            "median": 41.595541,
+            "p95": 44.83125
+          },
+          "warmMs": {
+            "median": 26.824145999999985,
+            "p95": 29.44470799999999
+          },
+          "peakRssBytes": {
+            "coldMedian": 186204160,
+            "coldMax": 187138048,
+            "warmProcess": 408829952
+          },
+          "outputChars": 34612
+        },
+        "resume": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 75.31312500000013,
+            "p95": 76.55337499999996
+          },
+          "coldFirstCallMs": {
+            "median": 43.67125000000001,
+            "p95": 44.525875
+          },
+          "warmMs": {
+            "median": 26.440104500000004,
+            "p95": 31.203791999999993
+          },
+          "peakRssBytes": {
+            "coldMedian": 188301312,
+            "coldMax": 189923328,
+            "warmProcess": 464732160
+          },
+          "outputChars": 11536
+        },
+        "validate": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 79.081459,
+            "p95": 80.90250000000015
+          },
+          "coldFirstCallMs": {
+            "median": 47.88849999999999,
+            "p95": 48.427042
+          },
+          "warmMs": {
+            "median": 28.37418750000002,
+            "p95": 32.73383399999999
+          },
+          "peakRssBytes": {
+            "coldMedian": 237535232,
+            "coldMax": 238518272,
+            "warmProcess": 452231168
+          },
+          "outputChars": 819
+        },
+        "update": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 248.9653330000001,
+            "p95": 255.3597090000003
+          },
+          "coldFirstCallMs": {
+            "median": 204.490875,
+            "p95": 209.619834
+          },
+          "warmMs": {
+            "median": 161.34420800000004,
+            "p95": 179.105542
+          },
+          "peakRssBytes": {
+            "coldMedian": 766689280,
+            "coldMax": 773865472,
+            "warmProcess": 1822703616
+          },
+          "outputChars": 764
+        }
+      }
+    },
+    "run2": {
+      "perf-100k": {
+        "processBaseline": {
+          "wallMedianMs": 28.341583,
+          "rssMedianBytes": 44482560
+        },
+        "read": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 34.291041000000064,
+            "p95": 35.04712499999994
+          },
+          "coldFirstCallMs": {
+            "median": 5.502084,
+            "p95": 6.006875000000001
+          },
+          "warmMs": {
+            "median": 2.118625000000005,
+            "p95": 2.893208999999999
+          },
+          "peakRssBytes": {
+            "coldMedian": 51642368,
+            "coldMax": 52215808,
+            "warmProcess": 98172928
+          },
+          "outputChars": 293459
+        },
+        "inspect": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 33.56270799999993,
+            "p95": 35.73233300000004
+          },
+          "coldFirstCallMs": {
+            "median": 5.523083,
+            "p95": 6.585457999999999
+          },
+          "warmMs": {
+            "median": 1.6413334999999982,
+            "p95": 2.395792
+          },
+          "peakRssBytes": {
+            "coldMedian": 49315840,
+            "coldMax": 50118656,
+            "warmProcess": 83361792
+          },
+          "outputChars": 34604
+        },
+        "resume": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 34.724666999999954,
+            "p95": 35.743584000000055
+          },
+          "coldFirstCallMs": {
+            "median": 6.445542000000003,
+            "p95": 7.407166999999998
+          },
+          "warmMs": {
+            "median": 1.9346244999999982,
+            "p95": 2.7920830000000194
+          },
+          "peakRssBytes": {
+            "coldMedian": 49790976,
+            "coldMax": 50577408,
+            "warmProcess": 90013696
+          },
+          "outputChars": 11440
+        },
+        "validate": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 35.122915999999805,
+            "p95": 37.82791599999973
+          },
+          "coldFirstCallMs": {
+            "median": 5.925791999999998,
+            "p95": 6.547166000000001
+          },
+          "warmMs": {
+            "median": 2.0237080000000063,
+            "p95": 3.2304170000000028
+          },
+          "peakRssBytes": {
+            "coldMedian": 49856512,
+            "coldMax": 50446336,
+            "warmProcess": 84066304
+          },
+          "outputChars": 815
+        },
+        "update": {
+          "coldRuns": 15,
+          "warmIters": 100,
+          "coldProcessWallMs": {
+            "median": 50.27787500000022,
+            "p95": 69.5503749999998
+          },
+          "coldFirstCallMs": {
+            "median": 21.55625,
+            "p95": 38.562167
+          },
+          "warmMs": {
+            "median": 11.090395499999943,
+            "p95": 13.273917000000097
+          },
+          "peakRssBytes": {
+            "coldMedian": 61177856,
+            "coldMax": 62423040,
+            "warmProcess": 137396224
+          },
+          "outputChars": 760
+        }
+      },
+      "perf-1m": {
+        "processBaseline": {
+          "wallMedianMs": 27.413790999999947,
+          "rssMedianBytes": 46481408
+        },
+        "read": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 42.028291999999965,
+            "p95": 43.7559169999995
+          },
+          "coldFirstCallMs": {
+            "median": 14.657333000000001,
+            "p95": 15.511875
+          },
+          "warmMs": {
+            "median": 7.096146500000003,
+            "p95": 9.27833299999999
+          },
+          "peakRssBytes": {
+            "coldMedian": 87932928,
+            "coldMax": 93601792,
+            "warmProcess": 223281152
+          },
+          "outputChars": 3004147
+        },
+        "inspect": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 38.786457999999584,
+            "p95": 39.88787500000035
+          },
+          "coldFirstCallMs": {
+            "median": 11.483374999999999,
+            "p95": 11.808584000000003
+          },
+          "warmMs": {
+            "median": 4.3024165,
+            "p95": 5.758583000000002
+          },
+          "peakRssBytes": {
+            "coldMedian": 65191936,
+            "coldMax": 66338816,
+            "warmProcess": 106692608
+          },
+          "outputChars": 34605
+        },
+        "resume": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 40.88379199999963,
+            "p95": 42.374665999999706
+          },
+          "coldFirstCallMs": {
+            "median": 13.088916000000001,
+            "p95": 13.668915999999996
+          },
+          "warmMs": {
+            "median": 4.599729499999999,
+            "p95": 5.719999999999999
+          },
+          "peakRssBytes": {
+            "coldMedian": 65486848,
+            "coldMax": 66191360,
+            "warmProcess": 117473280
+          },
+          "outputChars": 11524
+        },
+        "validate": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 40.33245799999986,
+            "p95": 43.09429200000159
+          },
+          "coldFirstCallMs": {
+            "median": 12.759458000000002,
+            "p95": 14.198875000000001
+          },
+          "warmMs": {
+            "median": 4.986832999999997,
+            "p95": 6.041584
+          },
+          "peakRssBytes": {
+            "coldMedian": 67141632,
+            "coldMax": 68403200,
+            "warmProcess": 120897536
+          },
+          "outputChars": 814
+        },
+        "update": {
+          "coldRuns": 15,
+          "warmIters": 30,
+          "coldProcessWallMs": {
+            "median": 69.67358299999978,
+            "p95": 76.4016249999986
+          },
+          "coldFirstCallMs": {
+            "median": 41.51975,
+            "p95": 45.498125
+          },
+          "warmMs": {
+            "median": 24.87235400000003,
+            "p95": 27.618333000000007
+          },
+          "peakRssBytes": {
+            "coldMedian": 132448256,
+            "coldMax": 134184960,
+            "warmProcess": 288899072
+          },
+          "outputChars": 759
+        }
+      },
+      "perf-10m": {
+        "processBaseline": {
+          "wallMedianMs": 29.20024999999987,
+          "rssMedianBytes": 63946752
+        },
+        "read": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 101.33708299999853,
+            "p95": 102.51829199999884
+          },
+          "coldFirstCallMs": {
+            "median": 70.495125,
+            "p95": 70.9845
+          },
+          "warmMs": {
+            "median": 58.42608349999999,
+            "p95": 61.58220799999992
+          },
+          "peakRssBytes": {
+            "coldMedian": 334643200,
+            "coldMax": 351272960,
+            "warmProcess": 1016659968
+          },
+          "outputChars": 30066121
+        },
+        "inspect": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 68.25550000000112,
+            "p95": 72.64724999999999
+          },
+          "coldFirstCallMs": {
+            "median": 38.222415999999996,
+            "p95": 38.714042
+          },
+          "warmMs": {
+            "median": 24.802125000000004,
+            "p95": 26.916750000000008
+          },
+          "peakRssBytes": {
+            "coldMedian": 186122240,
+            "coldMax": 187449344,
+            "warmProcess": 444596224
+          },
+          "outputChars": 34612
+        },
+        "resume": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 71.06074999999873,
+            "p95": 72.06954100000075
+          },
+          "coldFirstCallMs": {
+            "median": 40.738709,
+            "p95": 42.55024999999999
+          },
+          "warmMs": {
+            "median": 26.166832999999983,
+            "p95": 28.125167000000005
+          },
+          "peakRssBytes": {
+            "coldMedian": 188792832,
+            "coldMax": 189218816,
+            "warmProcess": 397639680
+          },
+          "outputChars": 11536
+        },
+        "validate": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 77.13116599999921,
+            "p95": 79.34100000000035
+          },
+          "coldFirstCallMs": {
+            "median": 46.97875,
+            "p95": 48.080166
+          },
+          "warmMs": {
+            "median": 29.07152049999999,
+            "p95": 35.269874999999985
+          },
+          "peakRssBytes": {
+            "coldMedian": 237387776,
+            "coldMax": 237993984,
+            "warmProcess": 498745344
+          },
+          "outputChars": 819
+        },
+        "update": {
+          "coldRuns": 5,
+          "warmIters": 10,
+          "coldProcessWallMs": {
+            "median": 246.16504200000054,
+            "p95": 285.9844580000008
+          },
+          "coldFirstCallMs": {
+            "median": 202.61725,
+            "p95": 243.365083
+          },
+          "warmMs": {
+            "median": 152.4532710000001,
+            "p95": 160.57774999999998
+          },
+          "peakRssBytes": {
+            "coldMedian": 745111552,
+            "coldMax": 767770624,
+            "warmProcess": 1464336384
+          },
+          "outputChars": 764
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "mutations/create-phase-missing-title",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "dup",
+      "goal": "g",
+      "phases": [
+        {
+          "id": "p",
+          "title": " "
+        }
+      ]
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Phase 1 is missing a title"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

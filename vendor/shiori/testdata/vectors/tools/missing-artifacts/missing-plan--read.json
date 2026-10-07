@@ -1,0 +1,95 @@
+{
+  "id": "tools/missing-artifacts/missing-plan--read",
+  "fixture": "missing-artifacts",
+  "generationRoot": "/private/tmp/shiori-fx/run/missing-artifacts",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "missing-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1705,
+    "rawOutputUtf8Bytes": 1705,
+    "outputSha256": "dca54162249b13919fdb2fb92b4bd82910082d9f79223dfefa7494fb332a3a47",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/missing-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "missing-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/missing-plan.md",
+        "specFiles": [
+          "docs/present.md",
+          "docs/absent.md"
+        ],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/missing-plan.md",
+        "exists": false,
+        "content": null
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "3206cbef3b20cfd3826aed05d300c66b1fb16917404053c29ad25330856cc5e6",
+      "stateHash": "8f5ba1d7fcc279d793396d24e8e43e20383546efb85046f864a6caa64e878cba"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

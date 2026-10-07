@@ -1,0 +1,19 @@
+{
+  "id": "validation/input/patch--missing-patchText",
+  "tool": "workplan_patch",
+  "input": {
+    "id": "x",
+    "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid patch input: patchText: Invalid input: expected string, received undefined"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid patch input: patchText: Invalid input: expected string, received undefined"
+    },
+    "nativeThenCore": null
+  }
+}

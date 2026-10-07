@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/checkpoint-stale-v2--cp-stale",
+  "fixture": "checkpoint-stale-v2",
+  "planId": "cp-stale",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/cp-stale.json",
+        "sha256": "c9a29195587935ee422b135065ab1f048144fc13952e034a6343ee5c9b13be60"
+      },
+      {
+        "path": ".opencode/workplan/cp-stale.md",
+        "sha256": "274529682bd96a0f34f91ca2b5430e82dedc2d6c2a7f5cb124c0289e5d6ee706"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/cp-stale.checkpoint.json",
+        "sha256": "2fd68098b81c03381ece57846d8987609de97fe4d6716ddec386d9485e618c4d"
+      },
+      {
+        "path": ".opencode/workplan/cp-stale.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/cp-stale.json",
+        "sha256": "c9a29195587935ee422b135065ab1f048144fc13952e034a6343ee5c9b13be60"
+      },
+      {
+        "path": ".opencode/workplan/cp-stale.md",
+        "sha256": "274529682bd96a0f34f91ca2b5430e82dedc2d6c2a7f5cb124c0289e5d6ee706"
+      },
+      {
+        "path": ".opencode/workplan/cp-stale.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "178889b7a8fef8cce118de6a1d371cdd4e06f546d7d1d26a136ef983d5794158",
+    "stateHash": "876fb159bd96a59e015bcc42b9984e3b36713f1a47336037c43aabe6222a2720",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/cp-stale.md",
+    "normalizedSpecFiles": []
+  }
+}

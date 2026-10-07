@@ -1,0 +1,20 @@
+{
+  "id": "tools/pending-journal-precreate/tx-new--read",
+  "fixture": "pending-journal-precreate",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal-precreate",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "tx-new"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan file not found: $ROOT/.opencode/workplan/tx-new.json"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

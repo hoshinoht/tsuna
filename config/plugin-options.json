@@ -1,0 +1,96 @@
+{
+  "workplan-permissions": {},
+  "reasoning-router": {
+    "diagnosticsLimit": 100,
+    "providers": {
+      "openai": {},
+      "anthropic": {
+        "option": "effort",
+        "efforts": [
+          "low",
+          "medium",
+          "high"
+        ]
+      }
+    },
+    "providerAgentPolicy": {
+      "anthropic": {
+        "explore": {
+          "def": "low",
+          "min": "low",
+          "max": "medium"
+        },
+        "tester": {
+          "def": "low",
+          "min": "low",
+          "max": "medium"
+        },
+        "code-writer": {
+          "def": "medium",
+          "min": "low",
+          "max": "medium"
+        },
+        "code-engineer": {
+          "def": "medium",
+          "min": "medium",
+          "max": "high"
+        },
+        "frontend-engineer": {
+          "def": "medium",
+          "min": "low",
+          "max": "medium"
+        },
+        "researcher": {
+          "def": "medium",
+          "min": "low",
+          "max": "medium"
+        },
+        "document-writer": {
+          "def": "medium",
+          "min": "low",
+          "max": "medium"
+        },
+        "document-proofreader": {
+          "def": "low",
+          "min": "low",
+          "max": "medium"
+        },
+        "plan": {
+          "def": "high",
+          "min": "medium",
+          "max": "high"
+        },
+        "plan-checker": {
+          "def": "medium",
+          "min": "medium",
+          "max": "high"
+        },
+        "code-checker": {
+          "def": "medium",
+          "min": "low",
+          "max": "high"
+        },
+        "oracle": {
+          "def": "medium",
+          "min": "medium",
+          "max": "medium"
+        }
+      }
+    }
+  },
+  "openai-long-context": {},
+  "usage-tracker": {
+    "quotaReminderRemainingPercent": {
+      "openai": 10,
+      "anthropic": 10
+    }
+  },
+  "docs": {},
+  "subagent-control": {},
+  "image-budget": {},
+  "cache-guard": {
+    "mode": "advisory",
+    "riskAfterMinutes": 30,
+    "minCacheReadTokens": 10000
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "mutations/update-planfile-escape",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "minimal",
+      "planFile": "../elsewhere/.opencode/workplan/x.md"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Plan file must stay inside workspace root: ../elsewhere/.opencode/workplan/x.md"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

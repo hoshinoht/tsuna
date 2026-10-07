@@ -1,0 +1,376 @@
+# Source of truth for agent permission rules. Regenerate agent frontmatter with:
+#   bun scripts/gen-agent-permissions.ts
+# Rules are [action, resource, effect]; "@name" splices a fragment in place.
+# OpenCode evaluates rules last-match-wins, so order matters.
+fragments:
+  core-read:
+    - [read, "*", allow]
+    - [glob, "*", allow]
+    - [grep, "*", allow]
+    - [skill, "*", allow]
+  web:
+    - [webfetch, "*", allow]
+    - [websearch, "*", allow]
+    - [gofetch_*, "*", allow]
+    - [context7_*, "*", allow]
+  workplan-read:
+    - [workplan_read, "*", allow]
+    - [workplan_list, "*", allow]
+    - [workplan_inspect, "*", allow]
+    - [workplan_validate, "*", allow]
+    - [workplan_resume, "*", allow]
+  shell-guard:
+    - [shell, git push*, ask]
+    - [shell, git reset --hard*, ask]
+    - [shell, git clean*, ask]
+    - [shell, rm -rf*, ask]
+  implement:
+    - [edit, "*", allow]
+    - [shell, "*", allow]
+    - "@shell-guard"
+  workplan-write-deny:
+    - [workplan_create, "*", deny]
+    - [workplan_update, "*", deny]
+    - [workplan_patch, "*", deny]
+    - [workplan_reset, "*", deny]
+    - [workplan_checkpoint, "*", deny]
+    - [workplan_compact, "*", deny]
+  external-dirs:
+    - [external_directory, "*", ask]
+    - [external_directory, ~/.config/opencode/skills/*, allow]
+    - [external_directory, ~/.local/share/opencode/tool-output/*, allow]
+  env-guard:
+    - [read, "*.env", ask]
+    - [read, "*.env.*", ask]
+    - [read, "*.env.example", allow]
+agents:
+  ats-tailor:
+    - ["*", "*", deny]
+    - [question, "*", allow]
+    - [gofetch_*, "*", allow]
+    - [ats-tailor_*, "*", allow]
+    - [ats-tailor_ats_add_jd, "*", ask]
+    - [ats-tailor_ats_set_requirements, "*", ask]
+    - [ats-tailor_ats_tailor, "*", ask]
+    - [ats-tailor_ats_override, "*", ask]
+    - [ats-tailor_ats_compile, "*", ask]
+    - [ats-tailor_ats_check, "*", ask]
+    - [ats-tailor_ats_index_put, "*", ask]
+    - [ats-tailor_ats_outcome, "*", ask]
+    - [ats-tailor_ats_accept_proposal, "*", ask]
+    - [ats-tailor_ats_reject_proposal, "*", ask]
+  build:
+    - ["*", "*", ask]
+    - [docs_*, "*", deny]  # report tooling: document-writer and scholar only; keeps ~4.7 KB out of the catalog
+    - "@core-read"
+    - [question, "*", allow]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@implement"
+    - [subagent, "*", deny]
+    - [subagent, explore, allow]
+    - [subagent, researcher, allow]
+    - [subagent, plan, allow]
+    - [subagent, plan-checker, allow]
+    - [subagent, code-writer, allow]
+    - [subagent, code-engineer, allow]
+    - [subagent, frontend-engineer, allow]
+    - [subagent, fidelity, allow]  # repo-local project agent (.opencode/agents/fidelity.md)
+    - [subagent, tester, allow]
+    - [subagent, code-checker, allow]
+    - [subagent, oracle, allow]
+    - [subagent, document-writer, allow]
+    - [subagent, document-proofreader, allow]
+    - [subagent, experimenter, allow]
+    - [subagent_list, "*", allow]
+    - [subagent_stop, "*", allow]  # the tool itself refuses sessions that are not the caller's children
+    - [compress, "*", allow]  # DCP context compression (primary sessions only)
+    - "@workplan-write-deny"
+    - "@external-dirs"
+    - "@env-guard"
+  code-checker:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]  # diagnostics and references while reviewing
+    - "@workplan-read"
+    - [shell, git status --short, allow]
+    - [shell, git status --porcelain*, allow]
+    - [shell, git --no-pager status --short, allow]
+    - [shell, git --no-pager status --porcelain*, allow]
+    - [shell, git diff --no-ext-diff --no-textconv*, allow]
+    - [shell, git --no-pager diff --no-ext-diff --no-textconv*, allow]
+    - [external_directory, "*", ask]
+    - [external_directory, /private/var/folders/*/T/opencode/*.diff, allow]
+    - "@env-guard"
+  code-engineer:
+    - ["*", "*", deny]  # deny by default: every tool not allowed here stays out of the request
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - "@implement"
+    - [subagent, "*", deny]
+    - "@workplan-write-deny"
+    - "@external-dirs"
+    - "@env-guard"
+  code-writer:
+    - ["*", "*", deny]  # deny by default: every tool not allowed here stays out of the request
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - "@implement"
+    - [subagent, "*", deny]
+    - "@workplan-write-deny"
+    - "@external-dirs"
+    - "@env-guard"
+  document-proofreader:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - "@workplan-read"
+    - "@external-dirs"
+    - "@env-guard"
+  document-writer:
+    - ["*", "*", ask]
+    - [subagent_list, "*", deny]
+    - [subagent_stop, "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - "@workplan-read"
+    - "@implement"
+    - [subagent, "*", deny]
+    - "@workplan-write-deny"
+    - [docs_*, "*", allow]
+    - "@external-dirs"
+    - "@env-guard"
+  experimenter:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - "@workplan-read"
+    - "@implement"
+    - [shell, git merge*, ask]
+    - [shell, git checkout main*, ask]
+    - [shell, git switch main*, ask]
+    - [subagent, "*", deny]
+    - "@workplan-write-deny"
+    - "@external-dirs"
+    - [external_directory, "*-autoresearch-*", allow]
+    - "@env-guard"
+  explore:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@workplan-read"
+    - "@external-dirs"
+    - "@env-guard"
+    - [lsp-tools_*, "*", allow]
+  frontend-engineer:
+    - ["*", "*", deny]  # deny by default: every tool not allowed here stays out of the request
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - "@implement"
+    - [subagent, "*", deny]
+    - "@workplan-write-deny"
+    - "@external-dirs"
+    - "@env-guard"
+  oracle:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - "@external-dirs"
+    - "@env-guard"
+  orchestrator:
+    - ["*", "*", ask]
+    - [docs_*, "*", deny]  # report tooling: document-writer and scholar only; keeps ~4.7 KB out of the catalog
+    - "@core-read"
+    - [question, "*", allow]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - [workplan_read, "*", allow]
+    - [workplan_resume, "*", allow]
+    - [workplan_list, "*", allow]
+    - [workplan_inspect, "*", allow]
+    - [workplan_validate, "*", allow]
+    - [workplan_doctor, "*", allow]
+    - [workplan_compact_preview, "*", allow]
+    - [opencode_list_mcp_resources, "*", allow]
+    - "@implement"
+    - [subagent, "*", deny]
+    - [workplan_create, "*", allow]
+    - [workplan_update, "*", allow]
+    - [workplan_checkpoint, "*", allow]
+    - [workplan_compact, "*", ask]
+    - [workplan_patch, "*", allow]
+    - [workplan_reset, "*", ask]  # wipe mode can clear a plan; the user approves every reset
+    - [subagent, plan, allow]
+    - [subagent, explore, allow]
+    - [subagent, researcher, allow]
+    - [subagent, plan-checker, allow]
+    - [subagent, code-writer, allow]
+    - [subagent, code-engineer, allow]
+    - [subagent, frontend-engineer, allow]
+    - [subagent, fidelity, allow]  # repo-local project agent (.opencode/agents/fidelity.md)
+    - [subagent, code-checker, allow]
+    - [subagent, tester, allow]
+    - [subagent, oracle, allow]
+    - [subagent, document-writer, allow]
+    - [subagent, document-proofreader, allow]
+    - [subagent, experimenter, allow]
+    - [subagent_list, "*", allow]
+    - [subagent_stop, "*", allow]  # the tool itself refuses sessions that are not the caller's children
+    - [compress, "*", allow]  # DCP context compression (primary sessions only)
+    - "@external-dirs"
+    - "@env-guard"
+  plan-checker:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - "@external-dirs"
+    - "@env-guard"
+  plan:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - [workplan_resume, "*", allow]
+    - [workplan_doctor, "*", allow]
+    - [workplan_compact_preview, "*", allow]
+    - [opencode_list_mcp_resources, "*", allow]
+    - [opencode_read_mcp_resource, "*", allow]  # workplan-permissions restricts plan to server workplan
+    - [workplan_create, "*", allow]
+    - [workplan_update, "*", allow]
+    - [workplan_patch, "*", allow]
+    - [workplan_reset, "*", ask]  # wipe mode can clear a plan; the user approves every reset
+    - [edit, "*/.opencode/workplan/*", allow]
+    - [edit, .opencode/workplan/*, allow]
+    - [edit, "*/.opencode/docs/specs/*", allow]
+    - [edit, .opencode/docs/specs/*, allow]
+    - [subagent, explore, allow]
+    - [subagent, researcher, allow]
+    - [subagent, plan-checker, allow]
+    - [subagent, oracle, allow]
+    - [compress, "*", allow]  # DCP context compression (primary sessions only)
+    - "@external-dirs"
+    - [external_directory, "*/.opencode/workplan", allow]
+    - [external_directory, "*/.opencode/workplan/*", allow]
+    - [external_directory, "*/.opencode/docs/specs", allow]
+    - [external_directory, "*/.opencode/docs/specs/*", allow]
+    - [external_directory, ~/.opencode/plan/*, deny]
+    - [edit, ~/.opencode/plan/*, deny]
+    - "@env-guard"
+  researcher:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - [webfetch, "*", allow]
+    - [websearch, "*", allow]
+    - [gofetch_*, "*", allow]
+    - [researcher-mcp_*, "*", allow]
+    - [context7_*, "*", allow]
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - "@external-dirs"
+    - "@env-guard"
+  scholar:
+    - ["*", "*", ask]
+    - [subagent_list, "*", deny]
+    - [subagent_stop, "*", deny]
+    - "@core-read"
+    - [question, "*", allow]
+    - [webfetch, "*", allow]
+    - [websearch, "*", allow]
+    - [gofetch_*, "*", allow]
+    - [researcher-mcp_*, "*", allow]
+    - [context7_*, "*", allow]
+    - [edit, "*", allow]
+    - [shell, "*", ask]
+    - [shell, rg *, allow]
+    - [shell, ls*, allow]
+    - [shell, mkdir *, allow]
+    - [shell, latexmk *, allow]
+    - [shell, pdflatex *, allow]
+    - [shell, xelatex *, allow]
+    - [shell, lualatex *, allow]
+    - [shell, biber *, allow]
+    - [shell, bibtex *, allow]
+    - [shell, chktex *, allow]
+    - [shell, lacheck *, allow]
+    - [shell, texcount *, allow]
+    - [shell, pdftotext *, allow]
+    - [shell, pdfinfo *, allow]
+    - [shell, "*shell-escape*", ask]
+    - [shell, rm -rf*, ask]
+    - [subagent, "*", deny]
+    - [subagent, researcher, allow]
+    - [subagent, document-proofreader, allow]
+    - [subagent, explore, allow]
+    - [subagent, experimenter, allow]
+    - [compress, "*", allow]  # DCP context compression (primary sessions only)
+    - "@workplan-write-deny"
+    - "@external-dirs"
+    - "@env-guard"
+  tester:
+    - ["*", "*", deny]
+    - "@core-read"
+    - [question, "*", deny]
+    - "@web"
+    - [lsp-tools_*, "*", allow]
+    - "@workplan-read"
+    - [shell, bun test*, allow]
+    - [shell, bun run test*, allow]
+    - [shell, bun run typecheck*, allow]
+    - [shell, bun run lint*, allow]
+    - [shell, bun run build*, allow]
+    - [shell, npm test*, allow]
+    - [shell, npm run test*, allow]
+    - [shell, npm run typecheck*, allow]
+    - [shell, npm run lint*, allow]
+    - [shell, npm run build*, allow]
+    - [shell, pnpm test*, allow]
+    - [shell, pnpm run test*, allow]
+    - [shell, pnpm run typecheck*, allow]
+    - [shell, pnpm run lint*, allow]
+    - [shell, pnpm run build*, allow]
+    - [shell, yarn test*, allow]
+    - [shell, yarn run test*, allow]
+    - [shell, yarn run typecheck*, allow]
+    - [shell, yarn run lint*, allow]
+    - [shell, yarn run build*, allow]
+    - [shell, pytest*, allow]
+    - [shell, python -m pytest*, allow]
+    - [shell, python3 -m pytest*, allow]
+    - [shell, uv run pytest*, allow]
+    - [shell, cargo test*, allow]
+    - [shell, cargo check*, allow]
+    - [shell, cargo clippy*, allow]
+    - [shell, go test*, allow]
+    - [shell, dotnet test*, allow]
+    - [shell, mvn test*, allow]
+    - [shell, gradle test*, allow]
+    - [shell, make test*, allow]
+    - [shell, make check*, allow]
+    - [shell, git status --short, allow]
+    - [shell, git status --porcelain, allow]
+    - "@shell-guard"
+    - "@external-dirs"
+    - "@env-guard"

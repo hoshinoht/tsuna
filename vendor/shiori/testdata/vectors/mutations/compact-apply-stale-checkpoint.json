@@ -1,0 +1,27 @@
+{
+  "id": "mutations/compact-apply-stale-checkpoint",
+  "fixture": "checkpoint-stale-v2",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-stale-v2",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_compact",
+    "input": {
+      "id": "cp-stale",
+      "archiveReason": "tidy",
+      "noteIndexes": [
+        0
+      ],
+      "mode": "apply",
+      "previewToken": "v1-0000000000000000000000000000000000000000000000000000000000000000",
+      "confirmation": "ARCHIVE_SELECTED_HISTORY"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "A fresh version-2 multiartifact checkpoint is required; write a checkpoint after the latest plan update, then preview again"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

@@ -1,0 +1,65 @@
+{
+  "id": "hash/fixtures/full-valid--full-plan",
+  "fixture": "full-valid",
+  "planId": "full-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/full-plan.json",
+        "sha256": "175df5e950bb42b05162d7814c1569d51fd03b89a52b8e2db2516cc80d5660da"
+      },
+      {
+        "path": ".opencode/workplan/full-plan.md",
+        "sha256": "ec896e7d6551ba50e0df4903f86c0f02a7222e9bb0d2ee19e0a8431358520d62"
+      },
+      {
+        "path": "docs/nested/spec-b.md",
+        "sha256": "a7f230965ea62432980bad2d7fee211de4c4b4eed5cc11a0a316eb34ae0fc990"
+      },
+      {
+        "path": "docs/spec-a.md",
+        "sha256": "a9d757a6dd6728fb3499ccf11b48a7b7f7193c77868ab21ba536ff6f7a0f5d8b"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/full-plan.checkpoint.json",
+        "sha256": "628e8dfad51fbbbde51d3da80f0827083f543c48bfcb20ed7aca1487f07debb0"
+      },
+      {
+        "path": ".opencode/workplan/full-plan.dependencies.json",
+        "sha256": "24e46d9cda67583a0393a40c6ae0d12b9b9c88ed576b155cde502d09f9e7d9f1"
+      },
+      {
+        "path": ".opencode/workplan/full-plan.json",
+        "sha256": "175df5e950bb42b05162d7814c1569d51fd03b89a52b8e2db2516cc80d5660da"
+      },
+      {
+        "path": ".opencode/workplan/full-plan.md",
+        "sha256": "ec896e7d6551ba50e0df4903f86c0f02a7222e9bb0d2ee19e0a8431358520d62"
+      },
+      {
+        "path": ".opencode/workplan/full-plan.transaction.json",
+        "missing": true
+      },
+      {
+        "path": "docs/nested/spec-b.md",
+        "sha256": "a7f230965ea62432980bad2d7fee211de4c4b4eed5cc11a0a316eb34ae0fc990"
+      },
+      {
+        "path": "docs/spec-a.md",
+        "sha256": "a9d757a6dd6728fb3499ccf11b48a7b7f7193c77868ab21ba536ff6f7a0f5d8b"
+      }
+    ],
+    "planHash": "db7b2a02ddea956edc3d1151458f835ae5e4d4e496e7e6f55ca5a8a1585a6723",
+    "stateHash": "2797e89608228da53f69d23fe221cb914845e1d5e0fd6226fd50db05c80b43e8",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/full-plan.md",
+    "normalizedSpecFiles": [
+      "docs/spec-a.md",
+      "docs/nested/spec-b.md"
+    ]
+  }
+}

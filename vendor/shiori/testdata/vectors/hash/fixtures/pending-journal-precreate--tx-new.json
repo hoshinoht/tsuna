@@ -1,0 +1,9 @@
+{
+  "id": "hash/fixtures/pending-journal-precreate--tx-new",
+  "fixture": "pending-journal-precreate",
+  "planId": "tx-new",
+  "expect": {
+    "kind": "error",
+    "message": "Workplan file not found: $ROOT/.opencode/workplan/tx-new.json"
+  }
+}

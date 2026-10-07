@@ -1,0 +1,2971 @@
+{
+  "ats-tailor": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "ats-tailor_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "ats-tailor_ats_add_jd",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_set_requirements",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_tailor",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_override",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_compile",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_check",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_index_put",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_outcome",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_accept_proposal",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "ats-tailor_ats_reject_proposal",
+      "resource": "*",
+      "effect": "ask"
+    }
+  ],
+  "build": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "docs_*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "subagent",
+      "resource": "explore",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "researcher",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "plan",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "plan-checker",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "code-writer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "code-engineer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "frontend-engineer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "fidelity",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "tester",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "code-checker",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "oracle",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "document-writer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "document-proofreader",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "experimenter",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent_stop",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "compress",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "code-checker": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git status --short",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git status --porcelain*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git --no-pager status --short",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git --no-pager status --porcelain*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff --no-ext-diff --no-textconv*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git --no-pager diff --no-ext-diff --no-textconv*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "/private/var/folders/*/T/opencode/*.diff",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "code-engineer": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "code-writer": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "document-proofreader": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "document-writer": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent_list",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "subagent_stop",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "docs_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "experimenter": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git merge*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git checkout main*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git switch main*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*-autoresearch-*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "explore": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    }
+  ],
+  "frontend-engineer": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "oracle": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "orchestrator": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "docs_*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_doctor",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_compact_preview",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "opencode_list_mcp_resources",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "plan",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "explore",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "researcher",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "plan-checker",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "code-writer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "code-engineer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "frontend-engineer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "fidelity",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "code-checker",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "tester",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "oracle",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "document-writer",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "document-proofreader",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "experimenter",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent_stop",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "compress",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "plan-checker": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "plan": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_doctor",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_compact_preview",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "opencode_list_mcp_resources",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "opencode_read_mcp_resource",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "edit",
+      "resource": "*/.opencode/workplan/*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": ".opencode/workplan/*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*/.opencode/docs/specs/*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": ".opencode/docs/specs/*",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "explore",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "researcher",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "plan-checker",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "oracle",
+      "effect": "allow"
+    },
+    {
+      "action": "compress",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*/.opencode/workplan",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*/.opencode/workplan/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*/.opencode/docs/specs",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*/.opencode/docs/specs/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.opencode/plan/*",
+      "effect": "deny"
+    },
+    {
+      "action": "edit",
+      "resource": "~/.opencode/plan/*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "researcher": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "researcher-mcp_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "scholar": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent_list",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "subagent_stop",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "researcher-mcp_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "edit",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "ls*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mkdir *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "latexmk *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pdflatex *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "xelatex *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "lualatex *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "biber *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bibtex *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "chktex *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "lacheck *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "texcount *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pdftotext *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pdfinfo *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "*shell-escape*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "subagent",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "subagent",
+      "resource": "researcher",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "document-proofreader",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "explore",
+      "effect": "allow"
+    },
+    {
+      "action": "subagent",
+      "resource": "experimenter",
+      "effect": "allow"
+    },
+    {
+      "action": "compress",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_create",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_update",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_patch",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_reset",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_checkpoint",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "workplan_compact",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ],
+  "tester": [
+    {
+      "action": "*",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "glob",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "grep",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "skill",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "question",
+      "resource": "*",
+      "effect": "deny"
+    },
+    {
+      "action": "webfetch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "websearch",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "gofetch_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "context7_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "lsp-tools_*",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_read",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_list",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_inspect",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_validate",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "workplan_resume",
+      "resource": "*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "bun run build*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "npm run build*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pnpm run build*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run typecheck*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run lint*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "yarn run build*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "pytest*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "python -m pytest*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "python3 -m pytest*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "uv run pytest*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "cargo test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "cargo check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "cargo clippy*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "go test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "dotnet test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "mvn test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "gradle test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "make test*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "make check*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git status --short",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git status --porcelain",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git push*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git reset --hard*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "git clean*",
+      "effect": "ask"
+    },
+    {
+      "action": "shell",
+      "resource": "rm -rf*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "*",
+      "effect": "ask"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.config/opencode/skills/*",
+      "effect": "allow"
+    },
+    {
+      "action": "external_directory",
+      "resource": "~/.local/share/opencode/tool-output/*",
+      "effect": "allow"
+    },
+    {
+      "action": "read",
+      "resource": "*.env",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.*",
+      "effect": "ask"
+    },
+    {
+      "action": "read",
+      "resource": "*.env.example",
+      "effect": "allow"
+    }
+  ]
+}

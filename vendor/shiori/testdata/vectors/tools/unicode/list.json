@@ -1,0 +1,46 @@
+{
+  "id": "tools/unicode/list",
+  "fixture": "unicode",
+  "generationRoot": "/private/tmp/shiori-fx/run/unicode",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 836,
+    "rawOutputUtf8Bytes": 840,
+    "outputSha256": "c45741e53728dbd66dc53432904d1ac33b4f591a8974d433e6a43be79376ffe2",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 1,
+      "workplans": [
+        {
+          "valid": true,
+          "issues": [],
+          "id": "unicode-plan",
+          "kind": "general",
+          "title": "Unicode 😀 \"quoted\" \\ back <b>&amp;   sep",
+          "goal": "Tab\there, bell\u0007, nul-free",
+          "status": "draft",
+          "planFile": ".opencode/workplan/unicode-plan.md",
+          "phaseCount": 1,
+          "stepCount": 2,
+          "specFileCount": 5,
+          "openFindingCount": 1,
+          "updatedAt": "2026-01-02T03:04:05.000Z",
+          "planHash": "07eb486279853e18d7cad3c7648616998b0417a66be5d6eb1cab49fa7ce6330d",
+          "stateHash": "02d4d08f453032dc946ee42b6c111c26f703844975ccb1948affe8308faac809",
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": []
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

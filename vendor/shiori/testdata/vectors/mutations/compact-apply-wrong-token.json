@@ -1,0 +1,27 @@
+{
+  "id": "mutations/compact-apply-wrong-token",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_compact",
+    "input": {
+      "id": "big-plan",
+      "archiveReason": "tidy",
+      "completedPhaseIds": [
+        "phase-1"
+      ],
+      "mode": "apply",
+      "previewToken": "v1-0000000000000000000000000000000000000000000000000000000000000000",
+      "confirmation": "ARCHIVE_SELECTED_HISTORY"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "previewToken does not match the current snapshot, reason, exact selection, removals, or Markdown treatment; preview again before applying"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

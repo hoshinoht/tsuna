@@ -1,0 +1,25 @@
+{
+  "id": "mutations/create-over-precreate-journal",
+  "fixture": "pending-journal-precreate",
+  "generationRoot": "/private/tmp/shiori-fx/run/pending-journal-precreate",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "tx-new",
+      "goal": "g"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Refusing to overwrite existing workplan artifact: $ROOT/.opencode/workplan/tx-new.transaction.json"
+  },
+  "changedFiles": {},
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

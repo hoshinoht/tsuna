@@ -1,0 +1,83 @@
+{
+  "id": "tools/checkpoint-legacy-v1/cp-v1--inspect",
+  "fixture": "checkpoint-legacy-v1",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-legacy-v1",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "cp-v1"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1443,
+    "rawOutputUtf8Bytes": 1443,
+    "outputSha256": "86503204a64fcabf3642d6e6de74c5d89569d2f3530dddd0b101a35b301a385f",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/cp-v1.json",
+      "workplan": {
+        "id": "cp-v1",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/cp-v1.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/cp-v1.md",
+        "exists": true
+      },
+      "phases": [
+        {
+          "type": "phase",
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "index": 0,
+          "indexLabel": "1",
+          "stepCount": 1,
+          "markdownMarker": "<!-- workplan-phase-id: p -->"
+        }
+      ],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "p",
+          "phaseTitle": "P",
+          "id": "s",
+          "title": "S",
+          "status": "draft",
+          "target": null,
+          "index": 0,
+          "indexPath": "1.1",
+          "markdownMarker": "<!-- workplan-step-id: s -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 2,
+        "offset": 0,
+        "returned": 2,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "39e8e85b836ea1fd5255c41ad92bbe82210a2ef9402421bc59e2715dc840c833",
+      "stateHash": "04f896b4212d0eab5c856851a38819a1397991885be293944973920b4772d8a0"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

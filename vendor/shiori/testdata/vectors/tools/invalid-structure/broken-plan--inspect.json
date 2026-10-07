@@ -1,0 +1,20 @@
+{
+  "id": "tools/invalid-structure/broken-plan--inspect",
+  "fixture": "invalid-structure",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-structure",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "broken-plan"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Workplan broken-plan has duplicate step id in phase phase-x: s1. Migrate ids before targeted inspect or update calls."
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

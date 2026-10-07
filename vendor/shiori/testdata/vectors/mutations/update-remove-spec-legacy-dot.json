@@ -1,0 +1,61 @@
+{
+  "id": "mutations/update-remove-spec-legacy-dot",
+  "fixture": "subdir-planfile",
+  "generationRoot": "/private/tmp/shiori-fx/run/subdir-planfile",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_update",
+    "input": {
+      "id": "sub-plan",
+      "removeSpecFiles": [
+        "./docs/spec.md"
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 725,
+    "rawOutputUtf8Bytes": 725,
+    "outputSha256": "1b3a4945e53d020aeb476ba2c84c5bfe877bec611484a4cfcc4c7e9e9a744976",
+    "output": {
+      "updated": true,
+      "path": "$ROOT/.opencode/workplan/sub-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/sub/dir/sub-plan.md",
+      "workplan": {
+        "id": "sub-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/sub/dir/sub-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "4397996552fb6059d4d7a5483abb242c89e4ccb82c67ebe77af92355c7c48343",
+      "stateHash": "7ec9b5702580bd4f13b6e3304c0c5595cdc1436703718e7904be3b9197febcc0",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/sub-plan.json": {
+      "sha256": "93c7574b96927b88e5510c5d96a56eeff5a0cf7176ce2c6f17c16abe19d1dd23",
+      "bytes": 670,
+      "file": "mutations/update-remove-spec-legacy-dot.after/.opencode/workplan/sub-plan.json"
+    },
+    ".opencode/workplan/sub/dir/sub-plan.md": {
+      "sha256": "61f8d323c2739becbeacf6dee3b3b79019441407cc9e813009e2d45d9d620908",
+      "bytes": 518,
+      "file": "mutations/update-remove-spec-legacy-dot.after/.opencode/workplan/sub/dir/sub-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

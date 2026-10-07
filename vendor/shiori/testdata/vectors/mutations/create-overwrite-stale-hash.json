@@ -1,0 +1,23 @@
+{
+  "id": "mutations/create-overwrite-stale-hash",
+  "fixture": "minimal-valid",
+  "generationRoot": "/private/tmp/shiori-fx/run/minimal-valid",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "minimal",
+      "goal": "g",
+      "overwrite": true,
+      "expectedHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "Stale expectedHash; current stateHash is 362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865. Reread the plan and recompute the mutation."
+  },
+  "changedFiles": {},
+  "permissionPrompts": [],
+  "deterministic": true
+}

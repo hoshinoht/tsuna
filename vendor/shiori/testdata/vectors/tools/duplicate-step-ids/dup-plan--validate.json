@@ -1,0 +1,48 @@
+{
+  "id": "tools/duplicate-step-ids/dup-plan--validate",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "dup-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 850,
+    "rawOutputUtf8Bytes": 850,
+    "outputSha256": "94ea4bea9f149a3fadd857ea792a4065281fd97ced75fcd5fecc33e7cd9a5666",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/dup-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/dup-plan.md",
+      "valid": false,
+      "issueCount": 1,
+      "issues": [
+        "phases.0.steps.1.id: Duplicate step id step-dup in phase phase-anchor"
+      ],
+      "workplan": {
+        "id": "dup-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/dup-plan.md",
+        "phaseCount": 2,
+        "stepCount": 3,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "36b35ed008115d47540969d98bf9f39346d85f9e571f8591a2930828448c134d",
+      "stateHash": "f3bb532b5fa458ffcdc702b9a8fc41cf9eaaff76d8516f663b22bea57f1b34ca",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

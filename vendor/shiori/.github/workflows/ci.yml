@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: oven-sh/setup-bun@v2
+      - name: gofmt
+        run: test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
+      - name: vet
+        run: go vet ./...
+      - name: test
+        run: go test -count=1 ./...
+      - name: engine tests with a cache on every engine
+        run: SHIORI_TEST_CACHE=1 go test -count=1 ./internal/engine
+      - name: race
+        run: go test -race -count=1 ./...
+      # The adapter tests otherwise build the core inside their first test,
+      # which can exceed bun's 5 s test timeout on a cold build cache.
+      - name: build core for the adapter tests
+        run: CGO_ENABLED=0 go build -trimpath -o "$RUNNER_TEMP/shiori" ./cmd/shiori
+      - name: adapter
+        working-directory: adapter/opencode
+        run: SHIORI_BIN="$RUNNER_TEMP/shiori" bun test

@@ -1,0 +1,213 @@
+{
+  "id": "tools/list-mixed/doctor",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 6359,
+    "rawOutputUtf8Bytes": 6359,
+    "outputSha256": "79642a5147c182f86134ca8b14037312b059f1a89eaf14ed5146097aea392665",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 7,
+      "returnedPlans": 7,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "a-10",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "a-10",
+            "kind": "general",
+            "title": null,
+            "goal": "goal a-10",
+            "status": "draft",
+            "planFile": ".opencode/workplan/a-10.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "77e54d591d3ad5c2b1475c7d092e7b749d57caae2d88b2c1bf5607e6b6b803eb",
+          "stateHash": "a9a65a37f7f38a279a5e2fad9b59f783d5b5e654a12abb17e96cbf82092e00f6",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        },
+        {
+          "id": "a-9",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "a-9",
+            "kind": "general",
+            "title": null,
+            "goal": "goal a-9",
+            "status": "draft",
+            "planFile": ".opencode/workplan/a-9.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "66630984aa5848c6cc6c224d7830dc326e48076d7310fdbdf3cac87ca9201bcb",
+          "stateHash": "6b479ff9d6d31ad0b94a37ddcc596c4047981f2187fe6be840d683d0c8322e5e",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        },
+        {
+          "id": "a-plan",
+          "valid": false,
+          "issues": [
+            "checkpoint: : Invalid input"
+          ],
+          "workplan": {
+            "id": "a-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "goal a-plan",
+            "status": "draft",
+            "planFile": ".opencode/workplan/a-plan.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "9f47ef94674ecfb77b6cf8f962dda326836c0138757a7aa6b6854f71db2ef1b2",
+          "stateHash": "45bdb360c0cd75c98a69d9d978c26b64e927abed924db550cc318eaf4ed30ed2",
+          "checkpointFreshness": "invalid",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        },
+        {
+          "id": "b-plan",
+          "valid": true,
+          "issues": [],
+          "workplan": {
+            "id": "b-plan",
+            "kind": "general",
+            "title": null,
+            "goal": "goal b-plan",
+            "status": "draft",
+            "planFile": ".opencode/workplan/b-plan.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "93bffff860b4f28ed2d7fec9680a79bc78ef762d920a2e171c02981f30bc797e",
+          "stateHash": "800ce5f44d16188d1f902523c6ab8e4bb6e3245cd5d214d8ca5ce215d37b0d5d",
+          "checkpointFreshness": "missing",
+          "dependenciesRecorded": true,
+          "recoveryRequired": false
+        },
+        {
+          "id": "Bad Name",
+          "valid": false,
+          "issues": [
+            "Workplan file not found: $ROOT/.opencode/workplan/bad-name.json"
+          ],
+          "recoveryRequired": false
+        },
+        {
+          "id": "broken",
+          "valid": false,
+          "issues": [
+            "Invalid workplan JSON at $ROOT/.opencode/workplan/broken.json: JSON Parse error: Expected '}'"
+          ],
+          "recoveryRequired": false
+        },
+        {
+          "id": "UPPER",
+          "valid": false,
+          "issues": [
+            "schemaVersion: Invalid input: expected 2; id: Invalid input: expected string, received undefined; kind: Invalid input: expected string, received undefined; title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received undefined; scope: Invalid input: expected array, received undefined; nonGoals: Invalid input: expected array, received undefined; constraints: Invalid input: expected array, received undefined; relevantFiles: Invalid input: expected array, received undefined; planFile: Invalid input: expected string, received undefined; phases: Invalid input: expected array, received undefined; reviewFindings: Invalid input: expected array, received undefined; notes: Invalid input: expected array, received undefined; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; createdAt: Invalid input: expected string, received undefined; updatedAt: Invalid input: expected string, received undefined"
+          ],
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": ".x.tmp-1",
+          "kind": "temporary"
+        },
+        {
+          "name": "a-plan.checkpoint.json",
+          "kind": "checkpoint"
+        },
+        {
+          "name": "b-plan.dependencies.json",
+          "kind": "dependencies"
+        },
+        {
+          "name": ".workspace-mutation.lock",
+          "kind": "lock"
+        },
+        {
+          "name": ".a-plan.json.0000.0.stage",
+          "kind": "temporary"
+        }
+      ],
+      "sidecarCount": 5,
+      "omittedSidecars": 0,
+      "locks": [
+        {
+          "path": "$ROOT/.opencode/workplan/.workspace-mutation.lock",
+          "present": true,
+          "owner": null,
+          "diagnostic": "Ambiguous lock owner: JSON Parse error: Unexpected EOF"
+        }
+      ],
+      "lockCount": 1,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "$ROOT/.opencode/workplan/.workspace-mutation.lock: Ambiguous lock owner: JSON Parse error: Unexpected EOF",
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

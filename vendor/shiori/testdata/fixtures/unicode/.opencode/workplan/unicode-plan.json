@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "id": "unicode-plan",
+  "kind": "general",
+  "title": "Unicode 😀 \"quoted\" \\ back <b>&amp;   sep",
+  "goal": "Tab\there, bell\u0007, nul-free",
+  "scope": [],
+  "nonGoals": [],
+  "constraints": [],
+  "relevantFiles": [],
+  "planFile": ".opencode/workplan/unicode-plan.md",
+  "specFiles": [
+    "docs/Ａ-spec.md",
+    "docs/𝒜-spec.md",
+    "docs/café.md",
+    "docs/quote\"back\\slash.md",
+    "docs/lt<gt>amp&.md"
+  ],
+  "phases": [
+    {
+      "id": "phase-x",
+      "title": "𝒜 phase",
+      "status": "draft",
+      "steps": [
+        {
+          "id": "step-t",
+          "title": "Été step",
+          "action": "Do Été step",
+          "validation": "Check Été step",
+          "status": "draft"
+        },
+        {
+          "id": "step-2",
+          "title": "Emoji 😀",
+          "action": "Do Emoji 😀",
+          "validation": "Check Emoji 😀",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "reviewFindings": [
+    {
+      "severity": "major",
+      "title": "𝒜𝒜",
+      "detail": "para",
+      "source": "café.ts:1",
+      "status": "open"
+    }
+  ],
+  "notes": [
+    "line1\r\nline2",
+    "\u0000-free but \u001f unit-sep"
+  ],
+  "status": "draft",
+  "createdAt": "2026-01-02T03:04:05.000Z",
+  "updatedAt": "2026-01-02T03:04:05.000Z"
+}

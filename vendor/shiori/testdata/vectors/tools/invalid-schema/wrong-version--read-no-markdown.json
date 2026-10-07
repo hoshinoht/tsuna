@@ -1,0 +1,21 @@
+{
+  "id": "tools/invalid-schema/wrong-version--read-no-markdown",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "wrong-version",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "error",
+    "message": "schemaVersion: Invalid input: expected 2"
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

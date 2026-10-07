@@ -1,0 +1,40 @@
+{
+  "id": "validation/input/create--minimal",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g"
+  },
+  "expect": {
+    "core": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": false
+      }
+    },
+    "native": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": false
+      }
+    },
+    "nativeThenCore": {
+      "ok": true,
+      "data": {
+        "id": "x",
+        "kind": "general",
+        "goal": "g",
+        "status": "draft",
+        "overwrite": false
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/minimal-valid--minimal",
+  "fixture": "minimal-valid",
+  "planId": "minimal",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/minimal.json",
+        "sha256": "f1d89ba5506992ba817f0fb1e91a16db1eae245c43149ba6ab201979b0bc15e3"
+      },
+      {
+        "path": ".opencode/workplan/minimal.md",
+        "sha256": "b79124b872849467897bdce7b793f43131c95a38938c858072fae60e01531c1b"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/minimal.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/minimal.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/minimal.json",
+        "sha256": "f1d89ba5506992ba817f0fb1e91a16db1eae245c43149ba6ab201979b0bc15e3"
+      },
+      {
+        "path": ".opencode/workplan/minimal.md",
+        "sha256": "b79124b872849467897bdce7b793f43131c95a38938c858072fae60e01531c1b"
+      },
+      {
+        "path": ".opencode/workplan/minimal.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "6464afb514a3518283ee7e224523869931f160f3a7d589f7517a1d19963f597c",
+    "stateHash": "362649fc30d78c9eb2fdfee4a1d77a8c237ec9abed76cefd14674c4245f8c865",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/minimal.md",
+    "normalizedSpecFiles": []
+  }
+}

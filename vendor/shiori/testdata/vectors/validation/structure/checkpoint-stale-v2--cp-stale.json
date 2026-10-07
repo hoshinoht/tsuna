@@ -1,0 +1,54 @@
+{
+  "id": "validation/structure/checkpoint-stale-v2--cp-stale",
+  "function": "validateWorkplanStructure",
+  "input": {
+    "document": {
+      "schemaVersion": 2,
+      "id": "cp-stale",
+      "kind": "general",
+      "title": null,
+      "goal": "g",
+      "scope": [],
+      "nonGoals": [],
+      "constraints": [],
+      "relevantFiles": [],
+      "planFile": ".opencode/workplan/cp-stale.md",
+      "specFiles": [],
+      "phases": [
+        {
+          "id": "p",
+          "title": "P",
+          "status": "draft",
+          "steps": [
+            {
+              "id": "s",
+              "title": "S",
+              "action": "Do S",
+              "validation": "Check S",
+              "status": "draft"
+            },
+            {
+              "id": "s2",
+              "title": "S2",
+              "action": "Do S2",
+              "validation": "Check S2",
+              "status": "draft"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [],
+      "notes": [
+        "changed after checkpoint"
+      ],
+      "status": "draft",
+      "createdAt": "2026-01-02T03:04:05.000Z",
+      "updatedAt": "2026-01-02T03:04:05.000Z"
+    },
+    "expectedId": "cp-stale"
+  },
+  "expect": {
+    "documentDecoded": true,
+    "issues": []
+  }
+}

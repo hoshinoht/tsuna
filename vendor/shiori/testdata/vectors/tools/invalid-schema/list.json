@@ -1,0 +1,48 @@
+{
+  "id": "tools/invalid-schema/list",
+  "fixture": "invalid-schema",
+  "generationRoot": "/private/tmp/shiori-fx/run/invalid-schema",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_list",
+    "input": {}
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1521,
+    "rawOutputUtf8Bytes": 1521,
+    "outputSha256": "fafc8938e6f6be40025b1e80be6d70c18a69036100b7a964caf674b4143f96e9",
+    "output": {
+      "workspaceRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "count": 4,
+      "workplans": [
+        {
+          "id": "not-json",
+          "valid": false,
+          "issue": "Invalid workplan JSON at $ROOT/.opencode/workplan/not-json.json: JSON Parse error: Property name must be a string literal"
+        },
+        {
+          "id": "not-object",
+          "valid": false,
+          "issue": "$: Invalid input: expected object, received array"
+        },
+        {
+          "id": "wrong-types",
+          "valid": false,
+          "issue": "title: Invalid input: expected string, received undefined; goal: Invalid input: expected string, received number; scope: Invalid input: expected array, received string; constraints.0: Invalid input: expected string, received number; phases.0.status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\"; phases.0.steps.0.title: Invalid input: expected string, received undefined; reviewFindings.0.severity: Invalid option: expected one of \"blocker\"|\"critical\"|\"major\"|\"minor\"|\"note\"|\"question\"; reviewFindings.0.status: Invalid option: expected one of \"open\"|\"resolved\"; status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+        },
+        {
+          "id": "wrong-version",
+          "valid": false,
+          "issue": "schemaVersion: Invalid input: expected 2"
+        }
+      ],
+      "sidecars": []
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

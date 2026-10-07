@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/pending-journal--tx-plan",
+  "fixture": "pending-journal",
+  "planId": "tx-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/tx-plan.json",
+        "sha256": "7b2a0fe1ee73aeb781034685c164a65a61cf8c1df5e5ede0d0164a589910c2ac"
+      },
+      {
+        "path": ".opencode/workplan/tx-plan.md",
+        "sha256": "83e553defcab6ec700f95b25ba99430b689d6f75d76dc88a664caca214ab7fe2"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/tx-plan.checkpoint.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/tx-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/tx-plan.json",
+        "sha256": "7b2a0fe1ee73aeb781034685c164a65a61cf8c1df5e5ede0d0164a589910c2ac"
+      },
+      {
+        "path": ".opencode/workplan/tx-plan.md",
+        "sha256": "83e553defcab6ec700f95b25ba99430b689d6f75d76dc88a664caca214ab7fe2"
+      },
+      {
+        "path": ".opencode/workplan/tx-plan.transaction.json",
+        "sha256": "c46d5769e7b0951ca4bdb889b031ce38ef2f56f275ef55f70b8b785eafcabb5e"
+      }
+    ],
+    "planHash": "c1c6101df52db2742e12f85eed8945ecc405468af31cbd519eacbae5d214ae94",
+    "stateHash": "0001675f2c7d5a7667a2cfedbc3b18507e83532c9fe5a1540224d5b119100071",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/tx-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

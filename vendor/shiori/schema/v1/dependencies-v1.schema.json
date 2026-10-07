@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/dependencies-v1.schema.json",
+  "title": "Dependency sidecar, schemaVersion 1",
+  "description": "Stored at .opencode/workplan/<id>.dependencies.json. Missing sidecar means dependencies are UNRECORDED, not that work is independent. Semantic rules (existing targets, no self-dependency, acyclic, archived prerequisites) are checked separately and reported as 'dependencies: ...' issues.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "common.schema.json#/$defs/nonblank" },
+    "updatedAt": { "type": "string" },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "allOf": [{ "$ref": "common.schema.json#/$defs/stepRef" }],
+        "type": "object",
+        "properties": {
+          "dependsOn": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/stepRef" } }
+        },
+        "required": ["dependsOn"]
+      }
+    },
+    "terminalSummaries": {
+      "description": "Optional summaries of prerequisites archived by compaction, so dependency checks survive history pruning.",
+      "type": "array",
+      "items": {
+        "allOf": [{ "$ref": "common.schema.json#/$defs/stepRef" }],
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "status": { "enum": ["completed", "cancelled"] }
+        },
+        "required": ["title", "status"]
+      }
+    }
+  },
+  "required": ["schemaVersion", "id", "updatedAt", "dependencies"],
+  "x-shiori-unknown-fields": "Accepted and ignored on read; sidecar is replaced wholesale on write."
+}

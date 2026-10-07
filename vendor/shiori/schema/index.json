@@ -1,0 +1,108 @@
+{
+  "contractVersion": "v1",
+  "status": "PROPOSED — frozen for review at stage A; see docs/contracts.md",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "idBase": "https://shiori.invalid/schema/v1/",
+  "extensionKeywords": {
+    "x-shiori-status": "Review status of a schema that has no reference implementation (PROPOSED).",
+    "x-shiori-rules": "Semantic/cross-field rules that JSON Schema cannot express, with exact reference error text and field path.",
+    "x-shiori-structure-rules": "Executable-structure issue texts checked after decoding a plan.",
+    "x-shiori-preserve-unknown": "Unknown-member preservation requirement for stored artifacts.",
+    "x-shiori-unknown-fields": "Decoder behaviour for unknown members of a sidecar.",
+    "x-shiori-nested-unknown-keys": "'strip' = reference silently drops unknown keys in nested input objects (top level is strict).",
+    "x-shiori-core-surface": "Differences between the native tool surface and the standalone core/CLI surface.",
+    "x-shiori-mutating": "Operation can write; on the protocol it returns a prepared intent first.",
+    "x-shiori-trim": "Whitespace set used for trimming before length checks.",
+    "x-shiori-normalization": "Normalization applied before an identifier is used.",
+    "x-shiori-key-order": "Serialization key order that is part of a checksum/hash preimage.",
+    "x-shiori-write-key-order": "Key order the reference writer emits (byte parity, not a decoding rule).",
+    "x-shiori-errors": "Exact reference error strings."
+  },
+  "artifacts": {
+    "plan": {
+      "schema": "v1/plan-v2.schema.json",
+      "storedVersion": 2,
+      "path": ".opencode/workplan/<id>.json"
+    },
+    "checkpoint": {
+      "schema": "v1/checkpoint.schema.json",
+      "storedVersions": [
+        1,
+        2
+      ],
+      "write": 2,
+      "path": ".opencode/workplan/<id>.checkpoint.json"
+    },
+    "dependencies": {
+      "schema": "v1/dependencies-v1.schema.json",
+      "storedVersion": 1,
+      "path": ".opencode/workplan/<id>.dependencies.json"
+    },
+    "evidence": {
+      "schema": "v1/evidence-v1.schema.json",
+      "storedVersion": 1,
+      "path": ".opencode/workplan/<id>.evidence.json"
+    },
+    "lanes": {
+      "schema": "v1/lanes-v1.schema.json",
+      "storedVersion": 1,
+      "path": ".opencode/workplan/<id>.lanes.json"
+    },
+    "history": {
+      "schema": "v1/history-v1.schema.json",
+      "storedVersion": 1,
+      "path": ".opencode/workplan/<id>.history.jsonl (one JSON object per line)"
+    },
+    "links": {
+      "schema": "v1/links-v1.schema.json",
+      "storedVersion": 1,
+      "path": ".opencode/workplan/<id>.links.json"
+    },
+    "transactionJournal": {
+      "schema": [
+        "v1/transaction-journal-v1.schema.json",
+        "v1/transaction-journal-v2.schema.json"
+      ],
+      "storedVersions": [
+        1,
+        2
+      ],
+      "write": 2,
+      "path": ".opencode/workplan/<id>.transaction.json"
+    },
+    "lockOwner": {
+      "schema": "v1/lock-owner-v1.schema.json",
+      "path": [
+        ".opencode/workplan/.workspace-mutation.lock",
+        ".opencode/workplan/.<id>.lock"
+      ]
+    },
+    "cursors": {
+      "schema": "v1/cursors-v1.schema.json"
+    }
+  },
+  "protocol": {
+    "schema": "v1/protocol-envelope-v1.schema.json",
+    "protocolVersion": 1,
+    "status": "PROPOSED"
+  },
+  "tools": {
+    "workplan_create": "v1/tools/workplan_create.input.schema.json",
+    "workplan_update": "v1/tools/workplan_update.input.schema.json",
+    "workplan_patch": "v1/tools/workplan_patch.input.schema.json",
+    "workplan_reset": "v1/tools/workplan_reset.input.schema.json",
+    "workplan_checkpoint": "v1/tools/workplan_checkpoint.input.schema.json",
+    "workplan_compact": "v1/tools/workplan_compact.input.schema.json",
+    "workplan_compact_preview": "v1/tools/workplan_compact_preview.input.schema.json",
+    "workplan_resume": "v1/tools/workplan_resume.input.schema.json",
+    "workplan_read": "v1/tools/workplan_read.input.schema.json",
+    "workplan_inspect": "v1/tools/workplan_inspect.input.schema.json",
+    "workplan_list": "v1/tools/workplan_list.input.schema.json",
+    "workplan_validate": "v1/tools/workplan_validate.input.schema.json",
+    "workplan_doctor": "v1/tools/workplan_doctor.input.schema.json"
+  },
+  "provenance": "Tool input structures (property names, types, bounds, required sets, defaults) were emitted by executing the reference implementation and then re-described; descriptions and x-shiori annotations are Shiori-authored. Storage and protocol schemas are Shiori-authored from the behavioural contract and checked against the fixture corpus.",
+  "notes": [
+    "Go's regexp \\s is ASCII-only; never use it to implement the ECMAScript whitespace set in common.schema.json#/$defs/nonblank."
+  ]
+}

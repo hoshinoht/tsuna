@@ -1,0 +1,46 @@
+{
+  "id": "tools/list-mixed/a-9--validate",
+  "fixture": "list-mixed",
+  "generationRoot": "/private/tmp/shiori-fx/run/list-mixed",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_validate",
+    "input": {
+      "id": "a-9"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 741,
+    "rawOutputUtf8Bytes": 741,
+    "outputSha256": "462f0434c6722543e1e67b7aef46d240020c283ab261d965e8ed1e2b71fc735a",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/a-9.json",
+      "planPath": "$ROOT/.opencode/workplan/a-9.md",
+      "valid": true,
+      "issueCount": 0,
+      "issues": [],
+      "workplan": {
+        "id": "a-9",
+        "kind": "general",
+        "title": null,
+        "goal": "goal a-9",
+        "status": "draft",
+        "planFile": ".opencode/workplan/a-9.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 0,
+        "openFindingCount": 0,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "66630984aa5848c6cc6c224d7830dc326e48076d7310fdbdf3cac87ca9201bcb",
+      "stateHash": "6b479ff9d6d31ad0b94a37ddcc596c4047981f2187fe6be840d683d0c8322e5e",
+      "planFresh": true,
+      "dependenciesRecorded": false
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

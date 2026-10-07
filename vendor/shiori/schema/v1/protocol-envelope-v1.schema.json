@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/protocol-envelope-v1.schema.json",
+  "title": "Shiori local protocol frame, protocolVersion 1",
+  "description": "PROPOSED (docs/contracts.md). One JSON object per line (JSON-lines) on a private stdio connection; stdout carries frames only, diagnostics go to stderr. Frames larger than the negotiated maxFrameBytes, or nested deeper than maxNesting, are rejected before allocation of the decoded value. Duplicate object keys in a frame are a protocol error (invalid_frame). Unknown keys in a frame envelope reject; unknown keys inside 'input' reject (strict native inputs); unknown keys inside stored artifacts are preserved. Stage D (docs/STATUS.md): an invalid frame is answered with requestId \"_\" when it cannot be correlated, and the connection then closes (every prepared intent expires). Cancel frames are not answered; a cancelled read or prepare is answered with class cancelled, a cancelled commit reports its own truthful outcome.",
+  "x-shiori-status": "PROPOSED",
+  "oneOf": [
+    { "$ref": "#/$defs/request" },
+    { "$ref": "#/$defs/cancel" },
+    { "$ref": "#/$defs/response" }
+  ],
+  "$defs": {
+    "protocolVersion": { "const": 1 },
+    "requestId": {
+      "description": "Caller-chosen id, unique among live requests on this connection. Correlation only: never authority or an approval token.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "toolOperation": {
+      "description": "The thirteen retained native tool identities.",
+      "enum": [
+        "workplan_create", "workplan_update", "workplan_patch", "workplan_reset",
+        "workplan_read", "workplan_list", "workplan_inspect", "workplan_validate",
+        "workplan_checkpoint", "workplan_resume", "workplan_compact", "workplan_doctor",
+        "workplan_compact_preview"
+      ]
+    },
+    "controlOperation": {
+      "description": "shiori.handshake must be the first request on a connection. shiori.commit commits exactly one previously prepared, unchanged intent. shiori.discard releases a prepared intent without side effects.",
+      "enum": ["shiori.handshake", "shiori.commit", "shiori.discard"]
+    },
+    "hostContext": {
+      "description": "Broker-owned facts supplied by the adapter or CLI from trusted context, never from model input. The core rejects a request whose input tries to carry these keys.",
+      "type": "object",
+      "properties": {
+        "mode": { "enum": ["native", "cli"], "description": "native = OpenCode adapter with host permission broker; cli = OS/local operator authority." },
+        "canonicalRoot": { "type": "string", "minLength": 1, "description": "Absolute canonical project root." },
+        "sessionID": { "type": "string" },
+        "agent": { "type": "string" },
+        "messageID": { "type": "string" },
+        "callID": { "type": "string" },
+        "runtimeFacts": { "type": "object", "description": "Stage D: host facts the adapter gathered from its trusted plugin context (effective registrations, plugin state, permission rules, bridge diagnostics). Accepted only for workplan_doctor; the core type-checks and bounds every field and renders anything else as unknown. D.3: an optional host object {opencodeVersion, verified, verifiedVersions, writes: enabled|disabled, detail} is rendered as runtimeFacts.host only when supplied." }
+      },
+      "required": ["mode", "canonicalRoot"],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "request" },
+        "protocolVersion": { "$ref": "#/$defs/protocolVersion" },
+        "requestId": { "$ref": "#/$defs/requestId" },
+        "operation": { "anyOf": [{ "$ref": "#/$defs/toolOperation" }, { "$ref": "#/$defs/controlOperation" }] },
+        "input": {
+          "type": "object",
+          "description": "Operation arguments. For tool operations, validated against schema/v1/tools/<operation>.input.schema.json (strict). For shiori.handshake: #/$defs/handshakeInput. For shiori.commit / shiori.discard: #/$defs/commitInput."
+        },
+        "hostContext": { "$ref": "#/$defs/hostContext" }
+      },
+      "required": ["type", "protocolVersion", "requestId", "operation", "input"],
+      "additionalProperties": false,
+      "x-shiori-rules": [
+        "hostContext is required for every operation except shiori.handshake",
+        "mutating tool operations (create, update, patch, reset, checkpoint, compact apply, recovery) return a prepared intent and perform NO filesystem side effects; only shiori.commit writes"
+      ]
+    },
+    "cancel": {
+      "description": "Cancels a live request. A cancelled prepared intent cannot be committed; a late approval cannot revive it.",
+      "type": "object",
+      "properties": {
+        "type": { "const": "cancel" },
+        "protocolVersion": { "$ref": "#/$defs/protocolVersion" },
+        "requestId": { "$ref": "#/$defs/requestId" }
+      },
+      "required": ["type", "protocolVersion", "requestId"],
+      "additionalProperties": false
+    },
+    "handshakeInput": {
+      "type": "object",
+      "properties": {
+        "client": { "type": "string", "description": "Adapter or CLI name and version, informational." },
+        "protocolVersions": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "minItems": 1 }
+      },
+      "required": ["protocolVersions"],
+      "additionalProperties": false
+    },
+    "handshakeResult": {
+      "type": "object",
+      "properties": {
+        "coreVersion": { "type": "string" },
+        "protocolVersion": { "$ref": "#/$defs/protocolVersion" },
+        "contractVersion": { "const": "v1", "description": "Version of the schema/ directory this core implements." },
+        "operations": { "type": "array", "items": { "type": "string" } },
+        "hashAlgorithms": { "type": "array", "items": { "enum": ["workplan-plan-v1", "workplan-state-v1"] } },
+        "platform": { "type": "object", "properties": { "os": { "type": "string" }, "arch": { "type": "string" }, "supported": { "type": "boolean" } }, "required": ["os", "arch", "supported"] },
+        "durability": {
+          "description": "Observed capabilities of THIS process/platform, not configuration intent. 'unknown' is allowed and means the adapter must not assume the capability.",
+          "type": "object",
+          "properties": {
+            "atomicRename": { "enum": ["supported", "unsupported", "unknown"] },
+            "fileSync": { "enum": ["supported", "unsupported", "unknown"] },
+            "directorySync": { "enum": ["supported", "unsupported", "unknown"] },
+            "observedAt": { "type": "string", "description": "Stage D: where the probe ran (a private temporary directory, never the project root). Directory sync of the project filesystem is reported per commit (directorySync in mutation results)." }
+          },
+          "required": ["atomicRename", "fileSync", "directorySync"]
+        },
+        "writeSupported": { "type": "boolean", "description": "False on platforms outside the write gate (docs/contracts.md); read operations may still be offered." },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxFrameBytes": { "type": "integer" },
+            "maxArtifactBytes": { "type": "integer" },
+            "maxNesting": { "type": "integer" },
+            "maxResponseBytes": { "type": "integer" },
+            "idleTimeoutMs": { "type": "integer", "description": "Stage D: the child exits after this long with no live request and no prepared intent." },
+            "resumeMaxChars": { "type": "object", "properties": { "min": { "const": 4096 }, "max": { "const": 64000 }, "default": { "const": 12000 } } }
+          },
+          "required": ["maxFrameBytes", "maxArtifactBytes", "maxNesting"]
+        },
+        "extensions": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["coreVersion", "protocolVersion", "contractVersion", "operations", "hashAlgorithms", "platform", "durability", "writeSupported", "limits"]
+    },
+    "preparedIntent": {
+      "description": "Returned by a mutating tool operation. Exact resources the commit may touch; the adapter asks the host for exactly these canonical resources.",
+      "type": "object",
+      "properties": {
+        "intentId": { "type": "string", "minLength": 1, "description": "Single-use handle, valid only on this connection until commit, discard, cancel, disconnect or state change." },
+        "intentDigest": { "$ref": "common.schema.json#/$defs/hash", "description": "SHA-256 over the canonical intent (operation, root, resources, before/after digests, expected state)." },
+        "capability": { "type": "string", "pattern": "^[0-9a-f]{64}$", "description": "Stage D: broker-held single-use capability for shiori.commit, returned only on this private connection. The adapter presents it only after a definitive host approval of exactly these resources; it is never logged, journaled or shown to the model." },
+        "tool": { "type": "string", "description": "Stage D: the native tool identity that prepared the intent." },
+        "canonicalRoot": { "type": "string", "description": "Stage D: absolute canonical project root the intent is bound to." },
+        "operation": { "type": "string" },
+        "workplanId": { "type": "string" },
+        "expectedStateHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }], "description": "null only for fresh create (must-be-absent preconditions)." },
+        "resources": {
+          "type": "object",
+          "properties": {
+            "readPaths": { "$ref": "common.schema.json#/$defs/stringList" },
+            "writePaths": { "$ref": "common.schema.json#/$defs/stringList" },
+            "deletePaths": { "$ref": "common.schema.json#/$defs/stringList" },
+            "lockPaths": { "$ref": "common.schema.json#/$defs/stringList" },
+            "stagingPaths": { "$ref": "common.schema.json#/$defs/stringList" },
+            "archivePaths": { "$ref": "common.schema.json#/$defs/stringList" }
+          },
+          "required": ["readPaths", "writePaths", "deletePaths", "lockPaths", "stagingPaths", "archivePaths"],
+          "additionalProperties": false
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string" },
+              "beforeHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }] },
+              "afterHash": { "oneOf": [{ "$ref": "common.schema.json#/$defs/hash" }, { "type": "null" }] }
+            },
+            "required": ["path", "beforeHash", "afterHash"]
+          }
+        }
+      },
+      "required": ["intentId", "intentDigest", "capability", "operation", "workplanId", "expectedStateHash", "resources", "targets"]
+    },
+    "commitInput": {
+      "type": "object",
+      "properties": {
+        "intentId": { "type": "string", "minLength": 1 },
+        "intentDigest": { "$ref": "common.schema.json#/$defs/hash" },
+        "capability": { "type": "string", "minLength": 16, "description": "Opaque broker-held capability issued on the private transport after definitive host approval. Never serialized to journals or logs. Not accepted from model input." }
+      },
+      "required": ["intentId", "intentDigest", "capability"],
+      "additionalProperties": false
+    },
+    "discardInput": {
+      "type": "object",
+      "properties": {
+        "intentId": { "type": "string", "minLength": 1 },
+        "intentDigest": { "$ref": "common.schema.json#/$defs/hash" }
+      },
+      "required": ["intentId", "intentDigest"],
+      "additionalProperties": false
+    },
+    "toolResult": {
+      "description": "Stage D: the result of a tool operation or commit. 'text' is the exact native tool result text (JSON.stringify(result, null, 2), or the resume packet's own format); the adapter returns it unchanged. shiori.discard returns {discarded}.",
+      "type": "object",
+      "properties": { "text": { "type": "string" }, "discarded": { "type": "boolean" } },
+      "additionalProperties": false
+    },
+    "errorClass": {
+      "enum": [
+        "invalid_frame",
+        "invalid_input",
+        "invalid_structure",
+        "missing_artifact",
+        "stale_state",
+        "unsupported_capability",
+        "unsupported_protocol",
+        "permission_denied",
+        "permission_rejected",
+        "cancelled",
+        "lock_unavailable",
+        "ownership_conflict",
+        "recovery_required",
+        "external_edit_conflict",
+        "outcome_uncertain",
+        "internal"
+      ]
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "class": { "$ref": "#/$defs/errorClass" },
+        "message": { "type": "string", "description": "Human-readable text. For errors with a reference-compatible string (docs/contracts.md, error text policy) this is that exact string." },
+        "issues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": { "type": "string", "description": "Dot-joined field path, '$' for the root." },
+              "message": { "type": "string" }
+            },
+            "required": ["path", "message"]
+          }
+        },
+        "currentStateHash": { "$ref": "common.schema.json#/$defs/hash" },
+        "retrieval": { "type": "string", "description": "Exact next read-only step, e.g. 'workplan_doctor id=<id>'." },
+        "recoveryJournal": { "type": "string", "description": "Project-relative journal path when class is recovery_required or outcome_uncertain." }
+      },
+      "required": ["class", "message"]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "type": { "const": "response" },
+        "protocolVersion": { "$ref": "#/$defs/protocolVersion" },
+        "requestId": { "$ref": "#/$defs/requestId" },
+        "ok": { "type": "boolean" },
+        "result": { "description": "Operation result. Tool results keep the reference output keys (see testdata vectors)." },
+        "prepared": { "$ref": "#/$defs/preparedIntent" },
+        "hashes": {
+          "type": "object",
+          "properties": {
+            "planHash": { "$ref": "common.schema.json#/$defs/hash" },
+            "stateHash": { "$ref": "common.schema.json#/$defs/hash" }
+          }
+        },
+        "error": { "$ref": "#/$defs/error" }
+      },
+      "required": ["type", "protocolVersion", "requestId", "ok"],
+      "additionalProperties": false,
+      "oneOf": [
+        { "properties": { "ok": { "const": true } }, "anyOf": [{ "required": ["result"] }, { "required": ["prepared"] }], "not": { "required": ["error"] } },
+        { "properties": { "ok": { "const": false } }, "required": ["error"], "not": { "anyOf": [{ "required": ["result"] }, { "required": ["prepared"] }] } }
+      ]
+    }
+  }
+}

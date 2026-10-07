@@ -1,0 +1,94 @@
+{
+  "id": "tools/subdir-planfile/sub-plan--read",
+  "fixture": "subdir-planfile",
+  "generationRoot": "/private/tmp/shiori-fx/run/subdir-planfile",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "sub-plan"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2237,
+    "rawOutputUtf8Bytes": 2237,
+    "outputSha256": "8d8fc9e8f05f655696b1ff58c37eaf5924e1eac65b2c178e16091249009a9436",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/sub-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "sub-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/sub/dir/sub-plan.md",
+        "specFiles": [
+          "docs/spec.md"
+        ],
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "p",
+            "title": "P",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "s",
+                "title": "S",
+                "action": "Do S",
+                "validation": "Check S",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/sub/dir/sub-plan.md",
+        "exists": true,
+        "content": "# sub-plan\n\n## Goal\ng\n\n## Scope\n_None_\n\n## Non-goals\n_None_\n\n## Constraints\n_None_\n\n## Relevant files\n_None_\n\n## Spec files\n- docs/spec.md\n\n## Execution phases\n### 1. P <!-- workplan-phase-id: p -->\n- Status: draft\n- Id: p\n#### 1.1 S <!-- workplan-step-id: s -->\n- Status: draft\n- Id: s\n- Action: Do S\n- Validation: Check S\n\n## Adversarial review findings\n_None_\n\n## Notes\n_None_\n\n## Status\n- Overall status: draft\n- Metadata file: .opencode/workplan/sub-plan.json\n- Detailed plan file: .opencode/workplan/sub/dir/sub-plan.md\n"
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "d3d03ebd57b91b4e8d83d9d437842bbcf41f1de97de963c2dfb0db237a847909",
+      "stateHash": "90dacb9e345b6843533e59a2e03355c4c421298123d9d9ec974ade061063a684"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

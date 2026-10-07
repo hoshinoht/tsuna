@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/compact--apply-no-token",
+  "tool": "workplan_compact",
+  "input": {
+    "id": "x",
+    "archiveReason": "r",
+    "mode": "apply"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid compact input: previewToken: apply requires the token from the matching preview"
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid compact input: expectedHash: Native existing-state writes require the current stateHash; confirmation: Apply requires confirmation=ARCHIVE_SELECTED_HISTORY; previewToken: Apply requires the matching preview token"
+    },
+    "nativeThenCore": null
+  }
+}

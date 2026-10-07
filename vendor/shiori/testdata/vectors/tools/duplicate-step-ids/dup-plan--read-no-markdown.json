@@ -1,0 +1,134 @@
+{
+  "id": "tools/duplicate-step-ids/dup-plan--read-no-markdown",
+  "fixture": "duplicate-step-ids",
+  "generationRoot": "/private/tmp/shiori-fx/run/duplicate-step-ids",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_read",
+    "input": {
+      "id": "dup-plan",
+      "includeMarkdown": false
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 2748,
+    "rawOutputUtf8Bytes": 2748,
+    "outputSha256": "bd064dfa6b9ff437654423a4ddb183e6896442c4f0bbbc15283cb0f89743ea32",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/dup-plan.json",
+      "workplan": {
+        "schemaVersion": 2,
+        "id": "dup-plan",
+        "kind": "general",
+        "title": null,
+        "goal": "g",
+        "scope": [],
+        "nonGoals": [],
+        "constraints": [],
+        "relevantFiles": [],
+        "planFile": ".opencode/workplan/dup-plan.md",
+        "specFiles": [],
+        "phases": [
+          {
+            "id": "phase-anchor",
+            "title": "A",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "One",
+                "action": "Do One",
+                "validation": "Check One",
+                "status": "draft"
+              },
+              {
+                "id": "step-dup",
+                "title": "Two",
+                "action": "Do Two",
+                "validation": "Check Two",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-other",
+            "title": "B",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "Same id, other phase",
+                "action": "Do Same id, other phase",
+                "validation": "Check Same id, other phase",
+                "status": "draft"
+              }
+            ]
+          }
+        ],
+        "reviewFindings": [],
+        "notes": [],
+        "status": "draft",
+        "createdAt": "2026-01-02T03:04:05.000Z",
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "selection": {
+        "phaseId": null,
+        "stepId": null,
+        "phases": [
+          {
+            "id": "phase-anchor",
+            "title": "A",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "One",
+                "action": "Do One",
+                "validation": "Check One",
+                "status": "draft"
+              },
+              {
+                "id": "step-dup",
+                "title": "Two",
+                "action": "Do Two",
+                "validation": "Check Two",
+                "status": "draft"
+              }
+            ]
+          },
+          {
+            "id": "phase-other",
+            "title": "B",
+            "status": "draft",
+            "steps": [
+              {
+                "id": "step-dup",
+                "title": "Same id, other phase",
+                "action": "Do Same id, other phase",
+                "validation": "Check Same id, other phase",
+                "status": "draft"
+              }
+            ]
+          }
+        ]
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/dup-plan.md",
+        "exists": true
+      },
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "planHash": "36b35ed008115d47540969d98bf9f39346d85f9e571f8591a2930828448c134d",
+      "stateHash": "f3bb532b5fa458ffcdc702b9a8fc41cf9eaaff76d8516f663b22bea57f1b34ca"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

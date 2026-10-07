@@ -1,0 +1,46 @@
+{
+  "id": "hash/fixtures/large-paging--big-plan",
+  "fixture": "large-paging",
+  "planId": "big-plan",
+  "expect": {
+    "kind": "snapshot",
+    "planManifest": [
+      {
+        "path": ".opencode/workplan/big-plan.json",
+        "sha256": "2dca15056aed5104da5af5a57d41547706bcf55e5c7ddbdc1a727eb5261f1533"
+      },
+      {
+        "path": ".opencode/workplan/big-plan.md",
+        "sha256": "b7ac13025e2a441147ba32bdb8a0d8c40607df5f784c35adb8a9d6c0b480e5c4"
+      }
+    ],
+    "stateManifest": [
+      {
+        "path": ".opencode/workplan/big-plan.checkpoint.json",
+        "sha256": "ab3ff16b623c716544bd565e5a1bd345b851ddd31fc22a6cada9e3f9d9369bb1"
+      },
+      {
+        "path": ".opencode/workplan/big-plan.dependencies.json",
+        "missing": true
+      },
+      {
+        "path": ".opencode/workplan/big-plan.json",
+        "sha256": "2dca15056aed5104da5af5a57d41547706bcf55e5c7ddbdc1a727eb5261f1533"
+      },
+      {
+        "path": ".opencode/workplan/big-plan.md",
+        "sha256": "b7ac13025e2a441147ba32bdb8a0d8c40607df5f784c35adb8a9d6c0b480e5c4"
+      },
+      {
+        "path": ".opencode/workplan/big-plan.transaction.json",
+        "missing": true
+      }
+    ],
+    "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+    "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69",
+    "missingPlanArtifacts": [],
+    "specFilesPresent": true,
+    "normalizedPlanFile": ".opencode/workplan/big-plan.md",
+    "normalizedSpecFiles": []
+  }
+}

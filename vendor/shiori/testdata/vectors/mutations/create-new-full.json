@@ -1,0 +1,99 @@
+{
+  "id": "mutations/create-new-full",
+  "fixture": "empty-workspace",
+  "generationRoot": "/private/tmp/shiori-fx/run/empty-workspace",
+  "surface": "core",
+  "frozenClock": "2026-01-02T03:04:05.000Z",
+  "call": {
+    "tool": "workplan_create",
+    "input": {
+      "id": "New Plan!",
+      "kind": "  ",
+      "title": "  New  ",
+      "goal": " g ",
+      "scope": [
+        "a",
+        " a ",
+        "",
+        "b"
+      ],
+      "specFiles": [
+        "docs/x.md",
+        "./docs/x.md"
+      ],
+      "phases": [
+        {
+          "id": "Phase One",
+          "title": " P1 ",
+          "steps": [
+            {
+              "id": "S 1",
+              "title": " s1 ",
+              "target": " ",
+              "action": " act ",
+              "validation": "val"
+            }
+          ]
+        }
+      ],
+      "reviewFindings": [
+        {
+          "severity": "note",
+          "title": " f ",
+          "detail": " ",
+          "source": "src"
+        }
+      ],
+      "notes": [
+        "n",
+        "n"
+      ]
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 734,
+    "rawOutputUtf8Bytes": 734,
+    "outputSha256": "b9ab8360fff6818db2cdb04ce4150f70929a80deddbff28812d7d0ee8a5ff830",
+    "output": {
+      "created": true,
+      "overwritten": false,
+      "path": "$ROOT/.opencode/workplan/new-plan.json",
+      "planPath": "$ROOT/.opencode/workplan/new-plan.md",
+      "workplan": {
+        "id": "new-plan",
+        "kind": "general",
+        "title": "New",
+        "goal": "g",
+        "status": "draft",
+        "planFile": ".opencode/workplan/new-plan.md",
+        "phaseCount": 1,
+        "stepCount": 1,
+        "specFileCount": 1,
+        "openFindingCount": 1,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "planHash": "c77d5490f427cd25637b49151d570f3675b89fccd746a7564baa4ebcc16ef2ce",
+      "stateHash": "fd3b2dd75b299b3e2c6701706bed13584a454bfca880dcbe3e37dcc49eb64440",
+      "directorySync": "supported"
+    }
+  },
+  "changedFiles": {
+    ".opencode/workplan/new-plan.json": {
+      "sha256": "bf87f4fdde061cb38e9778d9a47c35617f9ad6b7f02598300d8e79cc5e144105",
+      "bytes": 827,
+      "file": "mutations/create-new-full.after/.opencode/workplan/new-plan.json"
+    },
+    ".opencode/workplan/new-plan.md": {
+      "sha256": "459710b33ba186077160c31247b8c8c419af98298c7cf28f4d89302b14730f05",
+      "bytes": 549,
+      "file": "mutations/create-new-full.after/.opencode/workplan/new-plan.md"
+    }
+  },
+  "permissionPrompts": [
+    {
+      "permission": "edit"
+    }
+  ],
+  "deterministic": true
+}

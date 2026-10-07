@@ -1,0 +1,20 @@
+{
+  "id": "validation/input/create--bad-status",
+  "tool": "workplan_create",
+  "input": {
+    "id": "x",
+    "goal": "g",
+    "status": "done"
+  },
+  "expect": {
+    "core": {
+      "ok": false,
+      "message": "Invalid create input: status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+    },
+    "native": {
+      "ok": false,
+      "message": "Invalid create input: status: Invalid option: expected one of \"draft\"|\"in_progress\"|\"blocked\"|\"review\"|\"completed\"|\"cancelled\""
+    },
+    "nativeThenCore": null
+  }
+}

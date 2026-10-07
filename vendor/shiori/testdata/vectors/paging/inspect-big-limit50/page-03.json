@@ -1,0 +1,230 @@
+{
+  "id": "paging/inspect-big-limit50/page-03",
+  "fixture": "large-paging",
+  "generationRoot": "/private/tmp/shiori-fx/run/large-paging",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_inspect",
+    "input": {
+      "id": "big-plan",
+      "limit": 50,
+      "cursor": "eyJ2ZXJzaW9uIjoxLCJzdGF0ZUhhc2giOiJlZjIzNjI5YmY3NjJlZjNmYTBmMjM1OTRhMDA5ZmMwMzkxZjUwMzM1ODc1ZDNjZWIyNmI0NGQ0MTE0ODg0ZTY5IiwicGhhc2VJZCI6bnVsbCwibGltaXQiOjUwLCJvZmZzZXQiOjE1MCwiY2hlY2tzdW0iOiI3YmQ3NDNiY2FhYjA3NjYxZTY4ZTNhYmU1NmNkNDJjZTY2YjYxODlmNjc0NWFkNzNhY2M0NjQ0YTYyZGUwNzhmIn0"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 5304,
+    "rawOutputUtf8Bytes": 5304,
+    "outputSha256": "58951eb95f74689d2f8bb20acd91999ab353d0479220e83861a3b94dbeb02afa",
+    "output": {
+      "path": "$ROOT/.opencode/workplan/big-plan.json",
+      "workplan": {
+        "id": "big-plan",
+        "kind": "general",
+        "title": "Big plan",
+        "goal": "Paging",
+        "status": "in_progress",
+        "planFile": ".opencode/workplan/big-plan.md",
+        "phaseCount": 4,
+        "stepCount": 160,
+        "specFileCount": 0,
+        "openFindingCount": 22,
+        "updatedAt": "2026-01-02T03:04:05.000Z"
+      },
+      "plan": {
+        "path": "$ROOT/.opencode/workplan/big-plan.md",
+        "exists": true
+      },
+      "phases": [],
+      "steps": [
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-27",
+          "title": "Step 4.27",
+          "status": "draft",
+          "target": "src/mod26.ts",
+          "index": 26,
+          "indexPath": "4.27",
+          "markdownMarker": "<!-- workplan-step-id: step-27 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-28",
+          "title": "Step 4.28",
+          "status": "draft",
+          "target": "src/mod27.ts",
+          "index": 27,
+          "indexPath": "4.28",
+          "markdownMarker": "<!-- workplan-step-id: step-28 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-29",
+          "title": "Step 4.29",
+          "status": "draft",
+          "target": "src/mod28.ts",
+          "index": 28,
+          "indexPath": "4.29",
+          "markdownMarker": "<!-- workplan-step-id: step-29 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-30",
+          "title": "Step 4.30",
+          "status": "draft",
+          "target": "src/mod29.ts",
+          "index": 29,
+          "indexPath": "4.30",
+          "markdownMarker": "<!-- workplan-step-id: step-30 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-31",
+          "title": "Step 4.31",
+          "status": "draft",
+          "target": "src/mod30.ts",
+          "index": 30,
+          "indexPath": "4.31",
+          "markdownMarker": "<!-- workplan-step-id: step-31 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-32",
+          "title": "Step 4.32",
+          "status": "draft",
+          "target": "src/mod31.ts",
+          "index": 31,
+          "indexPath": "4.32",
+          "markdownMarker": "<!-- workplan-step-id: step-32 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-33",
+          "title": "Step 4.33",
+          "status": "draft",
+          "target": "src/mod32.ts",
+          "index": 32,
+          "indexPath": "4.33",
+          "markdownMarker": "<!-- workplan-step-id: step-33 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-34",
+          "title": "Step 4.34",
+          "status": "draft",
+          "target": "src/mod33.ts",
+          "index": 33,
+          "indexPath": "4.34",
+          "markdownMarker": "<!-- workplan-step-id: step-34 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-35",
+          "title": "Step 4.35",
+          "status": "draft",
+          "target": "src/mod34.ts",
+          "index": 34,
+          "indexPath": "4.35",
+          "markdownMarker": "<!-- workplan-step-id: step-35 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-36",
+          "title": "Step 4.36",
+          "status": "draft",
+          "target": "src/mod35.ts",
+          "index": 35,
+          "indexPath": "4.36",
+          "markdownMarker": "<!-- workplan-step-id: step-36 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-37",
+          "title": "Step 4.37",
+          "status": "draft",
+          "target": "src/mod36.ts",
+          "index": 36,
+          "indexPath": "4.37",
+          "markdownMarker": "<!-- workplan-step-id: step-37 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-38",
+          "title": "Step 4.38",
+          "status": "draft",
+          "target": "src/mod37.ts",
+          "index": 37,
+          "indexPath": "4.38",
+          "markdownMarker": "<!-- workplan-step-id: step-38 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-39",
+          "title": "Step 4.39",
+          "status": "draft",
+          "target": "src/mod38.ts",
+          "index": 38,
+          "indexPath": "4.39",
+          "markdownMarker": "<!-- workplan-step-id: step-39 -->"
+        },
+        {
+          "type": "step",
+          "phaseId": "phase-4",
+          "phaseTitle": "Phase 4",
+          "id": "step-40",
+          "title": "Step 4.40",
+          "status": "draft",
+          "target": "src/mod39.ts",
+          "index": 39,
+          "indexPath": "4.40",
+          "markdownMarker": "<!-- workplan-step-id: step-40 -->"
+        }
+      ],
+      "dependencies": {
+        "recorded": false,
+        "dependencies": [],
+        "terminalSummaries": [],
+        "issues": []
+      },
+      "pagination": {
+        "total": 164,
+        "offset": 150,
+        "returned": 14,
+        "omitted": 0,
+        "nextCursor": null
+      },
+      "planHash": "d6b71716e2062a04db6f655e3bf21eff92697640d8a3eda4010db9e721342983",
+      "stateHash": "ef23629bf762ef3fa0f23594a009fc0391f50335875d3ceb26b44d4114884e69"
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

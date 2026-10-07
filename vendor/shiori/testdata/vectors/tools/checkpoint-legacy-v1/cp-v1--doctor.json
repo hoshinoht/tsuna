@@ -1,0 +1,98 @@
+{
+  "id": "tools/checkpoint-legacy-v1/cp-v1--doctor",
+  "fixture": "checkpoint-legacy-v1",
+  "generationRoot": "/private/tmp/shiori-fx/run/checkpoint-legacy-v1",
+  "surface": "core",
+  "call": {
+    "tool": "workplan_doctor",
+    "input": {
+      "id": "cp-v1"
+    }
+  },
+  "expect": {
+    "kind": "output",
+    "rawOutputLength": 1980,
+    "rawOutputUtf8Bytes": 1980,
+    "outputSha256": "d12c0afa5997da13f6da5eec6ea1934ef51fe6b9e556a5e89ac6e0001902d992",
+    "output": {
+      "requestedRoot": "$ROOT",
+      "canonicalRoot": "$ROOT",
+      "directory": "$ROOT/.opencode/workplan",
+      "planCount": 1,
+      "returnedPlans": 1,
+      "omittedPlans": 0,
+      "plans": [
+        {
+          "id": "cp-v1",
+          "valid": false,
+          "issues": [
+            "checkpoint: Checkpoint v1 only hashes JSON; multiartifact freshness is unverified"
+          ],
+          "workplan": {
+            "id": "cp-v1",
+            "kind": "general",
+            "title": null,
+            "goal": "g",
+            "status": "draft",
+            "planFile": ".opencode/workplan/cp-v1.md",
+            "phaseCount": 1,
+            "stepCount": 1,
+            "specFileCount": 0,
+            "openFindingCount": 0,
+            "updatedAt": "2026-01-02T03:04:05.000Z"
+          },
+          "planHash": "39e8e85b836ea1fd5255c41ad92bbe82210a2ef9402421bc59e2715dc840c833",
+          "stateHash": "04f896b4212d0eab5c856851a38819a1397991885be293944973920b4772d8a0",
+          "checkpointFreshness": "legacy-unverified",
+          "dependenciesRecorded": false,
+          "recoveryRequired": false
+        }
+      ],
+      "sidecars": [
+        {
+          "name": "cp-v1.checkpoint.json",
+          "kind": "checkpoint"
+        }
+      ],
+      "sidecarCount": 1,
+      "omittedSidecars": 0,
+      "locks": [],
+      "lockCount": 0,
+      "omittedLocks": 0,
+      "pendingTransactions": [],
+      "pendingTransactionCount": 0,
+      "omittedPendingTransactions": 0,
+      "runtimeFacts": {
+        "registrations": {
+          "effective": null,
+          "configured": null
+        },
+        "plugin": {
+          "id": null,
+          "configured": null,
+          "effective": null,
+          "canonicalLocation": null
+        },
+        "permission": {
+          "status": "unknown",
+          "agent": null,
+          "sessionID": null,
+          "rules": null,
+          "detail": null
+        },
+        "builtinPlan": {
+          "configured": null,
+          "effective": null
+        }
+      },
+      "issues": [
+        "One or more primary plans are invalid; see per-plan diagnostics"
+      ],
+      "readOnly": true
+    }
+  },
+  "readOnly": {
+    "bytesAndMtimesUnchanged": true
+  },
+  "deterministic": true
+}

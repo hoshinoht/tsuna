@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shiori.invalid/schema/v1/checkpoint-v2.schema.json",
+  "title": "Checkpoint sidecar, schemaVersion 2",
+  "description": "Checkpoint binding the complete plan manifest (JSON, linked Markdown, every linked spec). Fresh only when planHash equals the current planHash. evidenceStatus is always 'unverified': plan hashes are not code fingerprints.",
+  "type": "object",
+  "allOf": [{ "$ref": "checkpoint-v1.schema.json#/$defs/shared" }],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "planHash": { "$ref": "common.schema.json#/$defs/hash" },
+    "manifest": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/manifestEntry" } },
+    "evidenceStatus": { "const": "unverified" }
+  },
+  "required": ["schemaVersion", "planHash", "manifest", "evidenceStatus"],
+  "x-shiori-rules": [
+    { "path": "manifest.<i>.path", "message": "Duplicate manifest path", "rule": "manifest paths are unique" },
+    { "path": "manifest.<i>", "message": "Each manifest entry must have exactly one of sha256 or missing=true", "rule": "exactly one of sha256 / missing=true" }
+  ],
+  "x-shiori-write-key-order": ["schemaVersion", "id", "sourceUpdatedAt", "planHash", "manifest", "evidenceStatus", "createdAt", "updatedAt", "status", "summary", "current", "nextAction", "blockers", "recentValidation", "guardrails", "references"],
+  "x-shiori-unknown-fields": "Accepted and ignored on read; not carried forward on rewrite."
+}
