@@ -10,7 +10,7 @@ import { compressToolResults, type Compression } from "../lib/hoshi.ts";
 export default function hoshi(pi: ExtensionAPI) {
   const z = pi.zod;
   const summaries = new Map<string, string>();
-  const roleInfo = roles as Record<string, typeof roles.build>;
+  const roleInfo = roles as Record<string, typeof roles.orchestrator>;
 
   async function selectRole(name: string, ctx: ExtensionContext) {
     const role = roleInfo[name];
@@ -30,7 +30,8 @@ export default function hoshi(pi: ExtensionAPI) {
     for (const entry of ctx.sessionManager.getBranch()) {
       if (ctx.agent.kind === "main" && process.env.HOSHI_AGENT_EXPLICIT !== "1" && entry.type === "custom" && entry.customType === "hoshi-role") {
         const saved = entry.data as { role?: string };
-        if (saved.role && roleInfo[saved.role]) process.env.HOSHI_AGENT = saved.role;
+        if (saved.role === "build") process.env.HOSHI_AGENT = "orchestrator";
+        else if (saved.role && roleInfo[saved.role]) process.env.HOSHI_AGENT = saved.role;
       }
       if (entry.type === "custom" && entry.customType === "hoshi-compress") {
         const compression = entry.data as Compression;
@@ -38,7 +39,7 @@ export default function hoshi(pi: ExtensionAPI) {
       }
     }
     if (ctx.agent.kind === "main") {
-      const role = process.env.HOSHI_AGENT ?? "build";
+      const role = process.env.HOSHI_AGENT ?? "orchestrator";
       pi.appendEntry("hoshi-role", { role });
       ctx.ui.setStatus("hoshi-role", `hoshi · ${role}`);
     }
@@ -46,14 +47,14 @@ export default function hoshi(pi: ExtensionAPI) {
 
   pi.on("before_agent_start", (event, ctx) => {
     if (ctx.agent.kind !== "main") return;
-    const role = process.env.HOSHI_AGENT ?? "build";
+    const role = process.env.HOSHI_AGENT ?? "orchestrator";
     if (!roleInfo[role]) throw new Error(`Unknown primary role: ${role}`);
     const prompt = readFileSync(join(import.meta.dir, "../agent/prompts", `${role}.md`), "utf8");
     return { systemPrompt: [...event.systemPrompt, `## Hoshi role: ${role}\n${prompt}`] };
   });
 
   pi.registerCommand("hoshi-agent", {
-    description: "Select an imported primary agent (build, orchestrator, scholar, plan).",
+    description: "Select an imported primary agent (orchestrator, scholar, plan).",
     async handler(args, ctx) {
       const name = args.trim();
       if (!name) { ctx.ui.notify(Object.entries(roleInfo).filter(([, r]) => r.mode !== "subagent").map(([n]) => n).join(", "), "info"); return; }

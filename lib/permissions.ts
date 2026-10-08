@@ -410,7 +410,7 @@ export function surfaceTools(policies: PermissionPolicies, role: string, toolNam
 	return [...toolNames].filter(toolName => canSurfaceTool(policies, role, toolName));
 }
 
-export function roleForAgent(agent: { kind: "main" | "sub"; name: string }, primaryRole = process.env.HOSHI_AGENT ?? "build"): string {
+export function roleForAgent(agent: { kind: "main" | "sub"; name: string }, primaryRole = process.env.HOSHI_AGENT ?? "orchestrator"): string {
 	return agent.kind === "sub" ? agent.name : primaryRole;
 }
 

@@ -19,6 +19,7 @@ if (index >= 0) {
   role = args[index + 1];
   args.splice(index, 2);
 }
+if (role === "build") role = "orchestrator"; // Legacy launcher alias.
 const roles = JSON.parse(readFileSync(join(root, "config/roles.json"), "utf8"));
 if (!roles[role]) throw new Error(`Unknown hoshi role: ${role}`);
 const agentDir = join(root, ".runtime/omp/agent");

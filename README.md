@@ -24,7 +24,7 @@
 | | |
 |---|---|
 | **Commands** | `hoshi-omp`, `omp` |
-| **Agents** | 17 imported roles; `build` is the default |
+| **Agents** | 16 roles; `orchestrator` is the default (medium reasoning) |
 | **Tools** | Shiori, document generation, research, web and LSP MCPs |
 | **Gateway** | CLIProxyAPI in Docker, `127.0.0.1:18317` |
 | **State** | Private `.runtime/`; existing projects retain `.opencode/workplan` and `.opencode/docs` |

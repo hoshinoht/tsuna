@@ -6,8 +6,8 @@ import commands from "../config/commands.json";
 import { compressToolResults } from "../lib/hoshi";
 
 describe("OpenCode v2 import", () => {
-  test("all active agent policies and command targets survive", () => {
-    expect(Object.keys(roles)).toHaveLength(17);
+  test("merged agent policies and command targets remain aligned", () => {
+    expect(Object.keys(roles)).toHaveLength(16);
     expect(Object.keys(permissions).sort()).toEqual(Object.keys(roles).sort());
     expect(Object.keys(commands)).toHaveLength(7);
     for (const command of Object.values(commands)) expect(Object.keys(roles)).toContain(command.agent);

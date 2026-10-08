@@ -1,6 +1,6 @@
 ---
 description: Emit a structured session handoff summary for continuation
-agent: build
+agent: orchestrator
 ---
 
 Write a structured handoff summary so another session can continue this work without re-discovery.

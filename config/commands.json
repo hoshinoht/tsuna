@@ -1,7 +1,7 @@
 {
   "remove-ai-slops": {
     "description": "Clean up AI-generated slop while preserving behavior",
-    "agent": "build",
+    "agent": "orchestrator",
     "body": "\nRemove AI-generated slop from the target without changing behavior.\n\nTarget: $ARGUMENTS (if empty, ask which files to clean).\n\n## Scope\n\n- This command is a behavior-preserving cleanup workflow (verbose comments, dead code, generic filler, over-defensive guards).\n- Boundary: `commands/review.md` is the adversarial diff review (finds bugs/risks in latest changes); this command fixes no bugs and reviews nothing — it only cleans known slop in explicitly scoped files.\n\n## Behavior lock\n\n1. Establish the behavior baseline first: run the existing regression tests green before editing.\n2. If coverage is thin, add or propose minimal characterization tests before cleanup.\n\n## Slop categories\n\nRemove only these: stale/WHAT-comments, dead or commented-out code, unused imports/vars, duplicated boilerplate, generic filler prose, over-mocked test scaffolding, redundant logging, over-defensive nil/type guards with no caller, inconsistent naming introduced by generation.\n\n## Quality gates\n\n- Never touch files outside the stated scope.\n- After cleanup: tests still green, LSP diagnostics clean, diff minimal and behavior-identical.\n- If a cleanup would change behavior, stop and surface it instead of proceeding.\n\n## Output\n\nReport files cleaned, what was removed per category, and verification evidence.\n"
   },
   "init-deep": {
@@ -26,7 +26,7 @@
   },
   "handoff": {
     "description": "Emit a structured session handoff summary for continuation",
-    "agent": "build",
+    "agent": "orchestrator",
     "body": "\nWrite a structured handoff summary so another session can continue this work without re-discovery.\n\nFocus: $ARGUMENTS (if empty, cover the whole current session).\n\n## Handoff\n\n### State\n\n- Current goal and where things stand (1-3 sentences).\n\n### Done\n\n- Completed steps with evidence (files changed, tests green, commands run).\n\n### Remaining\n\n- Ordered list of unfinished steps; mark the immediate next action.\n\n### Paths\n\n- Key files/dirs (exact repo-relative paths).\n- Relevant session IDs, branch, or issue links (if any).\n\n### Decisions and open questions\n\n- Choices made and why; anything still needing a user call.\n\n## Constraints\n\n- Summarize from actual session evidence; do not invent completed work.\n- Keep it scannable; prefer bullets over prose.\n"
   },
   "autoresearch": {

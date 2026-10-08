@@ -25,6 +25,8 @@ OpenCode desktop CSS/themes and TUI plugin modules cannot execute in OMP. Their 
 
 ## Commands and models
 
+`build` is merged into `orchestrator`, whose default reasoning is medium. Small tasks are handled directly; complex work uses planning and specialists as needed. Former build commands target orchestrator. The launcher accepts `--agent build` as a legacy alias, and saved build sessions restore as orchestrator. Restart OMP and select `/hoshi-agent orchestrator` to apply the model and effort to an existing session.
+
 All seven commands have guaranteed `/hoshi-<name>` forms. Short forms are registered when OMP does not reserve the name. `/hoshi-agent` changes a primary role; `--agent` selects the initial one. Bundled OMP commands continue to use OMP semantics.
 
 Claude traffic uses `cliproxy-anthropic` with the Anthropic Messages API. OpenAI traffic uses `cliproxy-openai` with the Responses API. Base model IDs and metadata come from the pinned OMP catalog; synthetic OpenCode `-1m` suffixes are removed. Model access, actual request limits, subscription availability and billing are only established after account login and live requests. No completion requests were sent during setup.

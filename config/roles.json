@@ -7,14 +7,6 @@
     "sourceModel": "anthropic/claude-opus-5-5#medium",
     "hidden": true
   },
-  "build": {
-    "description": "Lightweight development orchestrator for everyday fixes and focused changes.",
-    "mode": "primary",
-    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
-    "directModel": "anthropic/claude-opus-5-5:medium",
-    "sourceModel": "anthropic/claude-opus-5-5#medium",
-    "hidden": false
-  },
   "code-checker": {
     "description": "Code verification specialist. Three-pillar analysis: smells, spec alignment, correctness.",
     "mode": "subagent",
@@ -88,11 +80,11 @@
     "hidden": false
   },
   "orchestrator": {
-    "description": "Custom development orchestrator. Plans, delegates, integrates, and verifies complex code changes.",
+    "description": "Default development agent. Handles small changes directly and plans, delegates, integrates, and verifies complex work.",
     "mode": "primary",
-    "model": "cliproxy-anthropic/claude-opus-5-5:high",
-    "directModel": "anthropic/claude-opus-5-5:high",
-    "sourceModel": "anthropic/claude-opus-5-5#high",
+    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
+    "directModel": "anthropic/claude-opus-5-5:medium",
+    "sourceModel": "anthropic/claude-opus-5-5#medium",
     "hidden": false
   },
   "plan-checker": {

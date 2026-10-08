@@ -1,6 +1,6 @@
 ---
 description: Clean up AI-generated slop while preserving behavior
-agent: build
+agent: orchestrator
 ---
 
 Remove AI-generated slop from the target without changing behavior.

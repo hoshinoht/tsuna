@@ -36,7 +36,7 @@ export async function prepare() {
   config.setupVersion = CURRENT_SETUP_VERSION;
   config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage", "composer"].map(name => join(root, "extensions", `${name}.ts`));
   config.modelRoles = Object.fromEntries(Object.entries(roles).map(([name, info]) => [name, info.model]));
-  config.modelRoles.default = roles.build.model;
+  config.modelRoles.default = roles.orchestrator.model;
   config.modelRoles.plan = roles.plan.model;
   config.modelRoles.smol = roles.explore.model;
   config.modelRoles.slow = roles.oracle.model;
