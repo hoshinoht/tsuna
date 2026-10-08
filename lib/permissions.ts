@@ -9,6 +9,7 @@ import { readFileSync, realpathSync, statSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { extractLiteralAndChainSegments } from "@oh-my-pi/pi-coding-agent/tools/shell-tokenize";
+import { coordinationTarget, coordinationReason, type CoordinationScope, type CoordinationTarget } from "./coordination.ts";
 
 export type PermissionEffect = "allow" | "ask" | "deny";
 
@@ -30,6 +31,7 @@ export interface PermissionIntent {
 	resource: string;
 	resources?: readonly string[];
 	unsafeChannel?: string;
+	coordinationTarget?: CoordinationTarget;
 }
 
 export interface PermissionDecision extends PermissionIntent {
@@ -65,8 +67,9 @@ const UNSAFE_TOOLS = new Set([
 function globMatches(pattern: string, value: string): boolean {
 	if (pattern.startsWith("~/") && process.env.HOME) pattern = `${process.env.HOME}${pattern.slice(1)}`;
 	const sourceSkills = `${process.env.HOME ?? "~"}/.config/opencode/skills/`;
-	if (pattern.startsWith(sourceSkills) && process.env.HOSHI_OMP_ROOT) {
-		pattern = `${process.env.HOSHI_OMP_ROOT}/agent/skills/${pattern.slice(sourceSkills.length)}`;
+	const importedSkills = `${process.env.HOSHI_OMP_ROOT ?? resolve(import.meta.dir, "..")}/agent/skills/`;
+	if (pattern.startsWith(sourceSkills) && value.startsWith(importedSkills)) {
+		pattern = `${importedSkills}${pattern.slice(sourceSkills.length)}`;
 	}
 	let source = "^";
 	for (const character of pattern) {
@@ -145,7 +148,8 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 	switch (toolName) {
 	case "read": {
 			const path = stringInput(input, "path", "file") ?? "<missing-path>";
-			if (path.startsWith("agent://")) return { action: "subagent_list", resource: path };
+			const target = coordinationTarget(path);
+			if (target) return { action: "subagent_list", resource: path, coordinationTarget: target };
 			if (/^https?:\/\//i.test(path)) return { action: "webfetch", resource: path };
 			if (path.startsWith("skill://")) return { action: "skill", resource: path.slice("skill://".length).split("/")[0] || "*" };
 			if (path.startsWith("workplan://") || path.startsWith("mcp://workplan://")) {
@@ -166,8 +170,11 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 		case "write": {
 			const paths = editPaths(input);
 			const path = paths[0] ?? "<missing-path>";
-			if (path.startsWith("agent://")) {
-				return { action: "subagent_stop", resource: path, unsafeChannel: "agent:// write route" };
+			const target = coordinationTarget(path);
+			if (target) {
+				// Messaging uses the source's parent-control permission, not filesystem edit access.
+				return { action: "subagent_stop", resource: path, coordinationTarget: target,
+					unsafeChannel: toolName !== "write" || paths.length !== 1 || !/^agent:\//i.test(path) ? "unsupported coordination mutation" : undefined };
 			}
 			if (path.startsWith("xd://")) {
 				return { action: "edit", resource: path, unsafeChannel: "xd:// device dispatch" };
@@ -319,12 +326,16 @@ export function decidePermission(
 	policies: PermissionPolicies,
 	role: string,
 	call: ToolCall,
-	options: { cwd?: string; approvalMode?: "source" | "auto" } = {},
+	options: { cwd?: string; approvalMode?: "source" | "auto"; coordinationScope?: CoordinationScope } = {},
 ): PermissionDecision {
 	const intent = intentForToolCall(call);
 	if (intent.action === "coordination") return { ...intent, effect: "allow", role };
 	if (intent.unsafeChannel) {
 		return { ...intent, effect: "deny", role, reason: `Denied ${intent.unsafeChannel}` };
+	}
+	if (intent.coordinationTarget) {
+		const reason = coordinationReason(intent.coordinationTarget, options.coordinationScope, call.toolName === "write");
+		if (reason) return { ...intent, effect: "deny", role, reason };
 	}
 	const rules = policies[role] ?? [];
 	const resources = intent.resources ?? [intent.resource];
@@ -357,8 +368,15 @@ export function decidePermission(
 			if (!segments) {
 				// Auto mode approves ordinary pipelines, heredocs and substitutions.
 				// Keep the imported destructive/publishing guards even inside a chain.
-				const guarded = /\bgit\s+(?:-[^\n;|&]+\s+)?(?:push|clean)\b|\bgit\s+reset\b[^\n;|&]*--hard\b|\brm\s+-[^\s]*[rf][^\s]*\b/.test(intent.resource);
-				return { ...intent, effect: options.approvalMode === "auto" && !guarded && !asks ? "allow" : "ask", role, rule: finalRule, reason: guarded ? "Imported destructive or publishing guard" : "Complex shell command requires confirmation" };
+				const recursiveDelete = /\brm\s+(?:(?:-[A-Za-z]*r[A-Za-z]*|--recursive)\b)/.test(intent.resource);
+				const hardReset = /\bgit\s+reset\b[^\n;|&]*--hard\b/.test(intent.resource);
+				const publishOrClean = /\bgit\s+(?:-[^\n;|&]+\s+)?(?:push|clean)\b/.test(intent.resource);
+				const guarded = recursiveDelete || hardReset || publishOrClean;
+				const reason = recursiveDelete ? "Recursive deletion (rm -r / --recursive) requires approval"
+					: hardReset ? "Git hard reset requires approval"
+					: publishOrClean ? "Git publishing or cleanup requires approval"
+					: "Complex shell command requires confirmation";
+				return { ...intent, effect: options.approvalMode === "auto" && !guarded && !asks ? "allow" : "ask", role, rule: finalRule, reason };
 			}
 			for (const segment of segments) {
 				const segmentRule = evaluateRules(rules, "shell", segment.text);
