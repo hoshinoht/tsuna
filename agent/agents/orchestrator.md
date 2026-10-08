@@ -11,6 +11,7 @@ spawns:
   - document-writer
   - experimenter
   - explore
+  - fidelity
   - frontend-engineer
   - oracle
   - plan-checker

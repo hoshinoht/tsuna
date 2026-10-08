@@ -8,7 +8,8 @@ import { compressToolResults } from "../lib/hoshi";
 describe("OpenCode v2 import", () => {
   test("merged agent policies and command targets remain aligned", () => {
     expect(Object.keys(roles)).toHaveLength(16);
-    expect(Object.keys(permissions).sort()).toEqual(Object.keys(roles).sort());
+    // Fidelity is a project-local agent with a Hoshi tool policy, not a global model role.
+    expect(Object.keys(permissions).sort()).toEqual([...Object.keys(roles), "fidelity"].sort());
     expect(Object.keys(commands)).toHaveLength(7);
     for (const command of Object.values(commands)) expect(Object.keys(roles)).toContain(command.agent);
   });
