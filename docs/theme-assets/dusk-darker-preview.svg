@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+<style>text{font-family:Menlo,monospace;font-size:17px} .title{font-size:28px;font-weight:600}</style>
+<rect x="0" y="0" width="1280" height="640" rx="8" fill="#171A22"/>
+<text x="34" y="52" fill="#FFB8D1" class="title">Dusk Darker</text>
+<text x="34" y="83" fill="#C9CAD6" >Native OMP theme · representative states</text>
+<rect x="28" y="108" width="1224" height="82" rx="8" fill="#2A2D35"/>
+<text x="48" y="139" fill="#FFFFFF" >You</text>
+<text x="48" y="168" fill="#FFFFFF" >Improve error handling, run the tests, and review the changes.</text>
+<text x="34" y="220" fill="#AAACB7" font-style="italic">Checking the existing behavior and the relevant regression cases…</text>
+<rect x="28" y="242" width="1224" height="146" rx="8" fill="#383B44" stroke="#5D606A"/>
+<text x="48" y="275" fill="#FFB8D1" >$ bun test</text>
+<path d="M48 292 H1232" stroke="#383B44"/>
+<text x="48" y="321" fill="#E6E9F2" >Output</text>
+<text x="48" y="353" fill="#9BE6B5" >✓ 35 passed</text>
+<text x="290" y="353" fill="#E6E9F2" >0 failed · completed in 0.74s</text>
+<rect x="28" y="405" width="600" height="68" rx="8" fill="#2A2D35"/>
+<text x="48" y="446" fill="#FFB8D1" >✓ Read src/config.ts</text>
+<rect x="644" y="405" width="608" height="68" rx="8" fill="#7D2936"/>
+<text x="664" y="446" fill="#FFB8D1" >! Error: invalid configuration value</text>
+<path d="M28 503 H1252" stroke="#383B44"/>
+<text x="34" y="537" fill="#FFB8D1" >Opus 5.5</text>
+<text x="200" y="537" fill="#FFD4E2" >example-project</text>
+<text x="470" y="537" fill="#8BD3FF" >main +29</text>
+<text x="660" y="537" fill="#B0BCE8" >cache 96.3%</text>
+<text x="885" y="537" fill="#78E1D0" >74.0 tok/s</text>
+<text x="1090" y="537" fill="#FFB8D1" >45.6%/1M</text>
+<text x="34" y="581" fill="#FFB8D1" >╰─</text>
+<text x="88" y="581" fill="#FFFFFF" >What should we work on next?</text>
+<text x="34" y="615" fill="#C9CAD6" >hoshi · orchestrator</text>
+</svg>

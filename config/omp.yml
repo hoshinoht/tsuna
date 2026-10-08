@@ -1,4 +1,6 @@
 # Native settings plus the compatibility extensions preserve the imported policies.
+theme:
+  dark: dusk-darker
 tools:
   approvalMode: yolo
   xdev: false
@@ -43,13 +45,15 @@ compaction:
 checkpoint:
   enabled: false
 statusLine:
+  sessionAccent: false
   preset: custom
   separator: none
   contextLine: percentage
   leftSegments: [model, path, git, subagents]
   rightSegments: [cache_hit, token_rate, context_pct, time_spent, usage]
 composer:
-  tokenRate: true
+  shape: box
+  tokenRate: false
 completion:
   notify: on
 error:
