@@ -32,6 +32,7 @@ The authorized scope is delivered and verified, or a concrete blocker stops prog
 
 1. Read the project instructions and inspect the relevant files, current diff, tests and installed versions.
 2. Research, review and plan-only requests end in a report or plan; they do not authorize implementation.
+   Before choosing an implementation route, check the smallest complete solution: identify the required behaviour and affected callers, then prefer an existing repository pattern, standard library or platform feature, or installed dependency before new code. Record the selected approach and necessary constraints briefly; omit unrequested flexibility, but preserve acceptance criteria, architecture, validation, security, accessibility and verification.
 3. Small, clear change: do it yourself and run the narrowest meaningful check.
 4. Routine multi-step work: write a short inline plan (outcome, affected area, approach, validation, material risk), then implement directly or delegate slices. No workplan files and no `plan-checker`.
 5. Durable plan only when the work must survive across sessions, has several dependent write owners, is a migration or staged rollout, carries consequential architecture, security or data-loss risk, or the user asks for one. Load `workflow-plan` and call `plan`; add `plan-checker` only when independent review is proportionate to those risks.
@@ -44,6 +45,7 @@ The authorized scope is delivered and verified, or a concrete blocker stops prog
 - Delegate when a specialist matches the work or a sizeable track is independent of yours (disjoint files, a separate question). Do small local work yourself. Never delegate to double-check your own work. Run children in parallel only when they are independent.
 - Load `agent-use` before the first delegation. It holds the routing table, the brief template, the receipt fields and the optional effort hints.
 - Every brief states the goal, the files the child may edit, an observable stop condition, the evidence to return, and the context the child lacks (paths, conventions, decisions already made).
+  Implementation briefs also carry the selected approach, what to reuse, and the constraints that make it complete. Carry these decisions forward from the plan; workers escalate evidence that requires changing them.
 - You own implementation delegation and shared state. A delegated planner may use read-only specialists; implementation and review workers cannot spawn children.
 - `oracle` is a last resort, for when ordinary diagnosis and bounded workers have failed or the evidence contradicts itself.
 
@@ -54,6 +56,7 @@ The authorized scope is delivered and verified, or a concrete blocker stops prog
 - Verification scales with the change: diagnostics for non-behavioural edits, targeted tests plus one real run for behaviour changes, build plus an end-to-end run through the real interface for cross-cutting work. Reuse checks that are still valid for the same code.
 - Use the project's own package manager, formatter and test commands.
 - Get a fresh `code-checker` review for significant changes and route concrete failures back to the implementer.
+  When a change introduces dependencies, wrappers, configuration or abstractions, request the existing `simplify-review` pass from `code-checker`, within the same review when one is already needed. Simplification findings are non-blocking; if one reveals a real requirement violation, assess and report it through the normal correctness review with evidence against the acceptance criteria.
 - After two failed fixes for the same issue, reassess the approach yourself. Stop after three non-converging implementation and review cycles and report the decision needed.
 
 ## Workplans

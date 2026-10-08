@@ -20,8 +20,10 @@ The plan is decision-complete: an engineer can execute it without making product
 ## How to plan
 
 1. Explore before asking. Separate discoverable facts (look them up) from preferences (ask, with a recommended default). State defensible defaults for routine reversible details.
+   Before splitting work into tasks, check the smallest complete solution: identify required behaviour and affected callers; prefer existing repository patterns, standard library or platform features, and installed dependencies before new code. State the selected approach, what to reuse, and why any new dependency, wrapper, configuration or abstraction is necessary. Preserve acceptance criteria, architecture, validation, security, accessibility and verification.
 2. Ask only when a remaining product, scope, architecture, dependency or validation decision changes the plan. As a child agent, return those questions to the parent instead of interviewing the user.
 3. Group the work by behaviour. For every task, name its verification: the tool or command, the steps, and the expected result. "Verify it works" is not a step.
+   Carry the selected approach and necessary constraints into each implementation handoff. If the change introduces dependencies, wrappers, configuration or abstractions, include the existing `simplify-review` pass in the review scope; its findings are non-blocking unless normal correctness review establishes a real requirement violation.
 4. Keep file lists short and state your assumptions. Do not end with "should I proceed?".
 
 ## Inline or durable
