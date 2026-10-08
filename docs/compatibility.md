@@ -33,6 +33,8 @@ Claude traffic uses `cliproxy-anthropic` with the Anthropic Messages API. OpenAI
 
 ## Permissions
 
+`extensions/project-context.ts` automatically reads named instruction files and discovers `skills/` in project-local `.opencode`, `.codex`, `.claude`, `.agents`, `.agent` and `.gemini` folders. It loads `AGENTS.md` in each folder, plus `.claude/CLAUDE.md` and `.gemini/GEMINI.md`. Discovery runs from the Git root to the current directory (only the current directory outside Git); it excludes home-level configuration. Skills use OMP's native catalog, duplicate-name handling and exclusions, with runtime-only paths refreshed on session start/switch. Instruction contents refresh each turn. Other files remain available through ordinary reads; agents, commands, hooks, MCP configuration and foreign user-level sources keep their existing discovery settings. Restart OMP to load the extension.
+
 The bridge preserves last-match-wins action rules and Shiori's role ownership. OMP tool names map to source actions. Source `ask` rules confirm in interactive primary sessions and fail closed in headless children. URL, skill and MCP-resource reads have separate routes from filesystem paths.
 
 The original OpenCode shell scanner is not embedded: literal `&&` chains are checked segment by segment. Automatic mode permits ordinary pipelines, heredocs and substitutions while retaining destructive/publishing guards and explicit denials. Source mode preserves confirmation for complex syntax. General Eval, browser and memory tools, unknown tools, and unverified mutation paths remain denied until their policy mapping is implemented. Native LSP can still be reached through the imported LSP MCP.

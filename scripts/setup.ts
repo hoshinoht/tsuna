@@ -34,7 +34,7 @@ export async function prepare() {
   const config = parse(await readFile(join(root, "config/omp.yml"), "utf8"));
   // This profile is already configured; provider login belongs to CLIProxyAPI.
   config.setupVersion = CURRENT_SETUP_VERSION;
-  config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage", "composer"].map(name => join(root, "extensions", `${name}.ts`));
+  config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage", "composer", "project-context"].map(name => join(root, "extensions", `${name}.ts`));
   config.modelRoles = Object.fromEntries(Object.entries(roles).map(([name, info]) => [name, info.model]));
   config.modelRoles.default = roles.orchestrator.model;
   config.modelRoles.plan = roles.plan.model;
