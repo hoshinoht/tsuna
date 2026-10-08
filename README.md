@@ -6,7 +6,7 @@
 
 *An isolated trial port of hoshi-opencode2 with a local Docker model gateway.*
 
-[![OMP 18.8.0](https://img.shields.io/badge/OMP-18.8.0-blue)](https://github.com/can1357/oh-my-pi/releases/tag/v18.8.0)
+[![OMP 18.8.3](https://img.shields.io/badge/OMP-18.8.3-blue)](https://github.com/can1357/oh-my-pi/releases/tag/v18.8.3)
 [![CLIProxyAPI 8.0.18](https://img.shields.io/badge/CLIProxyAPI-8.0.18-blue)](https://github.com/router-for-me/CLIProxyAPI/releases/tag/v8.0.18)
 [![GPL 3 or later](https://img.shields.io/badge/license-GPL--3.0--or--later-green)](LICENSE)
 
@@ -54,9 +54,11 @@ flowchart LR
 **Requirements:** Bun, Go, Node.js and Docker; Pandoc/TeX for document compilation.
 
 ```sh
-# 1. Install the pinned host and prepare the repository-local profile.
+# 1. Install OMP officially, then prepare and connect the Hoshi profile.
+bun install -g @oh-my-pi/pi-coding-agent
 bun install --frozen-lockfile
 bun run setup
+bun scripts/connect-official.ts
 bun scripts/install-path.ts
 
 # 2. Start the gateway and sign in with your own provider accounts.
@@ -67,12 +69,13 @@ hoshi-omp proxy models
 
 # 3. Launch from the project you want to work on.
 cd ~/projects/example
-hoshi-omp
+omp
 ```
 
 | Next step | Command or guide |
 |---|---|
 | Select an orchestrator | `hoshi-omp --agent orchestrator` or `/hoshi-agent orchestrator` |
+| Update the official runtime | `omp update` (the Bun global installation owns this command) |
 | Run your development workflow | `/dev <request>` |
 | Use the imported review workflow | `/hoshi-review <request>`; OMP owns `/review` |
 | Stop the gateway | `hoshi-omp proxy stop` |

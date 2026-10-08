@@ -13,7 +13,7 @@ if (args[0] === "setup") {
   const child = Bun.spawn([process.execPath, join(root, "scripts/setup.ts")], { stdin: "inherit", stdout: "inherit", stderr: "inherit" });
   process.exit(await child.exited);
 }
-let role = "build";
+let role = "orchestrator";
 const index = args.indexOf("--agent");
 if (index >= 0) {
   role = args[index + 1];
@@ -24,16 +24,20 @@ if (!roles[role]) throw new Error(`Unknown hoshi role: ${role}`);
 const agentDir = join(root, ".runtime/omp/agent");
 if (!existsSync(join(agentDir, "config.yml"))) throw new Error("Run hoshi-omp setup first");
 const keyPath = join(root, ".runtime/proxy/client-key");
+const official = process.env.HOSHI_OMP_BIN ?? join(homedir(), ".bun/bin/omp");
+const useOfficial = existsSync(official) && realpathSync(official) !== realpathSync(process.argv[1]);
 const env = {
   ...process.env, HOSHI_OMP_ROOT: root, HOSHI_AGENT: role,
   HOSHI_AGENT_EXPLICIT: index >= 0 ? "1" : "0",
   HOSHI_PROXY_KEY: existsSync(keyPath) ? readFileSync(keyPath, "utf8").trim() : "",
-  PI_CONFIG_DIR: relative(homedir(), join(root, ".runtime/omp")),
-  PI_CODING_AGENT_DIR: agentDir, OMP_PROFILE: "", PI_PROFILE: "",
+  PI_CONFIG_DIR: useOfficial ? ".omp" : relative(homedir(), join(root, ".runtime/omp")),
+  PI_CODING_AGENT_DIR: useOfficial ? join(homedir(), ".omp/agent") : agentDir, OMP_PROFILE: "", PI_PROFILE: "",
 };
 const resumes = args.some(arg => ["--resume", "-r", "--continue", "-c"].includes(arg) || arg.startsWith("--resume="));
 const modelArgs = index >= 0 || !resumes ? ["--model", roles[role].model] : [];
-const child = Bun.spawn([process.execPath, join(root, "node_modules/@oh-my-pi/pi-coding-agent/dist/cli.js"), ...modelArgs, ...args], { env, stdin: "inherit", stdout: "inherit", stderr: "inherit" });
+const command = useOfficial
+  ? [official] : [process.execPath, join(root, "node_modules/@oh-my-pi/pi-coding-agent/dist/cli.js")];
+const child = Bun.spawn([...command, ...modelArgs, ...args], { env, stdin: "inherit", stdout: "inherit", stderr: "inherit" });
 process.on("SIGINT", () => child.kill("SIGINT"));
 process.on("SIGTERM", () => child.kill("SIGTERM"));
 process.exit(await child.exited);

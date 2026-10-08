@@ -4,6 +4,7 @@ import { parse, stringify } from "yaml";
 import { getBundledModel } from "@oh-my-pi/pi-catalog";
 import { CURRENT_SETUP_VERSION } from "@oh-my-pi/pi-tui/setup/setup-version";
 import roles from "../config/roles.json";
+import { gatewayKeySetting } from "../lib/profile";
 
 export const root = resolve(import.meta.dir, "..");
 export const runtimeAgentDir = join(root, ".runtime/omp/agent");
@@ -28,10 +29,12 @@ export async function prepare() {
     const target = join(runtimeAgentDir, entry);
     if (!await lstat(target).catch(() => null)) await symlink(join(root, "agent", entry), target);
   }
+  await mkdir(join(runtimeAgentDir, "themes"), { recursive: true });
+  await cp(join(root, "agent/themes"), join(runtimeAgentDir, "themes"), { recursive: true });
   const config = parse(await readFile(join(root, "config/omp.yml"), "utf8"));
   // This profile is already configured; provider login belongs to CLIProxyAPI.
   config.setupVersion = CURRENT_SETUP_VERSION;
-  config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage"].map(name => join(root, "extensions", `${name}.ts`));
+  config.extensions = ["permissions", "docs", "runtime", "hoshi", "usage", "composer"].map(name => join(root, "extensions", `${name}.ts`));
   config.modelRoles = Object.fromEntries(Object.entries(roles).map(([name, info]) => [name, info.model]));
   config.modelRoles.default = roles.build.model;
   config.modelRoles.plan = roles.plan.model;
@@ -55,7 +58,7 @@ export async function prepare() {
     groups[proxy] ??= {
       baseUrl: provider === "openai" ? "http://127.0.0.1:18317/v1" : "http://127.0.0.1:18317",
       api: provider === "openai" ? "openai-responses" : "anthropic-messages",
-      apiKey: "HOSHI_PROXY_KEY",
+      apiKey: gatewayKeySetting(root),
       models: [],
     };
     if (groups[proxy].models.some((m: any) => m.id === id)) continue;

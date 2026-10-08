@@ -5,7 +5,7 @@ import { join, resolve } from "node:path";
 const target = resolve(import.meta.dir, "../bin/hoshi-omp");
 await chmod(target, 0o755);
 await mkdir(join(homedir(), ".local/bin"), { recursive: true });
-for (const command of ["hoshi-omp", "omp"]) {
+for (const command of ["hoshi-omp"]) {
   const link = join(homedir(), ".local/bin", command);
   const existing = await lstat(link).catch(() => null);
   if (existing) {
