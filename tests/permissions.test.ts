@@ -188,6 +188,28 @@ describe("OpenCode compatibility policy", () => {
 		}
 	});
 
+	it("allows resolution devices as coordination while denying arbitrary device dispatch", () => {
+		for (const device of ["xd://reject", "xd://resolve", "xd://propose"]) {
+			expect(decidePermission(policies, "build", { toolName: "write", input: { path: device, content: "ok" } })).toMatchObject({
+				effect: "allow",
+				action: "coordination",
+			});
+			expect(decidePermission(policies, "tester", { toolName: "write", input: { path: device, content: "ok" } })).toMatchObject({
+				effect: "allow",
+				action: "coordination",
+			});
+			expect(decidePermission(policies, "tester", { toolName: "read", input: { path: device } })).toMatchObject({
+				effect: "allow",
+				action: "coordination",
+			});
+		}
+		expect(decidePermission(policies, "build", { toolName: "write", input: { path: "xd://eval/agents" } })).toMatchObject({
+			effect: "deny",
+			reason: "Denied xd:// device dispatch",
+		});
+		expect(canSurfaceTool(policies, "tester", "write")).toBe(false);
+	});
+
 	it("selects the configured primary role and trusted subagent name", () => {
 		expect(roleForAgent({ kind: "main", name: "main" }, "build")).toBe("build");
 		expect(roleForAgent({ kind: "sub", name: "plan" }, "build")).toBe("plan");

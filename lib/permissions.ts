@@ -73,6 +73,12 @@ const DEBUG_READ_ACTIONS = new Set([
 	"output", "threads", "stack_trace", "scopes", "variables", "disassemble", "read_memory", "loaded_sources", "modules", "sessions",
 ]);
 
+const RESOLUTION_DEVICE_PATHS = new Set(["xd://resolve", "xd://reject", "xd://propose"]);
+
+function isResolutionDevicePath(path: string): boolean {
+	return RESOLUTION_DEVICE_PATHS.has(path.trim().toLowerCase());
+}
+
 function globMatches(pattern: string, value: string): boolean {
 	if (pattern.startsWith("~/") && process.env.HOME) pattern = `${process.env.HOME}${pattern.slice(1)}`;
 	const sourceSkills = `${process.env.HOME ?? "~"}/.config/opencode/skills/`;
@@ -159,6 +165,7 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 			const path = stringInput(input, "path", "file") ?? "<missing-path>";
 			const target = coordinationTarget(path);
 			if (target) return { action: "subagent_list", resource: path, coordinationTarget: target };
+			if (isResolutionDevicePath(path)) return { action: "coordination", resource: path };
 			if (/^https?:\/\//i.test(path)) return { action: "webfetch", resource: path };
 			if (path.startsWith("skill://")) return { action: "skill", resource: path.slice("skill://".length).split("/")[0] || "*" };
 			if (path.startsWith("workplan://") || path.startsWith("mcp://workplan://")) {
@@ -184,6 +191,9 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 				// Messaging uses the source's parent-control permission, not filesystem edit access.
 				return { action: "subagent_stop", resource: path, coordinationTarget: target,
 					unsafeChannel: toolName !== "write" || paths.length !== 1 || !/^agent:\//i.test(path) ? "unsupported coordination mutation" : undefined };
+			}
+			if (toolName === "write" && paths.length === 1 && isResolutionDevicePath(path)) {
+				return { action: "coordination", resource: path };
 			}
 			if (path.startsWith("xd://")) {
 				return { action: "edit", resource: path, unsafeChannel: "xd:// device dispatch" };
