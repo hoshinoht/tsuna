@@ -45,7 +45,7 @@
 ### Runtime controls
 
 - **Context management:** image budgets, cache advisories and manual tool-result compression preserve stored history.
-- **Accounts and approvals:** provider quota tracking and GPT-6-Luna approval reviews use the local gateway.
+- **Accounts and approvals:** provider quota tracking uses the local gateway; permission prompts use human approval.
 - **Supervised jobs:** run commands with deadlines, durable exit status and bounded waits that survive a caller restart.
 
 ## Architecture

@@ -10,9 +10,9 @@
   "code-checker": {
     "description": "Code verification specialist. Three-pillar analysis: smells, spec alignment, correctness.",
     "mode": "subagent",
-    "model": "cliproxy-openai/gpt-5.6-terra:medium",
-    "directModel": "openai-codex/gpt-5.6-terra:medium",
-    "sourceModel": "openai/gpt-5.6-terra-1m#medium",
+    "model": "cliproxy-anthropic/claude-sonnet-5-5:medium",
+    "directModel": "anthropic/claude-sonnet-5-5:medium",
+    "sourceModel": "anthropic/claude-sonnet-5-5#medium",
     "hidden": false
   },
   "code-engineer": {
@@ -90,9 +90,9 @@
   "plan-checker": {
     "description": "Plan verification specialist. Reviews workplans, specs, handoffs, and workflow risks before implementation.",
     "mode": "subagent",
-    "model": "cliproxy-anthropic/claude-opus-5-5:medium",
-    "directModel": "anthropic/claude-opus-5-5:medium",
-    "sourceModel": "anthropic/claude-opus-5-5#medium",
+    "model": "cliproxy-anthropic/claude-sonnet-5-5:medium",
+    "directModel": "anthropic/claude-sonnet-5-5:medium",
+    "sourceModel": "anthropic/claude-sonnet-5-5#medium",
     "hidden": false
   },
   "plan": {

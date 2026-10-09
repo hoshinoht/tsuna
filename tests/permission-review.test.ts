@@ -68,10 +68,11 @@ test("timeouts abort the reviewer and leave a manual approval path", async () =>
 	expect(result?.status).toBe("unavailable");
 });
 
-test("prompt reviews preserve hard denials, headless restrictions and the human decision", async () => {
+test("permission prompts preserve hard denials and human decisions without a model reviewer", async () => {
 	const handlers = new Map<string, (event: never, ctx: ExtensionContext) => Promise<unknown>>();
 	const entries: unknown[] = [];
 	permissions({ on: (name: string, handler: unknown) => handlers.set(name, handler as never), registerCommand: () => {}, appendEntry: (_name: string, value: unknown) => entries.push(value) } as unknown as ExtensionAPI);
+	expect(handlers.has("tool_approval_requested")).toBe(false);
 	const ctx = context();
 	let finds = 0;
 	ctx.modelRegistry.find = () => { finds++; return undefined; };
@@ -84,9 +85,10 @@ test("prompt reviews preserve hard denials, headless restrictions and the human 
 	expect(await call(event, { ...ctx, hasUI: false })).toMatchObject({ block: true });
 	expect(finds).toBe(0);
 	expect(await call(event, ctx)).toMatchObject({ block: true, reason: "Permission was not approved" });
-	expect(prompt).toContain("GPT-6-Luna");
-	expect(prompt).toContain("manual approval");
-	expect(entries).toHaveLength(2);
+	expect(finds).toBe(0);
+	expect(prompt).toContain("Allow shell");
+	expect(prompt).not.toContain("GPT-6-Luna");
+	expect(entries).toEqual([{ toolCallId: "ask", source: "human", approved: false }]);
 	expect(JSON.stringify(entries)).not.toContain("rm -rf");
 });
 

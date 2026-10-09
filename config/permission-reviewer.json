@@ -1,7 +1,0 @@
-{
-  "enabled": true,
-  "mode": "auto",
-  "model": "cliproxy-openai/gpt-6-luna",
-  "timeoutMs": 15000,
-  "maxTokens": 1024
-}
