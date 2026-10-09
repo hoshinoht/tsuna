@@ -117,15 +117,21 @@ async function main() {
 	const rl = interactive ? createInterface({ input: process.stdin, output: process.stdout, prompt: "tsuna> " }) : undefined;
 	// Start iterating immediately so lines typed during startup are buffered, not dropped.
 	const lines = rl?.[Symbol.asyncIterator]();
-	let pendingApproval: ((answer: boolean) => void) | undefined;
+	// Approvals are answered strictly in arrival order (parallel tool calls can ask at once).
+	const approvals: { request: ApprovalRequest; resolve: (answer: boolean) => void }[] = [];
+	const showApproval = () => {
+		const head = approvals[0];
+		if (!head) return;
+		const d = head.request.decision;
+		out(`\n⚠ Permission required${approvals.length > 1 ? ` (1 of ${approvals.length})` : ""}: ${head.request.agentId} (${head.request.role}) wants ${head.request.toolName} → ${d.action} ${d.resource}`);
+		out(`  reason: ${d.reason ?? (d.rule ? `rule ${d.rule.effect} ${d.rule.action} ${d.rule.resource}` : "ask")}`);
+		out("  allow? [y/N]");
+	};
 	const approver = rl
 		? (request: ApprovalRequest) =>
 				new Promise<boolean>(resolve => {
-					const d = request.decision;
-					out(`\n⚠ Permission required: ${request.agentId} (${request.role}) wants ${request.toolName} → ${d.action} ${d.resource}`);
-					out(`  reason: ${d.reason ?? (d.rule ? `rule ${d.rule.effect} ${d.rule.action} ${d.rule.resource}` : "ask")}`);
-					out("  allow? [y/N]");
-					pendingApproval = resolve;
+					approvals.push({ request, resolve });
+					if (approvals.length === 1) showApproval();
 				})
 		: undefined;
 	const harness = await Harness.start({
@@ -180,10 +186,10 @@ async function main() {
 			rl.prompt();
 			for (let next = await lines!.next(); !next.done; next = await lines!.next()) {
 				const line = next.value;
-				if (pendingApproval) {
-					const resolve = pendingApproval;
-					pendingApproval = undefined;
-					resolve(/^y(es)?$/i.test(line.trim()));
+				if (approvals.length > 0) {
+					const head = approvals.shift()!;
+					head.resolve(/^y(es)?$/i.test(line.trim()));
+					showApproval();
 					rl.prompt();
 					continue;
 				}
@@ -195,6 +201,8 @@ async function main() {
 			rl.close();
 		}
 	} finally {
+		// Unanswered approvals are denials.
+		for (const pending of approvals.splice(0)) pending.resolve(false);
 		await shutdown();
 	}
 	return code;

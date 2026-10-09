@@ -21,7 +21,10 @@ async function rig(opts: Parameters<typeof startRig>[0] = {}) {
 	return r;
 }
 
-const yieldNow = () => ({ toolCalls: [{ name: "yield", arguments: { data: { answer: "x", findings: [] } } }] });
+// Children must satisfy their role's output schema, or the fixture would retry forever.
+const yieldNow = (turn: { role: string }) => ({
+	toolCalls: [{ name: "yield", arguments: { data: turn.role === "tester" ? { status: "PASS", checks: [] } : { answer: "x", findings: [] } } }],
+});
 
 function tagOf(text: string): string {
 	const tag = /^\[[^\]#]+#([^\]]+)\]/.exec(text)?.[1];

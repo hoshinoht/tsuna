@@ -25,6 +25,19 @@ export interface JobStatus {
 
 export class SupervisorError extends Error {}
 
+const SAFE_ENV = ["PATH", "HOME", "USER", "LOGNAME", "SHELL", "LANG", "LC_ALL", "LC_CTYPE", "TERM", "TMPDIR", "TZ"];
+
+/**
+ * Environment for supervised commands: a small allowlist plus explicit
+ * additions. Provider keys and other secrets in the harness environment are
+ * not inherited by agent-run commands.
+ */
+export function scrubbedEnv(extra: Record<string, string> = {}, env: NodeJS.ProcessEnv = process.env): Record<string, string> {
+	const out: Record<string, string> = {};
+	for (const key of SAFE_ENV) if (env[key] !== undefined) out[key] = env[key]!;
+	return { ...out, ...extra };
+}
+
 export const TERMINAL_JOB_STATES: ReadonlySet<JobState> = new Set(["completed", "timed_out", "startup_failed", "cancelled", "unknown"]);
 
 export class SupervisorClient {
@@ -38,9 +51,9 @@ export class SupervisorClient {
 		return existsSync(this.binary);
 	}
 
-	private async run(args: string[], signal?: AbortSignal): Promise<{ code: number; stdout: string; stderr: string }> {
+	private async run(args: string[], signal?: AbortSignal, env?: Record<string, string>): Promise<{ code: number; stdout: string; stderr: string }> {
 		if (!this.available()) throw new SupervisorError(`supervisor binary not built: ${this.binary} (run: bun run build:native)`);
-		const proc = Bun.spawn([this.binary, "--root", this.root, "job", ...args], { stdout: "pipe", stderr: "pipe", stdin: "ignore" });
+		const proc = Bun.spawn([this.binary, "--root", this.root, "job", ...args], { stdout: "pipe", stderr: "pipe", stdin: "ignore", env: env ?? scrubbedEnv() });
 		const onAbort = () => proc.kill("SIGTERM");
 		signal?.addEventListener("abort", onAbort, { once: true });
 		try {
@@ -62,8 +75,8 @@ export class SupervisorClient {
 	}
 
 	/** Start (or, for an existing `id`, look up) a run. Never starts a second worker for one id. */
-	async start(opts: { id: string; cwd: string; timeoutSeconds: number; command: string[] }): Promise<{ id: string; run_directory: string; created: boolean }> {
-		const out = await this.run(["start", "--timeout", String(opts.timeoutSeconds), "--id", opts.id, "--cwd", opts.cwd, "--", ...opts.command]);
+	async start(opts: { id: string; cwd: string; timeoutSeconds: number; command: string[]; env?: Record<string, string> }): Promise<{ id: string; run_directory: string; created: boolean }> {
+		const out = await this.run(["start", "--timeout", String(opts.timeoutSeconds), "--id", opts.id, "--cwd", opts.cwd, "--", ...opts.command], undefined, opts.env);
 		return this.parse(out);
 	}
 

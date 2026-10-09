@@ -13,6 +13,8 @@ import { fail, ok, type ToolContext, type ToolImpl } from "./types.ts";
 
 export interface BuiltinDeps {
 	nativesDir: string;
+	/** Environment for supervised commands (scrubbed; provider keys are not inherited). */
+	jobEnv: Record<string, string>;
 	supervisor: SupervisorClient;
 	/** Record/lookup external jobs owned by an agent (runtime-owned bookkeeping). */
 	jobs: {
@@ -165,9 +167,10 @@ export function builtinTools(deps: BuiltinDeps): Map<string, ToolImpl> {
 			async execute(ctx, input) {
 				const command = String(input.command);
 				const timeout = (input.timeout_seconds as number | undefined) ?? 120;
-				// One result identity per tool call: a repeated start returns the existing run.
-				const jobId = `${ctx.agentId}-${ctx.toolCallId}`.replace(/[^A-Za-z0-9_-]/g, "_").slice(0, 96);
-				const started = await supervisor.start({ id: jobId, cwd: ctx.cwd, timeoutSeconds: timeout, command: ["/bin/sh", "-c", command] });
+				// One result identity per (root, agent, tool call): a repeated start returns
+				// the existing run. Hashed so long provider call ids cannot collide by truncation.
+				const jobId = `${ctx.agentId}-${createHash("sha256").update(`${ctx.rootId}\0${ctx.agentId}\0${ctx.toolCallId}`).digest("hex").slice(0, 32)}`.slice(0, 96);
+				const started = await supervisor.start({ id: jobId, cwd: ctx.cwd, timeoutSeconds: timeout, command: ["/bin/sh", "-c", command], env: deps.jobEnv });
 				deps.jobs.record(ctx.agentId, { runDirectory: started.run_directory, jobId: started.id, command, toolCallId: ctx.toolCallId, startedAt: Date.now() });
 				if (input.background === true) {
 					return ok(`Started job ${started.id}${started.created ? "" : " (already existed; not started again)"}. Use job_wait/job_status.`, { job: started.id });

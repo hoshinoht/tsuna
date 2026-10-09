@@ -118,6 +118,7 @@ export class McpManager {
 			name,
 			description: `[${server}] ${tool.description ?? tool.name}`,
 			parameters: (tool.inputSchema ?? Type.Object({})) as TSchema,
+			external: true,
 			async execute(ctx, input) {
 				const c = client();
 				if (!c) return fail(`MCP server ${server} is not connected`);

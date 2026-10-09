@@ -8,7 +8,7 @@ import { createBackendSession, ModelHub, type BackendSession, type BackendSessio
 import { loadConfig, type TsunaConfig } from "./config.ts";
 import { cacheRisk, compressToolResults, pruneImages, type ImagePruneReason } from "./context/transforms.ts";
 import { DEFAULT_INSTRUCTION_FOLDERS, loadProjectContext, renderProjectContext } from "./context/project.ts";
-import { SupervisorClient } from "./jobs/supervisor.ts";
+import { scrubbedEnv, SupervisorClient } from "./jobs/supervisor.ts";
 import { McpManager } from "./mcp/manager.ts";
 import { orchestrationTools, runtimeTools } from "./orchestration/tools.ts";
 import { AgentRuntime } from "./orchestration/runtime.ts";
@@ -35,10 +35,43 @@ export interface HarnessOptions {
 	env?: NodeJS.ProcessEnv;
 }
 
-export class Harness {
-	private closed = false;
+/** Per-agent outgoing-context transform (compression, image budget, cache advisory). */
+class ContextTransforms {
 	private readonly imageDecisions = new Map<string, Map<string, ImagePruneReason>>();
 	private readonly advised = new Set<string>();
+
+	constructor(
+		private readonly config: TsunaConfig,
+		private readonly emit: (e: RuntimeEvent) => void,
+		private readonly save: (record: AgentRecord) => void,
+	) {}
+
+	for(record: AgentRecord) {
+		return (messages: { role: string; content?: unknown; [k: string]: unknown }[]) => {
+			let out = compressToolResults(messages, record.compressions);
+			let decisions = this.imageDecisions.get(record.id);
+			if (!decisions) {
+				decisions = new Map(Object.entries(record.imagePrune ?? {}) as [string, ImagePruneReason][]);
+				this.imageDecisions.set(record.id, decisions);
+			}
+			const pruned = pruneImages(out, decisions, this.config.context.imageBudget);
+			out = pruned.messages;
+			if (pruned.changed) {
+				record.imagePrune = Object.fromEntries(decisions);
+				this.save(record);
+			}
+			const risk = cacheRisk(out, this.config.context.cacheAdvisory, { provider: record.contract.provider, id: record.contract.modelId });
+			if (risk && !this.advised.has(`${record.id}|${risk.fingerprint}`)) {
+				this.advised.add(`${record.id}|${risk.fingerprint}`);
+				this.emit({ type: "warning", agentId: record.id, message: `cache advisory: ${risk.idleMinutes.toFixed(0)} min idle on ${risk.provider}/${risk.model} with ${risk.cacheReadTokens} cached tokens; the next request will likely miss the prompt cache` });
+			}
+			return out;
+		};
+	}
+}
+
+export class Harness {
+	private closed = false;
 
 	private constructor(
 		readonly config: TsunaConfig,
@@ -74,6 +107,7 @@ export class Harness {
 		let runtimeRef: AgentRuntime | undefined;
 		const builtins = builtinTools({
 			nativesDir: paths.natives,
+			jobEnv: scrubbedEnv({}, env),
 			supervisor,
 			jobs: {
 				record: (agentId, job) => runtimeRef?.recordJob(agentId, job),
@@ -87,7 +121,9 @@ export class Harness {
 			if (!instructionsCache.has(dir)) instructionsCache.set(dir, renderProjectContext(loadProjectContext(dir, DEFAULT_INSTRUCTION_FOLDERS)));
 			return instructionsCache.get(dir)!;
 		};
-		let harness: Harness | undefined;
+		// Context transforms must exist before the primary session opens (inside
+		// create/resume), so they cannot depend on the Harness instance.
+		const transforms = new ContextTransforms(config, emit, record => runtimeRef?.store.save(record));
 		const deps = {
 			paths,
 			config,
@@ -98,17 +134,24 @@ export class Harness {
 			mcpServers: () => mcp.enabledServers(),
 			createSession: opts.createSession ?? createBackendSession,
 			toPiTool,
-			contextTransform: (record: AgentRecord) => harness?.transformFor(record),
+			contextTransform: (record: AgentRecord) => transforms.for(record),
 			projectInstructions,
 			emit,
 			orchestrationTools: (rt: AgentRuntime) => new Map([...orchestrationTools(rt), ...runtimeTools(rt)]),
 		};
 		const role = opts.role ?? config.primaryRole;
-		const runtime = opts.resume
-			? await AgentRuntime.resume(deps, opts.resume, { interactive: opts.interactive })
-			: await AgentRuntime.create(deps, { role, cwd, interactive: opts.interactive });
+		let runtime: AgentRuntime;
+		try {
+			runtime = opts.resume
+				? await AgentRuntime.resume({ ...deps, onReady: rt => (runtimeRef = rt) }, opts.resume, { interactive: opts.interactive })
+				: await AgentRuntime.create({ ...deps, onReady: rt => (runtimeRef = rt) }, { role, cwd, interactive: opts.interactive });
+		} catch (error) {
+			// Release what this start already owns (MCP server processes).
+			await mcp.shutdown();
+			throw error;
+		}
 		runtimeRef = runtime;
-		harness = new Harness(config, paths, catalog, hub, gate, mcp, supervisor, runtime);
+		const harness = new Harness(config, paths, catalog, hub, gate, mcp, supervisor, runtime);
 		harness.listeners = events;
 		return harness;
 	}
@@ -120,30 +163,6 @@ export class Harness {
 		return () => {
 			const i = this.listeners.indexOf(listener);
 			if (i >= 0) this.listeners.splice(i, 1);
-		};
-	}
-
-	/** Per-agent outgoing-context transform (compression, image budget, cache advisory). */
-	transformFor(record: AgentRecord) {
-		return (messages: { role: string; content?: unknown; [k: string]: unknown }[]) => {
-			let out = compressToolResults(messages, record.compressions);
-			let decisions = this.imageDecisions.get(record.id);
-			if (!decisions) {
-				decisions = new Map(Object.entries(record.imagePrune ?? {}) as [string, ImagePruneReason][]);
-				this.imageDecisions.set(record.id, decisions);
-			}
-			const pruned = pruneImages(out, decisions, this.config.context.imageBudget);
-			out = pruned.messages;
-			if (pruned.changed) {
-				record.imagePrune = Object.fromEntries(decisions);
-				this.runtime.store.save(record);
-			}
-			const risk = cacheRisk(out, this.config.context.cacheAdvisory, { provider: record.contract.provider, id: record.contract.modelId });
-			if (risk && !this.advised.has(`${record.id}|${risk.fingerprint}`)) {
-				this.advised.add(`${record.id}|${risk.fingerprint}`);
-				for (const l of this.listeners) l({ type: "warning", agentId: record.id, message: `cache advisory: ${risk.idleMinutes.toFixed(0)} min idle on ${risk.provider}/${risk.model} with ${risk.cacheReadTokens} cached tokens; the next request will likely miss the prompt cache` });
-			}
-			return out;
 		};
 	}
 

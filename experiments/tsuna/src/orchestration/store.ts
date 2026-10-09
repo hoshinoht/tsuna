@@ -9,14 +9,19 @@
  * One Tsuna process owns a root at a time; a live owner blocks a second open.
  */
 import { createHash, randomBytes } from "node:crypto";
-import { closeSync, existsSync, fsyncSync, mkdirSync, openSync, readdirSync, readFileSync, renameSync, rmSync, writeSync } from "node:fs";
+import { closeSync, existsSync, fsyncSync, linkSync, mkdirSync, openSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync, writeSync } from "node:fs";
 import { join } from "node:path";
 import type { AgentContract, AgentRecord } from "./types.ts";
 
 export class StoreError extends Error {}
 
-export function contractHash(contract: AgentContract): string {
-	return createHash("sha256").update(stableStringify(contract)).digest("hex");
+/**
+ * Integrity hash over the contract *and* the agent's identity/position in the
+ * tree (id, root, parent, depth), so a corrupted or edited record cannot
+ * silently change its authority. Integrity only: see DESIGN D10.
+ */
+export function contractHash(contract: AgentContract, identity: { id: string; rootId: string; parentId: string | null; depth: number }): string {
+	return createHash("sha256").update(stableStringify({ contract, identity: { id: identity.id, rootId: identity.rootId, parentId: identity.parentId, depth: identity.depth } })).digest("hex");
 }
 
 export function stableStringify(value: unknown): string {
@@ -84,10 +89,12 @@ export class AgentStore {
 		const path = join(this.dir, "lock");
 		const mine = { pid: process.pid, identity: processIdentity(process.pid) ?? "unknown" };
 		for (let attempt = 0; attempt < 2; attempt++) {
+			// Write the owner record to a private temp file, then hard-link it into
+			// place: the lock never exists without its owner (no empty-file window).
+			const tmp = `${path}.${process.pid}.${randomBytes(6).toString("hex")}`;
+			writeFileSync(tmp, JSON.stringify(mine), { mode: 0o600, flag: "wx" });
 			try {
-				const fd = openSync(path, "wx", 0o600);
-				writeSync(fd, JSON.stringify(mine));
-				closeSync(fd);
+				linkSync(tmp, path);
 				this.lockHeld = true;
 				HELD_IN_PROCESS.add(this.dir);
 				return;
@@ -98,8 +105,13 @@ export class AgentStore {
 					owner = JSON.parse(readFileSync(path, "utf8"));
 				} catch {}
 				const live = typeof owner.pid === "number" && processIdentity(owner.pid) === owner.identity;
-				if (live && owner.pid !== process.pid) throw new StoreError(`root ${this.rootId} is owned by live process ${owner.pid}`);
-				rmSync(path, { force: true });
+				if (live) throw new StoreError(`root ${this.rootId} is owned by live process ${owner.pid}`);
+				// Stale owner: remove only if the file still holds that owner's record.
+				try {
+					if (readFileSync(path, "utf8") === JSON.stringify(owner)) rmSync(path, { force: true });
+				} catch {}
+			} finally {
+				rmSync(tmp, { force: true });
 			}
 		}
 		throw new StoreError(`could not lock root ${this.rootId}`);

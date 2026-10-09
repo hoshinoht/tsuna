@@ -276,7 +276,7 @@ describe("compression through the runtime", () => {
 	// `harness` is assigned, so `contextTransform` returns undefined and the
 	// primary never gets compression, image pruning or cache advisories.
 	// Remove `.failing` once fixed.
-	test.failing("primary (sample orchestrator): compress changes the outgoing request and is replayed after resume", async () => {
+	test("primary (sample orchestrator): compress changes the outgoing request and is replayed after resume", async () => {
 		const { firstRequests, resumedRequests } = await scenario("primary");
 		expectCompressed(firstRequests[2]!);
 		expect(resumedRequests).toHaveLength(1);

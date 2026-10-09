@@ -77,8 +77,17 @@ export function parseMcpToolName(name: string): { server: string; tool: string }
 }
 
 /** Map a harness tool call to the policy intent it represents. */
+const PATH_TOOLS = new Set(["read", "write", "edit", "grep", "glob"]);
+
 export function intentForToolCall(call: ToolCall, mcpServers: ReadonlySet<string>): PermissionIntent {
 	const { toolName, input } = call;
+	// Policy-relevant fields must be strings; never substitute a placeholder for a malformed value.
+	if (PATH_TOOLS.has(toolName) && "path" in input && typeof input.path !== "string") {
+		return { action: toolName, resource: "*", unsafeChannel: "malformed path argument" };
+	}
+	if (toolName === "bash" && typeof input.command !== "string") {
+		return { action: "shell", resource: "*", unsafeChannel: "malformed command argument" };
+	}
 	if (toolName.startsWith("mcp__")) {
 		const parsed = parseMcpToolName(toolName);
 		if (!parsed || !mcpServers.has(parsed.server)) {
@@ -188,6 +197,14 @@ export function execCapableReason(command: string): string | undefined {
 	return undefined;
 }
 
+/** Rough command fragments of an unparseable command line (for deny checks only). */
+export function shellFragments(command: string): string[] {
+	return command
+		.split(/\$\(|`|\|\||&&|[;&|()\n<>{}]/)
+		.map(part => part.trim().replace(/^(?:then|do|else|!)\s+/, ""))
+		.filter(part => part.length > 0);
+}
+
 /** Resolve a call without prompting. Unknown routes fail closed. */
 export function decide(ctx: PolicyContext, call: ToolCall): PermissionDecision {
 	const intent = intentForToolCall(call, ctx.mcpServers);
@@ -232,26 +249,34 @@ export function decide(ctx: PolicyContext, call: ToolCall): PermissionDecision {
 	}
 	const ownership = enforceWorkplanOwnership(intent.action, call.input, role, intent.resource);
 	if (ownership) return { ...intent, effect: "deny", role, rule: finalRule, reason: ownership };
-	if (intent.action === "shell") {
-		const execReason = execCapableReason(intent.resource);
-		if (execReason) return { ...intent, effect: "ask", role, rule: finalRule, reason: execReason, genericAsk: false };
-	}
 	if (intent.action === "shell" && /[;&|()$`<>\n]/.test(intent.resource)) {
 		const segments = extractLiteralAndChainSegments(intent.resource);
 		if (!segments) {
+			// The command cannot be split reliably. Check every rough fragment
+			// against harness denies and explicit (non-wildcard) role denies, so a
+			// deny can never be bypassed by wrapping a command in a pipeline or
+			// substitution. Such commands are never waivable by the reviewer.
+			for (const fragment of shellFragments(intent.resource)) {
+				const denied = harnessDeny("shell", fragment);
+				if (denied) return { ...intent, effect: "deny", role, rule: denied, reason: `Denied by harness policy (${fragment})` };
+				const rule = evaluateRules(rules, "shell", fragment);
+				if (rule?.effect === "deny" && rule.resource !== "*") return { ...intent, effect: "deny", role, rule, reason: `Shell fragment is denied (${fragment})` };
+				if (rule && requiresAsk(rule) && rule.resource !== "*") asks = true;
+			}
 			const recursiveDelete = /\brm\s+(?:(?:-[A-Za-z]*r[A-Za-z]*|--recursive)\b)/.test(intent.resource);
 			const hardReset = /\bgit\s+reset\b[^\n;|&]*--hard\b/.test(intent.resource);
 			const publishOrClean = /\bgit\s+(?:-[^\n;|&]+\s+)?(?:push|clean)\b/.test(intent.resource);
-			const guarded = recursiveDelete || hardReset || publishOrClean;
+			const execReason = execCapableReason(intent.resource);
+			const guarded = recursiveDelete || hardReset || publishOrClean || execReason !== undefined;
 			const reason = recursiveDelete
 				? "Recursive deletion (rm -r / --recursive) requires approval"
 				: hardReset
 					? "Git hard reset requires approval"
 					: publishOrClean
 						? "Git publishing or cleanup requires approval"
-						: "Complex shell command requires confirmation";
+						: execReason ?? "Complex shell command requires confirmation";
 			const effect = ctx.approvalMode === "auto" && !guarded && !asks ? "allow" : "ask";
-			return { ...intent, effect, role, rule: finalRule, reason, genericAsk: effect === "ask" && !guarded && !specificAsk };
+			return { ...intent, effect, role, rule: finalRule, reason, genericAsk: false };
 		}
 		for (const segment of segments) {
 			const denied = harnessDeny("shell", segment.text);
@@ -262,6 +287,11 @@ export function decide(ctx: PolicyContext, call: ToolCall): PermissionDecision {
 			}
 			if (requiresAsk(segmentRule)) asks = true;
 		}
+	}
+	if (intent.action === "shell") {
+		// After every deny check: exec-capable flags need approval even when allowed.
+		const execReason = execCapableReason(intent.resource);
+		if (execReason) return { ...intent, effect: "ask", role, rule: finalRule, reason: execReason, genericAsk: false };
 	}
 	return { ...intent, effect: asks ? "ask" : "allow", role, rule: finalRule, genericAsk: asks && !specificAsk };
 }

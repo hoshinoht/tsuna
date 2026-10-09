@@ -148,7 +148,12 @@ commit). The contract stores `cwd` so a later worktree mode can record its own; 
 Engine adapted from Tsuna `lib/permissions.ts` (ordered last-match-wins, explicit deny, missing match
 = deny, external-directory checks with git-worktree awareness, Shiori ownership, shell `&&` segments,
 auto-mode generic asks, destructive guards). Harness-level deny rules (Tsuna config) are evaluated
-before role rules and cannot be overridden. Gate order: deny → headless fail-closed → optional reviewer
+before role rules and cannot be overridden; a restored agent gets its recorded denies plus the
+*current* config's denies. Every invocation, nested `batch` calls included, is validated against the
+tool schema before policy evaluation. Shell commands that cannot be split into literal `&&` segments
+are checked fragment by fragment against harness denies and explicit role denies and are never
+reviewer-waivable; exec-capable flags (`rg --pre`, `fd -x`, `find -exec`, `sed -i`, `xargs`) always
+need approval. Supervised commands get a scrubbed environment (no provider keys). Gate order: deny → headless fail-closed → optional reviewer
 (generic asks only; failure preserves the ask) → human approver. Unknown tools and unconfigured MCP
 servers are denied. Application policy only — not an OS sandbox.
 
@@ -202,7 +207,8 @@ record, never a second process), `cancel` publishes `cancelled`. Agent lifecycle
 are separate: the runtime owns agents; the supervisor owns processes.
 
 ## 9. Stages and status
-See `CAPABILITIES.md` for the implemented/partial/deferred matrix and validation evidence.
+See `CAPABILITIES.md` for the implemented/partial/deferred matrix and `VALIDATION.md` for the
+exact commands, results, independent-review dispositions and what was not verified.
 
 ## 10. Compatibility findings (verified against the pinned revisions)
 
@@ -237,3 +243,20 @@ See `CAPABILITIES.md` for the implemented/partial/deferred matrix and validation
 * **D13 — background jobs outlive the harness by design.** Supervised commands started with
   `background:true` keep running across a harness restart and are observed (never replayed) afterwards;
   foreground commands are cancelled when their tool call is aborted.
+
+## 12. Known limitations and recommended next stages
+
+1. **Live validation**: run the same scripts against CLIProxyAPI (`api` provider) with the owner's
+   authorisation; verify reasoning-level mapping per real model.
+2. **Real MCP services**: build Shiori (Go ≥ 1.27.1), gofetch, researcher-mcp and lsp-tools; repeat
+   the MCP suite against them, including Shiori's own precondition checks.
+3. **Reviewer**: wire the model-based approval reviewer to a configured model entry (interface and
+   safety rules already tested with a stub).
+4. **Worktree isolation**: optional per-child worktrees recorded in the contract; revival must fail
+   closed when the worktree is gone.
+5. **Natives footprint/licence**: decide on the CDDL `inferno` question; consider a slim bindings
+   crate (see RUST-AND-CLI-TOOLS.md).
+6. **UI**: branch/fork navigation, richer agent view; the current REPL is deliberately modest.
+7. **Delivery**: the marker-based reconciliation assumes the parent's JSONL is the source of truth;
+   a dedicated delivery entry type would be more robust than text markers.
+8. **macOS run** of the full suite (reference platform).

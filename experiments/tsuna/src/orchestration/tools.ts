@@ -17,6 +17,26 @@ function str(input: Record<string, unknown>, key: string): string | undefined {
 	return typeof v === "string" && v.length > 0 ? v : undefined;
 }
 
+/** Resolve with `promise`, or with "aborted" as soon as `signal` fires. */
+function untilAborted<T>(promise: Promise<T>, signal?: AbortSignal): Promise<T | "aborted"> {
+	if (!signal) return promise;
+	if (signal.aborted) return Promise.resolve("aborted");
+	return new Promise((resolve, reject) => {
+		const onAbort = () => resolve("aborted");
+		signal.addEventListener("abort", onAbort, { once: true });
+		promise.then(
+			v => {
+				signal.removeEventListener("abort", onAbort);
+				resolve(v);
+			},
+			e => {
+				signal.removeEventListener("abort", onAbort);
+				reject(e);
+			},
+		);
+	});
+}
+
 function summary(record: AgentRecord): string {
 	const last = record.results.at(-1);
 	return [
@@ -48,7 +68,13 @@ export function orchestrationTools(runtime: AgentRuntime): Map<string, ToolImpl>
 					}
 					const { id, done } = runtime.spawn(ctx.agentId, { agent, task, foreground: true });
 					ctx.onUpdate?.(`spawned ${id}`);
-					const result = await done;
+					const settled = await untilAborted(done, ctx.signal);
+					if (settled === "aborted") {
+						// The caller's turn was interrupted: interrupt the foreground child too (session kept).
+						await runtime.interrupt({ kind: "agent", agentId: ctx.agentId }, id);
+						return fail(`Interrupted while waiting for ${id}; the child was interrupted and can be resumed.`, { id });
+					}
+					const result = settled;
 					const record = runtime.record(id)!;
 					const final = result ?? record.results.at(-1);
 					if (!final) return fail(`${id} ended without a result (status ${record.status})`, { id });
@@ -79,7 +105,11 @@ export function orchestrationTools(runtime: AgentRuntime): Map<string, ToolImpl>
 				if (input.background === true) {
 					return ok(spawned.map(s => (s.id ? `spawned ${s.id} (${s.agent})` : `rejected ${s.agent}: ${s.error}`)).join("\n"), { ids: spawned.map(s => s.id) });
 				}
-				await Promise.allSettled(spawned.map(s => s.done));
+				const all = await untilAborted(Promise.allSettled(spawned.map(s => s.done)), ctx.signal);
+				if (all === "aborted") {
+					for (const s of spawned) if (s.id) await runtime.interrupt({ kind: "agent", agentId: ctx.agentId }, s.id);
+					return fail(`Interrupted while waiting; foreground children interrupted: ${spawned.filter(s => s.id).map(s => s.id).join(", ")}`);
+				}
 				const lines = spawned.map(s => {
 					if (!s.id) return `rejected ${s.agent}: ${s.error}`;
 					const record = runtime.record(s.id)!;

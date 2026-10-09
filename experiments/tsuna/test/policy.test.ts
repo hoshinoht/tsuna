@@ -163,7 +163,8 @@ describe("decide", () => {
 		const pipeline = "echo a | grep a";
 		const s = decide(source, shell(pipeline));
 		expect(s.effect).toBe("ask");
-		expect(s.genericAsk).toBe(true);
+		// Unparseable commands are never reviewer-waivable (review finding B2).
+		expect(s.genericAsk).toBe(false);
 		expect(s.reason).toContain("Complex shell command");
 		expect(decide(auto, shell(pipeline)).effect).toBe("allow");
 		for (const [cmd, reason] of [

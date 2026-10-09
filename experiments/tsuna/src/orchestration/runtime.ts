@@ -8,7 +8,7 @@
  */
 import { randomBytes } from "node:crypto";
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { Value } from "typebox/value";
 import type { AgentDefinition, DefinitionCatalog, ReasoningLevel } from "../agents/definitions.ts";
 import { REASONING_LEVELS } from "../agents/definitions.ts";
@@ -16,7 +16,7 @@ import type { AgentMessageLike, AgentSessionEvent, BackendSession, BackendSessio
 import type { TsunaConfig } from "../config.ts";
 import { canSurfaceTool, type PolicyContext } from "../policy/engine.ts";
 import type { GateSession, PermissionGate } from "../policy/gate.ts";
-import type { TsunaPaths } from "../paths.ts";
+import { isInside, type TsunaPaths } from "../paths.ts";
 import type { ToolImpl, ToolOutput } from "../tools/types.ts";
 import { Semaphore } from "./semaphore.ts";
 import { AgentStore, contractHash } from "./store.ts";
@@ -28,6 +28,8 @@ const TERMINAL: ReadonlySet<AgentStatus> = new Set(["cancelled", "failed"]);
 const YIELD_REMINDER =
 	"[tsuna] Your assignment is not complete until you call `yield` alone in a message with your final result (or `status: \"failure\"` with an error). Call it now.";
 const MAX_YIELD_REMINDERS = 2;
+/** A child that keeps submitting invalid terminal yields fails instead of looping forever. */
+const MAX_REJECTED_YIELDS = 5;
 export const RESULT_MARKER = (resultId: string) => `[tsuna-result ${resultId}]`;
 const RESULT_MARKER_RE = /\[tsuna-result ([A-Za-z0-9_\-/]+)\]/g;
 
@@ -48,6 +50,8 @@ export interface RuntimeDeps {
 	contextTransform?: (record: AgentRecord) => ((messages: AgentMessageLike[]) => AgentMessageLike[]) | undefined;
 	projectInstructions?: (cwd: string) => string;
 	emit?: (event: RuntimeEvent) => void;
+	/** Called once the runtime object exists, before any session opens. */
+	onReady?: (runtime: AgentRuntime) => void;
 	/** Orchestration tools bound to this runtime (built by tools.ts). */
 	orchestrationTools?: (runtime: AgentRuntime) => Map<string, ToolImpl>;
 }
@@ -67,6 +71,8 @@ interface RunState {
 	/** Tool calls of the latest assistant message (for mixed-batch checks). */
 	batch: { id: string; name: string }[];
 	interrupted: boolean;
+	/** Consecutive rejected terminal yields in this run. */
+	rejectedYields: number;
 	deliveryVia?: "task";
 	done: Promise<ResultRecord | undefined>;
 }
@@ -112,6 +118,19 @@ export function reasoningHint(def: AgentDefinition, text: string): ReasoningLeve
 	return clampReasoning(def, REASONING_LEVELS[Math.max(0, Math.min(REASONING_LEVELS.length - 1, base + delta))]);
 }
 
+/** Returns a description of the first schema violations, or undefined when valid. */
+export function validateInput(impl: ToolImpl, input: Record<string, unknown>): string | undefined {
+	try {
+		if (Value.Check(impl.parameters as never, input)) return undefined;
+		return [...Value.Errors(impl.parameters as never, input)].slice(0, 3).map(e => `${(e as { instancePath?: string }).instancePath || "/"} ${(e as { message: string }).message}`).join("; ");
+	} catch (error) {
+		// Server-provided MCP schemas may use keywords the checker cannot compile;
+		// their policy does not depend on argument values, so the server validates.
+		if (impl.external) return undefined;
+		return `schema check failed: ${(error as Error).message}`;
+	}
+}
+
 function textOfContent(content: unknown): string {
 	if (typeof content === "string") return content;
 	if (Array.isArray(content)) {
@@ -143,6 +162,7 @@ export class AgentRuntime {
 		const rootId = opts.rootId ?? `root-${Date.now().toString(36)}-${randomBytes(3).toString("hex")}`;
 		const runtime = new AgentRuntime(deps, rootId);
 		if (runtime.store.exists()) throw new RuntimeError(`root ${rootId} already exists; resume it instead`);
+		deps.onReady?.(runtime);
 		const def = deps.catalog.require(opts.role);
 		if (!def.primary) throw new RuntimeError(`agent "${opts.role}" is not allowed as a primary agent`);
 		runtime.store.lock();
@@ -168,6 +188,7 @@ export class AgentRuntime {
 	static async resume(deps: RuntimeDeps, rootId: string, opts: { interactive: boolean }): Promise<AgentRuntime> {
 		const runtime = new AgentRuntime(deps, rootId);
 		if (!runtime.store.exists()) throw new RuntimeError(`unknown root ${rootId}`);
+		deps.onReady?.(runtime);
 		runtime.store.lock();
 		try {
 			await runtime.restore(opts);
@@ -210,6 +231,16 @@ export class AgentRuntime {
 					runtime.warn(`${record.id}: ${record.failure}`);
 				}
 			}
+			const parentRecord = record.parentId ? runtime.live.get(record.parentId)?.record : undefined;
+			if (parentRecord && record.depth !== parentRecord.depth + 1 && !TERMINAL.has(record.status)) {
+				record.status = "failed";
+				record.failure = "depth does not match the parent record";
+			}
+			// A cancel cascade interrupted by a crash is completed here.
+			if (parentRecord?.status === "cancelled" && record.status !== "cancelled") {
+				record.status = "cancelled";
+				record.failure = "parent was cancelled (cascade completed at recovery)";
+			}
 			if (record.parentId && runtime.live.get(record.parentId)?.record.status === "failed" && !TERMINAL.has(record.status)) {
 				record.status = "failed";
 				record.failure = "ancestor failed recovery; child not revivable";
@@ -222,7 +253,9 @@ export class AgentRuntime {
 				if (result.delivery.state !== "delivering") continue;
 				const parent = live.record.parentId ? runtime.live.get(live.record.parentId) : undefined;
 				const seen = parent?.record.sessionFile && existsSync(parent.record.sessionFile)
-					? readFileSync(parent.record.sessionFile, "utf8").includes(RESULT_MARKER(result.resultId))
+					? readFileSync(parent.record.sessionFile, "utf8")
+							.split("\n")
+							.some(line => line.includes(RESULT_MARKER(result.resultId)) && !line.includes('"role":"assistant"'))
 					: false;
 				result.delivery = seen ? { ...result.delivery, state: "delivered" } : { state: "pending" };
 			}
@@ -233,7 +266,7 @@ export class AgentRuntime {
 		if (primary.record.status === "failed") throw new RuntimeError(`primary agent cannot be restored: ${primary.record.failure}`);
 		primary.record.contract = { ...primary.record.contract, interactive: opts.interactive };
 		// Interactivity is a property of this process, not of the stored contract.
-		primary.record.contractHash = contractHash(primary.record.contract);
+		primary.record.contractHash = contractHash(primary.record.contract, primary.record);
 		await runtime.ensureLive(primary);
 		primary.record.status = "idle";
 		runtime.store.save(primary.record);
@@ -311,7 +344,7 @@ export class AgentRuntime {
 			depth,
 			role: def.name,
 			contract,
-			contractHash: contractHash(contract),
+			contractHash: contractHash(contract, { id, rootId: this.rootId, parentId: parent?.id ?? null, depth }),
 			status: "queued",
 			generation: 0,
 			runSeq: 0,
@@ -344,7 +377,10 @@ export class AgentRuntime {
 
 	/** Returns a problem string when the stored contract can no longer be honoured. */
 	private verifyContract(record: AgentRecord): string | undefined {
-		if (contractHash(record.contract) !== record.contractHash) return "contract hash mismatch (record modified or corrupt)";
+		if (contractHash(record.contract, record) !== record.contractHash) return "contract hash mismatch (record modified or corrupt)";
+		if (record.role !== record.contract.role) return "record role differs from its contract";
+		const sessionsRoot = join(this.deps.paths.sessions, this.rootId, record.id);
+		if (record.sessionFile && !isInside(resolve(record.sessionFile), sessionsRoot)) return `transcript path ${record.sessionFile} is outside ${sessionsRoot}`;
 		try {
 			const resolved = this.deps.hub.resolve(record.contract.modelEntry);
 			if (resolved.provider !== record.contract.provider || resolved.id !== record.contract.modelId) {
@@ -414,7 +450,8 @@ export class AgentRuntime {
 				cwd: record.contract.cwd,
 				approvalMode: record.contract.approvalMode,
 				mcpServers: this.deps.mcpServers(),
-				harnessDenies: record.contract.harnessDenies,
+				// Recorded denies plus the current config's: a deny added later still applies.
+				harnessDenies: [...record.contract.harnessDenies, ...this.deps.config.harnessDenies],
 			},
 		};
 	}
@@ -440,6 +477,10 @@ export class AgentRuntime {
 		if (TERMINAL.has(live.record.status)) return { text: `agent ${agentId} is ${live.record.status}`, isError: true };
 		const impl = live.tools.get(name);
 		if (!impl) return { text: `Tool "${name}" is not in this agent's catalog`, isError: true };
+		// Validate every invocation (nested batch calls included) against the tool's
+		// schema before policy sees it; Pi validates only top-level arguments.
+		const invalid = validateInput(impl, input);
+		if (invalid) return { text: `Invalid arguments for ${name}: ${invalid}`, isError: true };
 		const gateSession = this.gateSessionFor(live.record);
 		const verdict = await this.deps.gate.authorize(gateSession, { toolName: name, input }, signal);
 		this.emit({ type: "permission", agentId, tool: name, allowed: verdict.allowed, reason: verdict.allowed ? undefined : verdict.reason, action: verdict.decision.action, resource: verdict.decision.resource });
@@ -557,7 +598,7 @@ export class AgentRuntime {
 			}
 			// Delivery confirmation: a result marker reached this agent's transcript.
 			const text = textOfContent(message.content);
-			for (const match of text.matchAll(RESULT_MARKER_RE)) this.markDelivered(match[1]!);
+			if (message.role !== "assistant") for (const match of text.matchAll(RESULT_MARKER_RE)) this.markDelivered(match[1]!, live.record.id);
 		} else if (e.type === "tool_execution_start" && e.toolName) {
 			live.record.activity = `running ${e.toolName}`;
 			this.emit({ type: "agent_activity", agentId: live.record.id, activity: live.record.activity });
@@ -637,6 +678,7 @@ export class AgentRuntime {
 			terminal: null,
 			batch: [],
 			interrupted: false,
+			rejectedYields: 0,
 			deliveryVia,
 			done: undefined as never,
 		};
@@ -655,6 +697,8 @@ export class AgentRuntime {
 		const parent = record.parentId ? this.live.get(record.parentId) : undefined;
 		const permits = parent?.permits;
 		let acquired = false;
+		let opening = false;
+		let promptDelivery: string | undefined;
 		let candidate: YieldCandidate | undefined;
 		try {
 			if (permits) {
@@ -663,11 +707,14 @@ export class AgentRuntime {
 			}
 			if (!this.isCurrent(live, run)) return undefined;
 			this.setStatus(live, "running");
+			opening = true;
 			const session = await this.ensureLive(live);
+			opening = false;
 			run.generation = record.generation;
 			if (!this.isCurrent(live, run)) return undefined;
 			const steers = live.queuedSteers.splice(0);
-			const pendingResults = this.takeUndeliveredFor(live, "prompt");
+			promptDelivery = this.newDeliveryId("prompt");
+			const pendingResults = this.takeUndeliveredFor(live, "prompt", undefined, promptDelivery);
 			const prompt = [
 				...steers.map(s => `[steering] ${s}`),
 				...pendingResults,
@@ -685,11 +732,14 @@ export class AgentRuntime {
 			}
 		} catch (error) {
 			candidate = { status: "failure", error: run.interrupted ? "interrupted" : (error as Error).message };
-			if (!live.session && !TERMINAL.has(record.status) && record.status !== "parked") {
-				// Startup failure: no session could be created.
+			// Startup failure only when opening the session itself failed; an
+			// interrupt or shutdown while queued leaves the agent usable.
+			if (opening && !run.interrupted && !live.session && !TERMINAL.has(record.status)) {
 				record.failure = (error as Error).message;
 				this.setStatus(live, "failed");
 			}
+			// Results taken for this prompt never reached the transcript: re-offer them.
+			if (promptDelivery) this.revertDelivering(live, promptDelivery);
 		} finally {
 			if (acquired) permits!.release();
 		}
@@ -722,9 +772,10 @@ export class AgentRuntime {
 		if (!parent || TERMINAL.has(parent.record.status)) return;
 		if (parent.waiters.size > 0) return; // the parent's wait will take it
 		if (parent.session && parent.run && parent.session.isStreaming) {
-			const notices = this.takeUndeliveredFor(parent, "steer");
+			const deliveryId = this.newDeliveryId("steer");
+			const notices = this.takeUndeliveredFor(parent, "steer", undefined, deliveryId);
 			if (notices.length) {
-				void parent.session.steer(`[tsuna] Results from your children (harness notice, not a new assignment):\n\n${notices.join("\n\n")}`).catch(() => this.revertDelivering(parent, "steer"));
+				void parent.session.steer(`[tsuna] Results from your children (harness notice, not a new assignment):\n\n${notices.join("\n\n")}`).catch(() => this.revertDelivering(parent, deliveryId));
 			}
 		}
 	}
@@ -738,7 +789,13 @@ export class AgentRuntime {
 	}
 
 	/** Move pending results of `parent`'s children to `delivering` and format them. */
-	private takeUndeliveredFor(parent: LiveAgent, via: "wait" | "steer" | "prompt", only?: Set<string>): string[] {
+	private deliverySeq = 0;
+
+	private newDeliveryId(via: string): string {
+		return `${via}-${Date.now().toString(36)}-${++this.deliverySeq}`;
+	}
+
+	private takeUndeliveredFor(parent: LiveAgent, via: "wait" | "steer" | "prompt", only?: Set<string>, deliveryId = this.newDeliveryId(via)): string[] {
 		const out: string[] = [];
 		for (const child of this.live.values()) {
 			if (child.record.parentId !== parent.record.id) continue;
@@ -746,7 +803,7 @@ export class AgentRuntime {
 			let changed = false;
 			for (const result of child.record.results) {
 				if (result.delivery.state !== "pending") continue;
-				result.delivery = { state: "delivering", via, deliveryId: `${via}-${Date.now().toString(36)}`, at: Date.now() };
+				result.delivery = { state: "delivering", via, deliveryId, at: Date.now() };
 				out.push(this.formatResult(result));
 				changed = true;
 			}
@@ -755,21 +812,28 @@ export class AgentRuntime {
 		return out;
 	}
 
-	private revertDelivering(parent: LiveAgent, via: string) {
+	/** Return results of one delivery attempt to `pending` (only that attempt). */
+	private revertDelivering(parent: LiveAgent, deliveryId: string) {
 		for (const child of this.live.values()) {
 			if (child.record.parentId !== parent.record.id) continue;
+			let changed = false;
 			for (const result of child.record.results) {
-				if (result.delivery.state === "delivering" && result.delivery.via === via) result.delivery = { state: "pending" };
+				if (result.delivery.state === "delivering" && result.delivery.deliveryId === deliveryId) {
+					result.delivery = { state: "pending" };
+					changed = true;
+				}
 			}
-			this.store.save(child.record);
+			if (changed) this.store.save(child.record);
 		}
+		for (const waiter of parent.waiters) waiter();
 	}
 
-	private markDelivered(resultId: string) {
+	/** A marker confirms delivery only in the result's parent transcript, for an in-flight delivery. */
+	private markDelivered(resultId: string, seenBy: string) {
 		const agentId = resultId.split("/")[0]!;
 		const live = this.live.get(agentId);
 		const result = live?.record.results.find(r => r.resultId === resultId);
-		if (!live || !result || result.delivery.state === "delivered") return;
+		if (!live || !result || live.record.parentId !== seenBy || result.delivery.state !== "delivering") return;
 		result.delivery = { ...result.delivery, state: "delivered", at: Date.now() };
 		this.store.save(live.record);
 	}
@@ -922,7 +986,7 @@ export class AgentRuntime {
 		} catch (error) {
 			return { outcome: "rejected", reason: (error as Error).message };
 		}
-		this.setStatus(live, "idle");
+		if (!live.run && (live.record.status === "parked" || live.record.status === "idle")) this.setStatus(live, "idle");
 		return { outcome: wasParked ? "revived" : "delivered" };
 	}
 
@@ -1031,18 +1095,23 @@ export class AgentRuntime {
 			this.emit({ type: "agent_output", agentId, output });
 			return { text: `Incremental output ${output.seq} recorded.` };
 		}
+		const reject = (text: string): ToolOutput => {
+			run.rejectedYields += 1;
+			if (run.rejectedYields >= MAX_REJECTED_YIELDS) {
+				run.terminal = { status: "failure", error: `gave up after ${run.rejectedYields} rejected yields: ${text}` };
+				return { text: `${text}\nToo many rejected yields; the assignment is recorded as failed. Stop now.`, isError: true, terminate: true };
+			}
+			return { text, isError: true };
+		};
 		if (run.batch.length > 1 || (run.batch.length === 1 && run.batch[0]!.id !== toolCallId)) {
-			return {
-				text: "Rejected: a terminal yield must be the only tool call in its message. Review the other tool results, then call yield alone.",
-				isError: true,
-			};
+			return reject("Rejected: a terminal yield must be the only tool call in its message. Review the other tool results, then call yield alone.");
 		}
 		const status = input.status ?? (input.error ? "failure" : "success");
 		if (status === "success" && live.record.contract.outputSchema) {
 			const schema = live.record.contract.outputSchema;
 			if (!Value.Check(schema as never, input.data)) {
 				const errors = [...Value.Errors(schema as never, input.data)].slice(0, 5).map(e => `${(e as { instancePath?: string }).instancePath ?? ""} ${(e as { message: string }).message}`);
-				return { text: `Rejected: data does not match the output schema: ${errors.join("; ")}`, isError: true };
+				return reject(`Rejected: data does not match the output schema: ${errors.join("; ")}`);
 			}
 		}
 		run.terminal = { status, data: input.data, text: input.summary, error: status === "failure" ? input.error ?? "failure reported" : undefined };

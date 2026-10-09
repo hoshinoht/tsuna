@@ -10,6 +10,7 @@ installed Tsuna profile.
 
 * Design and decisions: [`docs/DESIGN.md`](docs/DESIGN.md)
 * What works / partial / deferred: [`docs/CAPABILITIES.md`](docs/CAPABILITIES.md)
+* Validation evidence and review: [`docs/VALIDATION.md`](docs/VALIDATION.md)
 * Licences and provenance: [`docs/PROVENANCE.md`](docs/PROVENANCE.md), [`NOTICE`](NOTICE)
 * Rust and modern CLI tools study: [`docs/RUST-AND-CLI-TOOLS.md`](docs/RUST-AND-CLI-TOOLS.md)
 

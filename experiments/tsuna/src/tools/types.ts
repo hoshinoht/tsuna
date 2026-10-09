@@ -29,6 +29,8 @@ export interface ToolImpl {
 	parameters: TSchema;
 	/** Run the whole batch sequentially when this tool is present (Pi semantics). */
 	sequential?: boolean;
+	/** Schema supplied by an external server (MCP); argument values do not affect policy. */
+	external?: boolean;
 	execute(ctx: ToolContext, input: Record<string, unknown>): Promise<ToolOutput>;
 }
 
