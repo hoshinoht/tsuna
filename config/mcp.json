@@ -29,7 +29,7 @@
       "command": "sh",
       "args": [
         "-c",
-        "${TSUNA_ROOT}/mcps/researcher-mcp/bin/researcher-mcp"
+        "s=$HOME/.config/hoshi-secrets; e() { [ -r \"$s/$1\" ] && export \"$2=$(cat \"$s/$1\")\"; }; e openalex OPENALEX_API_KEY; e contact-email SCHOLAR_CONTACT_EMAIL; e orcid-id ORCID_CLIENT_ID; e orcid-secret ORCID_CLIENT_SECRET; exec \"${TSUNA_ROOT}/mcps/researcher-mcp/bin/researcher-mcp\""
       ]
     },
     "gofetch": {
@@ -38,7 +38,7 @@
       "command": "sh",
       "args": [
         "-c",
-        "${TSUNA_ROOT}/mcps/gofetch-mcp/bin/gofetch"
+        "f=$HOME/.config/hoshi-secrets/exa; [ -r \"$f\" ] && export EXA_API_KEY=\"$(cat \"$f\")\"; exec \"${TSUNA_ROOT}/mcps/gofetch-mcp/bin/gofetch\""
       ]
     },
     "ats-tailor": {

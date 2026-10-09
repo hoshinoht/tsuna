@@ -1,0 +1,14 @@
+<!DOCTYPE html><html><head><title>Guide</title></head>
+<body><div id="content">
+<h1>Configuring the scheduler</h1>
+<p>The scheduler reads its configuration from scheduler.toml at startup. Each job declares a cron expression, a command, and an optional timeout; jobs that exceed their timeout are terminated and reported as failed in the run log.</p>
+<p>Concurrency is bounded per queue. When a queue is saturated, new runs wait in FIFO order rather than being dropped, so bursts of scheduled work are smoothed out over time without losing any runs.</p>
+<p>To pause every job without editing the file, send SIGUSR1 to the scheduler process; send it again to resume. Pausing does not interrupt runs that are already in progress.</p>
+<p>Logs rotate daily and are kept for fourteen days by default. Set retention_days to change this, or set it to zero to keep logs forever.</p>
+<p>Metrics are exported in Prometheus format on the /metrics endpoint when metrics_listen is set, including queue depth, run duration histograms, and failure counts per job.</p>
+<p>Every job also accepts an environment table whose keys and values are passed to the command unchanged, which keeps secrets out of the command line itself.</p>
+<p>Jobs can depend on one another: a job with an after list only starts once every named job has finished successfully in the current window.</p>
+<p>Finally, the scheduler exposes a dry-run mode that prints the next ten fire times of every job without running anything, useful when validating changes.</p>
+</div>
+<article class="related-card"><h3>Related: Upgrading from 1.x</h3><p>Version 2 renamed several configuration keys; see the upgrade guide for the full mapping between the old and new names and a migration script.</p></article>
+</body></html>

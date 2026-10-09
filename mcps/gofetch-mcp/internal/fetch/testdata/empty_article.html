@@ -1,0 +1,9 @@
+<!DOCTYPE html><html><head><title>Release notes</title></head>
+<body><nav><a href="/">Home</a> <a href="/docs">Docs</a></nav>
+<article class="ad-slot"></article>
+<div class="page">
+<h1>Release notes 2.4</h1>
+<p>Version 2.4 introduces streaming responses for every endpoint. Clients that set the Accept header to text/event-stream receive incremental chunks instead of one buffered body, which cuts time to first byte for large exports.</p>
+<p>The retry policy now honours Retry-After on both 429 and 503 responses, waiting at most thirty seconds before giving up and surfacing the error to the caller.</p>
+<p>Deprecated: the legacy /v1/export route will be removed in 3.0; migrate to /v2/export, which supports the same filters plus cursor pagination.</p>
+</div></body></html>

@@ -4,33 +4,9 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
-	"io"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
 )
-
-const exaEndpoint = "https://api.exa.ai/search"
-
-// exaKey resolves the Exa API key: EXA_API_KEY env first, then the same key
-// file the opencode exa MCP entry uses. Empty means "no key" and the caller
-// skips the Exa backend.
-func exaKey() string {
-	if key := strings.TrimSpace(os.Getenv("EXA_API_KEY")); key != "" {
-		return key
-	}
-	home, err := os.UserHomeDir()
-	if err != nil {
-		return ""
-	}
-	data, err := os.ReadFile(filepath.Join(home, ".config", "opencode", ".exa-api-key"))
-	if err != nil {
-		return ""
-	}
-	return strings.TrimSpace(string(data))
-}
 
 type exaRequest struct {
 	Query      string       `json:"query"`
@@ -43,14 +19,16 @@ type exaContents struct {
 }
 
 type exaResponse struct {
-	Results []struct {
+	Results *[]struct {
 		Title      string   `json:"title"`
 		URL        string   `json:"url"`
 		Highlights []string `json:"highlights"`
 	} `json:"results"`
 }
 
-func (s *Service) searchExa(ctx context.Context, key, query string, numResults int) ([]Result, error) {
+// searchExa calls POST /search with the key in the x-api-key header; the
+// key never appears in URLs, errors or diagnostics.
+func (s *Service) searchExa(ctx context.Context, query string, numResults int) ([]Result, error) {
 	payload, err := json.Marshal(exaRequest{
 		Query:      query,
 		NumResults: numResults,
@@ -59,29 +37,17 @@ func (s *Service) searchExa(ctx context.Context, key, query string, numResults i
 	if err != nil {
 		return nil, err
 	}
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, exaEndpoint, bytes.NewReader(payload))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, s.cfg.ExaEndpoint, bytes.NewReader(payload))
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("x-api-key", key)
+	req.Header.Set("x-api-key", s.cfg.ExaAPIKey)
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Accept", "application/json")
 
-	resp, err := s.client.Do(req)
+	body, err := s.do(req, true)
 	if err != nil {
-		return nil, fmt.Errorf("exa: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode == http.StatusTooManyRequests {
-		return nil, rateLimitError("exa")
-	}
-	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("exa: status %d", resp.StatusCode)
-	}
-
-	body, err := io.ReadAll(io.LimitReader(resp.Body, maxBodyBytes))
-	if err != nil {
-		return nil, fmt.Errorf("exa: %w", err)
+		return nil, err
 	}
 	return parseExa(body)
 }
@@ -89,10 +55,13 @@ func (s *Service) searchExa(ctx context.Context, key, query string, numResults i
 func parseExa(body []byte) ([]Result, error) {
 	var parsed exaResponse
 	if err := json.Unmarshal(body, &parsed); err != nil {
-		return nil, fmt.Errorf("exa: %w", err)
+		return nil, &providerError{outcome: OutcomeParseError, detail: "invalid JSON response"}
 	}
-	results := make([]Result, 0, len(parsed.Results))
-	for _, r := range parsed.Results {
+	if parsed.Results == nil {
+		return nil, &providerError{outcome: OutcomeParseError, detail: `response has no "results" field`}
+	}
+	results := make([]Result, 0, len(*parsed.Results))
+	for _, r := range *parsed.Results {
 		if r.URL == "" {
 			continue
 		}
