@@ -31,6 +31,7 @@ export interface PermissionIntent {
 	resource: string;
 	resources?: readonly string[];
 	unsafeChannel?: string;
+	approvalReason?: string;
 	coordinationTarget?: CoordinationTarget;
 }
 
@@ -39,6 +40,8 @@ export interface PermissionDecision extends PermissionIntent {
 	role: string;
 	rule?: PermissionRule;
 	reason?: string;
+	/** Specific asks from any resource/segment survive the contextual reviewer. */
+	humanApprovalRequired?: boolean;
 }
 
 const KNOWN_MCP_SERVERS: readonly [string, string][] = [
@@ -53,7 +56,6 @@ const KNOWN_MCP_SERVERS: readonly [string, string][] = [
 ];
 
 const UNSAFE_TOOLS = new Set([
-	"eval",
 	"checkpoint",
 	"rewind",
 	"memory_edit",
@@ -62,6 +64,13 @@ const UNSAFE_TOOLS = new Set([
 	"github",
 	"browser",
 	"computer",
+]);
+
+const LSP_READ_ACTIONS = new Set([
+	"diagnostics", "definition", "type_definition", "implementation", "references", "hover", "symbols", "status", "capabilities",
+]);
+const DEBUG_READ_ACTIONS = new Set([
+	"output", "threads", "stack_trace", "scopes", "variables", "disassemble", "read_memory", "loaded_sources", "modules", "sessions",
 ]);
 
 function globMatches(pattern: string, value: string): boolean {
@@ -190,6 +199,34 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 			return { action: "edit", resource: stringInput(input, "path", "file") ?? "<missing-path>" };
 		case "bash":
 			return { action: "shell", resource: stringInput(input, "command") ?? "<missing-command>" };
+		case "lsp": {
+			const operation = stringInput(input, "action") ?? "<missing-operation>";
+			const file = stringInput(input, "file") ?? ".";
+			const resource = file === "*" ? "." : file;
+			const preview = (operation === "rename" || operation === "rename_file") && input.apply === false;
+			if (LSP_READ_ACTIONS.has(operation) || preview || (operation === "code_actions" && input.apply !== true)) {
+				return { action: "read", resource };
+			}
+			if (operation === "rename" || operation === "rename_file" || operation === "code_actions") {
+				const resources = operation === "rename_file" ? [resource, stringInput(input, "new_name") ?? "<missing-path>"] : [resource];
+				// The server can return edits or commands beyond the initial file; the bridge cannot preflight those targets.
+				return { action: "edit", resource, resources, approvalReason: "LSP workspace mutations require confirmation of the full operation" };
+			}
+			if (operation === "request" || operation === "reload") {
+				return { action: "lsp", resource: JSON.stringify(input), approvalReason: "Raw LSP requests and server reloads require confirmation" };
+			}
+			return { action: "lsp", resource: operation, unsafeChannel: "unrecognized LSP operation" };
+		}
+		case "debug": {
+			const operation = stringInput(input, "action") ?? "<missing-operation>";
+			if (DEBUG_READ_ACTIONS.has(operation)) {
+				const paths = stringInputs(input, "file", "program", "cwd");
+				return { action: "read", resource: paths[0] ?? ".", resources: paths.length > 0 ? paths : ["."] };
+			}
+			return { action: "debug", resource: JSON.stringify(input), approvalReason: "Debugger execution and process mutations require confirmation" };
+		}
+		case "eval":
+			return { action: "eval", resource: JSON.stringify(input), approvalReason: "Eval executes arbitrary code and requires confirmation" };
 		case "task": {
 			const batch = Array.isArray(input.tasks) ? input.tasks : [];
 			const agents = batch
@@ -200,6 +237,7 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 		}
 		case "wait":
 		case "yield":
+		case "todo":
 			return { action: "coordination", resource: "*" };
 		case "goal":
 			// GoalTool only operates on the current session's already-enabled goal runtime.
@@ -239,7 +277,7 @@ export function evaluateRules(rules: readonly PermissionRule[], action: string, 
 	return matched;
 }
 
-function canonicalPath(path: string, cwd: string): string | undefined {
+export function canonicalPath(path: string, cwd: string): string | undefined {
 	if (path.startsWith("file://")) {
 		try {
 			path = fileURLToPath(path);
@@ -341,8 +379,13 @@ export function decidePermission(
 	const resources = intent.resources ?? [intent.resource];
 	let finalRule: PermissionRule | undefined;
 	let asks = false;
+	let humanApprovalRequired = false;
 	const requiresAsk = (rule: PermissionRule) => rule.effect === "ask" &&
 		(options.approvalMode !== "auto" || (rule.action !== "*" && rule.resource !== "*"));
+	const recordAsk = (rule: PermissionRule) => {
+		if (requiresAsk(rule)) asks = true;
+		if (rule.effect === "ask" && rule.action !== "*" && rule.resource !== "*") humanApprovalRequired = true;
+	};
 	for (const rawResource of resources) {
 		const resource = options.cwd && (intent.action === "read" || intent.action === "edit")
 			? canonicalPath(rawResource, options.cwd)
@@ -351,17 +394,18 @@ export function decidePermission(
 		const rule = evaluateRules(rules, intent.action, resource);
 		if (!rule || rule.effect === "deny") return { ...intent, effect: "deny", role, rule, reason: rule ? "Denied by permission rule" : "No matching permission rule" };
 		finalRule = rule;
-		if (requiresAsk(rule)) asks = true;
+		recordAsk(rule);
 		if (options.cwd && (intent.action === "read" || intent.action === "edit") && isExternal(resource, options.cwd)) {
 			const externalRule = evaluateRules(rules, "external_directory", resource);
 			if (!externalRule || externalRule.effect === "deny") {
 				return { ...intent, effect: "deny", role, rule: externalRule, reason: "External directory access is not permitted" };
 			}
-			if (requiresAsk(externalRule)) asks = true;
+			recordAsk(externalRule);
 		}
 	}
 	const workplanReason = enforceWorkplanOwnership(intent, call.input, role);
 	if (workplanReason) return { ...intent, effect: "deny", role, rule: finalRule, reason: workplanReason };
+	if (intent.approvalReason) return { ...intent, effect: "ask", role, rule: finalRule, reason: intent.approvalReason, humanApprovalRequired };
 	if (intent.action === "shell") {
 		if (/[;&|()$`<>\n]/.test(intent.resource)) {
 			const segments = extractLiteralAndChainSegments(intent.resource);
@@ -376,21 +420,22 @@ export function decidePermission(
 					: hardReset ? "Git hard reset requires approval"
 					: publishOrClean ? "Git publishing or cleanup requires approval"
 					: "Complex shell command requires confirmation";
-				return { ...intent, effect: options.approvalMode === "auto" && !guarded && !asks ? "allow" : "ask", role, rule: finalRule, reason };
+				return { ...intent, effect: options.approvalMode === "auto" && !guarded && !asks ? "allow" : "ask", role, rule: finalRule, reason, humanApprovalRequired: humanApprovalRequired || guarded };
 			}
 			for (const segment of segments) {
 				const segmentRule = evaluateRules(rules, "shell", segment.text);
 				if (!segmentRule || segmentRule.effect === "deny") return { ...intent, effect: "deny", role, rule: segmentRule, reason: "Shell segment is not permitted" };
-				if (requiresAsk(segmentRule)) asks = true;
+				recordAsk(segmentRule);
 			}
 		}
 	}
-	return { ...intent, effect: asks ? "ask" : "allow", role, rule: finalRule };
+	return { ...intent, effect: asks ? "ask" : "allow", role, rule: finalRule, humanApprovalRequired };
 }
 
 /** Whether a tool should be exposed in the catalog before its concrete resource is known. */
 export function canSurfaceTool(policies: PermissionPolicies, role: string, toolName: string): boolean {
-	const intent = intentForToolCall({ toolName, input: {} });
+	const input = toolName === "lsp" ? { action: "status" } : toolName === "debug" ? { action: "sessions" } : {};
+	const intent = intentForToolCall({ toolName, input });
 	if (intent.action === "coordination") return true;
 	if (intent.unsafeChannel) return false;
 	const rules = policies[role] ?? [];

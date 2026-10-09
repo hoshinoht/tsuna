@@ -158,19 +158,34 @@ describe("OpenCode compatibility policy", () => {
 		expect(decidePermission(policies, "orchestrator", { toolName: "mcp__workplan_checkpoint", input: {} }).effect).toBe("allow");
 	});
 
-	it("does not offer denied tools and fails closed for device and eval bypasses", () => {
+	it("does not offer denied tools and fails closed for device and unmapped mutation tools", () => {
 		expect(canSurfaceTool(policies, "tester", "bash")).toBe(true);
 		expect(canSurfaceTool(policies, "tester", "write")).toBe(false);
-		expect(canSurfaceTool(policies, "build", "eval")).toBe(false);
+		expect(canSurfaceTool(policies, "build", "checkpoint")).toBe(false);
 		expect(surfaceTools(policies, "tester", ["bash", "write", "yield"])).toEqual(["bash", "yield"]);
 		expect(canSurfaceTool(policies, "build", "mcp__workplan_create")).toBe(false);
 		expect(decidePermission(policies, "build", { toolName: "write", input: { path: "xd://eval/agents" } })).toMatchObject({
 			effect: "deny",
 			reason: "Denied xd:// device dispatch",
 		});
-		expect(decidePermission(policies, "build", { toolName: "eval", input: { code: "await tool()" } }).effect).toBe("deny");
+		expect(decidePermission(policies, "build", { toolName: "checkpoint", input: {} }).effect).toBe("deny");
 		expect(decidePermission(policies, "tester", { toolName: "wait", input: {} }).effect).toBe("allow");
 		expect(canSurfaceTool(policies, "tester", "yield")).toBe(true);
+	});
+
+	it("allows session todo tracking in both approval modes without exposing unknown tools", () => {
+		for (const role of ["orchestrator", "tester"]) {
+			for (const approvalMode of ["auto", "source"] as const) {
+				for (const input of [{ op: "view" }, { op: "init", items: ["Check permissions"] }]) {
+					expect(decidePermission(policies, role, { toolName: "todo", input }, { approvalMode }).effect).toBe("allow");
+				}
+				expect(decidePermission(policies, role, { toolName: "unknown_tool", input: {} }, { approvalMode })).toMatchObject({
+					effect: "deny",
+					reason: "Denied unmapped OMP tool",
+				});
+			}
+			expect(surfaceTools(policies, role, ["todo", "unknown_tool"])).toEqual(["todo"]);
+		}
 	});
 
 	it("selects the configured primary role and trusted subagent name", () => {

@@ -1,0 +1,6 @@
+{
+  "model": "cliproxy-openai/gpt-6-luna",
+  "timeoutMs": 30000,
+  "maxTokens": 4096,
+  "maxEvidenceChars": 512000
+}

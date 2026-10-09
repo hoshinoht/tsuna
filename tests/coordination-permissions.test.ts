@@ -82,7 +82,8 @@ test("symlinked transcripts cannot cross the session boundary", async () => {
 	expect(decision(scopeWithEscape, "write", "agent://Escape").effect).toBe("deny");
 });
 
-test("native SDK tools read a scoped index and deliver a child message without model calls", async () => {
+test("source mode native SDK tools read a scoped index and deliver a child message without model calls", async () => {
+	const originalMode = process.env.TSUNA_PERMISSION_MODE;
 	const { dir, root, files } = await fixture();
 	const agentDir = join(dir, "profile");
 	await mkdir(agentDir);
@@ -95,6 +96,7 @@ test("native SDK tools read a scoped index and deliver a child message without m
 		model: getBundledModel("anthropic", "claude-opus-5-5"), sessionManager, enableMCP: false, cacheWarming: false, bindProcessState: false });
 	const registry = AgentRegistry.global();
 	const delivered: unknown[] = [];
+	process.env.TSUNA_PERMISSION_MODE = "source";
 	try {
 		const childSession = { messages: [{ role: "user", content: [{ type: "text", text: "Child transcript fixture" }], timestamp: Date.now() }],
 			deliverIrcMessage: async (message: unknown) => { delivered.push(message); return "injected"; }, dispose: async () => {} };
@@ -140,6 +142,7 @@ test("native SDK tools read a scoped index and deliver a child message without m
 		await writeFile(join(dir, "ordinary.txt"), "ordinary read");
 		expect(JSON.stringify((await read.execute("file", { path: join(dir, "ordinary.txt") }, signal)).content)).toContain("ordinary read");
 	} finally {
+		if (originalMode === undefined) delete process.env.TSUNA_PERMISSION_MODE; else process.env.TSUNA_PERMISSION_MODE = originalMode;
 		for (const ref of registry.list()) if (ref.sessionFile && Object.values(files).includes(ref.sessionFile)) registry.unregister(ref.id);
 		await session.dispose();
 	}
