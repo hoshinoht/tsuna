@@ -70,3 +70,23 @@ A separate reviewer audited `src/` and `native/supervisor` against DESIGN.md. Fi
   processes and locks; Pi's global API registry and module-level state persist for the process
   lifetime by design.
 * Reference working-tree differences at `/Users/cantabile/.config/tsuna`: not accessible here.
+
+## Fixed context per request (measured)
+
+`bun scripts/measure-context.ts [--mcp]` sends each sample-pack agent's first request through OMP's
+Anthropic client to the local fixture and counts the wire `system` + `tools` with pi-natives'
+Claude v5 tokenizer (provider-side tool-use framing not included). 2026-10-09, project instructions off:
+
+| Agent | Tools | System | Tool defs | Total |
+|---|---|---|---|---|
+| orchestrator (primary) | 20 | 782 | 2,803 | **3,585** |
+| explore | 5 | 445 | 874 | 1,319 |
+| code-engineer | 11 | 470 | 1,675 | 2,145 |
+| code-checker | 6 | 399 | 1,043 | 1,442 |
+| tester | 7 | 415 | 1,052 | 1,467 |
+
+The demo MCP fixture (3 tools + `mcp_resource`) adds ~350 tokens to the orchestrator. For comparison,
+the reference's shared `agent/AGENTS.md` alone is 3,132 tokens and its full orchestrator prompt 1,896
+(the sample pack's condensed version: 1,250 file tokens); neither the shared conventions file, the
+skills catalogue nor real MCP servers (Shiori, lsp-tools, gofetch, researcher-mcp, Context7) are part
+of these numbers.
