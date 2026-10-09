@@ -1,5 +1,10 @@
 # Paused on 2026-10-07
 
+Historical checkpoint: the project was renamed to Tsuna on 2026-10-09. Use
+`~/.config/tsuna`, `tsuna`, and `/tsuna-*` commands for current work; see
+[the rename notes](tsuna-migration.md). Names in the preserved snapshot below
+describe the original checkpoint.
+
 The user requested: “lets wrap up for now.” The full port goal is paused, not complete.
 
 ## Installed and usable

@@ -1,7 +1,7 @@
 ---
 name: agent-use
 description: Delegate work to this repository's OMP task agents. Covers when to delegate, which agent to pick, the brief to send, and how to judge the STATUS receipt that comes back. Load before any task call.
-compatibility: Requires OMP (hoshi-omp) with this repository's agents and the native task tool.
+compatibility: Requires OMP (tsuna) with this repository's agents and the native task tool.
 metadata:
   domain: agents
   workflow: delegation

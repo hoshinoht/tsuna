@@ -10,11 +10,11 @@ Imported on 2026-10-07 from hoshi-opencode2 commit `f1586302b214c1ae84b81c7ca508
 | reasoning-router | `extensions/runtime.ts` | Uses OMP thinking-level API rather than provider request mutation; gateway families map to original provider policies |
 | openai-long-context | Generated `models.yml` | `-1m` aliases become local context limits on upstream IDs; actual upstream capacity requires a live account check |
 | docs | `extensions/docs.ts` and `packages/docs` | Same 11 tools, draft storage and templates |
-| subagent-control | `extensions/hoshi.ts` | Same list/stop names and direct-child restriction; uses OMP agent registry |
+| subagent-control | `extensions/tsuna.ts` | Same list/stop names and direct-child restriction; uses OMP agent registry |
 | image-budget | `extensions/runtime.ts` | Outgoing-context pruning, stable decisions, latest images retained |
 | cache-guard | `extensions/runtime.ts` | Same configured advisory threshold, based on response cache usage |
 | status-line | Native custom status line | Context, cache, rate, git, elapsed time and usage; visual layout differs |
-| usage-tracker | `extensions/usage.ts`, `/hoshi-usage` | Reads gateway Claude/Codex OAuth accounts for provider quota windows and low-quota reminders. Native `/usage` remains separate; live quota endpoints require account login |
+| usage-tracker | `extensions/usage.ts`, `/tsuna-usage` | Reads gateway Claude/Codex OAuth accounts for provider quota windows and low-quota reminders. Native `/usage` remains separate; live quota endpoints require account login |
 | opencode-anthropic-auth | CLIProxyAPI Claude OAuth | Independent credential store; sign in again |
 | opencode-notifier | Native completion/error/ask notifications | Delivery/sound follows OMP and terminal support |
 | opencode-dcp | `compress` tool | Explicit tool-result summaries only; all user messages and stored history retained. No automatic dedup/error purge. Not DCP's full message-range algorithm |
@@ -25,9 +25,9 @@ OpenCode desktop CSS/themes and TUI plugin modules cannot execute in OMP. Their 
 
 ## Commands and models
 
-`build` is merged into `orchestrator`, whose default reasoning is medium. Small tasks are handled directly; complex work uses planning and specialists as needed. Former build commands target orchestrator. The launcher accepts `--agent build` as a legacy alias, and saved build sessions restore as orchestrator. Restart OMP and select `/hoshi-agent orchestrator` to apply the model and effort to an existing session.
+`build` is merged into `orchestrator`, whose default reasoning is medium. Small tasks are handled directly; complex work uses planning and specialists as needed. Former build commands target orchestrator. The launcher accepts `--agent build` as a legacy alias, and saved build sessions restore as orchestrator. Restart OMP and select `/tsuna-agent orchestrator` to apply the model and effort to an existing session.
 
-All seven commands have guaranteed `/hoshi-<name>` forms. Short forms are registered when OMP does not reserve the name. `/hoshi-agent` changes a primary role; `--agent` selects the initial one. Bundled OMP commands continue to use OMP semantics.
+All seven commands have guaranteed `/tsuna-<name>` forms. Short forms are registered when OMP does not reserve the name. `/tsuna-agent` changes a primary role; `--agent` selects the initial one. Bundled OMP commands continue to use OMP semantics.
 
 Claude traffic uses `cliproxy-anthropic` with the Anthropic Messages API. OpenAI traffic uses `cliproxy-openai` with the Responses API. Base model IDs and metadata come from the pinned OMP catalog; synthetic OpenCode `-1m` suffixes are removed. Model access, actual request limits, subscription availability and billing are only established after account login and live requests. No completion requests were sent during setup.
 
@@ -43,14 +43,14 @@ Coordination reads (`history://<id>` and `agent://<id>`) require a registered ta
 
 `write agent://<id>` uses the source parent-control permission and only permits non-aborted direct children in that same tree. Native OMP handles message delivery and parked-child revival. Broadcasts, unrelated sessions, advisor targets and edit-tool mutations are denied. Missing caller/target provenance fails closed. Restart OMP to load changed extension code; Alt+A opens the native Agent Hub for human steering.
 
-GPT-6-Luna reviews pending primary-session approvals through CLIProxyAPI. `config/permission-reviewer.json` enables auto mode: only a low-risk verdict with scope `within-request` can waive a generic Hoshi ask for bounded inspection. Specific asks, denials, credential access, mutations and arbitrary scripts keep their existing controls. Native OMP approval events receive advisory reviews; native prompt policies still apply. Disabled/missing models, malformed output and the 15-second timeout preserve manual approval. Common credentials are redacted; audit entries record verdict, usage and approval source without command text.
+GPT-6-Luna reviews pending primary-session approvals through CLIProxyAPI. `config/permission-reviewer.json` enables auto mode: only a low-risk verdict with scope `within-request` can waive a generic Tsuna ask for bounded inspection. Specific asks, denials, credential access, mutations and arbitrary scripts keep their existing controls. Native OMP approval events receive advisory reviews; native prompt policies still apply. Disabled/missing models, malformed output and the 15-second timeout preserve manual approval. Common credentials are redacted; audit entries record verdict, usage and approval source without command text.
 
-The official Bun installation owns `omp` and `omp update`. `~/.omp/agent` points to the existing repository-local profile so agents, sessions, MCPs and themes stay together. The previous default directory is preserved by `scripts/connect-official.ts`. CLIProxyAPI keys use OMP's command-backed credential resolver, which reads the private client-key file without embedding its value in configuration. `hoshi-omp` remains the role-selection convenience launcher and uses the same official runtime.
+The official Bun installation owns `omp` and `omp update`. `~/.omp/agent` points to the existing repository-local profile so agents, sessions, MCPs and themes stay together. The previous default directory is preserved by `scripts/connect-official.ts`. CLIProxyAPI keys use OMP's command-backed credential resolver, which reads the private client-key file without embedding its value in configuration. `tsuna` remains the role-selection convenience launcher and uses the same official runtime.
 
 ## Data and reproducibility
 
 - All eight MCP definitions are retained; the five enabled definitions keep their enabled state. Local server copies are included. Disabled DeepWiki, ATS-tailor and grep.app remain disabled.
 - Shiori stays at `03a1d9a4786d0f7270775d958365f4c8f8b51e02`; setup builds a missing binary. MCP roots select the current project.
 - Source instruction/skill bodies are adapted for OMP. `scripts/import-opencode.ts` is a bootstrap importer, not a bidirectional sync: rerunning it replaces adapted generated files. Review changes before using it again.
-- `hoshi-omp setup` regenerates runtime config from tracked templates; put permanent edits in `config/` and agent files, not generated `.runtime/omp/agent/config.yml`.
-- The development SDK/catalog remains pinned in `package.json`; the official Bun runtime was installed and updated to v18.8.3. Hoshi extension loading and the closed editor were validated with the official source installation. Rerun adapter tests and an interactive smoke check after runtime upgrades.
+- `tsuna setup` regenerates runtime config from tracked templates; put permanent edits in `config/` and agent files, not generated `.runtime/omp/agent/config.yml`.
+- The development SDK/catalog remains pinned in `package.json`; the official Bun runtime was installed and updated to v18.8.3. Tsuna extension loading and the closed editor were validated with the official source installation. Rerun adapter tests and an interactive smoke check after runtime upgrades.

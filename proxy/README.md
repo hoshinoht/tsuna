@@ -1,6 +1,6 @@
 # CLIProxyAPI gateway
 
-`hoshi-omp proxy init` creates the local API key and gateway configuration in
+`tsuna proxy init` creates the local API key and gateway configuration in
 `.runtime/proxy/`. The directory is ignored by Git. The gateway publishes its
 API only at `http://127.0.0.1:18317`; OMP reads that endpoint through its
 configured `cliproxy-openai` and `cliproxy-anthropic` providers.
@@ -8,13 +8,13 @@ configured `cliproxy-openai` and `cliproxy-anthropic` providers.
 Use the wrapper through the PATH launcher:
 
 ```sh
-hoshi-omp proxy init
-hoshi-omp proxy start
-hoshi-omp proxy status
-hoshi-omp proxy models
-hoshi-omp proxy login claude
-hoshi-omp proxy login codex
-hoshi-omp proxy stop
+tsuna proxy init
+tsuna proxy start
+tsuna proxy status
+tsuna proxy models
+tsuna proxy login claude
+tsuna proxy login codex
+tsuna proxy stop
 ```
 
 `login` starts a temporary interactive container and publishes only the needed

@@ -1,7 +1,7 @@
 ---
 name: docs-workflow
 description: Drive the pandoc-based docs plugin to produce reports, notes and styled PDFs (or DOCX/HTML) from markdown, with citations kept in a refs.bib sidecar and output shaped by presets (SIT/UofG school report, Eisvogel). Use when the user wants a report, styled PDF, bibliography or citation formatting (IEEE, APA, ACM styles) through the docs_* tools. Venue papers are written in native LaTeX with the official class instead.
-compatibility: Requires OMP with the Hoshi docs extension (docs_* tools), pandoc and a LaTeX distribution
+compatibility: Requires OMP with the Tsuna docs extension (docs_* tools), pandoc and a LaTeX distribution
 metadata:
   domain: "documents"
   workflow: "pandoc"

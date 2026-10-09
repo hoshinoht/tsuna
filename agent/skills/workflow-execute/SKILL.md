@@ -1,7 +1,7 @@
 ---
 name: workflow-execute
 description: Execute an existing durable development workplan through scoped implementation and evidence-backed validation. Routine inline plans do not use this skill.
-compatibility: Requires OMP (hoshi-omp) with this repository's agents and the mcp__workplan_* tools served by Shiori (vendor/shiori).
+compatibility: Requires OMP (tsuna) with this repository's agents and the mcp__workplan_* tools served by Shiori (vendor/shiori).
 metadata:
   domain: software-engineering
   workflow: workplan-execution

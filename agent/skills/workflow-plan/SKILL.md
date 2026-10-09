@@ -1,7 +1,7 @@
 ---
 name: workflow-plan
 description: Create or revise a durable development plan for cross-session, multi-owner, migration, staged-rollout, or consequential work. Ordinary planning stays inline; planning never authorizes implementation by itself.
-compatibility: Requires OMP (hoshi-omp) with this repository's agents and the mcp__workplan_* tools served by Shiori (vendor/shiori).
+compatibility: Requires OMP (tsuna) with this repository's agents and the mcp__workplan_* tools served by Shiori (vendor/shiori).
 metadata:
   domain: software-engineering
   workflow: workplan-planning

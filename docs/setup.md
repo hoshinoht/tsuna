@@ -8,15 +8,24 @@ CLI version in that example is the validated official OMP release; the SDK in
 
 | Component | Used for |
 |---|---|
-| Bun | OMP, dependencies and Hoshi scripts |
+| Rust 1.89 or newer and Cargo | Building the Tsuna CLI |
+| Bun | OMP, dependencies and SDK bridges |
 | Go 1.27.1 or newer | Building missing local MCP binaries; see the vendored `go.mod` files |
 | Node.js 20 or newer | The LSP MCP server |
 | Docker with Compose | The CLIProxyAPI gateway |
 | Pandoc and a TeX installation | Document compilation; optional for coding workflows |
 
+`bun run build:rust` builds the Rust CLI; the launcher builds it automatically
+on first use if it is missing. Rebuild after changing `native/tsuna/` sources.
+The CLI supports macOS and Linux. Existing `bun scripts/*.ts` commands delegate
+to Rust; OMP catalog and smoke operations keep small TypeScript SDK bridges.
+
 `bun run setup` builds missing Go binaries, links agents and skills, and generates
 the runtime profile from tracked configuration. Keep permanent settings in
 `config/`; rerunning setup replaces generated runtime settings.
+
+Run `bun run test:rust`, `bun run test` and `bun run typecheck` after native or
+bridge changes. See [Rust migration and supervised jobs](rust-migration.md).
 
 ## Connect the default profile
 
@@ -24,28 +33,29 @@ the runtime profile from tracked configuration. Keep permanent settings in
 > `bun scripts/connect-official.ts` switches the official CLI's default profile
 > by pointing `~/.omp/agent` at this checkout's `.runtime/omp/agent`.
 
-An existing default profile is preserved at `~/.omp/agent-before-hoshi-*`.
+An existing default profile is preserved at `~/.omp/agent-before-tsuna-*`.
+Earlier backups keep their original `agent-before-hoshi-*` names.
 Connecting again to the same checkout leaves the link intact. Keep the checkout
-in place while using this profile. Existing Hoshi sessions stay in the runtime
+in place while using this profile. Existing Tsuna sessions stay in the runtime
 directory; this step does not import OpenCode conversations.
 
-`bun scripts/install-path.ts` creates `~/.local/bin/hoshi-omp` and refuses to
+`bun scripts/install-path.ts` creates `~/.local/bin/tsuna` and refuses to
 replace an unrelated command. Add `~/.local/bin` and `~/.bun/bin` to your shell's
 PATH. The README's `export PATH=...` applies to the current shell.
 
 ## Authenticate and launch
 
-`hoshi-omp proxy start` initializes private gateway files and starts the container.
-Run `hoshi-omp proxy login claude` and `hoshi-omp proxy login codex`; open each
+`tsuna proxy start` initializes private gateway files and starts the container.
+Run `tsuna proxy login claude` and `tsuna proxy login codex`; open each
 printed login URL in your browser. The configured roles use both providers.
 
-`hoshi-omp proxy models` checks the authenticated model listing without making a
+`tsuna proxy models` checks the authenticated model listing without making a
 model completion request. Model availability and account limits depend on your
 provider accounts. See the [gateway guide](../proxy/README.md).
 
-Launch `hoshi-omp` or `omp` from the project directory. The Hoshi launcher selects
-the default orchestrator model; `/hoshi-agent orchestrator` selects that role
-inside an existing session. Use `/hoshi-review` for Hoshi's review workflow;
+Launch `tsuna` or `omp` from the project directory. The Tsuna launcher selects
+the default orchestrator model; `/tsuna-agent orchestrator` selects that role
+inside an existing session. Use `/tsuna-review` for Tsuna's review workflow;
 the native `/review` command retains OMP's behavior.
 
 ## Project instructions and skills

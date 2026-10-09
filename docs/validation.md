@@ -24,4 +24,4 @@ These are local observations, not a controlled benchmark. The OpenCode processes
 
 ## Still requires provider sign-in
 
-Authenticate Claude and Codex through `hoshi-omp proxy login`, then list models and test an ordinary turn. Live model availability, reasoning settings, extended-context limits, prompt-cache behavior and subscription quota endpoints remain unverified until those accounts are available.
+Authenticate Claude and Codex through `tsuna proxy login`, then list models and test an ordinary turn. Live model availability, reasoning settings, extended-context limits, prompt-cache behavior and subscription quota endpoints remain unverified until those accounts are available.
