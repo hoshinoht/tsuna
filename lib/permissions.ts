@@ -67,7 +67,7 @@ const UNSAFE_TOOLS = new Set([
 function globMatches(pattern: string, value: string): boolean {
 	if (pattern.startsWith("~/") && process.env.HOME) pattern = `${process.env.HOME}${pattern.slice(1)}`;
 	const sourceSkills = `${process.env.HOME ?? "~"}/.config/opencode/skills/`;
-	const importedSkills = `${process.env.HOSHI_OMP_ROOT ?? resolve(import.meta.dir, "..")}/agent/skills/`;
+	const importedSkills = `${process.env.TSUNA_ROOT ?? resolve(import.meta.dir, "..")}/agent/skills/`;
 	if (pattern.startsWith(sourceSkills) && value.startsWith(importedSkills)) {
 		pattern = `${importedSkills}${pattern.slice(sourceSkills.length)}`;
 	}
@@ -410,7 +410,7 @@ export function surfaceTools(policies: PermissionPolicies, role: string, toolNam
 	return [...toolNames].filter(toolName => canSurfaceTool(policies, role, toolName));
 }
 
-export function roleForAgent(agent: { kind: "main" | "sub"; name: string }, primaryRole = process.env.HOSHI_AGENT ?? "orchestrator"): string {
+export function roleForAgent(agent: { kind: "main" | "sub"; name: string }, primaryRole = process.env.TSUNA_AGENT ?? "orchestrator"): string {
 	return agent.kind === "sub" ? agent.name : primaryRole;
 }
 

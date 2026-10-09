@@ -3,7 +3,7 @@
     "workplan": {
       "type": "stdio",
       "enabled": true,
-      "command": "${HOSHI_OMP_ROOT}/vendor/shiori/shiori",
+      "command": "${TSUNA_ROOT}/vendor/shiori/shiori",
       "args": [
         "mcp",
         "--write-approval",
@@ -29,7 +29,7 @@
       "command": "sh",
       "args": [
         "-c",
-        "${HOSHI_OMP_ROOT}/mcps/researcher-mcp/bin/researcher-mcp"
+        "${TSUNA_ROOT}/mcps/researcher-mcp/bin/researcher-mcp"
       ]
     },
     "gofetch": {
@@ -38,7 +38,7 @@
       "command": "sh",
       "args": [
         "-c",
-        "${HOSHI_OMP_ROOT}/mcps/gofetch-mcp/bin/gofetch"
+        "${TSUNA_ROOT}/mcps/gofetch-mcp/bin/gofetch"
       ]
     },
     "ats-tailor": {
@@ -61,7 +61,7 @@
       "command": "sh",
       "args": [
         "-c",
-        "node ${HOSHI_OMP_ROOT}/mcps/lsp-tools-mcp/mcp-no-idle.mjs"
+        "node ${TSUNA_ROOT}/mcps/lsp-tools-mcp/mcp-no-idle.mjs"
       ],
       "env": {
         "LSP_TOOLS_MCP_PROJECT_CONFIG": ".opencode/lsp.json"

@@ -65,7 +65,7 @@ describe("reasoning router", () => {
 		expect(canonicalProvider("cliproxy-openai")).toBe("openai");
 	});
 
-	test("uses HOSHI's primary identity only when supplied by the extension", () => {
+	test("uses Tsuna's primary identity only when supplied by the extension", () => {
 		const options = validateRuntimeOptions({}).reasoningRouter;
 		const state: ReasoningState = { sessions: new Map(), diagnostics: [] };
 		const output = routeReasoning(state, "s", "explore", { provider: "openai", id: "gpt", thinking: { efforts: ["low", "medium", "high"] } }, [{ role: "user", content: "[reasoning:fast] find callers" }], options);

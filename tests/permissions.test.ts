@@ -48,6 +48,16 @@ const policies: PermissionPolicies = {
 };
 
 describe("OpenCode compatibility policy", () => {
+	it("uses TSUNA_AGENT for primary roles", () => {
+		const original = process.env.TSUNA_AGENT;
+		try {
+			process.env.TSUNA_AGENT = "scholar";
+			expect(roleForAgent({ kind: "main", name: "main" })).toBe("scholar");
+		} finally {
+			if (original === undefined) delete process.env.TSUNA_AGENT; else process.env.TSUNA_AGENT = original;
+		}
+	});
+
 	it("loads through OMP's extension loader", async () => {
 		const loaded = await loadExtensions([resolve(import.meta.dir, "../extensions/permissions.ts")], process.cwd());
 		expect(loaded.errors).toEqual([]);

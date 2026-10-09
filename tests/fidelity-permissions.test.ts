@@ -2,12 +2,13 @@ import { expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import permissions from "../config/permissions.json";
 import { asToolCall, decidePermission, type PermissionPolicies } from "../lib/permissions";
-import { frontmatter } from "../scripts/import-opencode";
+import { parse } from "yaml";
 
 const policies = permissions as PermissionPolicies;
 
 test("the orchestrator can request the project-local fidelity agent", () => {
-  const { meta } = frontmatter(readFileSync(new URL("../agent/agents/orchestrator.md", import.meta.url), "utf8"));
+  const text = readFileSync(new URL("../agent/agents/orchestrator.md", import.meta.url), "utf8");
+  const meta = parse(text.match(/^---\r?\n([\s\S]*?)\r?\n---/)![1]);
   expect(meta.spawns).toContain("fidelity");
   expect(decidePermission(policies, "orchestrator", asToolCall("task", { agent: "fidelity" })).effect).toBe("allow");
 });

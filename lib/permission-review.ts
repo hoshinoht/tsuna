@@ -91,7 +91,7 @@ export async function reviewPermission(call: ToolCall, role: string, policyReaso
 	}
 }
 
-/** Only bounded inspection can waive a generic Hoshi ask; explicit asks/denials remain authoritative. */
+/** Only bounded inspection can waive a generic Tsuna ask; explicit asks/denials remain authoritative. */
 export function shouldAutoApprovePermission(call: ToolCall, decision: PermissionDecision, review: PermissionReview | undefined, config: PermissionReviewerConfig): boolean {
 	if (!config.enabled || config.mode !== "auto" || decision.effect !== "ask" || review?.status !== "reviewed" || review.risk !== "low" || review.scope !== "within-request") return false;
 	if (decision.rule?.effect === "ask" && decision.rule.resource !== "*") return false;

@@ -35,16 +35,16 @@ export interface CoordinationScope {
 
 /** Parse the same inline selectors and single-slash aliases as the native read tool. */
 export function coordinationTarget(path: string): CoordinationTarget | undefined {
-	if (!/^(agent|history|hoshi-history|hoshi-agent):\//i.test(path)) return;
-	const normalized = path.replace(/^(agent|history|hoshi-history|hoshi-agent):\/(?!\/)/i, "$1://");
+	if (!/^(agent|history|tsuna-history|tsuna-agent):\//i.test(path)) return;
+	const normalized = path.replace(/^(agent|history|tsuna-history|tsuna-agent):\/(?!\/)/i, "$1://");
 	const split = splitInternalUrlSel(normalized, () => ({ selectors: "lines" }));
 	try {
 		const url = parseInternalUrl(split.path);
-		const scheme = /^(?:hoshi-)?agent:$/.test(url.protocol.toLowerCase()) ? "agent" : "history";
+		const scheme = /^(?:tsuna-)?agent:$/.test(url.protocol.toLowerCase()) ? "agent" : "history";
 		const id = url.rawHost || url.hostname;
 		const pathname = url.rawPathname ?? url.pathname;
 		return { scheme, id, pathname, selector: split.sel, invalid: !!url.search || !!url.hash ||
-			(url.protocol.toLowerCase() === "hoshi-history:" && (id !== "" || (pathname !== "" && pathname !== "/"))) };
+			(url.protocol.toLowerCase() === "tsuna-history:" && (id !== "" || (pathname !== "" && pathname !== "/"))) };
 	} catch {
 		return { scheme: "history", id: "", pathname: "", invalid: true };
 	}
@@ -105,7 +105,7 @@ export async function currentCoordinationScope(ctx: Pick<ExtensionContext, "agen
 /** Native indexes/output lookups scan global artifacts; pin reads to the caller's own tree. */
 export function registerScopedCoordinationReads(): void {
 	InternalUrlRouter.instance().register({
-		scheme: "hoshi-history",
+		scheme: "tsuna-history",
 		spec: { backing: "virtual", selectors: "lines", immutable: true },
 		async resolve(url, context) {
 			const registry = context?.agentRegistry ?? AgentRegistry.global();
@@ -118,7 +118,7 @@ export function registerScopedCoordinationReads(): void {
 		},
 	});
 	InternalUrlRouter.instance().register({
-		scheme: "hoshi-agent",
+		scheme: "tsuna-agent",
 		spec: { backing: "virtual", selectors: "lines", immutable: true },
 		async resolve(url, context) {
 			const registry = context?.agentRegistry ?? AgentRegistry.global();

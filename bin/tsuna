@@ -9,4 +9,8 @@ while [ -L "$script" ]; do
   esac
 done
 root=$(CDPATH= cd -- "$(dirname "$script")/.." && pwd -P)
-exec "$root/bin/tsuna" "$@"
+binary="$root/native/tsuna/target/release/tsuna"
+if [ ! -x "$binary" ]; then
+  cargo build --locked --release --manifest-path "$root/native/tsuna/Cargo.toml"
+fi
+exec "$binary" --root "$root" "$@"

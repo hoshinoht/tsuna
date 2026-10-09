@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "hoshi-omp",
+      "name": "tsuna",
       "dependencies": {
         "@oh-my-pi/pi-coding-agent": "18.8.0",
         "smol-toml": "^1.7.0",

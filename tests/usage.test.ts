@@ -17,7 +17,7 @@ function authFile(directory: string, name: string, value: unknown): void {
 
 describe("CLIProxyAPI usage", () => {
   test("reads only supported local OAuth accounts and never retains refresh tokens", async () => {
-    const directory = mkdtempSync(join(tmpdir(), "hoshi-omp-usage-"));
+    const directory = mkdtempSync(join(tmpdir(), "tsuna-usage-"));
     cleanup.push(directory);
     authFile(directory, "codex.json", { type: "codex", access_token: "openai-access", refresh_token: "openai-refresh", account_id: "account-1" });
     authFile(directory, "claude.json", { type: "claude", access_token: "anthropic-access", refresh_token: "anthropic-refresh" });
@@ -81,7 +81,7 @@ describe("CLIProxyAPI usage", () => {
   });
 
   test("reports a missing login as unavailable rather than zero usage", async () => {
-    const directory = join(mkdtempSync(join(tmpdir(), "hoshi-omp-usage-")), "missing");
+    const directory = join(mkdtempSync(join(tmpdir(), "tsuna-usage-")), "missing");
     cleanup.push(resolve(directory, ".."));
     expect(await readGatewayAccounts(directory)).toEqual([]);
     expect(formatQuotaRows([])).toContain("unavailable");
@@ -89,11 +89,11 @@ describe("CLIProxyAPI usage", () => {
   });
 
   test("loads the OMP slash command without replacing model providers", async () => {
-    const workspace = mkdtempSync(join(tmpdir(), "hoshi-omp-usage-extension-"));
+    const workspace = mkdtempSync(join(tmpdir(), "tsuna-usage-extension-"));
     cleanup.push(workspace);
     const extension = resolve(import.meta.dir, "../extensions/usage.ts");
     const loaded = await loadExtensions([extension], workspace);
     expect(loaded.errors).toEqual([]);
-    expect([...loaded.extensions[0]!.commands.keys()]).toEqual(["hoshi-usage"]);
+    expect([...loaded.extensions[0]!.commands.keys()]).toEqual(["tsuna-usage"]);
   });
 });

@@ -1,5 +1,6 @@
 import type { ExtensionFactory } from "@oh-my-pi/pi-coding-agent";
 import { ThinkingLevel } from "@oh-my-pi/pi-agent-core";
+import { backgroundJobViolation } from "../lib/background-jobs.ts";
 import {
 	admitCacheRisk,
 	cacheRisk,
@@ -42,15 +43,21 @@ async function loadOptions(): Promise<ReturnType<typeof validateRuntimeOptions>>
 }
 
 const extension: ExtensionFactory = async pi => {
-	pi.setLabel("Hoshi runtime policies");
+	pi.setLabel("Tsuna runtime policies");
 	const options = await loadOptions();
 	const imageState: ImagePruneState = { sessions: new Map() };
 	const cacheState: CacheGuardState = { warned: new Set(), diagnostics: [] };
 	const reasoningState: ReasoningState = { sessions: new Map(), diagnostics: [] };
 
+	pi.on("tool_call", event => {
+		if (event.toolName !== "bash") return;
+		const reason = backgroundJobViolation({ ...event.input });
+		if (reason) return { block: true, reason };
+	});
+
 	pi.on("context", async (event, ctx) => {
 		const sessionID = ctx.sessionManager.getSessionId();
-		const identity = ctx.agent.kind === "main" ? process.env.HOSHI_AGENT ?? ctx.agent.name : ctx.agent.name;
+		const identity = ctx.agent.kind === "main" ? process.env.TSUNA_AGENT ?? ctx.agent.name : ctx.agent.name;
 		const routed = routeReasoning(reasoningState, sessionID, identity, ctx.model, event.messages, options.reasoningRouter);
 		if (routed.decision?.effort) pi.setThinkingLevel(thinkingLevelFor[routed.decision.effort]);
 

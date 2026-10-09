@@ -34,6 +34,16 @@ When instructions disagree, follow the user's current request first, then your a
 - The workstation is macOS: BSD `sed`, `find` and `date`, and no `timeout` command (use the `bash` tool's timeout control instead). Before package, service or distro-specific commands on a Linux host, load `shell-strategy`.
 - Run dev servers, watchers and other long jobs only with the live `bash` tool's supported detached mode or a named `tmux` session logging to a file, and stop them when done.
 
+## Background jobs and recovery
+
+- Run tests as native managed jobs with a finite positive command timeout; never use `timeout: 0` for tests or waiters. Choose the overall deadline from the normal duration plus margin (about 15 minutes for a six-minute suite). Named services use their own lifecycle and readiness deadline.
+- Track the actual command's job handle, owner, cwd, start time and log path. Wait through the native `wait` tool and inspect `proc://` status using the live catalog. Do not launch a second background job whose only purpose is polling an exit file with `while`/`until` and `sleep`.
+- For a detached process outside native tracking, record its PID and start identity and use short probes under an overall deadline. A missing file is not proof that the producer is running; verify process identity/liveness and stop waiting when it disappears. PID reuse and a restarted harness can invalidate old ownership records.
+- When a job must survive an OMP restart, use `tsuna job start --timeout 900 --cwd /absolute/project -- bun run e2e`. Retain the returned run directory; inspect it with `tsuna job status RUN_DIRECTORY` and wait with `tsuna job wait RUN_DIRECTORY --timeout 60`. The command deadline and each wait deadline are separate. A timed-out wait does not authorize restarting or cancelling the producer.
+- After a restart, reconcile the native job status, producer identity and log tail before waiting, cancelling or rerunning. Cancel only a verified waiter/job you own. If the producer is gone without a captured result, report unknown/interrupted and preserve the evidence; never write a guessed exit code into its completion file. An explicit terminal failure line in that run's log is failure evidence, not a newly captured process exit status.
+- If completion files are necessary, use a unique path for each run and a wrapper that captures status even on nonzero exits and publishes it atomically. Traps cannot guarantee a record after SIGKILL or a lost wrapper, so liveness checks and deadlines remain required.
+- Keep reruns within the assigned validation scope. After fixes, rerun the failed specs when directed; run one final full suite on the merged tree when assigned. Do not silently restart a full suite to recover missing bookkeeping.
+
 ## Editing files
 
 - Read the exact target immediately before each edit and build the change from that read, never from an earlier read or a quoted excerpt.
@@ -66,4 +76,4 @@ A workplan's full history can be larger than your context window. Start from `mc
 - MCP tools have OMP names (mcp__server_tool); inspect the available catalog for the exact spelling.
 - The permission extension preserves the imported action/resource rules and Shiori role checks. A denied tool remains unavailable.
 - Durable plans stay in .opencode/workplan so existing Shiori artifacts remain compatible.
-- User-selected roles are managed by /hoshi-agent; only the user may change the primary role.
+- User-selected roles are managed by /tsuna-agent; only the user may change the primary role.

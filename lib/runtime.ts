@@ -1,7 +1,7 @@
 /**
  * Runtime policies shared by the OMP extension and its tests.
  *
- * This is an independent adaptation of the existing Hoshi policies for OMP's
+ * This is an independent adaptation of the existing Tsuna policies for OMP's
  * public context hook.  It intentionally works on structural message values:
  * the extension receives a context copy, while the persisted session stays
  * unchanged.

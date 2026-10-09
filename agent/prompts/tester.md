@@ -23,6 +23,8 @@ Do not re-run a check that already passed on the same code unless the parent giv
 - Separate assertion failures from environment or setup failures.
 - A zero exit code is not a pass if no relevant tests ran.
 - Say plainly what you could not run and why.
+- Follow the shared background-job recovery rules: finite command deadline, actual job/process tracking, and no sentinel-only sleep loop. After a restart, reconcile status and logs before waiting or rerunning; a missing exit record is unknown, and must never be repaired with a guessed code.
+- Rerun only the checks assigned by the parent. If failed specs are assigned, leave the full merged-tree suite to its assigned owner.
 
 ## Output
 

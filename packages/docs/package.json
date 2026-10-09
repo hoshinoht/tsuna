@@ -1,7 +1,7 @@
 {
-  "name": "@hoshi-omp/docs",
+  "name": "@tsuna/docs",
   "version": "1.0.0",
-  "description": "Pandoc/LaTeX document drafting and PDF compilation tools for hoshi-omp",
+  "description": "Pandoc/LaTeX document drafting and PDF compilation tools for Tsuna",
   "license": "GPL-3.0-or-later",
   "type": "module",
   "exports": {
