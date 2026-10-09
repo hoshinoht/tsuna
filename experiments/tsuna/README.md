@@ -64,6 +64,15 @@ instance is never modified):
   "models": { "primary": { "provider": "gateway", "id": "claude-opus-5-5", "reasoning": true, "reasoningLevels": ["low","medium","high"], "contextWindow": 200000, "maxTokens": 32000 } } }
 ```
 
+OMP's model layer (`"type": "omp"`): requests go through Oh My Pi's own provider clients and models
+are validated against OMP's catalog (limits come from the catalog; levels must be supported):
+
+```json
+{ "providers": { "anthropic": { "type": "omp", "ompProvider": "anthropic", "apiKeyEnv": "ANTHROPIC_KEY_FOR_TSUNA" },
+                 "gateway": { "type": "omp", "ompProvider": "anthropic", "baseUrl": "http://127.0.0.1:18317", "apiKeyEnv": "TSUNA_PROXY_KEY" } },
+  "models": { "primary": { "provider": "anthropic", "id": "claude-opus-5-5", "reasoningLevels": ["low", "medium", "high"] } } }
+```
+
 ### MCP service prerequisites (integration targets)
 
 Service source code, builds and credentials stay outside the harness. Point `mcp.json` at

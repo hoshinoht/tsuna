@@ -18,8 +18,9 @@ own licences (full texts in third_party/licenses/):
     task, wait, yield, irc). MIT License, same copyright holders as above.
 
 Runtime dependencies installed from npm (not vendored) keep their licences:
-Pi (@earendil-works/*, MIT, Copyright (c) 2025 Mario Zechner) and
-@oh-my-pi/pi-natives (MIT, Copyright (c) 2025-2026 Can Bölük, 2026 Stencil
-Labs, Inc., with its own THIRD-PARTY-NOTICES.txt).
+Pi (@earendil-works/*, MIT, Copyright (c) 2025 Mario Zechner);
+@oh-my-pi/pi-natives, pi-ai, pi-catalog, pi-utils, pi-wire and omptype
+(MIT, Copyright (c) 2025 Mario Zechner [pi-ai], 2025-2026 Can Bölük,
+2026 Stencil Labs, Inc., with their own THIRD-PARTY-NOTICES.txt).
 
 See docs/PROVENANCE.md for the per-file record.

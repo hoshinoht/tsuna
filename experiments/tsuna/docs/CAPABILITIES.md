@@ -78,3 +78,15 @@ Legend: **Implemented** = built and covered by automated tests or the offline de
 | Interactive REPL, headless JSONL, scripted human mode, agent view, transcript view, steering/stop/revive | Implemented | demo, pty smoke |
 | Rich TUI | Deferred | intentionally modest |
 | Live-provider smoke test | Not run | no credentials authorised; `api` provider type implemented but unexercised |
+
+## Models
+
+| Capability | Status | Evidence / notes |
+|---|---|---|
+| Logical model entries separate from agent definitions | Implemented | providers config; definitions name entries |
+| Deterministic fixture provider (tests, demo) | Implemented | all suites |
+| `api` provider (Pi's built-in wire clients, e.g. CLIProxyAPI) | Partial | implemented; not exercised live |
+| `omp` provider: OMP's wire clients (Anthropic Messages, OpenAI-compatible, …) | Implemented (offline) | `test/omp-models.test.ts` against a local SSE fixture: tool calls, thinking + signature replay across restart, effort mapping, abort |
+| Catalog-validated limits and reasoning levels (OMP catalog) | Implemented | same file: unknown model, inflated window, unsupported level rejected |
+| Keys only from configured env; no OMP auth-storage/env fallback | Implemented | same file |
+| OMP OAuth, account pools, usage, Cursor/Copilot device flows | Deferred | need OMP credential stores; out of scope without authorisation |

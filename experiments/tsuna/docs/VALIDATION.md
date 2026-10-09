@@ -9,12 +9,17 @@ model, live credentials or the network (other than installing pinned packages).
 | `bun run typecheck` | 0 errors |
 | `bun run test:native` | 10 Rust tests passed |
 | `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings` (supervisor) | clean |
-| `bun run test` | **114 passed, 0 failed** across 9 files |
+| `bun run test` | **120 passed, 0 failed** across 10 files |
 | `bun run demo` | 16/16 verification checks passed (two separate processes) |
 | pty smoke of the interactive REPL | `/agents`, `/mcp`, unknown-agent error, inline approval prompt → user “n” → denied + audited |
 
-Per file: context 17, definitions 23, jobs 4, mcp 6, natives-tools 9, orchestration 22, policy 23,
-review-fixes 9, smoke 1.
+Per file: context 17, definitions 23, jobs 4, mcp 6, natives-tools 9, omp-models 6, orchestration 22,
+policy 23, review-fixes 9, smoke 1.
+
+OMP model layer (added after the first review): real OMP Anthropic-Messages and OpenAI-Completions
+clients against `fixtures/models/llm-server.ts` through full Tsuna/Pi sessions — delegation round
+trip, signed-thinking replay after restart, catalog validation, key isolation, abort. Not run against
+a live endpoint.
 
 ## What the suite demonstrates (acceptance list)
 

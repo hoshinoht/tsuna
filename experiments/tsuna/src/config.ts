@@ -31,7 +31,16 @@ export interface ApiProviderConfig {
 	headers?: Record<string, string>;
 }
 
-export type ProviderConfig = FixtureProviderConfig | ApiProviderConfig;
+/** Stream through Oh My Pi's provider implementations; models validated against OMP's catalog. */
+export interface OmpProviderConfig {
+	type: "omp";
+	ompProvider: string;
+	apiKeyEnv?: string;
+	baseUrl?: string;
+	headers?: Record<string, string>;
+}
+
+export type ProviderConfig = FixtureProviderConfig | ApiProviderConfig | OmpProviderConfig;
 
 export interface ModelEntry {
 	provider: string;
@@ -133,6 +142,16 @@ export function parseProviders(raw: unknown, base: string, where: string): Provi
 				apiKeyEnv: typeof value.apiKeyEnv === "string" ? value.apiKeyEnv : undefined,
 				headers: isRecord(value.headers) ? (value.headers as Record<string, string>) : undefined,
 			};
+		} else if (value.type === "omp") {
+			if (typeof value.ompProvider !== "string") throw new ConfigError(`${where}: omp provider ${name} needs ompProvider (an OMP catalog provider id)`);
+			if ("apiKey" in value) throw new ConfigError(`${where}: provider ${name}: store keys in the environment (apiKeyEnv), not config`);
+			providers[name] = {
+				type: "omp",
+				ompProvider: value.ompProvider,
+				apiKeyEnv: typeof value.apiKeyEnv === "string" ? value.apiKeyEnv : undefined,
+				baseUrl: typeof value.baseUrl === "string" ? value.baseUrl : undefined,
+				headers: isRecord(value.headers) ? (value.headers as Record<string, string>) : undefined,
+			};
 		} else throw new ConfigError(`${where}: provider ${name} has unknown type`);
 	}
 	const models: Record<string, ModelEntry> = {};
@@ -141,7 +160,9 @@ export function parseProviders(raw: unknown, base: string, where: string): Provi
 		const provider = value.provider;
 		if (typeof provider !== "string" || !providers[provider]) throw new ConfigError(`${where}: model ${name} names unknown provider`);
 		if (typeof value.id !== "string") throw new ConfigError(`${where}: model ${name} needs id`);
-		if (typeof value.contextWindow !== "number" || typeof value.maxTokens !== "number") {
+		const fromCatalog = providers[provider]!.type === "omp";
+		// OMP-backed entries take limits from the OMP catalog (and may only narrow them).
+		if (!fromCatalog && (typeof value.contextWindow !== "number" || typeof value.maxTokens !== "number")) {
 			throw new ConfigError(`${where}: model ${name} needs explicit contextWindow and maxTokens`);
 		}
 		const levels = value.reasoningLevels;
@@ -153,8 +174,8 @@ export function parseProviders(raw: unknown, base: string, where: string): Provi
 			id: value.id,
 			reasoning: value.reasoning === true,
 			reasoningLevels: levels as ReasoningLevel[] | undefined,
-			contextWindow: value.contextWindow,
-			maxTokens: value.maxTokens,
+			contextWindow: typeof value.contextWindow === "number" ? value.contextWindow : 0,
+			maxTokens: typeof value.maxTokens === "number" ? value.maxTokens : 0,
 			input: Array.isArray(value.input) ? (value.input as ("text" | "image")[]) : ["text"],
 		};
 	}

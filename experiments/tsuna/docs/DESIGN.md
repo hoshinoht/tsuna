@@ -210,6 +210,36 @@ are separate: the runtime owns agents; the supervisor owns processes.
 See `CAPABILITIES.md` for the implemented/partial/deferred matrix and `VALIDATION.md` for the
 exact commands, results, independent-review dispositions and what was not verified.
 
+## 9a. OMP model layer (`omp` provider type)
+
+**Decision D14 — OMP's model API as a provider adapter, Pi sessions unchanged** (owner's choice,
+2026-10-09). A Tsuna provider with `"type": "omp"` streams through Oh My Pi's own provider
+implementations (`@oh-my-pi/pi-ai@18.8.6`: self-contained wire clients for Anthropic Messages, OpenAI
+Responses/Completions, Codex, Gemini, Bedrock, Ollama, …) and validates every model entry against
+OMP's bundled catalog (`@oh-my-pi/pi-catalog@18.8.6`). `src/backend/omp-models.ts` registers it on
+Pi's `ModelRuntime` as a `streamSimple` provider:
+
+* **Context:** Pi's transcript (system messages carrying prompt + tool deltas) → OMP `Context`
+  (`systemPrompt[]`, `messages`, `tools`); Tsuna-owned assistant turns get OMP's `api`/`provider`
+  back so OMP can replay provider-native state (thinking signatures, response ids). Turns from other
+  providers pass through for OMP's own cross-provider transform.
+* **Events:** OMP and Pi share the assistant event protocol; messages are re-labelled with the Tsuna
+  provider identity and keep `upstreamApi`/`upstreamProvider`.
+* **Catalog authority:** context window and max output come from the catalog and may only be
+  narrowed; `reasoningLevels` must be a subset of the catalog's supported efforts; a definition whose
+  reasoning preference the model does not support is rejected at spawn (never translated); unknown
+  catalog models fail harness start.
+* **Credentials:** only from the env var named by `apiKeyEnv`, passed per request. A missing key fails
+  the request before dispatch; OMP's auth storage (`~/.omp` agent.db), OAuth flows and its own
+  env-variable map (`ANTHROPIC_API_KEY`, …) are never consulted.
+* **Isolation:** OMP's logger defaults to a rotating file in `~/.omp/logs`; Tsuna disables the file
+  transport and forwards warnings. Provider in-flight file leases are only used when limits are
+  configured, which Tsuna never does. Tests assert no `~/.omp` after real OMP requests.
+* **Not adopted:** OMP account pools, OAuth/login, usage tracking, auth gateway/broker, Cursor/Copilot
+  device flows (they need OMP's credential stores).
+* **Footprint:** pi-ai 11 MB, pi-catalog 17 MB, pi-utils 3.4 MB, pi-wire 1.3 MB, omptype 2 MB (source,
+  run directly by Bun); natives already present.
+
 ## 10. Compatibility findings (verified against the pinned revisions)
 
 | Finding from the brief | Result | Evidence | Effect on the harness |
@@ -260,3 +290,6 @@ exact commands, results, independent-review dispositions and what was not verifi
 7. **Delivery**: the marker-based reconciliation assumes the parent's JSONL is the source of truth;
    a dedicated delivery entry type would be more robust than text markers.
 8. **macOS run** of the full suite (reference platform).
+9. **OMP model layer live check**: point an `omp` provider at CLIProxyAPI (`baseUrl`) or a real API
+   with the owner's key and repeat `test/omp-models.test.ts`-style checks; decide whether to adopt
+   OMP account pools/OAuth behind an explicit Tsuna credential adapter.

@@ -31,6 +31,7 @@ import {
 import type { ReasoningLevel } from "../agents/definitions.ts";
 import type { ModelEntry, ProvidersConfig } from "../config.ts";
 import type { FixtureReply, FixtureScript, FixtureTurn } from "./fixture-types.ts";
+import { loadOmpModelLayer, ompStreamSimple, resolveOmpModel, thinkingLevelMap, type ResolvedOmpModel } from "./omp-models.ts";
 
 export type { AgentSessionEvent, ToolDefinition };
 export type AgentMessageLike = { role: string; content?: unknown; [key: string]: unknown };
@@ -173,6 +174,47 @@ export class ModelHub {
 						core.appendResponses([dispatch as never]);
 						return core.streamSimple(model, context, options);
 					},
+				} as never);
+			} else if (provider.type === "omp") {
+				const { ai, catalog } = await loadOmpModelLayer();
+				const resolvedModels = new Map<string, ResolvedOmpModel>();
+				const piModels = [];
+				for (const [entryName, entry] of Object.entries(config.models)) {
+					if (entry.provider !== name) continue;
+					let resolved: ResolvedOmpModel;
+					try {
+						resolved = resolveOmpModel(catalog, provider, entry.id, {
+							contextWindow: entry.contextWindow || undefined,
+							maxTokens: entry.maxTokens || undefined,
+							reasoningLevels: entry.reasoningLevels,
+						});
+					} catch (error) {
+						throw new BackendError(`model entry ${entryName}: ${(error as Error).message}`);
+					}
+					// The catalog is authoritative: fill in or narrow the logical entry.
+					entry.contextWindow = resolved.contextWindow;
+					entry.maxTokens = resolved.maxTokens;
+					entry.reasoning = resolved.reasoning;
+					entry.reasoningLevels = resolved.efforts as ReasoningLevel[];
+					entry.input = resolved.input;
+					resolvedModels.set(entry.id, resolved);
+					piModels.push({
+						id: entry.id,
+						name: entry.id,
+						reasoning: resolved.reasoning,
+						thinkingLevelMap: thinkingLevelMap(resolved),
+						input: resolved.input,
+						cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
+						contextWindow: resolved.contextWindow,
+						maxTokens: resolved.maxTokens,
+					});
+				}
+				runtime.registerProvider(name, {
+					api: `tsuna-omp-${name}`,
+					baseUrl: provider.baseUrl ?? "omp://catalog",
+					apiKey: "managed-by-tsuna",
+					models: piModels,
+					streamSimple: ompStreamSimple(ai, name, provider, resolvedModels, env) as never,
 				} as never);
 			} else {
 				const apiKey = provider.apiKeyEnv ? env[provider.apiKeyEnv] : undefined;

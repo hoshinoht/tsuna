@@ -15,8 +15,8 @@ import { basename, join } from "node:path";
 import { parse as parseYaml } from "yaml";
 import type { PermissionRule } from "../policy/rules.ts";
 
-export type ReasoningLevel = "off" | "minimal" | "low" | "medium" | "high" | "xhigh";
-export const REASONING_LEVELS: readonly ReasoningLevel[] = ["off", "minimal", "low", "medium", "high", "xhigh"];
+export type ReasoningLevel = "off" | "minimal" | "low" | "medium" | "high" | "xhigh" | "max";
+export const REASONING_LEVELS: readonly ReasoningLevel[] = ["off", "minimal", "low", "medium", "high", "xhigh", "max"];
 
 export interface ReasoningPreference {
 	default: ReasoningLevel;

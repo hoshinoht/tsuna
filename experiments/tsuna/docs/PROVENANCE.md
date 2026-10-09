@@ -35,6 +35,8 @@ record).
 | `agent-packs/sample/agents/*.md` | Tsuna 92c4728 | `agent/prompts/{orchestrator,explore,code-engineer,code-checker,tester}.md`, `config/permissions.json`, `config/roles.json` | GPL-3.0-or-later | **Adapted** (condensed prompts; rules translated to harness actions) | output schemas added; model names are logical entries |
 | `src/backend/pi.ts` | Pi 1.1.0 (API use) | uses `createAgentSession`, `DefaultResourceLoader`, `SessionManager`, `SettingsManager`, `ModelRuntime`, `createFauxCore` | MIT (dependency) | Independent (calls the published API) | in-memory credential store; fixture dispatcher over the faux provider |
 | `src/mcp/manager.ts` | Pi 1.1.0 (API use) | `@earendil-works/pi-mcp` `McpClient`, `StdioTransport`, `StreamableHttpTransport` | MIT (dependency) | Independent | `mcp__<server>__<tool>` naming follows Pi's extension convention |
+| `src/backend/omp-models.ts` | OMP v18.8.6 (API use) | `@oh-my-pi/pi-ai` `streamSimple`; `@oh-my-pi/pi-catalog` `getBundledModel`, `getSupportedEfforts`, `isGeneratedProvider`; `@oh-my-pi/pi-utils` `logger.setTransports`/`registerLogSink` | MIT (dependency) | Independent adapter (calls the published API) | context/event conversion to Pi; catalog-only limits; explicit per-request keys |
+| `fixtures/models/llm-server.ts` | — | — | GPL-3.0-or-later | Independent | Anthropic Messages + OpenAI Chat SSE fixture written from the public wire formats |
 | `src/tools/natives.ts`, `src/tools/builtins.ts` | OMP natives (API use) | `grep`, `glob`, `hashlineFileHash`, `hashlineFormatNumberedLines`, `invalidateFsScanCache` | MIT (dependency) | Independent | content tag = native hashline tag + sha256 prefix |
 | everything else under `src/`, `test/`, `fixtures/`, `scripts/`, `bin/` | — | — | GPL-3.0-or-later | Independent | — |
 
@@ -42,6 +44,9 @@ record).
 
 * `@earendil-works/pi-coding-agent`, `pi-ai`, `pi-agent-core`, `pi-mcp` `1.1.0` (MIT) and their
   transitive dependencies (Anthropic/OpenAI/Google SDKs, typebox, …).
+* `@oh-my-pi/pi-ai`, `pi-catalog`, `pi-utils`, `pi-wire`, `omptype` `18.8.6` (MIT — © 2025 Mario
+  Zechner for pi-ai; © 2025-2026 Can Bölük; © 2026 Stencil Labs, Inc.). pi-ai ships its own
+  `THIRD-PARTY-NOTICES.txt` (same aggregate as the natives package).
 * `@oh-my-pi/pi-natives@18.8.6` (MIT) with `@oh-my-pi/pi-natives-<platform>@18.8.6`. The addon's own
   `THIRD-PARTY-NOTICES.txt` lists vendored MIT code (brush-core, uutils-derived builtins), a CC BY 4.0
   font, MPL-2.0 JS dependencies and Rust crates under MIT/Apache-2.0/ISC/BSD/Zlib/Unicode/BSL/CC0 and
