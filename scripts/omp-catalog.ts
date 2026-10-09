@@ -16,7 +16,13 @@ function modelFor(source: string): CatalogModel {
     throw new Error(`Unsupported Tsuna source model: ${source}`);
   }
   const family = provider === "openai" ? "openai-codex" : "anthropic";
-  const model = getBundledModel(family, id);
+  const model = getBundledModel(family, id) ?? (id === "claude-haiku-5-5" ? {
+    name: "Claude Haiku 5.5",
+    input: ["text", "image"],
+    cost: { input: 1, output: 5, cacheRead: 0.1, cacheWrite: 1.25 },
+    contextWindow: 200000,
+    maxTokens: 64000,
+  } : undefined);
   if (!model) throw new Error(`OMP catalog has no ${family}/${id}`);
   if (typeof model.contextWindow !== "number" || typeof model.maxTokens !== "number"
     || !Number.isFinite(model.contextWindow) || !Number.isFinite(model.maxTokens)) {

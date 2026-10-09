@@ -5,6 +5,7 @@ import {
 	canSurfaceTool,
 	decidePermission,
 	evaluateRules,
+	execCapableReason,
 	intentForToolCall,
 	roleForAgent,
 	surfaceTools,
@@ -213,5 +214,91 @@ describe("OpenCode compatibility policy", () => {
 	it("selects the configured primary role and trusted subagent name", () => {
 		expect(roleForAgent({ kind: "main", name: "main" }, "build")).toBe("build");
 		expect(roleForAgent({ kind: "sub", name: "plan" }, "build")).toBe("plan");
+	});
+
+	it("allows reading safe internal resources and local edits for edit-capable roles", () => {
+		for (const scheme of ["artifact://123", "local://plan.md", "omp://docs/README.md", "rule://some-rule"]) {
+			expect(decidePermission(policies, "tester", { toolName: "read", input: { path: scheme } })).toMatchObject({
+				effect: "allow",
+				action: "coordination",
+			});
+			expect(decidePermission(policies, "build", { toolName: "read", input: { path: scheme } })).toMatchObject({
+				effect: "allow",
+				action: "coordination",
+			});
+		}
+
+		for (const scheme of ["ssh://host/etc/passwd", "vault://secret", "cfg://setting", "pr://12", "issue://34", "memory://root"]) {
+			expect(decidePermission(policies, "build", { toolName: "read", input: { path: scheme } })).toMatchObject({
+				effect: "deny",
+				reason: "Denied unsupported internal resource scheme",
+			});
+			expect(decidePermission(policies, "build", { toolName: "write", input: { path: scheme, content: "x" } })).toMatchObject({
+				effect: "deny",
+				reason: "Denied unsupported internal mutation scheme",
+			});
+		}
+
+		// local:// writes permitted only for roles with edit rules
+		expect(decidePermission(policies, "build", { toolName: "write", input: { path: "local://auth-plan.md", content: "plan" } }, { cwd: "/tmp" })).toMatchObject({
+			effect: "ask",
+		});
+		expect(decidePermission(policies, "tester", { toolName: "write", input: { path: "local://auth-plan.md", content: "plan" } }, { cwd: "/tmp" })).toMatchObject({
+			effect: "deny",
+		});
+	});
+
+	it("flags exec-capable commands as requiring human approval even when shell is allowed", () => {
+		const testPolicies: PermissionPolicies = {
+			scholar: [
+				{ action: "shell", resource: "rg *", effect: "allow" },
+				{ action: "shell", resource: "fd *", effect: "allow" },
+				{ action: "shell", resource: "find *", effect: "allow" },
+				{ action: "shell", resource: "sed *", effect: "allow" },
+				{ action: "shell", resource: "xargs *", effect: "allow" },
+			],
+		};
+
+		// Safe invocations are allowed
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "rg 'fn main' src/" } })).toMatchObject({
+			effect: "allow",
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "fd foo src/" } })).toMatchObject({
+			effect: "allow",
+		});
+
+		// Exec-capable flags require human approval
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "rg --pre=/bin/sh pattern file" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "fd -x rm" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "fd --exec-batch rm" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "find . -exec rm {} +" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "find . -delete" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "sed -i 's/foo/bar/' file" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "sed '1e /bin/sh' file" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
+		expect(decidePermission(testPolicies, "scholar", { toolName: "bash", input: { command: "xargs rm" } })).toMatchObject({
+			effect: "ask",
+			humanApprovalRequired: true,
+		});
 	});
 });

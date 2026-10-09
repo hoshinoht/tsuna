@@ -7,6 +7,7 @@ import {
 	decidePermission,
 	intentForToolCall,
 	roleForAgent,
+	surfaceTools,
 	type PermissionPolicies,
 	type ToolCall,
 } from "../lib/permissions.ts";
@@ -50,15 +51,33 @@ export default function permissionsExtension(pi: ExtensionAPI, dependencies: {
 	const modeFor = (ctx: ExtensionContext) => modes.get(key(ctx)) ?? dependencies.initialMode ?? process.env.TSUNA_PERMISSION_MODE ?? preference.mode;
 	const block = (reason: string) => ({ block: true as const, reason });
 	const cancel = (ctx: ExtensionContext) => sessions.get(key(ctx))?.controller.abort();
-	pi.on("agent_start", (_event, ctx) => {
+	const filterToolsForRole = async (ctx: ExtensionContext) => {
+		if (typeof pi.getActiveTools !== "function" || typeof pi.setActiveTools !== "function") return;
+		const role = roleForAgent(ctx.agent);
+		const current = pi.getActiveTools();
+		const allowed = surfaceTools(permissionPolicies, role, current);
+		if (allowed.length !== current.length) {
+			await pi.setActiveTools(allowed);
+		}
+	};
+	pi.on("session_start", async (_event, ctx) => {
+		await filterToolsForRole(ctx);
+	});
+	pi.on("agent_start", async (_event, ctx) => {
 		const state = stateFor(ctx);
 		state.controller.abort();
 		state.controller = new AbortController();
 		state.circuit = new ReviewCircuit();
+		await filterToolsForRole(ctx);
 	});
 	pi.on("agent_end", (_event, ctx) => cancel(ctx));
 	pi.on("session_shutdown", () => { for (const state of sessions.values()) state.controller.abort(); sessions.clear(); });
-	pi.on("session_switch", (_event, ctx) => { for (const state of sessions.values()) state.controller.abort(); sessions.clear(); modes.clear(); });
+	pi.on("session_switch", async (_event, ctx) => {
+		for (const state of sessions.values()) state.controller.abort();
+		sessions.clear();
+		modes.clear();
+		await filterToolsForRole(ctx);
+	});
 	pi.on("session_tree", (_event, ctx) => { cancel(ctx); sessions.delete(key(ctx)); });
 	pi.on("tool_result", async (event, ctx) => {
 		await stateFor(ctx).cleanup.after(event.toolCallId, event.isError);

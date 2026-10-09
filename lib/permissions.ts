@@ -168,6 +168,10 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 			if (isResolutionDevicePath(path)) return { action: "coordination", resource: path };
 			if (/^https?:\/\//i.test(path)) return { action: "webfetch", resource: path };
 			if (path.startsWith("skill://")) return { action: "skill", resource: path.slice("skill://".length).split("/")[0] || "*" };
+			if (/^(?:artifact|local|omp|rule):\/\//i.test(path)) return { action: "coordination", resource: path };
+			if (/^(?:ssh|vault|cfg|pr|issue|memory):\/\//i.test(path)) {
+				return { action: "read", resource: path, unsafeChannel: "unsupported internal resource scheme" };
+			}
 			if (path.startsWith("workplan://") || path.startsWith("mcp://workplan://")) {
 				return { action: "opencode_read_mcp_resource", resource: "workplan" };
 			}
@@ -197,6 +201,9 @@ export function intentForToolCall(call: ToolCall): PermissionIntent {
 			}
 			if (path.startsWith("xd://")) {
 				return { action: "edit", resource: path, unsafeChannel: "xd:// device dispatch" };
+			}
+			if (/^(?:artifact|omp|rule|ssh|vault|cfg|pr|issue|memory):\/\//i.test(path)) {
+				return { action: "edit", resource: path, unsafeChannel: "unsupported internal mutation scheme" };
 			}
 			return { action: "edit", resource: path, resources: paths.length > 0 ? paths : [path] };
 		}
@@ -369,6 +376,35 @@ function enforceWorkplanOwnership(intent: PermissionIntent, input: Record<string
 	}
 }
 
+/**
+ * Exec-capable flags turn a "search" or "edit" command into arbitrary
+ * execution or mutation (`rg --pre`, `fd -x`, `find -exec`, `sed -i`). A
+ * whole-string rule such as `shell rg *` would otherwise admit them, so they
+ * always require approval (and are therefore denied in headless children).
+ */
+const EXEC_CAPABLE: readonly [RegExp, RegExp, string][] = [
+	[/^(?:\S*\/)?rg$/, /^--pre(?:=|$)|^--pre-glob(?:=|$)|^--search-zip$|^-z$/, "rg preprocessor/decompression flags run external programs"],
+	[/^(?:\S*\/)?(?:fd|fdfind)$/, /^-x$|^-X$|^--exec(?:-batch)?(?:=|$)/, "fd --exec runs commands"],
+	[/^(?:\S*\/)?find$/, /^-(?:exec|execdir|ok|okdir|delete|fprint|fprintf|fls)$/, "find actions execute or mutate"],
+	[/^(?:\S*\/)?(?:sed|gsed)$/, /^-i|^--in-place|^-[A-Za-z]*i/, "sed in-place editing mutates files"],
+	[/^(?:\S*\/)?xargs$/, /.*/, "xargs executes commands"],
+];
+
+export function execCapableReason(command: string): string | undefined {
+	for (const words of command.split(/\|\||&&|[;|\n]/).map(part => part.trim().split(/\s+/).filter(Boolean))) {
+		const [program, ...args] = words;
+		if (!program) continue;
+		for (const [name, flag, reason] of EXEC_CAPABLE) {
+			if (!name.test(program)) continue;
+			if (args.length === 0 || args.some(arg => flag.test(arg.replace(/^['"]|['"]$/g, "")))) return reason;
+			if (program.endsWith("sed") && args.some(arg => /(^|;)\s*[0-9,$/]*[ew]\b/.test(arg.replace(/^['"]|['"]$/g, "")))) {
+				return "sed e/w commands execute or write files";
+			}
+		}
+	}
+	return undefined;
+}
+
 /** Resolves a call without prompting. Unknown routes and device dispatch fail closed. */
 export function decidePermission(
 	policies: PermissionPolicies,
@@ -397,7 +433,8 @@ export function decidePermission(
 		if (rule.effect === "ask" && rule.action !== "*" && rule.resource !== "*") humanApprovalRequired = true;
 	};
 	for (const rawResource of resources) {
-		const resource = options.cwd && (intent.action === "read" || intent.action === "edit")
+		const isInternal = rawResource.startsWith("local://");
+		const resource = options.cwd && (intent.action === "read" || intent.action === "edit") && !isInternal
 			? canonicalPath(rawResource, options.cwd)
 			: rawResource;
 		if (!resource) return { ...intent, effect: "deny", role, reason: "Path could not be safely resolved" };
@@ -405,7 +442,7 @@ export function decidePermission(
 		if (!rule || rule.effect === "deny") return { ...intent, effect: "deny", role, rule, reason: rule ? "Denied by permission rule" : "No matching permission rule" };
 		finalRule = rule;
 		recordAsk(rule);
-		if (options.cwd && (intent.action === "read" || intent.action === "edit") && isExternal(resource, options.cwd)) {
+		if (options.cwd && (intent.action === "read" || intent.action === "edit") && !isInternal && isExternal(resource, options.cwd)) {
 			const externalRule = evaluateRules(rules, "external_directory", resource);
 			if (!externalRule || externalRule.effect === "deny") {
 				return { ...intent, effect: "deny", role, rule: externalRule, reason: "External directory access is not permitted" };
@@ -425,11 +462,12 @@ export function decidePermission(
 				const recursiveDelete = /\brm\s+(?:(?:-[A-Za-z]*r[A-Za-z]*|--recursive)\b)/.test(intent.resource);
 				const hardReset = /\bgit\s+reset\b[^\n;|&]*--hard\b/.test(intent.resource);
 				const publishOrClean = /\bgit\s+(?:-[^\n;|&]+\s+)?(?:push|clean)\b/.test(intent.resource);
-				const guarded = recursiveDelete || hardReset || publishOrClean;
+				const execReason = execCapableReason(intent.resource);
+				const guarded = recursiveDelete || hardReset || publishOrClean || execReason !== undefined;
 				const reason = recursiveDelete ? "Recursive deletion (rm -r / --recursive) requires approval"
 					: hardReset ? "Git hard reset requires approval"
 					: publishOrClean ? "Git publishing or cleanup requires approval"
-					: "Complex shell command requires confirmation";
+					: execReason ?? "Complex shell command requires confirmation";
 				return { ...intent, effect: options.approvalMode === "auto" && !guarded && !asks ? "allow" : "ask", role, rule: finalRule, reason, humanApprovalRequired: humanApprovalRequired || guarded };
 			}
 			for (const segment of segments) {
@@ -438,6 +476,8 @@ export function decidePermission(
 				recordAsk(segmentRule);
 			}
 		}
+		const execReason = execCapableReason(intent.resource);
+		if (execReason) return { ...intent, effect: "ask", role, rule: finalRule, reason: execReason, humanApprovalRequired: true };
 	}
 	return { ...intent, effect: asks ? "ask" : "allow", role, rule: finalRule, humanApprovalRequired };
 }

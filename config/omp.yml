@@ -7,6 +7,15 @@ tools:
 task:
   maxConcurrency: 4
   maxRecursionDepth: 2
+  disabledAgents:
+    - scout
+    - reviewer
+    - security-reviewer
+    - sonic
+    - task
+    - orchestrator
+    - scholar
+    - ats-tailor
   isolation:
     enabled: false
     apply: false
