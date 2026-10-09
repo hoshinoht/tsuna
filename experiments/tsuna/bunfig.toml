@@ -1,0 +1,13 @@
+# Keep the package cache inside the experiment (Tsuna-owned) instead of ~/.bun.
+[install]
+# Copy packages so native loaders resolve paths inside node_modules, not the cache.
+backend = "copyfile"
+
+[install.cache]
+dir = "./.cache/bun-install"
+
+[test]
+# Explicit roots only; never pick up vendored or upstream suites.
+root = "./test"
+preload = ["./test/setup.ts"]
+timeout = 30000

@@ -1,0 +1,6 @@
+{
+  "name": "tsuna-sample",
+  "version": "0.1.0",
+  "description": "Sample external agent pack for the Tsuna harness experiment. Prompts condensed from Tsuna agent/prompts at 92c4728 (GPL-3.0-or-later); permissions translated from Tsuna config/permissions.json to the harness action names.",
+  "license": "GPL-3.0-or-later"
+}
