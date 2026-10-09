@@ -10,4 +10,3 @@ dir = "./.cache/bun-install"
 # Explicit roots only; never pick up vendored or upstream suites.
 root = "./test"
 preload = ["./test/setup.ts"]
-timeout = 30000

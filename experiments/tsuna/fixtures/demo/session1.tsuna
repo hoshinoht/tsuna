@@ -1,0 +1,22 @@
+# Demo session 1 (headless; approvals fail closed). Agents are named @role#n.
+# 1. Start Tsuna with fixture configuration (done by the launcher) and ask for a survey.
+Survey the repository and check its working tree.
+/sleep 400
+# 2-3. Two specialists were dispatched; inspect status while they run.
+/agents
+# 4. Steer the explorer while it is still running.
+/steer @explore#1 Also look at the docs folder.
+# 5. Receive structured results (the orchestrator collects them with `wait`).
+/wait 30
+/agents
+/read @explore#1 4
+/read @tester#1 2
+# 6. Give the completed explorer a follow-up in the same session.
+/followup @explore#1 Now list the test files.
+/wait 30
+/read @explore#1 2
+# 7. Park it (session disposed; revivable from transcript + contract).
+/park @explore#1
+/agents
+/mcp
+/quit

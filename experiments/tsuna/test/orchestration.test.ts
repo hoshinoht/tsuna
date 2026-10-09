@@ -513,3 +513,23 @@ test("tool call / result pairing stays valid in stored transcripts", async () =>
 	const messages = lines.filter(l => l.type === "message").map(l => l.message);
 	expect(checkToolPairing(messages)).toEqual([]);
 });
+
+test("invalid role or model selections are rejected before any work launches", async () => {
+	const dir = tempDir("tsuna-pack-");
+	const { writePack, ORCH_RULES, ORCH_TOOLS } = await import("./helpers/pack.ts");
+	const pack = writePack(dir, "bad", [
+		{ name: "root", model: "primary", primary: true, tools: [...ORCH_TOOLS], spawns: ["ghost-model", "too-deep"], permissions: ORCH_RULES },
+		{ name: "ghost-model", model: "no-such-entry" },
+		{ name: "too-deep", model: "strong", reasoning: { default: "xhigh" } },
+	]);
+	const config = testConfig({ agentPacks: [pack], primaryRole: "root" });
+	config.providers.models.strong = { ...config.providers.models.strong!, reasoningLevels: ["low", "medium", "high"] };
+	setScript(worker);
+	const r = await rig({ config });
+	const rt = r.harness.runtime;
+	expect(() => rt.spawn(rt.primaryId, { agent: "ghost-model", task: "x" })).toThrow(/unknown model entry/);
+	expect(() => rt.spawn(rt.primaryId, { agent: "too-deep", task: "x" })).toThrow(/does not support reasoning level xhigh/);
+	expect(() => rt.spawn(rt.primaryId, { agent: "orchestrator", task: "x" })).toThrow(/may not spawn/);
+	expect(rt.records()).toHaveLength(1);
+	expect(rt.diagnostics().permitsInFlight).toBe(0);
+});

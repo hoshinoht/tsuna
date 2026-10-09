@@ -1015,7 +1015,10 @@ mod tests {
         let start = Instant::now();
         run_worker(&run_directory).unwrap();
         assert!(start.elapsed() < Duration::from_secs(5));
-        assert_eq!(read_status(&run_directory).unwrap().state, JobState::Cancelled);
+        assert_eq!(
+            read_status(&run_directory).unwrap().state,
+            JobState::Cancelled
+        );
     }
 
     fn wait_for_test(run_directory: &Path, timeout_seconds: u64) -> Result<i32> {

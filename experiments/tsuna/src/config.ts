@@ -174,8 +174,9 @@ export function parseMcp(raw: unknown, base: string, where: string): McpConfig {
 		servers[name] = {
 			type,
 			enabled: value.enabled !== false,
-			command: typeof value.command === "string" ? (value.command.startsWith("./") ? rel(base, value.command) : value.command) : undefined,
-			args: Array.isArray(value.args) ? (value.args as string[]).map(arg => (arg.startsWith("./") ? rel(base, arg) : arg)) : undefined,
+			command: typeof value.command === "string" ? (/^\.\.?\//.test(value.command) ? rel(base, value.command) : value.command) : undefined,
+			// Relative paths ("./x", "../x") resolve against the MCP config file.
+			args: Array.isArray(value.args) ? (value.args as string[]).map(arg => (/^\.\.?\//.test(arg) ? rel(base, arg) : arg)) : undefined,
 			env: isRecord(value.env) ? (value.env as Record<string, string>) : undefined,
 			envAllow: Array.isArray(value.envAllow) ? (value.envAllow as string[]) : undefined,
 			url: typeof value.url === "string" ? value.url : undefined,

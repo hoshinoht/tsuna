@@ -1,0 +1,10 @@
+{
+  "agentPacks": ["../../agent-packs/sample"],
+  "providers": "./providers.json",
+  "mcp": "./mcp.json",
+  "primaryRole": "orchestrator",
+  "approvalMode": "source",
+  "scheduler": { "maxConcurrency": 4, "maxDepth": 2 },
+  "harnessDenies": [["deny", "shell", "*curl *"], ["deny", "read", "/etc/shadow"]],
+  "context": { "projectInstructions": true }
+}

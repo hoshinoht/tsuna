@@ -1,0 +1,10 @@
+{
+  "providers": {
+    "fixture": { "type": "fixture", "script": "./model.ts" }
+  },
+  "models": {
+    "primary": { "provider": "fixture", "id": "demo-primary", "reasoning": true, "reasoningLevels": ["low", "medium", "high"], "contextWindow": 200000, "maxTokens": 8192, "input": ["text"] },
+    "fast": { "provider": "fixture", "id": "demo-fast", "reasoning": true, "reasoningLevels": ["low", "medium", "high"], "contextWindow": 200000, "maxTokens": 8192, "input": ["text"] },
+    "strong": { "provider": "fixture", "id": "demo-strong", "reasoning": true, "reasoningLevels": ["medium", "high"], "contextWindow": 200000, "maxTokens": 8192, "input": ["text"] }
+  }
+}

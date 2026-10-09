@@ -1,0 +1,19 @@
+{
+  "servers": {
+    "context7": {
+      "type": "stdio",
+      "description": "LOCAL FIXTURE standing in for Context7 so the sample pack's existing context7_* rule is exercised offline. Not the real service.",
+      "enabled": true,
+      "command": "bun",
+      "args": ["../mcp/stdio-server.ts", "basic"],
+      "env": { "FIXTURE_LOG": "${TSUNA_DEMO_MCP_LOG}" },
+      "envAllow": ["TSUNA_DEMO_MCP_LOG"]
+    },
+    "gofetch": {
+      "type": "stdio",
+      "description": "Real gofetch (mcps/gofetch-mcp in the reference repo); disabled for the offline demo.",
+      "enabled": false,
+      "command": "/path/to/gofetch"
+    }
+  }
+}

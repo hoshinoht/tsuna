@@ -203,3 +203,37 @@ are separate: the runtime owns agents; the supervisor owns processes.
 
 ## 9. Stages and status
 See `CAPABILITIES.md` for the implemented/partial/deferred matrix and validation evidence.
+
+## 10. Compatibility findings (verified against the pinned revisions)
+
+| Finding from the brief | Result | Evidence | Effect on the harness |
+|---|---|---|---|
+| OMP and Pi use different MCP tool-name separators | **Confirmed.** OMP/Tsuna: `mcp__<server>_<tool>` (Tsuna maps via a fixed server list, `lib/permissions.ts:44-53`); Pi: `mcp__<server>__<tool>` (`packages/coding-agent/src/extensions/mcp/tools.ts`) | source reads | Harness uses Pi's double separator and derives server names from `mcp.json`, so no hard-coded server list |
+| Tsuna prompt hooks return arrays where Pi expects strings | **Confirmed.** `extensions/project-context.ts:19-26` and `extensions/tsuna.ts:48-54` return `systemPrompt: [...]`; Pi's `before_agent_start` result `systemPrompt` is a `string` assigned without a type check | Pi `extensions/types.ts`, `runner.ts` | Harness composes one system-prompt string per contract; no prompt hooks |
+| Coordination depends on OMP registry / internal-URL APIs | **Confirmed.** `lib/coordination.ts` imports `AgentRegistry`, `internal-urls/*`, `registry/persisted-agents`, `session/session-loader` | source | Replaced by explicit runtime tools with their own policy actions |
+| Permission module imports OMP shell-tokenization | **Confirmed.** `lib/permissions.ts:11` imports `extractLiteralAndChainSegments` | source | Function copied with MIT notice (`src/policy/shell-tokenize.ts`) |
+| Several adapters use Bun-specific APIs | **Confirmed** (e.g. `import.meta.dir`, `Bun.spawn`); Pi declares `node >=22.19` but works on Bun 1.4.2 in every test here | test suite | Harness is Bun-only by design (launcher runs `bun`) |
+| Native OMP approval events do not exist in Pi | **Confirmed.** Pi offers a `tool_call` block hook but no approval/UI-confirm event in SDK sessions | Pi SDK research | Approvals are entirely Tsuna's gate (`src/policy/gate.ts`) |
+| Shiori trusts client-side write approval | **Confirmed** (`--write-approval client` → `clientApproved.Authorize` returns nil, `vendor/shiori/internal/mcp/server.go`) | source | Proven with a Shiori-shaped fixture that only gate-approved writes reach the server (MCP tests). Real Shiori not run (Go 1.27.1 unavailable). Retaining `client` mode is safe **only** behind this gate |
+| Pi 1.1.0 / OMP 18.8.6 versions | **Confirmed** as the latest published releases on 2026-10-09 | npm registry | pinned exactly |
+| pi-natives writes to shared locations | **Found:** after every load it prunes older version dirs under `~/.omp/natives` (or `PI_NATIVES_DIR`), and writes `__PI_NATIVE_VARIANT_CACHE` into `process.env` | `native/loader-state.js` | `PI_NATIVES_DIR` set to `<state>/natives` before import |
+| Pi `dispose()` does not emit `session_shutdown` and does not wait for idleness | **Confirmed** | `agent-session.ts:1393-1414` | adapter aborts then disposes; MCP clients are owned and closed by the harness, not by Pi extensions |
+| Pi faux provider queue is process-global FIFO | **Found** | `providers/faux.ts` | fixture provider appends one identical dispatcher per request, so concurrent agents never consume each other's scripted turns |
+
+## 11. Additional decisions made during implementation
+
+* **D9 — explicit coordination tools.** OMP exposes `task`, `wait`, hidden `yield`, and routes messaging,
+  listing and cancellation through `agent://`/`proc://` URLs on `read`/`write`. Tsuna exposes
+  `task`, `dispatch`, `agent_list`, `agent_read`, `agent_send`, `agent_interrupt`, `agent_cancel`,
+  `agent_resume`, `wait`, `yield`, so each operation has a distinct permission action.
+* **D10 — integrity, not authenticity, for state.** The contract hash detects corruption and accidental
+  edits. Anyone able to write the 0700 state directory can recompute it; state is trusted local data.
+* **D11 — capability narrowing on recovery is allowed, widening is not.** A contract tool that is no
+  longer available (e.g. an MCP server down) is omitted with a warning; the recorded role, rules and
+  model must match exactly or recovery fails closed.
+* **D12 — follow-up results and the parent.** A human follow-up to a child produces a result whose
+  parent is still the child's parent; it stays `pending` until the parent's next `wait`, prompt or
+  running turn (visible as `delivery pending` in `/read`).
+* **D13 — background jobs outlive the harness by design.** Supervised commands started with
+  `background:true` keep running across a harness restart and are observed (never replayed) afterwards;
+  foreground commands are cancelled when their tool call is aborted.

@@ -1,0 +1,25 @@
+Tsuna harness experiment
+Copyright (C) 2026 hoshinoht
+
+This experiment is part of the Tsuna repository and is licensed under the
+GNU General Public License, version 3 or (at your option) any later version.
+See ../../LICENSE.
+
+It contains code copied or adapted from third-party projects that keep their
+own licences (full texts in third_party/licenses/):
+
+- src/orchestration/semaphore.ts, src/policy/shell-tokenize.ts
+    Copied from Oh My Pi v18.8.6 (f068751e2f1dbdbc195977776d47a26db8697495),
+    packages/coding-agent/src/task/parallel.ts and tools/shell-tokenize.ts.
+    MIT License. Copyright (c) 2025 Mario Zechner; Copyright (c) 2025-2026
+    Can Bölük; Copyright (c) 2026 Stencil Labs, Inc.
+- src/orchestration/runtime.ts, src/orchestration/tools.ts
+    Behaviour adapted from Oh My Pi v18.8.6 orchestration (registry, lifecycle,
+    task, wait, yield, irc). MIT License, same copyright holders as above.
+
+Runtime dependencies installed from npm (not vendored) keep their licences:
+Pi (@earendil-works/*, MIT, Copyright (c) 2025 Mario Zechner) and
+@oh-my-pi/pi-natives (MIT, Copyright (c) 2025-2026 Can Bölük, 2026 Stencil
+Labs, Inc., with its own THIRD-PARTY-NOTICES.txt).
+
+See docs/PROVENANCE.md for the per-file record.

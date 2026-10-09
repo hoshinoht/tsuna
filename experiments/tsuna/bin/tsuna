@@ -1,0 +1,15 @@
+#!/bin/sh
+# Experimental Tsuna harness launcher. Invoke it by path (./bin/tsuna or
+# experiments/tsuna/bin/tsuna); it is never installed on PATH and does not
+# replace the installed `tsuna` command.
+set -eu
+launch_cwd=$(pwd -P)
+here=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)
+# An inherited TSUNA_ROOT names the installed reference; never let it redirect state.
+unset TSUNA_ROOT
+# Pi must not refresh model catalogs or download helper binaries.
+export PI_OFFLINE="${PI_OFFLINE:-1}"
+export TSUNA_LAUNCH_CWD="$launch_cwd"
+# Run from the experiment directory so a project's own bunfig/preloads never load.
+cd "$here"
+exec bun "$here/src/cli.ts" "$@"

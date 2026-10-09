@@ -269,7 +269,9 @@ export function decide(ctx: PolicyContext, call: ToolCall): PermissionDecision {
 /** Catalog filtering only. Execution-time `decide` remains authoritative. */
 export function canSurfaceTool(ctx: PolicyContext, toolName: string): boolean {
 	const intent = intentForToolCall({ toolName, input: {} }, ctx.mcpServers);
-	if (intent.unsafeChannel && !toolName.startsWith("dispatch")) return false;
+	// With no concrete input, only an unknown tool or unknown MCP origin is
+	// unsafe by name; input-dependent problems are judged at execution time.
+	if (intent.unsafeChannel === "unmapped tool" || intent.unsafeChannel === "unrecognized MCP origin") return false;
 	if (intent.action === "coordination") return true;
 	const rule = evaluateAction(ctx.rules, intent.action);
 	return rule !== undefined && rule.effect !== "deny";

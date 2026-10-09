@@ -8,7 +8,9 @@
   "bin": { "tsuna": "./bin/tsuna" },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "bun test ./test",
+    "test": "bun test --timeout 30000 ./test",
+    "build:native": "cargo build --locked --release --manifest-path native/supervisor/Cargo.toml --target-dir .cache/cargo-target",
+    "test:native": "cargo test --locked --manifest-path native/supervisor/Cargo.toml --target-dir .cache/cargo-target",
     "demo": "bun ./scripts/demo.ts",
     "check": "bun run typecheck && bun run test"
   },

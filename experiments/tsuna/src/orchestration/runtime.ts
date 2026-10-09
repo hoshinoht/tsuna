@@ -723,7 +723,9 @@ export class AgentRuntime {
 		if (parent.waiters.size > 0) return; // the parent's wait will take it
 		if (parent.session && parent.run && parent.session.isStreaming) {
 			const notices = this.takeUndeliveredFor(parent, "steer");
-			if (notices.length) void parent.session.steer(notices.join("\n\n")).catch(() => this.revertDelivering(parent, "steer"));
+			if (notices.length) {
+				void parent.session.steer(`[tsuna] Results from your children (harness notice, not a new assignment):\n\n${notices.join("\n\n")}`).catch(() => this.revertDelivering(parent, "steer"));
+			}
 		}
 	}
 

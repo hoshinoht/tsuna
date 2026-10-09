@@ -1,0 +1,11 @@
+# Demo session 2: a new Tsuna process resumes the same root.
+# 8. The tree and contracts are restored; revive the parked explorer.
+/agents
+/resume @explore#1 Re-check src after the restart.
+/wait 30
+# 9. The revived child kept its original permissions: out-of-workspace read and bash are refused.
+/read @explore#1 6
+/audit 8
+/agents
+# 10. Shut down; the driver verifies that no owned resources leaked.
+/quit
