@@ -42,14 +42,86 @@ pub fn localhost_port_mapping(port: i32) -> Result<String> {
     Ok(format!("127.0.0.1:{port}:{port}"))
 }
 
-pub fn compose_args(repository_root: &Path, args: &[&str]) -> Vec<OsString> {
-    let mut result = vec![OsString::from("compose"), OsString::from("-f")];
-    result.push(repository_root.join("compose.yml").into_os_string());
+/// The Compose service that runs CLIProxyAPI, from `config/proxy.json`.
+#[derive(Debug, Clone, PartialEq, Eq, serde::Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct ComposeTarget {
+    pub project_directory: PathBuf,
+    pub compose_files: Vec<PathBuf>,
+    pub service: String,
+}
+
+fn expand_home(path: &Path, home: Option<&Path>) -> Result<Option<PathBuf>> {
+    let Ok(rest) = path.strip_prefix("~") else {
+        return Ok(None);
+    };
+    let home = home.context("HOME is required to expand ~ in config/proxy.json")?;
+    Ok(Some(home.join(rest)))
+}
+
+impl ComposeTarget {
+    /// Makes every path absolute: `~/` is the home directory; otherwise the project
+    /// directory is relative to the checkout and Compose files to the project directory.
+    /// Compose resolves `-f` against the working directory, so relative files would break.
+    fn resolve(self, repository_root: &Path, home: Option<&Path>) -> Result<Self> {
+        if self.compose_files.is_empty() {
+            bail!("config/proxy.json composeFiles must list at least one file");
+        }
+        if self.service.is_empty() || self.service.starts_with('-') {
+            bail!(
+                "config/proxy.json service must be a Compose service name, not {:?}",
+                self.service
+            );
+        }
+        // `components()` drops `.` segments, so the default "." renders as the checkout itself.
+        let project_directory: PathBuf = match expand_home(&self.project_directory, home)? {
+            Some(path) => path,
+            None => repository_root.join(&self.project_directory),
+        }
+        .components()
+        .collect();
+        let compose_files = self
+            .compose_files
+            .iter()
+            .map(|file| {
+                Ok(expand_home(file, home)?
+                    .unwrap_or_else(|| project_directory.join(file))
+                    .components()
+                    .collect())
+            })
+            .collect::<Result<_>>()?;
+        Ok(Self {
+            project_directory,
+            compose_files,
+            service: self.service,
+        })
+    }
+}
+
+pub fn read_compose_target(repository_root: &Path) -> Result<ComposeTarget> {
+    let path = repository_root.join("config/proxy.json");
+    let target: ComposeTarget = serde_json::from_slice(
+        &fs::read(&path).with_context(|| format!("read {}", path.display()))?,
+    )
+    .with_context(|| format!("Cannot parse {}", path.display()))?;
+    target.resolve(repository_root, crate::launch::home().ok().as_deref())
+}
+
+pub fn compose_args(target: &ComposeTarget, args: &[&str]) -> Vec<OsString> {
+    let mut result = vec![
+        OsString::from("compose"),
+        OsString::from("--project-directory"),
+        target.project_directory.clone().into_os_string(),
+    ];
+    for file in &target.compose_files {
+        result.push(OsString::from("-f"));
+        result.push(file.clone().into_os_string());
+    }
     result.extend(args.iter().map(OsString::from));
     result
 }
 
-pub fn login_args(repository_root: &Path, provider: &str) -> Result<Vec<OsString>> {
+pub fn login_args(target: &ComposeTarget, provider: &str) -> Result<Vec<OsString>> {
     let callback_port = match provider {
         "claude" => 54_545,
         "codex" => 1_455,
@@ -57,10 +129,12 @@ pub fn login_args(repository_root: &Path, provider: &str) -> Result<Vec<OsString
     };
     let mapping = localhost_port_mapping(callback_port)?;
     let provider_flag = format!("--{provider}-login");
-    let mut args = compose_args(repository_root, &["run", "--rm", "--no-deps", "-p"]);
+    // `run` publishes only this callback (not the service's own ports), and --no-deps
+    // keeps the rest of the target project untouched.
+    let mut args = compose_args(target, &["run", "--rm", "--no-deps", "-p"]);
     args.extend([
         OsString::from(mapping),
-        OsString::from("gateway"),
+        OsString::from(&target.service),
         OsString::from("./CLIProxyAPI"),
         OsString::from(provider_flag),
         OsString::from("--no-browser"),
@@ -330,17 +404,21 @@ pub fn run(root: &Path, args: &[OsString]) -> Result<i32> {
         }
         Some("start") => {
             initialize_proxy(root)?;
+            let target = read_compose_target(root)?;
             run_docker(
                 OsStr::new("docker"),
-                &compose_args(root, &["up", "-d", "gateway"]),
+                &compose_args(&target, &["up", "-d", &target.service]),
             )?;
             wait_for_gateway(root, GATEWAY_TIMEOUT)?;
             println!("CLIProxyAPI gateway is reachable.");
         }
-        Some("stop") => run_docker(
-            OsStr::new("docker"),
-            &compose_args(root, &["stop", "gateway"]),
-        )?,
+        Some("stop") => {
+            let target = read_compose_target(root)?;
+            run_docker(
+                OsStr::new("docker"),
+                &compose_args(&target, &["stop", &target.service]),
+            )?;
+        }
         Some("status") => {
             let models = fetch_models(root)?;
             let count = models
@@ -355,7 +433,10 @@ pub fn run(root: &Path, args: &[OsString]) -> Result<i32> {
                 .filter(|value| matches!(*value, "claude" | "codex"))
                 .ok_or_else(|| anyhow::anyhow!(usage()))?;
             initialize_proxy(root)?;
-            run_docker(OsStr::new("docker"), &login_args(root, provider)?)?;
+            run_docker(
+                OsStr::new("docker"),
+                &login_args(&read_compose_target(root)?, provider)?,
+            )?;
         }
         _ => bail!("{}", usage()),
     }
@@ -436,14 +517,27 @@ mod tests {
                 .to_string()
                 .contains("Invalid localhost port")
         );
+        let tsuna = tsuna_target();
         assert_eq!(
-            compose_args(Path::new("/repo"), &["up", "-d", "gateway"]),
-            ["compose", "-f", "/repo/compose.yml", "up", "-d", "gateway"].map(OsString::from)
-        );
-        assert_eq!(
-            login_args(Path::new("/repo"), "claude").unwrap(),
+            compose_args(&tsuna, &["up", "-d", "gateway"]),
             [
                 "compose",
+                "--project-directory",
+                "/repo",
+                "-f",
+                "/repo/compose.yml",
+                "up",
+                "-d",
+                "gateway"
+            ]
+            .map(OsString::from)
+        );
+        assert_eq!(
+            login_args(&tsuna, "claude").unwrap(),
+            [
+                "compose",
+                "--project-directory",
+                "/repo",
                 "-f",
                 "/repo/compose.yml",
                 "run",
@@ -459,9 +553,109 @@ mod tests {
             .map(OsString::from)
         );
         assert!(
-            login_args(Path::new("/repo"), "codex")
+            login_args(&tsuna, "codex")
                 .unwrap()
                 .contains(&OsString::from("127.0.0.1:1455:1455"))
+        );
+        assert!(config_yaml("test-key").contains("  auth-dir: \"/root/.cli-proxy-api\""));
+    }
+
+    /// tsuna's own compose.yml and its `gateway` service.
+    fn tsuna_target() -> ComposeTarget {
+        serde_json::from_str::<ComposeTarget>(
+            r#"{ "projectDirectory": ".", "composeFiles": ["compose.yml"], "service": "gateway" }"#,
+        )
+        .unwrap()
+        .resolve(Path::new("/repo"), None)
+        .unwrap()
+    }
+
+    const KANATA_SETTING: &str = r#"{
+        "projectDirectory": "~/projects/homelab/kanata",
+        "composeFiles": ["compose.kanata.yml", "compose.kanata.cliproxy.yml"],
+        "service": "cliproxy"
+    }"#;
+
+    #[test]
+    fn targets_a_kanata_managed_service_from_the_setting() {
+        let directory = tempdir().unwrap();
+        fs::create_dir(directory.path().join("config")).unwrap();
+        let target = serde_json::from_str::<ComposeTarget>(KANATA_SETTING)
+            .unwrap()
+            .resolve(directory.path(), Some(Path::new("/home/me")))
+            .unwrap();
+        let args = |tail: &[&str]| {
+            [
+                "compose",
+                "--project-directory",
+                "/home/me/projects/homelab/kanata",
+                "-f",
+                "/home/me/projects/homelab/kanata/compose.kanata.yml",
+                "-f",
+                "/home/me/projects/homelab/kanata/compose.kanata.cliproxy.yml",
+            ]
+            .iter()
+            .chain(tail)
+            .map(OsString::from)
+            .collect::<Vec<_>>()
+        };
+        assert_eq!(
+            compose_args(&target, &["stop", &target.service]),
+            args(&["stop", "cliproxy"])
+        );
+        assert_eq!(
+            login_args(&target, "codex").unwrap(),
+            args(&[
+                "run",
+                "--rm",
+                "--no-deps",
+                "-p",
+                "127.0.0.1:1455:1455",
+                "cliproxy",
+                "./CLIProxyAPI",
+                "--codex-login",
+                "--no-browser"
+            ])
+        );
+
+        // Absolute paths pass through unchanged.
+        let absolute = r#"{"projectDirectory": "/srv/kanata", "composeFiles": ["/srv/kanata/a.yml"], "service": "cliproxy"}"#;
+        fs::write(directory.path().join("config/proxy.json"), absolute).unwrap();
+        let target = read_compose_target(directory.path()).unwrap();
+        assert_eq!(target.project_directory, Path::new("/srv/kanata"));
+        assert_eq!(target.compose_files, [Path::new("/srv/kanata/a.yml")]);
+    }
+
+    #[test]
+    fn rejects_an_unusable_compose_setting() {
+        let parse = |json: &str| {
+            serde_json::from_str::<ComposeTarget>(json)
+                .map_err(anyhow::Error::from)
+                .and_then(|target| target.resolve(Path::new("/repo"), None))
+                .unwrap_err()
+                .to_string()
+        };
+        assert!(
+            parse(r#"{"projectDirectory": ".", "composeFiles": [], "service": "gateway"}"#)
+                .contains("at least one file")
+        );
+        assert!(
+            parse(r#"{"projectDirectory": ".", "composeFiles": ["c.yml"], "service": "--rm"}"#)
+                .contains("Compose service name")
+        );
+        assert!(
+            parse(r#"{"projectDirectory": "~/k", "composeFiles": ["c.yml"], "service": "s"}"#)
+                .contains("HOME is required")
+        );
+        assert!(
+            parse(r#"{"projectDirectory": ".", "composeFiles": ["c.yml"], "service": "s", "file": "x"}"#)
+                .contains("unknown field")
+        );
+        assert!(
+            read_compose_target(tempdir().unwrap().path())
+                .unwrap_err()
+                .to_string()
+                .contains("config/proxy.json")
         );
         assert!(config_yaml("test-key").contains("  auth-dir: \"/root/.cli-proxy-api\""));
     }
@@ -473,11 +667,11 @@ mod tests {
         let output = PathBuf::from(format!("{}.args", docker.display()));
         fs::write(&docker, "#!/bin/sh\nprintf '%s\\n' \"$@\" > \"$0.args\"\n").unwrap();
         fs::set_permissions(&docker, fs::Permissions::from_mode(0o700)).unwrap();
-        let args = compose_args(Path::new("/repo"), &["stop", "gateway"]);
+        let args = compose_args(&tsuna_target(), &["stop", "gateway"]);
         run_docker(docker.as_os_str(), &args).unwrap();
         assert_eq!(
             fs::read_to_string(output).unwrap(),
-            "compose\n-f\n/repo/compose.yml\nstop\ngateway\n"
+            "compose\n--project-directory\n/repo\n-f\n/repo/compose.yml\nstop\ngateway\n"
         );
     }
 

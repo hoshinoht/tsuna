@@ -1,0 +1,5 @@
+{
+  "projectDirectory": ".",
+  "composeFiles": ["compose.yml"],
+  "service": "gateway"
+}
