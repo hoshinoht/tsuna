@@ -72,7 +72,7 @@ const IGNORED_AGENTS = new Set(["build", "orchestrator", "general", "compaction"
 const DEFAULT_AGENT_POLICY: Record<string, AgentPolicy> = {
 	explore: { def: "medium", min: "low", max: "high" },
 	tester: { def: "low", min: "low", max: "medium" },
-	"code-writer": { def: "xhigh", min: "xhigh", max: "xhigh" },
+	"code-writer": { def: "max", min: "max", max: "max" },
 	"code-engineer": { def: "medium", min: "medium", max: "high" },
 	"frontend-engineer": { def: "medium", min: "medium", max: "high" },
 	researcher: { def: "medium", min: "low", max: "medium" },

@@ -10,9 +10,9 @@
   "code-checker": {
     "description": "Code verification specialist. Three-pillar analysis: smells, spec alignment, correctness.",
     "mode": "subagent",
-    "model": "cliproxy-anthropic/claude-sonnet-5-5:medium",
-    "directModel": "anthropic/claude-sonnet-5-5:medium",
-    "sourceModel": "anthropic/claude-sonnet-5-5#medium",
+    "model": "cliproxy-openai/gpt-6-luna:xhigh",
+    "directModel": "openai/gpt-6-luna:xhigh",
+    "sourceModel": "openai/gpt-6-luna#xhigh",
     "hidden": false
   },
   "code-engineer": {
@@ -26,9 +26,9 @@
   "code-writer": {
     "description": "Scoped implementation subagent that checks current docs before writing code.\nCarries out a single plan step or review-fix pass per delegation.\n",
     "mode": "subagent",
-    "model": "cliproxy-anthropic/claude-opus-5-5:low",
-    "directModel": "anthropic/claude-opus-5-5:low",
-    "sourceModel": "anthropic/claude-opus-5-5#low",
+    "model": "cliproxy-openai/gpt-6-luna:max",
+    "directModel": "openai/gpt-6-luna:max",
+    "sourceModel": "openai/gpt-6-luna#max",
     "hidden": false
   },
   "document-proofreader": {
@@ -58,9 +58,9 @@
   "explore": {
     "description": "Fast file system navigator. Locates files, logs, configs, or code relevant to tasks.",
     "mode": "subagent",
-    "model": "cliproxy-anthropic/claude-haiku-5-5:low",
-    "directModel": "anthropic/claude-haiku-5-5:low",
-    "sourceModel": "anthropic/claude-haiku-5-5#low",
+    "model": "cliproxy-openai/gpt-6-luna:low",
+    "directModel": "openai/gpt-6-luna:low",
+    "sourceModel": "openai/gpt-6-luna#low",
     "hidden": false
   },
   "frontend-engineer": {
@@ -122,9 +122,9 @@
   "tester": {
     "description": "Run specified tests and smoke checks; return commands, exit status and evidence. Does not implement fixes.",
     "mode": "subagent",
-    "model": "cliproxy-anthropic/claude-haiku-5-5:low",
-    "directModel": "anthropic/claude-haiku-5-5:low",
-    "sourceModel": "anthropic/claude-haiku-5-5#low",
+    "model": "cliproxy-openai/gpt-6-luna:high",
+    "directModel": "openai/gpt-6-luna:high",
+    "sourceModel": "openai/gpt-6-luna#high",
     "hidden": false
   }
 }
