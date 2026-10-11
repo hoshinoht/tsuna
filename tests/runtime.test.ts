@@ -65,6 +65,15 @@ describe("reasoning router", () => {
 		expect(canonicalProvider("cliproxy-openai")).toBe("openai");
 	});
 
+	test("routes Kanata providers by the model's family", () => {
+		const options = validateRuntimeOptions({ reasoningRouter: { providers: { anthropic: { efforts: ["low", "medium", "high"] } }, providerAgentPolicy: { anthropic: { tester: { def: "low", min: "low", max: "medium" } } } } }).reasoningRouter;
+		const state: ReasoningState = { sessions: new Map(), diagnostics: [] };
+		const claude = routeReasoning(state, "s", "tester", { provider: "kanata", id: "claude-haiku-5-5", thinking: { efforts: ["low", "medium", "high"] } }, [{ role: "user", content: " run tests" }], options);
+		expect(claude.decision?.provider).toBe("anthropic");
+		const gpt = routeReasoning(state, "t", "tester", { provider: "kanata-chat", id: "gpt-6-luna" }, [{ role: "user", content: "run tests" }], options);
+		expect(gpt.decision?.provider).toBe("openai");
+	});
+
 	test("uses Tsuna's primary identity only when supplied by the extension", () => {
 		const options = validateRuntimeOptions({}).reasoningRouter;
 		const state: ReasoningState = { sessions: new Map(), diagnostics: [] };

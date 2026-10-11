@@ -15,10 +15,11 @@ export default function tsuna(pi: ExtensionAPI) {
   async function selectRole(name: string, ctx: ExtensionContext) {
     const role = roleInfo[name];
     if (!role) throw new Error(`Unknown role ${name}`);
-    const [selector, effort] = role.model.split(":");
-    const slash = selector.indexOf("/");
-    const model = ctx.modelRegistry.find(selector.slice(0, slash), selector.slice(slash + 1));
-    if (!model || !await pi.setModel(model)) throw new Error(`Model unavailable for ${name}: ${selector}`);
+    // Setup's generated modelRoles are authoritative, including config/kanata.json role switches;
+    // the switch keeps the effort, so the roles.json suffix still names it.
+    const effort = role.model.split(":")[1];
+    const model = ctx.models.resolve(`@${name}`);
+    if (!model || !await pi.setModel(model)) throw new Error(`Model unavailable for ${name}: @${name}`);
     if (effort && ["low", "medium", "high", "xhigh", "max"].includes(effort)) pi.setThinkingLevel(effort as Effort);
     process.env.TSUNA_AGENT = name;
     pi.appendEntry("tsuna-role", { role: name });

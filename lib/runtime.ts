@@ -239,10 +239,11 @@ function cloneReasoning(options: ReasoningOptions): ReasoningOptions {
 	return { ...options, agentPolicy: { ...options.agentPolicy }, providerAgentPolicy: {}, classBase: { ...options.classBase }, supportedEfforts: [...options.supportedEfforts], providers: Object.fromEntries(Object.entries(options.providers).map(([id, rule]) => [id, { ...rule, efforts: [...rule.efforts] }])) };
 }
 
-/** CLIProxyAPI provider ids carry the same protocol semantics as their upstream family. */
-export function canonicalProvider(provider: string | undefined): string {
+/** CLIProxyAPI provider ids carry the same protocol semantics as their upstream family; Kanata providers serve both families, so the model id decides. */
+export function canonicalProvider(provider: string | undefined, modelId?: string): string {
 	if (provider === "cliproxy-openai") return "openai";
 	if (provider === "cliproxy-anthropic") return "anthropic";
+	if (provider === "kanata" || provider?.startsWith("kanata-")) return modelId?.startsWith("claude-") ? "anthropic" : "openai";
 	return provider ?? "";
 }
 
@@ -365,8 +366,8 @@ export function cacheRisk(messages: readonly unknown[], options: CacheGuardOptio
 		if (!latest || message.completedAt >= (latest.completedAt as number)) latest = message;
 	}
 	if (!latest) return undefined;
-	const provider = canonicalProvider(stringField(latest, "provider"));
-	const currentProvider = canonicalProvider(currentModel.provider);
+	const provider = canonicalProvider(stringField(latest, "provider"), stringField(latest, "model"));
+	const currentProvider = canonicalProvider(currentModel.provider, currentModel.id);
 	if (!options.providerIDs.includes(provider) || provider !== currentProvider || latest.model !== currentModel.id) return undefined;
 	const usage = isRecord(latest.usage) ? latest.usage : undefined;
 	const cacheReadTokens = usage?.cacheRead;
@@ -456,7 +457,7 @@ export function resolveReasoning(options: ReasoningOptions, agent: string, provi
 }
 
 export function routeReasoning(state: ReasoningState, sessionID: string, identity: string, model: { provider?: string; id?: string; thinking?: { efforts?: readonly unknown[] } } | undefined, messages: unknown, options: ReasoningOptions): { decision?: ReasoningDecision; messages: unknown } {
-	const provider = canonicalProvider(model?.provider);
+	const provider = canonicalProvider(model?.provider, model?.id);
 	const cleaned = stripReasoningMarkers(messages);
 	if (!model?.id) return { messages: cleaned };
 	const existing = state.sessions.get(sessionID);

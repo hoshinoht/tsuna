@@ -53,15 +53,21 @@ fn build_command(
         role = "orchestrator".into();
     }
     let roles: Value = serde_json::from_slice(&fs::read(root.join("config/roles.json"))?)?;
-    let model = roles
-        .get(&role)
-        .and_then(|r| r.get("model"))
-        .and_then(Value::as_str)
-        .with_context(|| format!("Unknown Tsuna role: {role}"))?;
+    if roles.get(&role).is_none() {
+        bail!("Unknown Tsuna role: {role}");
+    }
     let agent_dir = root.join(".runtime/omp/agent");
     if !agent_dir.join("config.yml").is_file() {
         bail!("Run tsuna setup first");
     }
+    // Setup's generated modelRoles carry config/kanata.json role switches.
+    let config: Value = serde_saphyr::from_str(&fs::read_to_string(agent_dir.join("config.yml"))?)
+        .context("Cannot parse the generated OMP config")?;
+    let model = config
+        .get("modelRoles")
+        .and_then(|roles| roles.get(&role))
+        .and_then(Value::as_str)
+        .with_context(|| format!("Run tsuna setup first: no generated model for {role}"))?;
     let official_target = fs::canonicalize(official).ok();
     let use_official = official_target.is_some()
         && official_target
@@ -145,7 +151,12 @@ mod tests {
             r#"{"orchestrator":{"model":"provider/default"},"tester":{"model":"provider/test"}}"#,
         )
         .unwrap();
-        fs::write(root.join(".runtime/omp/agent/config.yml"), "{}").unwrap();
+        // Generated roles differ from roles.json to prove the launcher uses setup's output.
+        fs::write(
+            root.join(".runtime/omp/agent/config.yml"),
+            "modelRoles:\n  orchestrator: provider/default\n  tester: kanata/test:low\n",
+        )
+        .unwrap();
         fs::create_dir_all(root.join("bin")).unwrap();
         fs::write(root.join("bin/hoshi-omp"), "fixture").unwrap();
         let official = dir.path().join("omp");
@@ -172,7 +183,7 @@ mod tests {
         .unwrap();
         assert_eq!(
             command.get_args().collect::<Vec<_>>(),
-            ["--model", "provider/test", "--resume"]
+            ["--model", "kanata/test:low", "--resume"]
         );
         assert!(
             command

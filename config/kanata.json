@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "baseUrl": "http://127.0.0.1:18090",
+  "keyFile": ".runtime/kanata/client-key",
+  "providers": [
+    { "id": "kanata", "api": "openai-responses" },
+    { "id": "kanata-chat", "api": "openai-completions" },
+    { "id": "kanata-anthropic", "api": "anthropic-messages" }
+  ],
+  "models": [
+    { "id": "gpt-6-luna", "source": "openai/gpt-6-luna", "efforts": ["low", "medium", "high", "xhigh", "max"] },
+    { "id": "gpt-6-sol", "source": "openai/gpt-6-sol", "efforts": ["low", "medium", "high", "xhigh", "max"] },
+    { "id": "gpt-6.1-sol", "source": "openai/gpt-6.1-sol", "efforts": ["low", "medium", "high", "xhigh", "max"] },
+    { "id": "gpt-5.5", "name": "GPT-5.5", "contextWindow": 272000, "maxTokens": 128000, "efforts": ["low", "medium", "high", "xhigh"] },
+    { "id": "gpt-oss-120b-cloud", "name": "gpt-oss 120B cloud", "contextWindow": 131072, "maxTokens": 32768, "efforts": ["low", "medium", "high"] },
+    { "id": "gpt-oss-20b", "name": "gpt-oss 20B local", "contextWindow": 131072, "maxTokens": 32768, "efforts": ["low", "medium", "high"] }
+  ],
+  "roles": {}
+}

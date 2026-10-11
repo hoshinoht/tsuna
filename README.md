@@ -27,7 +27,7 @@
 | **Entry points** | `omp`; `tsuna` for role selection and gateway management |
 | **Roles** | 16 configured roles; `orchestrator` defaults to medium reasoning |
 | **Tools** | Five enabled MCP servers and eleven `docs_*` tools |
-| **Models** | Claude and OpenAI through CLIProxyAPI at `127.0.0.1:18317` |
+| **Models** | Claude and OpenAI through CLIProxyAPI at `127.0.0.1:18317`; optional Kanata gateway providers at `127.0.0.1:18090` |
 | **State** | `.runtime/`; project plans and drafts in `.opencode/` |
 
 ## Features

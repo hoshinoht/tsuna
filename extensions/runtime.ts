@@ -4,6 +4,7 @@ import { backgroundJobViolation } from "../lib/background-jobs.ts";
 import {
 	admitCacheRisk,
 	cacheRisk,
+	canonicalProvider,
 	formatCacheWarning,
 	pruneContextImages,
 	routeReasoning,
@@ -61,7 +62,7 @@ const extension: ExtensionFactory = async pi => {
 		const routed = routeReasoning(reasoningState, sessionID, identity, ctx.model, event.messages, options.reasoningRouter);
 		if (routed.decision?.effort) pi.setThinkingLevel(thinkingLevelFor[routed.decision.effort]);
 
-		const imageResult = pruneContextImages(imageState, sessionID, routed.messages as unknown[], options.imageBudget, ctx.model?.provider);
+		const imageResult = pruneContextImages(imageState, sessionID, routed.messages as unknown[], options.imageBudget, canonicalProvider(ctx.model?.provider, ctx.model?.id));
 		if (imageResult.changed) {
 			pi.logger.warn("runtime image budget pruned outbound context", { sessionID, agent: identity, images: imageResult.images, bytes: imageResult.bytes });
 		}

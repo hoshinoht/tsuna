@@ -53,10 +53,42 @@ printed login URL in your browser. The configured roles use both providers.
 model completion request. Model availability and account limits depend on your
 provider accounts. See the [gateway guide](../proxy/README.md).
 
+`config/proxy.json` selects the Compose project and service that `tsuna proxy
+start`, `stop` and `login` use. The tracked default is this checkout's
+`compose.yml` service `gateway`; point it at Kanata's `cliproxy` service to let
+Kanata run the container (see the gateway guide's "Compose target").
+
 Launch `tsuna` or `omp` from the project directory. The Tsuna launcher selects
 the default orchestrator model; `/tsuna-agent orchestrator` selects that role
 inside an existing session. Use `/tsuna-review` for Tsuna's review workflow;
 the native `/review` command retains OMP's behavior.
+
+## Kanata gateway
+
+`config/kanata.json` adds a local Kanata gateway alongside CLIProxyAPI. When
+`enabled` is true, setup generates one OMP provider per `providers` entry at
+`baseUrl`: `openai-responses` and `openai-completions` providers use `/v1`, and
+`anthropic-messages` uses the base URL. Each provider lists every configured
+model as text-only, zero-cost and reasoning-capable, with `effort` thinking on
+OpenAI APIs and `anthropic-adaptive` thinking on Anthropic Messages. Set
+`enabled` to false to omit all Kanata providers.
+
+`keyFile` is relative to the checkout. Like the CLIProxyAPI key, the generated
+profile stores only a `!cat` command for that file, never the key itself.
+
+A model's `source` takes its name and token limits from the pinned OMP catalog;
+explicit `name`, `contextWindow` and `maxTokens` override it. Models without a
+source must set all three. `efforts` use OMP's levels (`minimal`, `low`,
+`medium`, `high`, `xhigh`, `max`), lowest first. OMP has no `none` effort; use
+the `:off` thinking selector instead.
+
+`roles` maps a role name to a Kanata provider, for example
+`{ "explore": "kanata" }`. Setup then turns that role's
+`cliproxy-openai/gpt-6-luna:low` into `kanata/gpt-6-luna:low` in the generated
+`modelRoles`, which agents, the launcher and `/tsuna-agent` all use. Setup fails
+if the provider is unknown, the model is not listed or the level is not among
+its efforts. The tracked file switches no roles. Rerun `bun run setup` and
+restart OMP after editing it.
 
 ## Project instructions and skills
 

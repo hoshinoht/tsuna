@@ -3,6 +3,7 @@ import { chmod, copyFile, mkdir, mkdtemp, readFile, realpath, rm, symlink, write
 import { join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { parse } from "yaml";
+import { ModelRegistry, Settings, discoverAuthStorage } from "@oh-my-pi/pi-coding-agent";
 import { runShellCommand } from "@oh-my-pi/pi-coding-agent/config/resolve-config-value";
 import { nativeBinary, rustCli } from "../tests/rust-cli-helper";
 
@@ -20,21 +21,23 @@ async function fixture() {
 
 test("Rust setup reads the real OMP catalog and keeps command-backed credentials", async () => {
   const root = await fixture();
-  for (const directory of ["config", "scripts", "bin", ".runtime/proxy", "vendor/shiori", "mcps/gofetch-mcp/bin", "mcps/researcher-mcp/bin"]) {
+  for (const directory of ["config", "scripts", "bin", ".runtime/proxy", ".runtime/kanata", "vendor/shiori", "mcps/gofetch-mcp/bin", "mcps/researcher-mcp/bin"]) {
     await mkdir(join(root, directory), { recursive: true });
   }
-  for (const name of ["omp.yml", "roles.json", "mcp.json"]) await copyFile(join(repo, "config", name), join(root, "config", name));
+  for (const name of ["omp.yml", "roles.json", "kanata.json", "mcp.json"]) await copyFile(join(repo, "config", name), join(root, "config", name));
   await symlink(join(repo, "agent"), join(root, "agent"));
   await symlink(join(repo, "extensions"), join(root, "extensions"));
   for (const name of ["omp-catalog.ts", "omp-smoke.ts"]) await symlink(join(repo, "scripts", name), join(root, "scripts", name));
   for (const file of ["bin/tsuna", "vendor/shiori/shiori", "mcps/gofetch-mcp/bin/gofetch", "mcps/researcher-mcp/bin/researcher-mcp"]) await writeFile(join(root, file), "fixture");
   await writeFile(join(root, ".runtime/proxy/client-key"), "fixture-key-only");
+  await writeFile(join(root, ".runtime/kanata/client-key"), "kanata-key-only");
 
   const result = rustCli(root, ["setup"]);
   expect(result.stderr).toBe("");
   expect(result.code).toBe(0);
   const generated = await readFile(join(root, ".runtime/omp/agent/models.yml"), "utf8");
   expect(generated).not.toContain("fixture-key-only");
+  expect(generated).not.toContain("kanata-key-only");
   const models = parse(generated);
   expect(await runShellCommand(models.providers["cliproxy-openai"].apiKey.slice(1), 10_000, root)).toBe("fixture-key-only");
   const config = parse(await readFile(join(root, ".runtime/omp/agent/config.yml"), "utf8"));
@@ -42,6 +45,14 @@ test("Rust setup reads the real OMP catalog and keeps command-backed credentials
   expect(config.modelRoles.default).toBe(config.modelRoles.orchestrator);
   expect(config.setupVersion).toBeGreaterThan(0);
   expect(models.providers["cliproxy-openai"].models.length).toBeGreaterThan(0);
+  expect(await runShellCommand(models.providers.kanata.apiKey.slice(1), 10_000, root)).toBe("kanata-key-only");
+  // OMP itself must accept the generated Kanata providers and thinking metadata.
+  const agentDir = join(root, ".runtime/omp/agent");
+  const registry = new ModelRegistry(await discoverAuthStorage(agentDir), join(agentDir, "models.yml"), { settings: await Settings.loadIsolated({ cwd: root, agentDir }) });
+  expect(registry.getError()).toBeUndefined();
+  expect(registry.find("kanata", "gpt-6-luna")?.thinking?.mode).toBe("effort");
+  expect(registry.find("kanata-chat", "gpt-5.5")?.baseUrl).toBe("http://127.0.0.1:18090/v1");
+  expect(registry.find("kanata-anthropic", "gpt-6-luna")?.thinking?.mode).toBe("anthropic-adaptive");
   // Exercise the complete Rust -> Bun -> OMP SDK route against the isolated profile.
   const child = Bun.spawn([nativeBinary, "--root", root, "smoke"], {
     env: { ...process.env, HOME: root },
