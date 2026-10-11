@@ -15,9 +15,10 @@ directory under the new checkout. Credentials and sessions are moved with the
 checkout, not regenerated, and generated profile settings receive only the
 necessary naming/path edits.
 
-Docker's existing Compose project/container identity (`hoshi-omp` and
-`hoshi-omp-gateway`) and the shared `~/.config/hoshi-secrets` directory retain
-their names to preserve the running gateway and shared credential references.
+The Docker Compose project is `tsuna` and the CLIProxyAPI container is
+`tsuna-gateway` (renamed from `hoshi-omp`/`hoshi-omp-gateway` on 2026-10-12; the
+auth directory and port are unchanged). The shared `~/.config/hoshi-secrets`
+directory retains its name to preserve shared credential references.
 Historical import records, source snapshots and attribution retain their names.
 
 The destination repository retains the checkout's existing history, and

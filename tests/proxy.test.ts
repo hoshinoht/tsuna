@@ -47,7 +47,7 @@ describe("CLIProxyAPI gateway setup", () => {
 
   test("keeps Docker publication and OAuth callback publication on localhost", () => {
     const compose = readFileSync(join(import.meta.dir, "..", "compose.yml"), "utf8");
-    expect(compose).toContain("name: hoshi-omp");
+    expect(compose).toContain("name: tsuna");
     expect(compose).toContain('"127.0.0.1:18317:8317"');
     expect(compose).not.toContain('"0.0.0.0:18317:8317"');
     expect(compose).toContain("eceasy/cli-proxy-api@sha256:2a7d31faf13e4f9a92112edd0d947faaed9fb1d529b5a825f9b829df98088634");
