@@ -1,6 +1,7 @@
 # Native settings plus the compatibility extensions preserve the imported policies.
 theme:
-  dark: dusk-darker
+  dark: abydos-oasis
+symbolPreset: nerd
 tools:
   approvalMode: yolo
   xdev: false
@@ -21,6 +22,7 @@ task:
     apply: false
     merge: false
     commits: false
+  showResolvedModelBadge: true
 skills:
   enableAgentsUser: false
   enableAgentsProject: false
@@ -60,8 +62,10 @@ statusLine:
   contextLine: percentage
   leftSegments: [model, path, git, subagents]
   rightSegments: [cache_hit, token_rate, context_pct, time_spent, usage]
+  compactThinkingLevel: true
+  transparent: false
 composer:
-  shape: box
+  shape: pi
   tokenRate: false
 completion:
   notify: on
@@ -74,3 +78,11 @@ terminal:
   showImages: true
 tui:
   mouse: false
+  titleSpinner: braille
+  tight: false
+  imeSafeCursor: true
+display:
+  pinnedAgents: full
+  subagentLivePreview: true
+  showTokenUsage: true
+  shimmer: classic
