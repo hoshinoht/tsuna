@@ -1,0 +1,36 @@
+services:
+  gateway:
+    volumes:
+      - ./.runtime/cpa-manager-plus/gateway.yaml:/CLIProxyAPI/config.yaml
+
+  cpa-manager-plus:
+    image: seakee/cpa-manager-plus:v1.14.6
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18318:18317"
+    environment:
+      HTTP_ADDR: "0.0.0.0:18317"
+      USAGE_DATA_DIR: /data
+      CPA_UPSTREAM_URL: http://gateway:8317
+      CPA_MANAGEMENT_KEY_FILE: /run/secrets/cpa_management_key
+      CPA_MANAGER_ADMIN_KEY_FILE: /run/secrets/cpa_admin_key
+      USAGE_COLLECTOR_MODE: auto
+      TZ: Asia/Singapore
+    volumes:
+      - ./.runtime/cpa-manager-plus/data:/data
+    secrets:
+      - cpa_management_key
+      - cpa_admin_key
+    depends_on:
+      - gateway
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:18317/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+
+secrets:
+  cpa_management_key:
+    file: ./.runtime/cpa-manager-plus/management-key
+  cpa_admin_key:
+    file: ./.runtime/cpa-manager-plus/admin-key

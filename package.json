@@ -10,6 +10,7 @@
     "test:rust": "cargo test --locked --manifest-path native/tsuna/Cargo.toml",
     "build:rust": "cargo build --locked --release --manifest-path native/tsuna/Cargo.toml",
     "typecheck": "tsc --noEmit",
+    "integration:cpa": "bun scripts/cpa-manager-plus.ts",
     "setup": "bin/tsuna setup",
     "smoke": "bin/tsuna smoke",
     "start": "bin/tsuna"

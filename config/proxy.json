@@ -1,5 +1,8 @@
 {
   "projectDirectory": ".",
-  "composeFiles": ["compose.yml"],
+  "composeFiles": [
+    "compose.yml",
+    "integrations/cpa-manager-plus/compose.yml"
+  ],
   "service": "gateway"
 }

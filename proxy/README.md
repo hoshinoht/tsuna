@@ -31,6 +31,11 @@ generated configuration binds the service inside the container on `0.0.0.0`,
 publishes only the loopback host port, disables remote management and the
 control panel, turns off request logging, and enables session affinity.
 
+For persistent usage tracking, the optional
+[CPA-Manager-Plus integration](../integrations/cpa-manager-plus/README.md)
+adds a local portal on port 18318. Enable it with
+`bun run integration:cpa start`; disable it with `bun run integration:cpa stop`.
+
 ## Compose target
 
 `config/proxy.json` names the Compose service that `start`, `stop` and `login`
