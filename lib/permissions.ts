@@ -432,7 +432,17 @@ export function decidePermission(
 		if (requiresAsk(rule)) asks = true;
 		if (rule.effect === "ask" && rule.action !== "*" && rule.resource !== "*") humanApprovalRequired = true;
 	};
-	for (const rawResource of resources) {
+	// A literal `a && b` chain is judged per command: whole-string rules are anchored
+	// at the first command, so they cannot admit a chain of individually allowed ones.
+	const segments = intent.action === "shell" ? extractLiteralAndChainSegments(intent.resource) : null;
+	const chain = segments && segments.length > 1 ? segments : undefined;
+	for (const segment of chain ?? []) {
+		const segmentRule = evaluateRules(rules, "shell", segment.text);
+		if (!segmentRule || segmentRule.effect === "deny") return { ...intent, effect: "deny", role, rule: segmentRule, reason: "Shell segment is not permitted" };
+		finalRule = segmentRule;
+		recordAsk(segmentRule);
+	}
+	for (const rawResource of chain ? [] : resources) {
 		const isInternal = rawResource.startsWith("local://");
 		const resource = options.cwd && (intent.action === "read" || intent.action === "edit") && !isInternal
 			? canonicalPath(rawResource, options.cwd)
@@ -454,8 +464,7 @@ export function decidePermission(
 	if (workplanReason) return { ...intent, effect: "deny", role, rule: finalRule, reason: workplanReason };
 	if (intent.approvalReason) return { ...intent, effect: "ask", role, rule: finalRule, reason: intent.approvalReason, humanApprovalRequired };
 	if (intent.action === "shell") {
-		if (/[;&|()$`<>\n]/.test(intent.resource)) {
-			const segments = extractLiteralAndChainSegments(intent.resource);
+		if (!chain && /[;&|()$`<>\n]/.test(intent.resource)) {
 			if (!segments) {
 				// Auto mode approves ordinary pipelines, heredocs and substitutions.
 				// Keep the imported destructive/publishing guards even inside a chain.

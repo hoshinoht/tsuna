@@ -59,8 +59,9 @@ Use your standard receipt: `STATUS: PASS | FAIL | BLOCKED`, then findings
 tagged with your usual severity (`blocker`, `critical`, `major`, `minor`,
 `note`, `ask`), coverage (what you inspected and how), and what you could
 not verify, with the commands the parent should run to check it. You can only
-read files and run read-only `git status`/`git diff`, so do not claim to have
-run tests or other commands.
+read files and run the read-only git, `wc` and `rg` forms your policy allows
+(one command per call or joined with `&&`, relative paths, no pipes or
+redirection), so do not claim to have run tests or other commands.
 ```
 
 # Final response

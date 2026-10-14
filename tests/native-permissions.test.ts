@@ -26,6 +26,46 @@ const operations = [
 	asToolCall("eval", { language: "py", code: "print(2 + 2)" }),
 ];
 
+test("code-checker shell is limited to read-only scope and measurement commands", () => {
+	const shell = (command: string, approvalMode: (typeof modes)[number]) =>
+		decidePermission(rules, "code-checker", asToolCall("bash", { command }), { approvalMode }).effect;
+	const allowed = [
+		"git status --short --branch",
+		"git diff --no-ext-diff --no-textconv --stat main..HEAD",
+		"git rev-parse --short HEAD",
+		"git ls-files src",
+		"wc -l src/main.rs tests/a.rs",
+		"rg -c ^ src",
+		"tokei src",
+		"git status --short --branch && git diff --no-ext-diff --no-textconv --stat && git rev-parse --short HEAD",
+	];
+	const denied = [
+		"git status --short --branch && rm -f a",
+		"git diff --no-ext-diff --no-textconv --output=a.txt",
+		"git diff --no-ext-diff --no-textconv --out=a.txt",
+		"rg --pre ./run foo",
+		"rg -z foo",
+		"rg foo src | sh",
+		"rg foo src > a.txt",
+		"wc -l $(git ls-files)",
+		"rg foo; touch a",
+		"rg foo /etc",
+		"rg foo ../other",
+		"rg foo ~",
+		"rg KEY .env",
+		"git log --oneline",
+		"rg --p''re=./run foo",
+		"rg foo \"/etc\"",
+		"rg KEY .e\\nv",
+		"rg foo\t/etc",
+		"rg --p''re=./run foo src/*.rs",
+	];
+	for (const approvalMode of modes) {
+		for (const command of allowed) expect([command, shell(command, approvalMode)]).toEqual([command, "allow"]);
+		for (const command of denied) expect([command, shell(command, approvalMode)]).toEqual([command, "deny"]);
+	}
+});
+
 test("default native tools are discoverable while optional unmapped tools remain denied", () => {
 	for (const tool of ["lsp", "debug", "eval"]) expect(canSurfaceTool(rules, "orchestrator", tool)).toBe(true);
 	for (const tool of ["lsp", "debug"]) expect(canSurfaceTool(rules, "code-checker", tool)).toBe(true);

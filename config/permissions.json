@@ -184,6 +184,156 @@
       "effect": "allow"
     },
     {
+      "action": "shell",
+      "resource": "git status --short --branch",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git --no-pager status --short --branch",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git rev-parse *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git ls-files*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "wc *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "tokei*",
+      "effect": "allow"
+    },
+    {
+      "action": "shell",
+      "resource": "git diff *--o*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "git --no-pager diff *--o*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *--pre*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *--search-zip*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "rg *-z*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*;*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*|*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*&*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*>*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*<*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*`*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*$*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*\n*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*\t*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*'*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*\"*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*\\*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "* /*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*=/*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*~*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*../*",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "* ..",
+      "effect": "deny"
+    },
+    {
+      "action": "shell",
+      "resource": "*.env*",
+      "effect": "deny"
+    },
+    {
       "action": "external_directory",
       "resource": "*",
       "effect": "ask"
