@@ -4,6 +4,7 @@ mod launch;
 mod profile;
 mod proxy;
 mod setup;
+mod theme;
 
 use anyhow::{Context, Result, bail};
 use std::ffi::OsString;
@@ -44,13 +45,14 @@ fn run() -> Result<i32> {
     match command {
         "--help" | "help" => {
             println!(
-                "Tsuna CLI\n\nUsage: tsuna [--root REPOSITORY] [COMMAND]\n\n  setup                          Prepare the OMP profile\n  proxy <init|start|stop|status|models|login claude|codex>\n  install-path                   Install the launcher symlink\n  connect-official               Connect the official OMP profile\n  import-opencode SOURCE TARGET  Import an OpenCode profile\n  check-workplan WORKSPACE ID    Validate a Shiori plan\n  smoke                          Run OMP SDK smoke checks\n  mcp-smoke                      Run MCP SDK smoke checks\n  job start --timeout SECONDS [--cwd DIR] -- COMMAND [ARGS...]\n  job status RUN_DIRECTORY\n  job wait RUN_DIRECTORY --timeout SECONDS\n\nOther arguments launch OMP, including --agent ROLE and --resume.\nUse `tsuna launch --help` for OMP's own help."
+                "Tsuna CLI\n\nUsage: tsuna [--root REPOSITORY] [COMMAND]\n\n  setup                          Prepare the OMP profile\n  theme <list|current|use NAME>  List or switch the OMP dark theme\n  proxy <init|start|stop|status|models|login claude|codex>\n  install-path                   Install the launcher symlink\n  connect-official               Connect the official OMP profile\n  import-opencode SOURCE TARGET  Import an OpenCode profile\n  check-workplan WORKSPACE ID    Validate a Shiori plan\n  smoke                          Run OMP SDK smoke checks\n  mcp-smoke                      Run MCP SDK smoke checks\n  job start --timeout SECONDS [--cwd DIR] -- COMMAND [ARGS...]\n  job status RUN_DIRECTORY\n  job wait RUN_DIRECTORY --timeout SECONDS\n\nOther arguments launch OMP, including --agent ROLE and --resume.\nUse `tsuna launch --help` for OMP's own help."
             );
             Ok(0)
         }
         "proxy" => proxy::run(&root, rest),
         "job" => jobs::run(&root, rest),
         "setup" => setup::run(&root, rest),
+        "theme" => theme::run(&root, rest),
         "import-opencode" => import::run(&root, rest),
         "install-path" => {
             no_args(rest, command)?;

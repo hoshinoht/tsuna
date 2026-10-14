@@ -35,6 +35,8 @@ try {
     if (!names.includes(name)) throw new Error(`Missing registered tool ${name}`);
   }
   if (!session.extensionRunner?.getRegisteredCommands().some(c => c.name === "tsuna-usage")) throw new Error("Quota command did not load");
+  const shapes = session.extensionRunner?.getComposerShapes().map(shape => shape.style.id) ?? [];
+  for (const id of ["kujira", "siesta"]) if (!shapes.includes(id)) throw new Error(`Missing composer shape ${id}`);
   console.log(`OMP session loaded ${names.length} tools and the configured extensions.`);
   const { discoverAgents } = await import("@oh-my-pi/pi-coding-agent/task/discovery");
   const agents = await discoverAgents(workspace);

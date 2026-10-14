@@ -95,6 +95,7 @@ tsuna
 | Select a role or check quotas | `/tsuna-agent orchestrator` or `/tsuna-usage` |
 | Manage provider login and gateway | [Gateway guide](proxy/README.md) |
 | Resume and update OMP | [Daily-driver pilot](docs/pilot.md) |
+| Switch the OMP theme | `tsuna theme list`, then `tsuna theme use siesta` ([Themes](docs/themes.md)) |
 
 ## Security
 

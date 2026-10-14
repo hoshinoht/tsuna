@@ -7,7 +7,7 @@ use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-const RUNTIME_AGENT: &str = ".runtime/omp/agent";
+pub(crate) const RUNTIME_AGENT: &str = ".runtime/omp/agent";
 
 #[derive(Debug, serde::Deserialize)]
 struct Catalog {
@@ -143,7 +143,7 @@ fn link_agent_inputs(root: &Path, runtime: &Path) -> Result<()> {
     Ok(())
 }
 
-fn copy_dir_overwrite(source: &Path, target: &Path) -> Result<()> {
+pub(crate) fn copy_dir_overwrite(source: &Path, target: &Path) -> Result<()> {
     fs::create_dir_all(target)?;
     for entry in fs::read_dir(source)? {
         let entry = entry?;
